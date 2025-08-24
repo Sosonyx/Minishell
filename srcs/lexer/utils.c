@@ -6,15 +6,15 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:08:22 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/24 18:51:06 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/24 19:22:49 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_special(char c)
+int is_special(char c)
 {
-	return (c == '<' || c == '>' || c == '|');
+	return (c == '|' || c == '<' || c == '>' || c == '(' || c == ')' || c == '&');
 }
 
 static int	skip_quotes(const char *line, int i)

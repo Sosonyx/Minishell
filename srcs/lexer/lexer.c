@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/24 18:50:39 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/24 19:22:10 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	skip_spaces(const char *line, int *i)
 		(*i)++;
 }
 
-static int	fill_tokens(t_token **arr, char *line)
+static int	fill_tokens(t_token **tokens, char *line)
 {
 	int i;
 	int j;
@@ -71,17 +71,17 @@ static int	fill_tokens(t_token **arr, char *line)
 		if (!line[i])
 			break ;
 		if (is_special(line[i]))
-			j = stock_special(arr, j, line, &i);
+			j = stock_special(tokens, j, line, &i);
 		else if (line[i] == '\'' || line[i] == '"')
 		{
-			j = stock_quoted(arr, j, line, &i);
+			j = stock_quoted(tokens, j, line, &i);
 			if (j < 0)
 				return (0);
 		}
 		else
-			j = stock_word(arr, j, line, &i);
+			j = stock_word(tokens, j, line, &i);
 	}
-	arr[j] = NULL;
+	tokens[j] = NULL;
 	return (j);
 }
 

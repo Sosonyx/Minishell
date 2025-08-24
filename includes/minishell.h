@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/24 18:51:42 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/24 19:25:26 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_token
 	char		*val;
 	bool		was_single_quoted; // pour heredoc (si delim etait quote)
 	bool		was_double_quoted; // on autorise l expansion
-	bool		was_in_parenth;
 }	t_token;
 
 typedef struct s_arg
@@ -80,6 +79,7 @@ int			stock_word(t_token **arr, int j, const char *line, int *i);
 int			stock_quoted(t_token **arr, int j, const char *line, int *i);
 int			stock_special(t_token **arr, int j, const char *line, int *i);
 int			stock_tokens(t_arg *a, char *line);
+int			stock_parenth(t_token **tokens, int j, const char *line, int *i);
 
 // PARSING
 int			check_syntax(t_token **toks);
