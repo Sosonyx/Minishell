@@ -6,32 +6,32 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:52:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/23 16:45:03 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/24 14:43:12 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *ft_getenv(char **env, const char *name)
+char	*ft_getenv(char **env, const char *name)
 {
-    int 	i;
-    size_t len;
+	int		i;
+	size_t	len;
 
-    len = strlen(name);
-    i = 0;
-    while (env[i])
-    {
-        if (strncmp(env[i], name, len) == 0 && env[i][len] == '=')
-            return (env[i] + len + 1);
-        i++;
-    }
-    return (NULL);
+	len = strlen(name);
+	i = 0;
+	while (env[i])
+	{
+		if (strncmp(env[i], name, len) == 0 && env[i][len] == '=')
+			return (env[i] + len + 1);
+		i++;
+	}
+	return (NULL);
 }
 
 char	*ft_getcwd(char **env)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = -1;
 	j = 0;
@@ -43,30 +43,30 @@ char	*ft_getcwd(char **env)
 	return (NULL);
 }
 
-static void    reorder_env(char ***envp, int start)
+static void	reorder_env(char ***envp, int start)
 {
-    char **env;
-    int   i;
+	char	**env;
+	int		i;
 
 	env = *envp;
-    if (!envp || !env || start < 0 || !env[start])
-        return ;
-    free(env[start]);
-    i = start;
-    while (env[i])
-    {
-        env[i] = env[i + 1];
-        i++;
-    }
+	if (!envp || !env || start < 0 || !env[start])
+		return ;
+	free(env[start]);
+	i = start;
+	while (env[i])
+	{
+		env[i] = env[i + 1];
+		i++;
+	}
 }
 
 void	ft_unset(char ***envp, char **value)
 {
-	char 	**env;
+	char	**env;
 	int		i;
 	int		j;
 	int		len;
-	
+
 	i = -1;
 	j = -1;
 	env = *envp;
@@ -114,14 +114,13 @@ void	ft_echo(char *str, int option)
 		printf("%s\n", str);
 }
 
-
 // int	ft_exit(char **option, t_ms	exit_code)
 // {
 //     int	flag;
 
 //     flag = 0;
 //     if (!option || !option[0] || !option[0][0])
-//         exit(exit_code.previous_exitcode);	
+//         exit(exit_code.previous_exitcode);
 //     if (option[1])
 //         flag = 1;
 //     if (is_valid_number(option[0]) && !flag)
@@ -145,29 +144,28 @@ void	ft_echo(char *str, int option)
 
 static char	**ft_export(char **env, char **args_to_add)
 {
-    char	**new_env;
-    int		count;
-    int		env_count;
-    int		i;
+	char	**new_env;
+	int		count;
+	int		env_count;
+	int		i;
 
-    count = 0;
-    env_count = 0;
-    if (!args_to_add)
-        return (NULL);
-    while (args_to_add[count])
-        count++;
-    while (env[env_count])
-        env_count++;
-    new_env = malloc(sizeof(char *) * (env_count + count + 1));
-    if (!new_env)
-        return (NULL);
-    i = -1;
-    while (++i < env_count)
-        new_env[i] = ft_strdup(env[i]); //attention a la protection du strdup
-    count = -1;
-    while (args_to_add[++count])
-        new_env[env_count + count] = strdup(args_to_add[count]); //attention a la protection du strdup
-    new_env[env_count + count] = NULL;
-    return (new_env);
+	count = 0;
+	env_count = 0;
+	if (!args_to_add)
+		return (NULL);
+	while (args_to_add[count])
+		count++;
+	while (env[env_count])
+		env_count++;
+	new_env = malloc(sizeof(char *) * (env_count + count + 1));
+	if (!new_env)
+		return (NULL);
+	i = -1;
+	while (++i < env_count)
+		new_env[i] = ft_strdup(env[i]); // attention a la protection du strdup
+	count = -1;
+	while (args_to_add[++count])
+		new_env[env_count + count] = strdup(args_to_add[count]); // attention a la protection du strdup
+	new_env[env_count + count] = NULL;
+	return (new_env);
 }
-

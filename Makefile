@@ -6,7 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/08/20 15:23:48 by ihadj            ###   ########.fr        #
+#    Updated: 2025/08/24 15:09:31 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,12 @@ LDFLAGS 	= -lreadline -lncurses
 LIBFT_A     = $(LIBFT_DIR)/libft.a
 
 SRC         = $(SRC_DIR)/main.c \
+			  $(SRC_DIR)/lexer/lexer.c \
+			  $(SRC_DIR)/lexer/utils.c \
+			  $(SRC_DIR)/lexer/cases_gestion.c \
+			  $(SRC_DIR)/parsing/syntax_check.c \
+			  $(SRC_DIR)/parsing/parsing.c \
+			  $(SRC_DIR)/utils/utils.c \
 			  $(SRC_DIR)/built-in/built-in.c \
 			  $(SRC_DIR)/built-in/utils.c
 
@@ -46,13 +52,15 @@ TITLE       = \033[1m
 
 # ================================[ Règles Make ]==============================
 
+all: $(NAME)
+
 $(NAME): $(OBJ) $(LIBFT_A)
 	@echo "$(GREEN)🔘 $(TITLE)make $(NAME)$(END)"
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS) $(LIBFT_A) > /dev/null && \
 	echo "   $(GREEN)⤷ $(END)Executable: $(GREEN)$(NAME)$(END)"
 
 $(LIBFT_A):
-	@echo "$(GREEN)🔘 $(TITLE)compiling libft $(END)"
+	@echo "$(GREEN)🔘 $(TITLE)compiling libft... $(END)"
 	@make -s -C $(LIBFT_DIR) && echo "   $(GREEN)⤷ $(END)Success $(GREEN)(libft.a)$(END)"
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c

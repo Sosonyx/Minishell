@@ -1,0 +1,97 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
+/*   Updated: 2025/08/24 18:50:39 by ihadj            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+t_token	*create_token(char *val, t_toktype type, bool sq, bool dq)
+{
+	t_token	*tok;
+
+	tok = malloc(sizeof(*tok));
+	if (!tok)
+		return NULL;
+	tok->val = val;
+	tok->type = type;
+	tok->was_single_quoted = sq;
+	tok->was_double_quoted = dq;
+	return (tok);
+}
+
+t_toktype	get_token_type(const char *line)
+{
+	if (!line)
+		return (T_WORD);
+	if (line[0] == '|' && line[1] == '|')
+		return (T_OR);
+	if (line[0] == '|')
+		return (T_PIPE);
+	if (line[0] == '<' && line[1] == '<')
+		return (T_HEREDOC);
+	if (line[0] == '>' && line[1] == '>')
+		return (T_APPEND);
+	if (line[0] == '<')
+		return (T_REDIR_IN);
+	if (line[0] == '>')
+		return (T_REDIR_OUT);
+	if (line[0] == '(')
+		return (T_LPARENT);
+	if (line[0] == ')')
+		return (T_RPARENT);
+	if (line[0] == '&' && line[1] == '&')
+		return (T_AND);
+
+	return (T_WORD);
+}
+
+static void	skip_spaces(const char *line, int *i)
+{
+	while (line[*i] && ft_isspace((unsigned char)line[*i]))
+		(*i)++;
+}
+
+static int	fill_tokens(t_token **arr, char *line)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+		skip_spaces(line, &i);
+		if (!line[i])
+			break ;
+		if (is_special(line[i]))
+			j = stock_special(arr, j, line, &i);
+		else if (line[i] == '\'' || line[i] == '"')
+		{
+			j = stock_quoted(arr, j, line, &i);
+			if (j < 0)
+				return (0);
+		}
+		else
+			j = stock_word(arr, j, line, &i);
+	}
+	arr[j] = NULL;
+	return (j);
+}
+
+int	stock_tokens(t_arg *a, char *line)
+{
+	int	words;
+
+	words = count_tokens(line);
+	a->cmds = malloc(sizeof(t_token *) * (words + 1));
+	if (!a->cmds)
+		return (0);
+	return (fill_tokens(a->cmds, line));
+}
