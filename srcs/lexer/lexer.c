@@ -6,15 +6,15 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/24 19:22:10 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/25 16:29:12 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*create_token(char *val, t_toktype type, bool sq, bool dq)
+t_token *create_token(char *val, t_toktype type, bool sq, bool dq)
 {
-	t_token	*tok;
+	t_token *tok;
 
 	tok = malloc(sizeof(*tok));
 	if (!tok)
@@ -26,7 +26,7 @@ t_token	*create_token(char *val, t_toktype type, bool sq, bool dq)
 	return (tok);
 }
 
-t_toktype	get_token_type(const char *line)
+t_toktype get_token_type(const char *line)
 {
 	if (!line)
 		return (T_WORD);
@@ -48,17 +48,18 @@ t_toktype	get_token_type(const char *line)
 		return (T_RPARENT);
 	if (line[0] == '&' && line[1] == '&')
 		return (T_AND);
-
+	if (line[0] == '$')
+		return (T_EXPAND);
 	return (T_WORD);
 }
 
-static void	skip_spaces(const char *line, int *i)
+static void skip_spaces(char *line, int *i)
 {
-	while (line[*i] && ft_isspace((unsigned char)line[*i]))
+	while (line[*i] && ft_isspace(line[*i]))
 		(*i)++;
 }
 
-static int	fill_tokens(t_token **tokens, char *line)
+static int fill_tokens(t_token **tokens, char *line)
 {
 	int i;
 	int j;
@@ -69,7 +70,7 @@ static int	fill_tokens(t_token **tokens, char *line)
 	{
 		skip_spaces(line, &i);
 		if (!line[i])
-			break ;
+			break;
 		if (is_special(line[i]))
 			j = stock_special(tokens, j, line, &i);
 		else if (line[i] == '\'' || line[i] == '"')
@@ -85,9 +86,9 @@ static int	fill_tokens(t_token **tokens, char *line)
 	return (j);
 }
 
-int	stock_tokens(t_arg *a, char *line)
+int stock_tokens(t_arg *a, char *line)
 {
-	int	words;
+	int words;
 
 	words = count_tokens(line);
 	a->cmds = malloc(sizeof(t_token *) * (words + 1));

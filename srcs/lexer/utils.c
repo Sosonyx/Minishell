@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:08:22 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/24 19:22:49 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/25 13:54:12 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int is_special(char c)
 {
-	return (c == '|' || c == '<' || c == '>' || c == '(' || c == ')' || c == '&');
+	return (c == '|' || c == '<' || c == '>' || c == '(' || c == ')' || c == '&' || c == '$');
 }
+
+// int	is_not_a_start()
 
 static int	skip_quotes(const char *line, int i)
 {
@@ -37,7 +39,7 @@ int	special_len(const char *line, int i)
 			return (2);
 		return (1);
 	}
-	if (line[i] == '<')
+	else if (line[i] == '<')
 	{
 		if (line[i + 1] == '<')
 			return (2);
@@ -53,6 +55,8 @@ int	special_len(const char *line, int i)
 		return (1);
 	else if (line[i] == '&' && line[i + 1] == '&')
 		return (2);
+	if (line[i] == '$')
+		return (1);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/24 19:25:26 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/25 14:40:24 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef enum e_toktype
 	T_AND,
 	T_OR,
 	T_LPARENT,
-	T_RPARENT
+	T_RPARENT,
+	T_EXPAND,
 }	t_toktype;
 
 typedef enum e_redirtype
@@ -75,11 +76,11 @@ long long	ft_atol(const char *nptr);
 t_token		*create_token(char *val, t_toktype type, bool sq, bool dq);
 t_toktype	get_token_type(const char *line);
 int			count_tokens(char *line);
-int			stock_word(t_token **arr, int j, const char *line, int *i);
-int			stock_quoted(t_token **arr, int j, const char *line, int *i);
-int			stock_special(t_token **arr, int j, const char *line, int *i);
+int			stock_word(t_token **arr, int j, char *line, int *i);
+int			stock_quoted(t_token **arr, int j, char *line, int *i);
+int			stock_special(t_token **arr, int j, char *line, int *i);
 int			stock_tokens(t_arg *a, char *line);
-int			stock_parenth(t_token **tokens, int j, const char *line, int *i);
+// int			stock_parenth(t_token **tokens, int j, const char *line, int *i);
 
 // PARSING
 int			check_syntax(t_token **toks);
