@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_gestion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:07:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/25 15:32:23 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/25 20:45:08 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,29 @@ int	stock_word(t_token **tokens, int j, char *line, int *i)
 
 
 	start = *i;
-	while (line[*i] && !ft_isspace(line[*i]) \
-			&& line[*i] != '\'' && line[*i] != '"')
+	while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '\'' && line[*i] != '"')
 		(*i)++;
+	
 	if (line[*i] == '\'' || line[*i] == '"')
 	{
 		quote = line[*i];
 		(*i)++;
-		while (line[*i] && line[*i] != quote)
+		///////////////////////////////////////////////////////////////
+		while (line[*i] && !ft_isspace(line[*i]))
+		{
+			while (line[*i] && line[*i] != quote)
+				(*i)++;
+			// if (!line[*i])
+			// 	// break ;
+			// 	return (-1);
 			(*i)++;
-		if (!line[*i])
-			return (-1);
-		(*i)++;
+		}
+		///////////////////////////////////////////////////////////////
 		res = malloc(sizeof(char) * (*i - start - 1));
 		if (!res)
 			return (-1);
 		k = 0;
-		while (start < *i)
+		while (start < *i - 1)
 		{
 			if (line[start] == quote)
 				start++;

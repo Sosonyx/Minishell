@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   built-in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:52:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/24 14:43:12 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/26 11:45:13 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// AUTORISEES, pourquoi les refaire ?
 
 char	*ft_getenv(char **env, const char *name)
 {
@@ -49,7 +51,7 @@ static void	reorder_env(char ***envp, int start)
 	int		i;
 
 	env = *envp;
-	if (!envp || !env || start < 0 || !env[start])
+	if (!envp || !*env || start < 0 || !env[start])
 		return ;
 	free(env[start]);
 	i = start;

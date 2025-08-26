@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/libft/*",
+		"${workspaceFolder}/includes/*"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/cc",
+      "cStandard": "c11",
+      "intelliSenseMode": "linux-gcc-x64"
+    }
+  ],
+  "version": 4
+}

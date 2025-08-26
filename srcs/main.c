@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/25 14:15:15 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/25 20:37:35 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ static void free_array(char **arr)
 		free(arr[i]);
 }
 
-int main(int ac, char **av, char **env)
+int main(int ac, char **av)
 {
-	char *line;
-	t_arg elem;
+	extern char	**environ;
+	char 		*line;
+	t_arg 		elem;
 
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);

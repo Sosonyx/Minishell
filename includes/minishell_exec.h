@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/25 19:24:47 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/25 19:03:53 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef MINISHELL_EXEC_H
+# define MINISHELL_EXEC_H
 
-# define __GNU_SOURCE
-
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <sys/stat.h>
-# include <signal.h>
-# include <stdbool.h>
-
-# include "minishell_typedefs.h"
-# include "minishell_structures_enums.h"
-# include "minishell_parsing.h"
-# include "minishell_exec.h"
-
-# include "libft.h"
+# include "minishell.h"
 
 #endif
