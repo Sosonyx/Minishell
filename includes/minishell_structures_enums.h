@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/08/25 19:29:19 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/26 19:32:03 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,45 +35,69 @@ enum e_toktype
 };
 
 enum e_redirtype
-{ 
+{
 	R_IN,
 	R_OUT,
-	R_APP,
+	R_APPEND,
 	R_HDOC,
-	R_AND,
-	R_OR
+};
+
+enum e_optype
+{
+	// OP_PIPE,
+	OP_AND,
+	OP_OR,
+	OP_SUBSHELL
 };
 
 /********************************************************************************/
 /*			Structures															*/
 /********************************************************************************/
 
+///	parsing
 struct s_token
 {
-	t_toktype		type;
-	char			*val;
-	bool			was_single_quoted; 		// pour heredoc (si delim etait quote)
-	bool			was_double_quoted; 		// on autorise l expansion
+	t_toktype			type;
+	char				*val;
+	bool				was_single_quoted;		// pour heredoc (si delim etait quote)
+	bool				was_double_quoted;		// on autorise l expansion
+	bool				expandable;
 };
 
-struct s_arg
+/// one command at a time
+struct s_redir
 {
-	char			**redir_in; 			// NULL terminated
-	char			**cmd_plus_args; 		// [0] == cmd et NULL terminated
-	char			**redir_out;			// NULL terminated
-	t_toktype		type_of_redirection;
-	t_token			**cmds;					// pas pour l'exec
-	t_arg_p			next;
-}; 
+	enum e_redirtype	type;
+	char				*target;
+	struct s_redir		*next;
+};
 
-//	structure a transmettre pour l'exec
 struct s_exec_line
 {
-	char			**redir_in; 			// NULL terminated
-	char			**cmd_plus_args; 		// [0] == cmd et NULL terminated
-	char			**redir_out;			// NULL terminated
-	t_toktype		type_of_redirection;
-	t_exec_line_p	next;
-}; 
+	char				**cmd_plus_args;
+	t_redir_p			redir;					// tableau de redirs in et de redirs out 
+	t_exec_line_p		next;					// pointeur vers le bloc suivant  a executer 
+	bool				is_builtin;				// 0/1 ou petit enum
+};
+
+/// AST
+struct s_binop
+{
+	t_operator_p		left; 
+	t_operator_p		right;
+};
+
+union	u_node
+{
+	t_binop				binop;					// binary operation (OR et AND)
+	t_exec_line			exec_line;
+};
+
+struct s_operator
+{
+	t_optype			type;
+	t_node				node;
+	t_operator			next;
+};
 
 #endif
