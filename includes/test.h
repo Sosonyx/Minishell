@@ -60,7 +60,7 @@ typedef struct s_redir
 
 typedef struct s_exec_line
 {
-    char                **cmd_plus_args;
+    char                **cmds;
     t_redir                *redirs; // tableau de redirs in et de redirs out 
     struct s_exec_line    *next; // pointeur vers le bloc suivant  a executer 
     bool                is_builtin;    /* 0/1 ou petit enum */

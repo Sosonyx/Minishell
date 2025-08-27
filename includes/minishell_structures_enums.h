@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/08/27 13:24:43 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/27 17:25:10 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,19 @@ enum e_optype
 /*			Structures															*/
 /********************************************************************************/
 
+
+typedef struct s_arg
+{
+	t_token	**cmds;
+	char	**args;
+	int		oldfd[2];
+	int		nextfd[2];
+	int		ac;
+}	t_arg;
+
+///
 ///	parsing
+///
 struct s_token
 {
 	t_toktype			type;
@@ -63,6 +75,7 @@ struct s_token
 	bool				was_double_quoted;		// on autorise l expansion
 	bool				expandable;
 };
+
 
 // toutes les redirections IN et OUT chainees
 struct s_redir
@@ -74,25 +87,34 @@ struct s_redir
 
 struct s_leaf
 {
-	char				**cmd_plus_args;
+	char				**cmds;
 	t_redir_p			redir;					// tableau de redirs in et de redirs out 
 	t_leaf_p			next;					// pointeur vers le bloc suivant  a executer 
 	bool				is_builtin;				// 0/1 ou petit enum
 };
 
+///
 /// AST
-struct s_branching
+///
+
+		// control operator
+		// 	A token that performs a control function. It is one of the following symbols: 
+		// 	|| & && ; ;; ( ) | |& <newline> 
+		
+struct s_cntl_op
 {
-	t_sub_ast			left;
-	t_sub_ast			right; // si SUBSHELL pas de right
+	t_sub_ast_p			left;
+	t_sub_ast_p			right;					// si SUBSHELL pas de right
 };
 
 struct	s_ast
 {
 	t_leaf_p			leaf;
 
-	t_optype			type;
-	t_branching_p		branching;	
+	t_op_type			type;
+	t_cntl_op_p			cntl_op;	
 };
 
+
 #endif
+

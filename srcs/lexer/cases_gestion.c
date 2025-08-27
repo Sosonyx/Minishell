@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:07:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/25 20:45:08 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/27 18:04:06 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,13 @@ int	stock_word(t_token **tokens, int j, char *line, int *i)
 
 
 	start = *i;
-	while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '\'' && line[*i] != '"')
-		(*i)++;
-	
+	while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '\'' && line[*i] != '"' && line[*i] != ')' && line[*i] != '(' && !is_special(line[*i]))
+		(*i)++;		
 	if (line[*i] == '\'' || line[*i] == '"')
 	{
 		quote = line[*i];
 		(*i)++;
-		///////////////////////////////////////////////////////////////
-		while (line[*i] && !ft_isspace(line[*i]))
+		while (line[*i] && !ft_isspace(line[*i]) && !is_special(line[*i]))
 		{
 			while (line[*i] && line[*i] != quote)
 				(*i)++;
@@ -49,7 +47,6 @@ int	stock_word(t_token **tokens, int j, char *line, int *i)
 			// 	return (-1);
 			(*i)++;
 		}
-		///////////////////////////////////////////////////////////////
 		res = malloc(sizeof(char) * (*i - start - 1));
 		if (!res)
 			return (-1);

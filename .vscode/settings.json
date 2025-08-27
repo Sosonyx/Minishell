@@ -35,6 +35,7 @@
 		"stat.h": "c",
 		"minishell_exec.h": "c",
 		"minishell_parsing.h": "c",
-		"minishell_data.h": "c"
+		"minishell_data.h": "c",
+		"minishell.h": "c"
 	}
 }

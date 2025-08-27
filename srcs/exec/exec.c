@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:15:52 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/25 18:11:24 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/27 17:25:10 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 // 	return (fd_out);
 // }
 
-// void	execve_cmd(t_arg *pipex, int i)
+// void	execve_cmd(t_leaf *pipex, int i)
 // {
 // 	execve(pipex->cmd_paths[i], pipex->cmd_args[i], pipex->env);
 // }
@@ -47,7 +47,7 @@
 // 	close_fd(fd_out);
 // }
 
-// pid_t	first_redirection(t_arg *cmds)
+// pid_t	first_redirection(t_leaf *cmds)
 // {
 //     int		fd_in;
 //     pid_t	pid;
@@ -71,7 +71,7 @@
 //     return (pid);
 // }
 
-// int	multiple_redirections(t_arg *pipex)
+// int	multiple_redirections(t_leaf *pipex)
 // {
 // 	int		i;
 // 	pid_t	pid;
@@ -100,7 +100,7 @@
 // 	return (pipex->pipefd[0]);
 // }
 
-// pid_t	last_redirection(int pipefd, t_arg *pipex)
+// pid_t	last_redirection(int pipefd, t_leaf *pipex)
 // {
 //     int		fd_out;
 //     pid_t	pid;
@@ -126,7 +126,7 @@
 //     return (pid);
 // }
 
-// int	run_pipex(t_arg *pipex)
+// int	run_pipex(t_leaf *pipex)
 // {
 //     pid_t	last_pid;
 //     int		status;

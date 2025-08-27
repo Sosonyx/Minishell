@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/25 16:29:12 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/08/27 17:35:31 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,6 @@ static int fill_tokens(t_token **tokens, char *line)
 			break;
 		if (is_special(line[i]))
 			j = stock_special(tokens, j, line, &i);
-		else if (line[i] == '\'' || line[i] == '"')
-		{
-			j = stock_quoted(tokens, j, line, &i);
-			if (j < 0)
-				return (0);
-		}
 		else
 			j = stock_word(tokens, j, line, &i);
 	}
