@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/08/26 19:32:03 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/27 13:18:55 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ enum e_redirtype
 
 enum e_optype
 {
-	// OP_PIPE,
+	OP_PIPE,
 	OP_AND,
 	OP_OR,
 	OP_SUBSHELL
@@ -64,7 +64,7 @@ struct s_token
 	bool				expandable;
 };
 
-/// one command at a time
+// one command at a time
 struct s_redir
 {
 	enum e_redirtype	type;
@@ -72,32 +72,27 @@ struct s_redir
 	struct s_redir		*next;
 };
 
-struct s_exec_line
+struct s_leaf
 {
 	char				**cmd_plus_args;
 	t_redir_p			redir;					// tableau de redirs in et de redirs out 
-	t_exec_line_p		next;					// pointeur vers le bloc suivant  a executer 
+	t_leaf_p			next;					// pointeur vers le bloc suivant  a executer 
 	bool				is_builtin;				// 0/1 ou petit enum
 };
 
 /// AST
-struct s_binop
+struct s_branching
 {
-	t_operator_p		left; 
-	t_operator_p		right;
+	t_sub_ast			left;
+	t_sub_ast			right;
 };
 
-union	u_node
+struct	s_ast
 {
-	t_binop				binop;					// binary operation (OR et AND)
-	t_exec_line			exec_line;
-};
+	t_leaf_p			leaf;
 
-struct s_operator
-{
 	t_optype			type;
-	t_node				node;
-	t_operator			next;
+	t_branching_p		branching;	
 };
 
 #endif
