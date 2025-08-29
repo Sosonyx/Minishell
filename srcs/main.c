@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/27 17:50:21 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/28 12:40:26 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,16 @@ static void free_array(char **arr)
 		free(arr[i]);
 }
 
-// int	main(void)
-// {
-// 	t_ast_p		ast;
+/* int	main(void)
+{
+	t_ast_p		ast;
 
-// 	ast = calloc(1, sizeof(t_ast));
+	ast = calloc(1, sizeof(t_ast));
 	
-// 	ast.type = OP_AND;
-// 	ast.cntl_op->left->cntl_op->left;
-// 	ast.cntl_op->right->leaf;					//pas d'acces aux membres via intellisense
-
-// 	ptr = ast.cntl_op->left->cntl_op->left;
+	ast->cntl_op->left->cntl_op.
 	
-// 	return (0);
-// }
+	return (0);
+} */
 
 int main(int ac, char **av)
 {
