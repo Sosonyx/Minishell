@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/27 17:35:31 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/30 15:10:16 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ int stock_tokens(t_arg *a, char *line)
 	int words;
 
 	words = count_tokens(line);
-	a->cmds = malloc(sizeof(t_token *) * (words + 1));
-	if (!a->cmds)
+	a->tokens = malloc(sizeof(t_token *) * (words + 1));
+	if (!a->tokens)
 		return (0);
-	return (fill_tokens(a->cmds, line));
+	return (fill_tokens(a->tokens, line));
 }

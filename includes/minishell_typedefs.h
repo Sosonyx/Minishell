@@ -6,12 +6,17 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:22:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/08/27 17:26:56 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/30 15:05:02 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_TYPEDEFS_H
 # define MINISHELL_TYPEDEFS_H
+
+typedef enum	e_error_status	t_error_status;
+
+typedef struct	s_arg			t_arg;
+typedef 		t_arg			*t_arg_p;
 
 typedef struct 	s_token			t_token;
 typedef			t_token			*t_token_p;

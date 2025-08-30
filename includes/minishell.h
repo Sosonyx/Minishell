@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/27 17:29:12 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/30 14:48:00 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@
 // # include "minishell_exec.h"
 
 # include "libft.h"
+
+# define PROMPT_MESSAGE "\001\033[48;5;57m\002minishell>\001\033[0m\002 "
 
 #endif

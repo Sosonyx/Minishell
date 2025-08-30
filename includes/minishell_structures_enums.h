@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/08/27 17:25:10 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/30 16:28:15 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 /********************************************************************************/
 /*			Enums																*/
 /********************************************************************************/
+
+enum e_error_status
+{
+	
+	RETURN_FAIL = 0,
+	RETURN_OK = 1
+	
+};
 
 enum e_toktype
 {
@@ -44,25 +52,24 @@ enum e_redirtype
 
 enum e_optype
 {
-	OP_PIPE,
-	OP_AND,
-	OP_OR,
-	OP_SUBSHELL
+	OP_PIPE = 1,
+	OP_AND = 2,
+	OP_OR = 4,
+	OP_SUBSHELL = 8
 };
 
 /********************************************************************************/
 /*			Structures															*/
 /********************************************************************************/
 
-
-typedef struct s_arg
+struct s_arg
 {
-	t_token	**cmds;
-	char	**args;
-	int		oldfd[2];
-	int		nextfd[2];
-	int		ac;
-}	t_arg;
+	t_token		**tokens;
+	char		**args;
+	int			oldfd[2];
+	int			nextfd[2];
+	int			ac;
+};
 
 ///
 ///	parsing
@@ -114,7 +121,6 @@ struct	s_ast
 	t_op_type			type;
 	t_cntl_op_p			cntl_op;	
 };
-
 
 #endif
 
