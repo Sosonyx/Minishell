@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_gestion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:07:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/27 18:04:06 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/08/31 15:48:05 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ int	stock_special(t_token **tokens, int j, char *line, int *i)
 	int	len;
 
 	len = special_len(line, *i);
+	if (len == -1)
+	{
+		tokens[j++] = create_token(ft_strndup(&line[*i], 1), \
+				T_INCORRECT, false, false);
+		*i += 1;
+		return (j);
+	}
 	tokens[j++] = create_token(ft_strndup(&line[*i], len), \
 				get_token_type(&line[*i]), false, false);
 	*i += len;
@@ -26,43 +33,46 @@ int	stock_special(t_token **tokens, int j, char *line, int *i)
 int	stock_word(t_token **tokens, int j, char *line, int *i)
 {
 	int		start;
+	char	c;	
 	char	quote;
-	char	*res;
-	int		k;
-
+	int		sq;
+	int		dq;
 
 	start = *i;
-	while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '\'' && line[*i] != '"' && line[*i] != ')' && line[*i] != '(' && !is_special(line[*i]))
-		(*i)++;		
-	if (line[*i] == '\'' || line[*i] == '"')
+	quote = 0;
+	sq = 0;
+	dq = 0;
+	while (line[*i])
 	{
-		quote = line[*i];
-		(*i)++;
-		while (line[*i] && !ft_isspace(line[*i]) && !is_special(line[*i]))
+		c = line[*i];
+		if (c == '\'' || c == '"')
 		{
-			while (line[*i] && line[*i] != quote)
+			if (!quote)
+			{
+				quote = c;
+				if (c == '\'')
+					sq = 1;
+				else
+					dq = 1;
 				(*i)++;
-			// if (!line[*i])
-			// 	// break ;
-			// 	return (-1);
-			(*i)++;
+				continue ;
+			}
+			if (quote == c)
+			{
+				quote = 0;
+				(*i)++;
+				continue ;
+			}
 		}
-		res = malloc(sizeof(char) * (*i - start - 1));
-		if (!res)
-			return (-1);
-		k = 0;
-		while (start < *i - 1)
-		{
-			if (line[start] == quote)
-				start++;
-			res[k++] = line[start++];
-		}
-		res[k] = 0;
-		tokens[j++] = create_token(res, T_WORD, (quote == '\''), (quote == '"'));
-		return (j);
+		if (!quote && (ft_isspace(c) || is_special(c)))
+			break ;
+		(*i)++;
 	}
-	tokens[j++] = create_token(ft_strndup(&line[start], (*i - start)), \
-				T_WORD, (quote == '\''), (quote == '"'));
+	if (quote)
+		return (-1);
+	if (*i > start)
+		tokens[j++] = create_token(ft_strndup(&line[start], (*i - start)),
+				T_WORD, sq, dq);
 	return (j);
 }
 

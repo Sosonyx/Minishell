@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/30 16:41:17 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/01 15:12:40 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,12 @@ int	main(int ac, char **av)
 		}
 		else
 		{
-			;			// prompt error -> close ou message d'erreur et nouveau prompt ?
+			if (!input)
+			{
+				printf("exit\n");
+				break ;
+			}	
+					// prompt error -> close ou message d'erreur et nouveau prompt ?
 		}
 	}
 	rl_clear_history();
