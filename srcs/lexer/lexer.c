@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/30 15:10:16 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/01 16:27:23 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int fill_tokens(t_token **tokens, char *line)
 	return (j);
 }
 
-int stock_tokens(t_arg *a, char *line)
+int stock_tokens(t_tok_container *a, char *line)
 {
 	int words;
 

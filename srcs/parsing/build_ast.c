@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/01 15:08:34 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/01 18:14:05 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,36 @@
 		;
 } */
 
-void	reach_target_token(t_arg_p **tokens, int *index)
+/* static void	build_redir(t_tok_container_p tok_container, int index)
+{
+	int	i;
+	
+
+	i = 0;
+	
+	while (tok_container->tokens[i])
+	{
+		if (is_redir(tok_container->tokens[i]))
+			
+	}
+}
+
+static void	create_leaf(t_leaf_p leaf, t_tok_container_p tok_container, int index_value)
+{
+	leaf->cmds = ;
+	leaf->redir = build_redir();
+	leaf->is_builtin = ;
+} */
+
+void	reach_target_token(t_tok_container_p *tokens, int *index)
 {
 	int			n = 0;
 	
-	while (**tokens && n < *index)
+	while (*tokens && n <= *index)
 		(*tokens)++;
 }
 
-t_sub_ast_p	find_external_cntl_and_or(t_arg_p *tokens, int *index)
+t_sub_ast_p	find_external_cntl_and_or(t_tok_container_p tok_container, int *index)
 {
 	t_token_p	cur_token;
 	t_sub_ast_p	new_op;
@@ -58,21 +79,21 @@ t_sub_ast_p	find_external_cntl_and_or(t_arg_p *tokens, int *index)
 	new_op = ft_calloc(1, sizeof(t_sub_ast));
 	if (new_op)
 	{
-		reach_target_token(&tokens, index);
-		while (*tokens)
+		reach_target_token(&tok_container, index);
+		while (tok_container->tokens)
 		{
-			cur_token = *tokens;
-			if (ft_strcmp(cur_token->val, "&&"))
+			cur_token = tok_container->tokens;
+			if (cur_token->type == T_AND)
 			{
 				new_op->type == OP_AND;
 				break ;
 			}
-			else if (ft_strcmp(cur_token->val, "||"))
+			else if (cur_token->type == T_OR)
 			{
 				new_op->type == OP_OR;
 				break ;
 			}
-			tokens++;
+			tok_container++;
 			(*index++);
 		}
 		free(new_op);
@@ -81,7 +102,7 @@ t_sub_ast_p	find_external_cntl_and_or(t_arg_p *tokens, int *index)
 	return (new_op);
 }
 
-t_sub_ast_p	find_external_cntl_pipe(t_arg_p *tokens, int *index)
+t_sub_ast_p	find_external_cntl_pipe(t_tok_container_p tok_container, int *index)
 {
 	t_token_p	cur_token;
 	t_sub_ast_p	new_op;
@@ -91,17 +112,17 @@ t_sub_ast_p	find_external_cntl_pipe(t_arg_p *tokens, int *index)
 	new_op = ft_calloc(1, sizeof(t_sub_ast));
 	if (new_op)
 	{
-		reach_target_token(&tokens, index);
+		reach_target_token(&tok_container, index);
 			
-		while (*tokens)
+		while (tok_container->tokens)
 		{
-			cur_token = *tokens;
-			if (ft_strcmp(cur_token->val, "|"))
+			cur_token = tok_container->tokens;
+			if (cur_token->type == T_PIPE)
 			{
 				new_op->type == OP_PIPE;
 				break ;
 			}
-			tokens++;
+			tok_container++;
 			(*index++);
 		}
 		free(new_op);
@@ -110,44 +131,44 @@ t_sub_ast_p	find_external_cntl_pipe(t_arg_p *tokens, int *index)
 	return (new_op);
 }
 
-static void	parse_tokens(t_ast_p ast, t_arg_p tok_container, int *index_value)
+static void	parse_tokens(t_ast_p ast, t_tok_container_p tok_container, int *index_value)
 {
-	bool		parenthesis = 0;
-	int			index = 0, *index_ptr;
+	int			index = 0;
+	int			*index_ptr;
+	int			start;
 	t_sub_ast_p	current_op;
 
 	if (index_value)
 		index_ptr = index_value;
 	else
 		index_ptr = &index;
-		
+	start = *index_ptr;
+	
 	current_op = find_external_cntl_and_or(tok_container, index_ptr);
 	if (!current_op)
-	{		*index_ptr = 0;
+	{
 		current_op = find_external_cntl_pipe(tok_container, index_ptr);
 		if (!current_op)
 		{
 			current_op = ft_calloc(1, sizeof(t_sub_ast));
 			if (current_op)
 			{
-				;					// it's a leaf
+				create_leaf(&ast->leaf, tok_container, index_ptr);				// it's a leaf
 				return ;
 			}
 		}
 	}
-	parse_tokens(current_op, tok_container, index_ptr);
+	ast->cntl_op = current_op;
+	parse_tokens(current_op->cntl_op->left, tok_container, start);				// le prototype de la fonction n'est pas comme ca
+	parse_tokens(current_op->cntl_op->right, tok_container, *index_ptr + 1);	// les pointeurs sur int ne fonctionnent pas
 }
 
-t_error_status	build_ast(t_ast_p ast, t_arg_p tok_container)
+t_ast_p	build_ast(t_ast_p ast, t_tok_container_p tok_container)
 {
 	ast = ft_calloc(1, sizeof(t_ast));
 	if (ast)
 	{
 		parse_tokens(ast, tok_container, NULL);
 	}
-	else
-	{
-		return (free(tok_container), RETURN_FAIL);
-	}
-	return (RETURN_OK);
+	return (ast);
 }

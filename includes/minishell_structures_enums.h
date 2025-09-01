@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/01 11:55:55 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/01 16:27:23 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ enum e_optype
 /*			Structures															*/
 /********************************************************************************/
 
-struct s_arg
+struct s_tok_container
 {
 	t_token		**tokens;
 	char		**args;
-	int			oldfd[2];
-	int			nextfd[2];
-	int			ac;
+	// int			oldfd[2];		// a garder ?
+	// int			nextfd[2];		// a garder ?
+	// int			ac;				// a garder ?
 };
 
 ///
@@ -83,11 +83,11 @@ struct s_token
 	bool				expandable;
 };
 
-struct s_minishell
-{
-	t_ast_p	ast;
-	t_arg_p	input;
-};
+// struct s_minishell
+// {
+// 	t_ast_p	ast;
+// 	t_tok_container_p	input;
+// };
 
 // toutes les redirections IN et OUT chainees
 struct s_redir
@@ -101,7 +101,7 @@ struct s_leaf
 {
 	char				**cmds;
 	t_redir_p			redir;					// tableau de redirs in et de redirs out 
-	t_leaf_p			next;					// pointeur vers le bloc suivant  a executer 
+	// t_leaf_p			next;					// pointeur vers le bloc suivant  a executer 
 	bool				is_builtin;				// 0/1 ou petit enum
 };
 

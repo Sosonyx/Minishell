@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/01 11:55:39 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/01 16:27:23 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	signals_setter(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-t_arg_p	tokenize_input(char *input, t_arg_p *tok_container)
+t_tok_container_p	tokenize_input(char *input, t_tok_container_p *tok_container)
 {
 	*tok_container = ft_calloc(1, sizeof(struct s_arg));
 	if (*tok_container)
@@ -76,7 +76,7 @@ int	main(int ac, char **av)
 {
 	extern char		**environ;
 	t_ast_p			ast = NULL;
-	t_arg_p			tok_container = NULL;
+	t_tok_container_p			tok_container = NULL;
 	char			*input = NULL;
 	
 /*	t_minishell_p	shell = NULL;	
@@ -136,7 +136,7 @@ int	main(int ac, char **av)
 // 	rl_redisplay();
 // }
 
-// static void print_tab(t_arg a)
+// static void print_tab(t_tok_container a)
 // {
 // 	int i;
 
@@ -161,7 +161,7 @@ int	main(int ac, char **av)
 // {
 // 	extern char	**environ;
 // 	char 		*line;
-// 	t_arg		elem;
+// 	t_tok_container		elem;
 
 // 	signal(SIGINT, sigint_handler);
 // 	signal(SIGQUIT, SIG_IGN);

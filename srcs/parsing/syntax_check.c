@@ -6,18 +6,18 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/30 15:25:51 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/01 16:25:19 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_pipe(t_toktype t)
+int	is_pipe(t_toktype t)
 {
 	return (t == T_PIPE);
 }
 
-static int	is_redir(t_toktype t)
+int	is_redir(t_toktype t)
 {
 	return (t == T_REDIR_IN || t == T_REDIR_OUT || t == T_APPEND || t == T_HEREDOC);
 }
@@ -31,7 +31,7 @@ static void	syntax_err(const char *near)
 	ft_putstr_fd("'\n", 2);
 }
 
-static int	is_parenth(t_toktype t)
+int	is_parenth(t_toktype t)
 {
 	return (t == T_LPARENT || t == T_RPARENT);
 }

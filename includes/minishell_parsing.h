@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/30 15:24:15 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/01 16:27:23 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			count_tokens(char *line);
 int			stock_word(t_token **arr, int j, char *line, int *i);
 int			stock_quoted(t_token **arr, int j, char *line, int *i);
 int			stock_special(t_token **arr, int j, char *line, int *i);
-int			stock_tokens(t_arg *a, char *line);
+int			stock_tokens(t_tok_container *a, char *line);
 // int			stock_parenth(t_token **tokens, int j, const char *line, int *i);
 
 /********************************************************************************/
@@ -51,11 +51,15 @@ int			is_blank_line(const char *s);
 int			ft_isspace(int c);
 int			is_special(char c);
 int			special_len(const char *line, int i);
+int			is_pipe(t_toktype t);
+int			is_redir(t_toktype t);
+int			is_parenth(t_toktype t);
+
 
 /********************************************************************************/
 /*			Parsing																*/
 /********************************************************************************/
 
-t_error_status	build_ast(t_ast_p ast, t_arg_p tok_container);
+t_error_status	build_ast(t_ast_p ast, t_tok_container_p tok_container);
 
 #endif

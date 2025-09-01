@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:22:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/01 11:53:41 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/01 16:07:26 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef enum	e_optype		t_op_type;
 typedef struct	t_minishell		t_minishell;
 typedef			t_minishell		*t_minishell_p;
 
-typedef struct	s_arg			t_arg;
-typedef 		t_arg			*t_arg_p;
+typedef struct	s_tok_container	t_tok_container;
+typedef 		t_tok_container	*t_tok_container_p;
 
 typedef struct 	s_token			t_token;
 typedef			t_token			*t_token_p;
