@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/30 16:33:57 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/01 11:38:51 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,7 @@ t_error_status	build_ast(t_ast_p ast, t_arg_p tok_container)
 	}
 	else
 	{
-		if (ast)
-			free(ast);
-		if (tok_container)
-			free(tok_container);
-		return (RETURN_FAIL);
+		return (free(tok_container), RETURN_FAIL);
 	}
 	return (RETURN_OK);
 }
