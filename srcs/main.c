@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/01 15:12:40 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/01 15:24:41 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_arg_p	tokenize_input(char *input, t_arg_p *tok_container)
 		{
 			g_status = 258;
 			// syntax error
-			free(*tok_container);		// temporaire
+			free(*tok_container);		// pour rappel de free, mais une fonction est a creer
 			*tok_container = NULL;
 		}		
 		free(input);
@@ -63,19 +63,34 @@ t_arg_p	tokenize_input(char *input, t_arg_p *tok_container)
 	return (*tok_container);
 }
 
+t_error_status	shell_init(t_minishell_p *shell)
+{
+	shell = ft_calloc(1, sizeof(struct s_minishell));
+	if (shell)
+		return (RETURN_OK);
+	else
+		return (RETURN_FAIL);
+}
+
 int	main(int ac, char **av)
 {
-	extern char	**environ;
-	t_ast_p		ast = NULL;
-	t_arg_p		tok_container = NULL;
-	char		*input = NULL;
+	extern char		**environ;
+	t_ast_p			ast = NULL;
+	t_arg_p			tok_container = NULL;
+	char			*input = NULL;
 	
+/*	t_minishell_p	shell = NULL;	
+	shell_init(&shell);
+	if (!shell)
+		minishell_kill("Fatal error. Couldn't load minishell.\n");
+*/
+
 	signals_setter();
 	while (1)
 	{
 		if (prompt_input(&input))
 		{
-			if (tokenize_input(input, &tok_container))
+			if (tokenize_input(input, &tok_container))		// return error non ? 
 			{
 				if (build_ast(ast, tok_container))
 				{

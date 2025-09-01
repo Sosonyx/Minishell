@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/08/31 15:48:18 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/01 15:24:23 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,18 @@ struct s_token
 	bool				expandable;
 };
 
+struct s_minishell
+{
+	t_ast_p	ast;
+	t_arg_p	input;
+};
 
 // toutes les redirections IN et OUT chainees
 struct s_redir
 {
 	enum e_redirtype	type;
 	char				*target;
-	struct s_redir		*next; //pointeur vers la redir suivante
+	struct s_redir		*next;					//pointeur vers la redir suivante
 };
 
 struct s_leaf
