@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:22:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/01 16:07:26 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/02 12:11:09 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef enum	e_error_status	t_error_status;
 typedef enum 	e_toktype		t_toktype;
 typedef enum 	e_redirtype		t_redirtype;
 typedef enum	e_optype		t_op_type;
+typedef enum	e_ast_branch	t_ast_branch;
 
 /********************************************************************************/
 /*			Structures															*/

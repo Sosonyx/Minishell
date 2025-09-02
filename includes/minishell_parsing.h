@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/01 16:27:23 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/02 11:23:39 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ int			is_parenth(t_toktype t);
 /*			Parsing																*/
 /********************************************************************************/
 
-t_error_status	build_ast(t_ast_p ast, t_tok_container_p tok_container);
+t_ast_p		parse_tokens(t_ast_p ast, t_tok_container_p tok_container);
 
 #endif

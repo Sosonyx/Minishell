@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/01 16:27:23 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/02 11:22:58 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	signals_setter(void)
 
 t_tok_container_p	tokenize_input(char *input, t_tok_container_p *tok_container)
 {
-	*tok_container = ft_calloc(1, sizeof(struct s_arg));
+	*tok_container = ft_calloc(1, sizeof(struct s_tok_container));
 	if (*tok_container)
 	{
 		if (!stock_tokens(*tok_container, input) || !check_syntax((*tok_container)->tokens))
@@ -62,7 +62,7 @@ t_tok_container_p	tokenize_input(char *input, t_tok_container_p *tok_container)
 	}
 	return (*tok_container);
 }
-
+/* 
 t_error_status	shell_init(t_minishell_p *shell)
 {
 	shell = ft_calloc(1, sizeof(struct s_minishell));
@@ -70,7 +70,7 @@ t_error_status	shell_init(t_minishell_p *shell)
 		return (RETURN_OK);
 	else
 		return (RETURN_FAIL);
-}
+} */
 
 int	main(int ac, char **av)
 {
@@ -92,7 +92,7 @@ int	main(int ac, char **av)
 		{
 			if (tokenize_input(input, &tok_container))		// return error non ? 
 			{
-				if (build_ast(ast, tok_container))
+				if (parse_tokens(ast, tok_container))
 				{
 					// exec
 					// temporaire

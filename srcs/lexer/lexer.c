@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/01 16:27:23 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/02 12:19:14 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token *create_token(char *val, t_toktype type, bool sq, bool dq)
 {
 	t_token *tok;
 
-	tok = malloc(sizeof(*tok));
+	tok = ft_calloc(1, sizeof(*tok));
 	if (!tok)
 		return NULL;
 	tok->val = val;
@@ -85,7 +85,7 @@ int stock_tokens(t_tok_container *a, char *line)
 	int words;
 
 	words = count_tokens(line);
-	a->tokens = malloc(sizeof(t_token *) * (words + 1));
+	a->tokens = ft_calloc(words + 1, sizeof(t_token *));
 	if (!a->tokens)
 		return (0);
 	return (fill_tokens(a->tokens, line));

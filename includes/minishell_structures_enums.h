@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/01 16:27:23 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/02 12:12:02 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 /********************************************************************************/
 /*			Enums																*/
 /********************************************************************************/
+
+enum e_ast_branch
+{
+	AST_INIT = 0,
+	LEFT_BRANCH	= 1,
+	RIGHT_BRANCH = 2
+};
 
 enum e_error_status
 {
@@ -66,6 +73,9 @@ struct s_tok_container
 {
 	t_token		**tokens;
 	char		**args;
+
+	int			start_index;
+	int			cur_index;
 	// int			oldfd[2];		// a garder ?
 	// int			nextfd[2];		// a garder ?
 	// int			ac;				// a garder ?
@@ -124,7 +134,8 @@ struct	s_ast
 	t_leaf_p			leaf;
 
 	t_op_type			type;
-	t_cntl_op_p			cntl_op;	
+	t_cntl_op_p			cntl_op;
+
 };
 
 #endif
