@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/01 15:24:41 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/02 12:50:01 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	signals_setter(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-t_arg_p	tokenize_input(char *input, t_arg_p *tok_container)
+t_tok_container_p	tokenize_input(char *input, t_tok_container_p *tok_container)
 {
-	*tok_container = ft_calloc(1, sizeof(struct s_arg));
+	*tok_container = ft_calloc(1, sizeof(struct s_tok_container));
 	if (*tok_container)
 	{
 		if (!stock_tokens(*tok_container, input) || !check_syntax((*tok_container)->tokens))
@@ -62,7 +62,7 @@ t_arg_p	tokenize_input(char *input, t_arg_p *tok_container)
 	}
 	return (*tok_container);
 }
-
+/* 
 t_error_status	shell_init(t_minishell_p *shell)
 {
 	shell = ft_calloc(1, sizeof(struct s_minishell));
@@ -70,13 +70,13 @@ t_error_status	shell_init(t_minishell_p *shell)
 		return (RETURN_OK);
 	else
 		return (RETURN_FAIL);
-}
+} */
 
 int	main(int ac, char **av)
 {
 	extern char		**environ;
 	t_ast_p			ast = NULL;
-	t_arg_p			tok_container = NULL;
+	t_tok_container_p			tok_container = NULL;
 	char			*input = NULL;
 	
 /*	t_minishell_p	shell = NULL;	
@@ -92,7 +92,7 @@ int	main(int ac, char **av)
 		{
 			if (tokenize_input(input, &tok_container))		// return error non ? 
 			{
-				if (build_ast(ast, tok_container))
+				if (parse_tokens(ast, tok_container))
 				{
 					// exec
 					// temporaire
@@ -141,7 +141,7 @@ int	main(int ac, char **av)
 // 	rl_redisplay();
 // }
 
-// static void print_tab(t_arg a)
+// static void print_tab(t_tok_container a)
 // {
 // 	int i;
 
@@ -166,7 +166,7 @@ int	main(int ac, char **av)
 // {
 // 	extern char	**environ;
 // 	char 		*line;
-// 	t_arg		elem;
+// 	t_tok_container		elem;
 
 // 	signal(SIGINT, sigint_handler);
 // 	signal(SIGQUIT, SIG_IGN);
