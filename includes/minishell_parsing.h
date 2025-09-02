@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/02 11:23:39 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/02 17:26:50 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			check_syntax(t_token **toks);
 char		*ft_strndup(const char *s, size_t len);
 int			count_word(const char *str, char c);
 char		*ft_strcat(char *dest, const char *src);
-int			is_blank_line(const char *s);
+// int			is_blank_line(const char *s);
 int			ft_isspace(int c);
 int			is_special(char c);
 int			special_len(const char *line, int i);
@@ -61,5 +61,8 @@ int			is_parenth(t_toktype t);
 /********************************************************************************/
 
 t_ast_p		parse_tokens(t_ast_p ast, t_tok_container_p tok_container);
+
+t_error_status	build_cmd(char **cmd, t_tok_container_p tok_container, int i);
+t_redir_p build_redir(t_tok_container_p tok_container, int i);
 
 #endif
