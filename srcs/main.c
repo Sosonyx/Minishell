@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/02 12:50:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/02 15:42:07 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ t_error_status	shell_init(t_minishell_p *shell)
 
 int	main(int ac, char **av)
 {
-	extern char		**environ;
-	t_ast_p			ast = NULL;
-	t_tok_container_p			tok_container = NULL;
-	char			*input = NULL;
+	extern char			**environ;
+	t_ast_p				ast = NULL;
+	t_tok_container_p	tok_container = NULL;
+	char				*input = NULL;
 	
 /*	t_minishell_p	shell = NULL;	
 	shell_init(&shell);
@@ -92,7 +92,8 @@ int	main(int ac, char **av)
 		{
 			if (tokenize_input(input, &tok_container))		// return error non ? 
 			{
-				if (parse_tokens(ast, tok_container))
+				ast = ft_calloc(1, sizeof(struct s_ast));
+				if (ast && parse_tokens(ast, tok_container))
 				{
 					// exec
 					// temporaire
@@ -118,7 +119,6 @@ int	main(int ac, char **av)
 	rl_clear_history();
 	return (0);
 }
-
 
 
 //////////////////////////////////////////////////////////////////////////////////////////

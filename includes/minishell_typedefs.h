@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_typedefs.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:22:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/02 12:11:09 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/02 14:14:44 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef			t_redir			*t_redir_p;
 
 typedef struct 	s_ast			t_ast;
 typedef			t_ast			*t_ast_p;
-typedef			t_ast			t_sub_ast;
-typedef			t_sub_ast		*t_sub_ast_p;
 
 typedef struct	s_cntl_op		t_cntl_op;
 typedef			t_cntl_op		*t_cntl_op_p;

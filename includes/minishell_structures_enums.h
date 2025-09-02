@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/02 12:49:48 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/02 14:18:21 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ enum e_optype
 	OP_PIPE = 1,
 	OP_AND = 2,
 	OP_OR = 4,
-	OP_SUBSHELL = 8
+	OP_SUBSHELL = 8,
+	OP_LEAF = 16
 };
 
 /********************************************************************************/
@@ -76,7 +77,8 @@ struct s_tok_container
 	char		**args;
 
 	int			start_index;
-	int			cur_index;
+	int			end_index;
+	int			op_index;
 	// int			oldfd[2];		// a garder ?
 	// int			nextfd[2];		// a garder ?
 	// int			ac;				// a garder ?
@@ -126,8 +128,9 @@ struct s_leaf
 		
 struct s_cntl_op
 {
-	t_sub_ast_p			left;
-	t_sub_ast_p			right;					// si SUBSHELL pas de right
+	// t_op_type   op;
+	t_ast_p			left;
+	t_ast_p			right;					// si SUBSHELL pas de right
 };
 
 struct	s_ast
