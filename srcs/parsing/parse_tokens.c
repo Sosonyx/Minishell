@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/02 17:34:28 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/03 12:41:06 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,18 @@ t_error_status	create_leaf(t_ast_p ast, t_tok_container_p tok_container, int ind
 static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
 {
 	int	subshell = 0;
+	int	end_index;
 	
 	while (tok_container->tokens && tok_container->tokens[end])
 		end++;
-	if (branch == LEFT_BRANCH && first != 1)
-	{
-		if (!find_external_cntl_and_or(ast, tok_container, start, tok_container->op_index - 1))
-		{
-			if (!find_external_cntl_pipe(ast, tok_container, start, tok_container->op_index - 1))
-			{
-				if (!find_external_parenthesis(ast, tok_container))
-				{
-					if (!create_leaf(*ast, tok_container, start))
-						; // kill_shell();
-					else
-					{
-						if (!first)
-							return ;
-					}
-						
-				}
-				else
-					subshell = 1;
-			}
-		}
-	}
-	else if (branch == LEFT_BRANCH && !first)
+
+	if (branch == LEFT_BRANCH && !first)
+		end_index = tok_container->op_index - 1;
+	else if (branch == RIGHT_BRANCH && !first)
+		end_index = end;
+	if (first)
+		*ast = ft_calloc(1, sizeof(struct s_ast));
+	else
 	{
 		if (!find_external_cntl_and_or(ast, tok_container, start, end))
 		{
@@ -68,15 +54,18 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
 			}
 		}
 	}
-	(*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
-	if ((*ast)->cntl_op)
+	if (ast)
 	{
-		build_ast(&(*ast)->cntl_op->left, tok_container, start, tok_container->op_index - 1, 0, 0);
-		if (!subshell)
-			build_ast(&(*ast)->cntl_op->right, tok_container, tok_container->op_index + 1, end, 1, 0);
+		(*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
+		if ((*ast)->cntl_op)
+		{
+			build_ast(&(*ast)->cntl_op->left, tok_container, start, tok_container->op_index - 1, 0, 0);
+			if (!subshell)
+				build_ast(&(*ast)->cntl_op->right, tok_container, tok_container->op_index + 1, end, 1, 0);
+		}
+		else
+			;	// kill_shell();
 	}
-	else
-		;	// kill_shell();
 }
 
 t_error_status		parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
