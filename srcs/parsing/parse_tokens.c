@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 14:46:46 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/03 14:55:44 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_error_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int i)
-{
-	*ast = ft_calloc(1, sizeof(t_ast));
-	(*ast)->leaf = ft_calloc(1, sizeof(struct s_leaf));
-	if (!(*ast)->leaf)
-		return (RETURN_FAIL);
-	(*ast)->leaf->redir = build_redir(tok_container, i);
-		
-	build_cmd((*ast)->leaf->cmds, tok_container, i);
-	// leaf->is_builtin =;
-
-	return (RETURN_OK);
-}
 
 static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
+#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/03 14:47:33 by ihadj            ###   ########.fr        #
+#    Updated: 2025/09/03 14:55:33 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,7 @@ SRC         = $(SRC_DIR)/main.c \
 			  $(SRC_DIR)/lexer/cases_gestion.c \
 			  $(SRC_DIR)/parsing/syntax_check.c \
 			  $(SRC_DIR)/parsing/parse_tokens.c \
-			  $(SRC_DIR)/parsing/build_redir.c \
-			  $(SRC_DIR)/parsing/build_cmd.c \
+			  $(SRC_DIR)/parsing/create_leaf.c \
 			  $(SRC_DIR)/parsing/find_external_functions.c \
 			  $(SRC_DIR)/utils/utils.c \
 			  $(SRC_DIR)/built-in/built-in.c \
