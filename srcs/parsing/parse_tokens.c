@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 14:44:57 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/03 14:46:46 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
 		{
 			if (!find_external_parenthesis(ast, tok_container))
 			{
-				if (!create_leaf(*ast, tok_container, start))
+				if (!create_leaf(ast, tok_container, start))
 					; // kill_shell();
 				else
 					return ;

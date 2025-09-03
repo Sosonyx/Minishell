@@ -6,11 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2025/09/02 17:05:06 by ihadj            ###   ########.fr        #
-=======
-#    Updated: 2025/09/03 12:37:38 by cgajean          ###   ########.fr        #
->>>>>>> 11bf12b1a0968ae7de460ed7046a06fcec2cb492
+#    Updated: 2025/09/03 14:47:33 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +36,7 @@ SRC         = $(SRC_DIR)/main.c \
 			  $(SRC_DIR)/parsing/parse_tokens.c \
 			  $(SRC_DIR)/parsing/build_redir.c \
 			  $(SRC_DIR)/parsing/build_cmd.c \
+			  $(SRC_DIR)/parsing/find_external_functions.c \
 			  $(SRC_DIR)/utils/utils.c \
 			  $(SRC_DIR)/built-in/built-in.c \
 			  $(SRC_DIR)/built-in/utils.c
