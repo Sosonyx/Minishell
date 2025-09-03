@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/03 17:39:26 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/03 17:55:06 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ enum e_toktype
 	T_OR,
 	T_LPARENT,
 	T_RPARENT,
-	T_INCORRECT
+	T_INCORRECT,
+	T_TARGET
 };
 
 enum e_redirtype

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 17:34:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/03 18:35:23 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static int	set_end(t_tok_container_p tok_container, int *end, t_ast_branch branc
 		return (*end);
 }
 
-
-
 static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
 {
     int subshell = 0;
@@ -43,7 +41,6 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
     int last;
 	
 	end_index = set_end(tok_container, &end, branch, first);
-		
 	if (!find_external_cntl_and_or(ast, tok_container, start, end_index))
 	{
 		if (!find_external_cntl_pipe(ast, tok_container, start, end_index))
@@ -81,7 +78,6 @@ t_error_status		parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
 	if (ast)
 	{
 		build_ast(ast, tok_container, 0, 0, AST_INIT, 1);
-
 		if (*ast)
 			return (RETURN_OK);
 	}
