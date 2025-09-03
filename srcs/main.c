@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 17:35:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/03 19:08:32 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	main(int ac, char **av, char **env)
 					// exec
 					// temporaire
 					// destroy input + destroy ast
-					// execve(ast->leaf->cmds[0], ast->leaf->cmds, env);
+					execve(ast->leaf->cmds[0], ast->leaf->cmds, env);
 					free(ast);
 				}
 				else

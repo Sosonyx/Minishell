@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 18:35:23 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/03 19:02:35 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,24 @@ static int	look_forward_next_token(t_tok_container_p tok_container, int start, i
 
 static int	set_end(t_tok_container_p tok_container, int *end, t_ast_branch branch, int first)
 {
-	while (tok_container->tokens && tok_container->tokens[*end])
-		(*end)++;
-
+	if (first)
+	{
+		*end = 0;
+		while (tok_container->tokens && tok_container->tokens[*end])
+			(*end)++;
+		(*end)--;
+	}
 	if (branch == LEFT_BRANCH && !first)
 		return (tok_container->op_index - 1);
-	else
-		return (*end);
+	return (*end);
 }
 
 static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
 {
-    int subshell = 0;
-    int end_index;
-    int last;
-	
+	int	subshell;
+	int	end_index;
+
+	subshell = 0;
 	end_index = set_end(tok_container, &end, branch, first);
 	if (!find_external_cntl_and_or(ast, tok_container, start, end_index))
 	{
@@ -47,7 +50,7 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
 		{
 			if (!find_external_parenthesis(ast, tok_container))
 			{
-				if (!create_leaf(ast, tok_container, start))
+				if (create_leaf(ast, tok_container, start, end) == RETURN_FAIL)
 					; // kill_shell();
 				else
 					return ;
@@ -59,18 +62,14 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
 	if (*ast)
 	{
 		(*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
-		if ((*ast)->cntl_op)
-		{
-			build_ast(&(*ast)->cntl_op->left, tok_container, start, tok_container->op_index - 1, LEFT_BRANCH, 0);
-			if (!subshell)
-				build_ast(&(*ast)->cntl_op->right, tok_container, tok_container->op_index + 1, end, RIGHT_BRANCH, 0);
-		}
-		else
-			;	// kill_shell();
+		if (!(*ast)->cntl_op)
+			; // kill_shell();
+		build_ast(&(*ast)->cntl_op->left, tok_container,
+			start, tok_container->op_index - 1, LEFT_BRANCH, 0);
+		if (!subshell)
+			build_ast(&(*ast)->cntl_op->right, tok_container,
+				tok_container->op_index + 1, end, RIGHT_BRANCH, 0);
 	}
-	start = look_forward_next_token(tok_container, start, end_index);
-	if (start < end_index)
-		build_ast(&(*ast)->cntl_op->right, tok_container, start, end, RIGHT_BRANCH, 0);
 }
 
 t_error_status		parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
