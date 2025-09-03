@@ -3,27 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 15:04:53 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/03 17:27:13 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	look_forward_next_token(t_tok_container_p tok_container, int start, int end)
+{
+	while (start <= end)
+	{
+		if (tok_container->tokens[start])
+			break;
+		start++;
+	}
+	return (start);
+}
+
+static int	set_end(t_tok_container_p tok_container, int *end, t_ast_branch branch, int first)
+{
+	while (tok_container->tokens && tok_container->tokens[*end])
+		(*end)++;
+
+	if (branch == LEFT_BRANCH && !first)
+		return (tok_container->op_index - 1);
+	else
+		return (*end);
+}
+
+
 
 static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
 {
 	int	subshell = 0;
 	int	end_index;
 	
-	while (tok_container->tokens && tok_container->tokens[end])
-		end++;
-
-	if (branch == LEFT_BRANCH && !first)
-		end_index = tok_container->op_index - 1;
-	else
-		end_index = end;
+	end_index = set_end(tok_container, &end, branch, first);
 		
 	if (!find_external_cntl_and_or(ast, tok_container, start, end_index))
 	{
@@ -40,7 +58,6 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
 				subshell = 1;
 		}
 	}
-
 	if (*ast)
 	{
 		(*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
@@ -53,17 +70,20 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
 		else
 			;	// kill_shell();
 	}
+	start = look_forward_next_token(tok_container, start, end_index);
+	if (start < end_index)
+		build_ast(&(*ast)->cntl_op->right, tok_container, start, end, RIGHT_BRANCH, 0);
 }
 
 t_error_status		parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
 {
 	if (ast)
 	{
-		// *ast = ft_calloc(1, sizeof(struct s_ast));
-		// if (*ast)
 		build_ast(ast, tok_container, 0, 0, AST_INIT, 1);
+
 		if (*ast)
 			return (RETURN_OK);
 	}
 	return (RETURN_FAIL);
 }
+

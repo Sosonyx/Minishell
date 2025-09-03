@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/02 17:16:23 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/03 15:19:18 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int g_status;
 	Dans l enfant : signal(SIGINT, SIG_DFL);
 					signal(SIGQUIT, SIG_DFL);
 */
-void sigint_handler(int sig)
+void	sigint_handler(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/03 14:46:00 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/03 15:56:41 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ t_error_status	find_external_cntl_and_or(t_ast_p *op, t_tok_container_p tok_cont
 			if (cur_token->type == T_AND && !in_parenthesis)
 			{
 				(*op)->type = OP_AND;
-				return (free(cur_token), tok_container->op_index = start, RETURN_OK) ;
+				return (free(tok_container->tokens[start]), tok_container->tokens[start] = NULL, tok_container->op_index = start, RETURN_OK) ;
 			}
 			else if (cur_token->type == T_OR && !in_parenthesis)
 			{
 				(*op)->type = OP_OR;
-				return (free(cur_token), tok_container->op_index = start, RETURN_OK) ;
+				return (free(tok_container->tokens[start]), tok_container->tokens[start] = NULL, tok_container->op_index = start, RETURN_OK) ;
 			}
 			else if (cur_token->type == T_LPARENT && !in_parenthesis)
 				in_parenthesis = 1;
@@ -61,7 +61,7 @@ t_error_status	find_external_cntl_pipe(t_ast_p *op, t_tok_container_p tok_contai
 			if (cur_token->type == T_PIPE && !in_parenthesis)
 			{
 				(*op)->type = OP_PIPE;
-				return (free(cur_token), tok_container->op_index = start, RETURN_OK) ;
+				return (free(tok_container->tokens[start]), tok_container->tokens[start] = NULL, tok_container->op_index = start, RETURN_OK) ;
 			}
 			else if (cur_token->type == T_LPARENT && !in_parenthesis)
 				in_parenthesis = 1;
@@ -80,14 +80,14 @@ t_error_status	find_external_parenthesis(t_ast_p *op, t_tok_container_p tok_cont
 	t_token_p	cur_token;
 	int			n = 0;
 	
-	if (tok_container->tokens && (*tok_container->tokens)->type == T_LPARENT)
+	if (*tok_container->tokens && (*tok_container->tokens)->type == T_LPARENT)
 	{
 		*op = ft_calloc(1, sizeof(t_ast));
 		if (*op)
 		{
 			tok_container->op_index++;
 			(*op)->type = OP_SUBSHELL;
-			return (free(cur_token), RETURN_OK) ;
+			return (free(*tok_container->tokens), *tok_container->tokens = NULL, RETURN_OK) ;
 		}
 	}
 	return (RETURN_FAIL);	
