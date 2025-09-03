@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/02 17:16:23 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/03 15:43:05 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_error_status	shell_init(t_minishell_p *shell)
 		return (RETURN_FAIL);
 } */
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **env)
 {
 	extern char			**environ;
 	t_ast_p				ast = NULL;
@@ -97,6 +97,7 @@ int	main(int ac, char **av)
 					// exec
 					// temporaire
 					// destroy input + destroy ast
+					// execve(ast->leaf->cmds[0], ast->leaf->cmds, env);
 					free(ast);
 				}
 				else
