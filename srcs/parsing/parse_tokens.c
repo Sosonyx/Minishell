@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 14:46:46 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/03 14:58:38 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_error_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int i)
 		return (RETURN_FAIL);
 	(*ast)->leaf->redir = build_redir(tok_container, i);
 		
-	build_cmd((*ast)->leaf->cmds, tok_container, i);
+	build_cmd(&(*ast)->leaf->cmds, tok_container, i);
 	// leaf->is_builtin =;
 
 	return (RETURN_OK);
