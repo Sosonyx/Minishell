@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 17:33:57 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/03 17:39:17 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static t_error_status	build_cmd(char ***cmd, t_tok_container_p tok_container, in
 	if (!*cmd)
 		return (RETURN_FAIL);
 	tok = tok_container->tokens[i];
-	while (tok && (tok->type == T_REDIR_IN || tok->type == T_REDIR_OUT || tok->type == T_WORD || tok->type == T_EXPAND))
+	while (tok && (tok->type == T_REDIR_IN || tok->type == T_REDIR_OUT || tok->type == T_WORD))
 	{
 		if (tok->type == T_REDIR_IN || tok->type == T_REDIR_OUT)
 			i++;
