@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/09/03 15:07:46 by ihadj            ###   ########.fr       */
-=======
-/*   Updated: 2025/09/03 15:21:32 by cgajean          ###   ########.fr       */
->>>>>>> ef9d9dae428d70487b58b75ef98fc608600b6700
+/*   Updated: 2025/09/03 17:35:13 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +68,8 @@ t_error_status	find_external_parenthesis(t_ast_p *op, t_tok_container_p tok_cont
 t_error_status	find_external_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
 t_error_status	find_external_cntl_and_or(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
 
-<<<<<<< HEAD
-=======
 // t_error_status	build_cmd(char ***cmd, t_tok_container_p tok_container, int i);
 // t_redir_p 		build_redir(t_tok_container_p tok_container, int i);
->>>>>>> ef9d9dae428d70487b58b75ef98fc608600b6700
 t_error_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int i);
 
 
