@@ -6,7 +6,11 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/09/03 15:43:05 by ihadj            ###   ########.fr       */
+=======
+/*   Updated: 2025/09/03 15:19:18 by cgajean          ###   ########.fr       */
+>>>>>>> ef9d9dae428d70487b58b75ef98fc608600b6700
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +23,7 @@ int g_status;
 	Dans l enfant : signal(SIGINT, SIG_DFL);
 					signal(SIGQUIT, SIG_DFL);
 */
-void sigint_handler(int sig)
+void	sigint_handler(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 17:32:36 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/03 17:33:57 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ static t_error_status	build_cmd(char ***cmd, t_tok_container_p tok_container, in
 		else
 		{
 			(*cmd)[j] = ft_strdup(tok->val);
-			// free(tok);
+			free(tok);
+			tok_container->tokens[i] = NULL;
 			// if (!cmd[j])
 			// 	free ;
 			i++;
