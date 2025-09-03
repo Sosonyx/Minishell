@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/02 12:19:14 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:37:51 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ t_toktype get_token_type(const char *line)
 		return (T_RPARENT);
 	if (line[0] == '&' && line[1] == '&')
 		return (T_AND);
-	if (line[0] == '$')
-		return (T_EXPAND);
 	return (T_WORD);
 }
 

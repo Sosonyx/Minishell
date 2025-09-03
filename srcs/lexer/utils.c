@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:08:22 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/27 17:46:24 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:38:44 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int is_special(char c)
 {
-	return (c == '|' || c == '<' || c == '>' || c == '(' || c == ')' || c == '&' || c == '$');
+	return (c == '|' || c == '<' || c == '>' || c == '(' || c == ')' || c == '&');
 }
 
 // int	is_not_a_start()
@@ -55,8 +55,6 @@ int	special_len(const char *line, int i)
 		return (1);
 	else if (line[i] == '&' && line[i + 1] == '&')
 		return (2);
-	if (line[i] == '$')
-		return (1);
 	return (1);
 }
 
