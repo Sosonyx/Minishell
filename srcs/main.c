@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/02 15:42:07 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/02 17:16:23 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ int	main(int ac, char **av)
 		{
 			if (tokenize_input(input, &tok_container))		// return error non ? 
 			{
-				ast = ft_calloc(1, sizeof(struct s_ast));
-				if (ast && parse_tokens(ast, tok_container))
+				if (parse_tokens(&ast, tok_container))
 				{
 					// exec
 					// temporaire
