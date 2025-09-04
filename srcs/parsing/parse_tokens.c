@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/04 14:04:26 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/04 14:36:48 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
 	}
 }
 
-t_error_status		parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
+t_error_status	parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
 {
 	if (ast)
 	{
