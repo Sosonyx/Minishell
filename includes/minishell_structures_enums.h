@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/04 10:35:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/04 10:44:18 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ enum e_error_status
 {
 	RETURN_FAIL = 0,
 	RETURN_OK = 1,
-	RETURN_SUBSHELL_END = 2
 };
 
 enum e_toktype

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/04 10:32:54 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/04 11:22:39 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,14 @@ t_error_status	find_external_cntl_pipe(t_ast_p *op, t_tok_container_p tok_contai
 
 t_error_status	find_external_parenthesis(t_ast_p *op, t_tok_container_p tok_container, int start, int end)
 {
-	t_token_p	cur_token;
 	int			n = 0;
 	int			subshell_end = 0;
 
 	if (tok_container->tokens[start] && (tok_container->tokens[start])->type == T_LPARENT)
 	{
-		subshell_end = start;
+		subshell_end = end - 1;
 		while (tok_container->tokens[subshell_end] && tok_container->tokens[subshell_end]->type != T_RPARENT && subshell_end <= end)
-			subshell_end++;
+			subshell_end--;
 		*op = ft_calloc(1, sizeof(t_ast));
 		if (*op)
 		{
@@ -105,21 +104,3 @@ t_error_status	find_external_parenthesis(t_ast_p *op, t_tok_container_p tok_cont
 	}
 	return (RETURN_FAIL);	
 }
-
-/* t_error_status	find_external_parenthesis(t_ast_p *op, t_tok_container_p tok_container)
-{
-	t_token_p	cur_token;
-	int			n = 0;
-	
-	if (*tok_container->tokens && (*tok_container->tokens)->type == T_LPARENT)
-	{
-		*op = ft_calloc(1, sizeof(t_ast));
-		if (*op)
-		{
-			// tok_container->op_index++;
-			(*op)->type = OP_SUBSHELL;
-			return (free(*tok_container->tokens), *tok_container->tokens = NULL, RETURN_OK) ;
-		}
-	}
-	return (RETURN_FAIL);	
-} */
