@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 17:34:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/04 10:37:21 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ static int	set_end(t_tok_container_p tok_container, int *end, t_ast_branch branc
 		return (*end);
 }
 
-
-
-static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
+void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
 {
     int subshell = 0;
     int end_index;
@@ -48,7 +46,7 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
 	{
 		if (!find_external_cntl_pipe(ast, tok_container, start, end_index))
 		{
-			if (!find_external_parenthesis(ast, tok_container))
+			if (!find_external_parenthesis(ast, tok_container, start, end))
 			{
 				if (!create_leaf(ast, tok_container, start))
 					; // kill_shell();
@@ -59,14 +57,14 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
 				subshell = 1;
 		}
 	}
-	if (*ast)
+	if (!subshell && *ast)
 	{
 		(*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
 		if ((*ast)->cntl_op)
 		{
-			build_ast(&(*ast)->cntl_op->left, tok_container, start, tok_container->op_index - 1, LEFT_BRANCH, 0);
 			if (!subshell)
-				build_ast(&(*ast)->cntl_op->right, tok_container, tok_container->op_index + 1, end, RIGHT_BRANCH, 0);
+				build_ast(&(*ast)->cntl_op->left, tok_container, start, tok_container->op_index - 1, LEFT_BRANCH, 0);			
+			build_ast(&(*ast)->cntl_op->right, tok_container, tok_container->op_index + 1, end, RIGHT_BRANCH, 0);
 		}
 		else
 			;	// kill_shell();
