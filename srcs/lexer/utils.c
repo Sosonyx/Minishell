@@ -6,15 +6,16 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:08:22 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 17:38:44 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/04 14:03:36 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_special(char c)
+int	is_special(char c)
 {
-	return (c == '|' || c == '<' || c == '>' || c == '(' || c == ')' || c == '&');
+	return (c == '|' || c == '<' || c == '>' \
+		|| c == '(' || c == ')' || c == '&');
 }
 
 // int	is_not_a_start()
@@ -60,7 +61,7 @@ int	special_len(const char *line, int i)
 
 static void	skip_quote(char *line, int *i, int *words)
 {
-	char quote;
+	char	quote;
 
 	quote = line[(*i)++];
 	while (line[*i] && line[*i] != quote)
@@ -72,7 +73,7 @@ static void	skip_quote(char *line, int *i, int *words)
 
 static int	parse_line(char *line, int *i, int *words)
 {
-	int len;
+	int	len;
 
 	while (line[*i] && ft_isspace(line[*i]))
 		(*i)++;
@@ -88,7 +89,8 @@ static int	parse_line(char *line, int *i, int *words)
 		skip_quote(line, i, words);
 	else
 	{
-		while (line[*i] && !ft_isspace(line[*i]) && !is_special(line[*i]) && line[*i] != '\'' && line[*i] != '"')
+		while (line[*i] && !ft_isspace(line[*i]) && \
+		!is_special(line[*i]) && line[*i] != '\'' && line[*i] != '"')
 			(*i)++;
 		(*words)++;
 	}
@@ -97,9 +99,9 @@ static int	parse_line(char *line, int *i, int *words)
 
 int	count_tokens(char *line)
 {
-	int		i;
-	int		start;
-	int		words;
+	int	i;
+	int	start;
+	int	words;
 
 	i = 0;
 	start = 0;

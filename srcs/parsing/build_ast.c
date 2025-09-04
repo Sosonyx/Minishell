@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:02:23 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/04 12:03:05 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:30:24 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end
 		{
 			if (!parse_subshell(ast, tok_container, start, end))
 			{
-				if (!create_leaf(ast, tok_container, start))
+				if (!create_leaf(ast, tok_container, start, end))
 					; // kill_shell();
 				else
 					return ;

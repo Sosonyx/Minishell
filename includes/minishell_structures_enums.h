@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/04 10:44:18 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:26:39 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ enum e_toktype
 	T_OR,
 	T_LPARENT,
 	T_RPARENT,
-	T_INCORRECT
+	T_INCORRECT,
+	T_TARGET
 };
 
 enum e_redirtype
@@ -104,6 +105,7 @@ struct s_redir
 {
 	enum e_redirtype	type;
 	char				*target;
+	char				*limiter;
 	struct s_redir		*next;					//pointeur vers la redir suivante
 };
 
