@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
+#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/04 12:05:00 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/04 15:41:03 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ SRC         = $(SRC_DIR)/main.c \
 			  $(SRC_DIR)/parsing/parse_cntl_pipe.c \
 			  $(SRC_DIR)/parsing/parse_subshell.c \
 			  $(SRC_DIR)/parsing/create_leaf.c \
-			  $(SRC_DIR)/parsing/parse_functions.c \
 			  $(SRC_DIR)/utils/utils.c \
 			  $(SRC_DIR)/built-in/built-in.c \
 			  $(SRC_DIR)/built-in/utils.c
