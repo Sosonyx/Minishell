@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 19:16:43 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/04 13:59:01 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 static t_redir_p	build_redir(t_tok_container_p tok_container, int i, int end)
 {
-	t_redir_p	head = NULL;
-	t_redir_p	curr = NULL;
+	t_redir_p	head;
+	t_redir_p	curr;
 	t_redir_p	new;
 	t_token_p	tok;
+
+	head = NULL;
+	curr = NULL;
 	while (i <= end && tok_container->tokens[i])
 	{
 		tok = tok_container->tokens[i];
@@ -27,7 +30,6 @@ static t_redir_p	build_redir(t_tok_container_p tok_container, int i, int end)
 			new = ft_calloc(1, sizeof(t_redir));
 			if (!new)
 				return (head);
-
 			if (tok->type == T_REDIR_IN)
 				new->type = R_IN;
 			else if (tok->type == T_REDIR_OUT)
@@ -73,10 +75,10 @@ static int	count_tok_word(t_tok_container_p tok_container, int i, int end)
 
 static t_error_status	build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end)
 {
-	int		words;
-	int		j;
-	int		i;
-	t_token_p tok;
+	int			words;
+	int			j;
+	int			i;
+	t_token_p	tok;
 
 	words = count_tok_word(tok_container, start, end);
 	*cmd = ft_calloc(words + 1, sizeof(char *));
@@ -102,7 +104,6 @@ static t_error_status	build_cmd(char ***cmd, t_tok_container_p tok_container, in
 	return (RETURN_OK);
 }
 
-
 t_error_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end)
 {
 	*ast = ft_calloc(1, sizeof(t_ast));
@@ -115,4 +116,3 @@ t_error_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int st
 	build_cmd(&(*ast)->leaf->cmds, tok_container, start, end);
 	return (RETURN_OK);
 }
-

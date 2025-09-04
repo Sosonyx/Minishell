@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 19:02:35 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/04 14:04:26 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	look_forward_next_token(t_tok_container_p tok_container, int start, i
 	while (start <= end)
 	{
 		if (tok_container->tokens[start])
-			break;
+			break ;
 		start++;
 	}
 	return (start);
@@ -68,7 +68,7 @@ static void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, 
 			start, tok_container->op_index - 1, LEFT_BRANCH, 0);
 		if (!subshell)
 			build_ast(&(*ast)->cntl_op->right, tok_container,
-				tok_container->op_index + 1, end, RIGHT_BRANCH, 0);
+				tok_container->op_index + 1, end_index, RIGHT_BRANCH, 0);
 	}
 }
 
@@ -82,4 +82,3 @@ t_error_status		parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
 	}
 	return (RETURN_FAIL);
 }
-

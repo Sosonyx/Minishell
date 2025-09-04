@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:07:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/31 15:48:05 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/04 14:03:48 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,3 @@ int	stock_quoted(t_token **tokens, int j, char *line, int *i)
 	(*i)++;
 	return (j);
 }
-

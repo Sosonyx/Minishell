@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/03 17:35:38 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/04 14:04:46 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ t_error_status	find_external_cntl_pipe(t_ast_p *op, t_tok_container_p tok_contai
 			if (cur_token->type == T_PIPE && !in_parenthesis)
 			{
 				(*op)->type = OP_PIPE;
-				return (free(tok_container->tokens[start]), tok_container->tokens[start] = NULL, tok_container->op_index = start, RETURN_OK) ;
+				return (free(tok_container->tokens[start]), \
+				tok_container->tokens[start] = NULL, \
+					tok_container->op_index = start, RETURN_OK);
 			}
 			else if (cur_token->type == T_LPARENT && !in_parenthesis)
 				in_parenthesis = 1;
