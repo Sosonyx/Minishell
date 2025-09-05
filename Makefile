@@ -6,7 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/05 13:21:16 by ihadj            ###   ########.fr        #
+#    Updated: 2025/09/05 17:37:45 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC         = $(SRC_DIR)/main.c \
 			  $(SRC_DIR)/parsing/parse_subshell.c \
 			  $(SRC_DIR)/parsing/create_leaf.c \
 			  $(SRC_DIR)/utils/utils.c \
+			  $(SRC_DIR)/exec/exec.c \
 			  $(SRC_DIR)/built-in/built-in.c \
 			  $(SRC_DIR)/built-in/utils.c
 
