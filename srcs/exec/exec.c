@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:15:52 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/27 17:25:10 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/05 15:20:29 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_error_status	exec_ast(t_ast_p ast)
+{
+	
+}
 
 // void	close_fd(int fd)
 // {
