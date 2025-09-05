@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:04:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/24 18:22:53 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/05 13:05:54 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,6 @@ int	ft_isspace(int c)
 	return (c == ' ' || c == '\t' || c == '\n' || \
 		c == '\v' || c == '\f' || c == '\r');
 }
-
-// int	is_blank_line(const char *s)
-// {
-// 	while (*s)
-// 	{
-// 		if (!ft_isspace((unsigned char)*s))
-// 			return (0);
-// 		s++;
-// 	}
-// 	return (1);
-// }
 
 char	*ft_strcat(char *dest, const char *src)
 {

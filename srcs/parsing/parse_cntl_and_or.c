@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:55 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/04 16:35:27 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/05 13:23:54 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 t_error_status	parse_cntl_and_or(t_ast_p *op, t_tok_container_p tok_container, int start, int end)
 {
 	t_token_p			cur_token;
-	int					in_parenthesis = 0;
-	t_tok_container_p	tok_copy = tok_container;
+	int					in_parenthesis;
+	t_tok_container_p	tok_copy;
 	
+	tok_copy = tok_container;
+	in_parenthesis = 0;
 	*op = ft_calloc(1, sizeof(t_ast));
 	if (*op)
 	{
