@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:02:23 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/05 12:49:05 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/05 12:52:36 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,58 +31,58 @@ static int	reset_global_end(int first, int start, int end, t_tok_container_p tok
 
 static int	get_left_end(int start, int op_pos, t_tok_container_p tok_container)
 {
-    int left_end;
+	int left_end;
 	
 	left_end = op_pos - 1;
-    while (left_end >= start && !tok_container->tokens[left_end])
-        left_end--;
-    return (left_end);
+	while (left_end >= start && !tok_container->tokens[left_end])
+		left_end--;
+	return (left_end);
 }
 
 static int	get_right_limits(int op_pos, int end, t_tok_container_p tok_container, int *right_start)
 {
-    int right_end;
+	int	right_end;
 	
 	right_end = end;
-    *right_start = op_pos + 1;
-    while (*right_start <= end && !tok_container->tokens[*right_start])
-        (*right_start)++;
-    while (right_end >= *right_start && !tok_container->tokens[right_end])
-        right_end--;
-    return (right_end);
+	*right_start = op_pos + 1;
+	while (*right_start <= end && !tok_container->tokens[*right_start])
+		(*right_start)++;
+	while (right_end >= *right_start && !tok_container->tokens[right_end])
+		right_end--;
+	return (right_end);
 }
 
 void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
 {
-    int op_pos;
+	int	op_pos;
 	int	left_end;
 	int	right_start;
 	int	right_end;
 
-    if (*ast && (*ast)->type == OP_SUBSHELL)
-        return ;
+	if (*ast && (*ast)->type == OP_SUBSHELL)
+		return ;
 	end = reset_global_end(first, start, end, tok_container);
-    if (!parse_cntl_and_or(ast, tok_container, start, end) &&
-        !parse_cntl_pipe(ast, tok_container, start, end) &&
-        !parse_subshell(ast, tok_container, start, end))
-    {
-        if (create_leaf(ast, tok_container, start, end) == RETURN_FAIL)
-            ; // kill_shell()
-        else
-            return;
-    }
-    if (*ast && (*ast)->type != OP_SUBSHELL)
-    {
-        (*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
-        if (!(*ast)->cntl_op)
-            ; // kill_shell()
+	if (!parse_cntl_and_or(ast, tok_container, start, end) &&
+		!parse_cntl_pipe(ast, tok_container, start, end) &&
+		!parse_subshell(ast, tok_container, start, end))
+	{
+		if (create_leaf(ast, tok_container, start, end) == RETURN_FAIL)
+		; // kill_shell()
+	else
+		return ;
+	}
+	if (*ast && (*ast)->type != OP_SUBSHELL)
+	{
+		(*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
+	if (!(*ast)->cntl_op)
+	; // kill_shell()
 
-        op_pos = tok_container->op_index;
-        left_end = get_left_end(start, op_pos, tok_container);
-        if (start <= left_end)
-            build_ast(&(*ast)->cntl_op->left, tok_container, start, left_end, LEFT_BRANCH, 0);
-        right_end = get_right_limits(op_pos, end, tok_container, &right_start);
-        if (right_start <= right_end)
-            build_ast(&(*ast)->cntl_op->right, tok_container, right_start, right_end, RIGHT_BRANCH, 0);
-    }
+	op_pos = tok_container->op_index;
+	left_end = get_left_end(start, op_pos, tok_container);
+	if (start <= left_end)
+		build_ast(&(*ast)->cntl_op->left, tok_container, start, left_end, LEFT_BRANCH, 0);
+	right_end = get_right_limits(op_pos, end, tok_container, &right_start);
+	if (right_start <= right_end)
+		build_ast(&(*ast)->cntl_op->right, tok_container, right_start, right_end, RIGHT_BRANCH, 0);
+	}
 }
