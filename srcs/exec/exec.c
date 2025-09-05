@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:15:52 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/05 17:52:00 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/05 17:57:31 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ static int	get_exit_code(void)
 			exit_code = WEXITSTATUS(status);
 		// sigterm ??
 	}
-	return exit_code;
+	return (exit_code);
 }
 
 void	exec_branch(t_ast_p ast, t_ast_branch branch, void (*f)(t_ast_p, t_ast_branch))
@@ -211,11 +211,9 @@ void	exec_branch(t_ast_p ast, t_ast_branch branch, void (*f)(t_ast_p, t_ast_bran
 t_error_status	exec_ast(t_ast_p ast, t_ast_branch branch)
 {
 	void (*f)(t_ast_p, t_ast_branch) = NULL;
-	int way = 0;
-
-	if (!ast)
-		return RETURN_FAIL;
-
+	int	way;
+	
+	way = 0;
 	if (ast->leaf)
 	{
 		if (branch == RIGHT_BRANCH || branch == LEFT_BRANCH)
