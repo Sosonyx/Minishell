@@ -51,8 +51,8 @@ void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end
 	int	subshell;
 	int	op_pos;
 	int	left_end;
-	int	right_start;
 	int	right_end;
+	int	right_start;
 
 	subshell = 0;
 	if (first)
@@ -97,12 +97,10 @@ void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end
 		if (!subshell)
 		{
 			right_start = op_pos + 1;
-			while (right_start <= end
-				&& !tok_container->tokens[right_start])
+			while (right_start <= end && !tok_container->tokens[right_start])
 				right_start++;
 			right_end = end;
-			while (right_end >= right_start
-				&& !tok_container->tokens[right_end])
+			while (right_end >= right_start && !tok_container->tokens[right_end])
 				right_end--;
 			if (right_start <= right_end)
 				build_ast(&(*ast)->cntl_op->right, tok_container,
