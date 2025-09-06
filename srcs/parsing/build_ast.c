@@ -12,54 +12,8 @@
 
 #include "minishell.h"
 
-<<<<<<< HEAD
-// void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
-// {
-//     int	subshell;
-
-//     subshell = 0;
-//     set_end(tok_container, &end, branch, first);
-//     if (!parse_cntl_and_or(ast, tok_container, start, end))
-//     {
-//         if (!parse_cntl_pipe(ast, tok_container, start, end))
-//         {
-//             if (!parse_subshell(ast, tok_container, start, end))
-//             {
-//                 if (create_leaf(ast, tok_container, start, end) == RETURN_FAIL)
-//                     ; // kill_shell();
-//                 else
-//                     return ;
-//             }
-//             else
-//                 subshell = 1;
-//         }
-//     }
-//     if (*ast)
-//     {
-//         (*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
-//         if (!(*ast)->cntl_op)
-//             ; // kill_shell();
-//         build_ast(&(*ast)->cntl_op->left, tok_container,
-//             start, tok_container->op_index - 1, LEFT_BRANCH, 0);
-//         if (!subshell)
-//             build_ast(&(*ast)->cntl_op->right, tok_container,
-//                 tok_container->op_index + 1, end, RIGHT_BRANCH, 0);
-//     }
-// }
-
-void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
-{
-	int	subshell;
-	int	op_pos;
-	int	left_end;
-	int	right_end;
-	int	right_start;
-
-	subshell = 0;
-=======
 static int	reset_global_end(int first, int start, int end, t_tok_container_p tok_container)
 {
->>>>>>> d223384665c7673f4a52c4e1d77488cfc8a8c510
 	if (first)
 	{
 		end = 0;
@@ -112,52 +66,16 @@ void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end
 		!parse_cntl_pipe(ast, tok_container, start, end) && \
 		!parse_subshell(ast, tok_container, start, end))
 	{
-<<<<<<< HEAD
-		if (!parse_cntl_pipe(ast, tok_container, start, end))
-		{
-			if (!parse_subshell(ast, tok_container, start, end))
-			{
-				if (create_leaf(ast, tok_container, start, end) != RETURN_FAIL)
-					return ;
-			}
-			else
-				subshell = 1;
-		}
-=======
 		if (create_leaf(ast, tok_container, start, end) == RETURN_FAIL)
 		; // kill_shell()
 	else
 		return ;
->>>>>>> d223384665c7673f4a52c4e1d77488cfc8a8c510
 	}
 	if (*ast && (*ast)->type != OP_SUBSHELL)
 	{
 		if ((*ast)->type == OP_SUBSHELL)
 			return ;
 		(*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
-<<<<<<< HEAD
-		if (!(*ast)->cntl_op)
-			return ;
-		op_pos = tok_container->op_index;
-		left_end = op_pos - 1;
-		while (left_end >= start && !tok_container->tokens[left_end])
-			left_end--;
-		if (left_end >= start)
-			build_ast(&(*ast)->cntl_op->left, tok_container,
-				start, left_end, LEFT_BRANCH, 0);
-		if (!subshell)
-		{
-			right_start = op_pos + 1;
-			while (right_start <= end && !tok_container->tokens[right_start])
-				right_start++;
-			right_end = end;
-			while (right_end >= right_start && !tok_container->tokens[right_end])
-				right_end--;
-			if (right_start <= right_end)
-				build_ast(&(*ast)->cntl_op->right, tok_container,
-					right_start, right_end, RIGHT_BRANCH, 0);
-		}
-=======
 	if (!(*ast)->cntl_op)
 		; // kill_shell()
 	op_pos = tok_container->op_index;
@@ -167,6 +85,5 @@ void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end
 	right_end = get_right_limits(op_pos, end, tok_container, &right_start);
 	if (right_start <= right_end)
 		build_ast(&(*ast)->cntl_op->right, tok_container, right_start, right_end, RIGHT_BRANCH, 0);
->>>>>>> d223384665c7673f4a52c4e1d77488cfc8a8c510
 	}
 }
