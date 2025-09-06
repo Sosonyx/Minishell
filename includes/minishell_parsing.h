@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/05 17:43:37 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/06 15:01:19 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int				stock_quoted(t_token **arr, int j, char *line, int *i);
 int				stock_special(t_token **arr, int j, char *line, int *i);
 int				stock_tokens(t_tok_container *a, char *line);
 // int			stock_parenth(t_token **tokens, int j, const char *line, int *i);
+t_tok_container_p	tokenize_input(char *input, t_tok_container_p *tok_container, int *g_status);
+
 
 /********************************************************************************/
 /*			Parsing																*/
@@ -61,20 +63,20 @@ int			is_control_op(t_toktype t);
 /*			Parsing																*/
 /********************************************************************************/
 
-t_error_status	parse_tokens(t_ast_p *ast, t_tok_container_p tok_container);
+t_return_status	parse_tokens(t_ast_p *ast, t_tok_container_p tok_container);
 void			build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first);
 
-t_error_status	parse_cntl_and_or(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
-t_error_status	parse_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
-t_error_status	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
+t_return_status	parse_cntl_and_or(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
+t_return_status	parse_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
+t_return_status	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
 
-// t_error_status	build_cmd(char ***cmd, t_tok_container_p tok_container, int i);
+// t_return_status	build_cmd(char ***cmd, t_tok_container_p tok_container, int i);
 // t_redir_p 		build_redir(t_tok_container_p tok_container, int i);
-t_error_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end);
+t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end);
 
 
 //exec
 
-t_error_status	exec_ast(t_ast_p ast, t_ast_branch branch);
+t_return_status	exec_ast(t_ast_p ast, t_ast_branch branch);
 
 #endif

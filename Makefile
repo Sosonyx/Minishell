@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
+#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/05 17:37:45 by ihadj            ###   ########.fr        #
+#    Updated: 2025/09/06 17:30:23 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,22 +28,30 @@ LDFLAGS 	= -lreadline -lncurses
 
 LIBFT_A     = $(LIBFT_DIR)/libft.a
 
-SRC         = $(SRC_DIR)/main.c \
-			  $(SRC_DIR)/lexer/lexer.c \
-			  $(SRC_DIR)/lexer/utils/utils.c \
-			  $(SRC_DIR)/lexer/utils/stock_functions.c \
-			  $(SRC_DIR)/lexer/utils/count_tokens.c \
-			  $(SRC_DIR)/lexer/syntax_check.c \
-			  $(SRC_DIR)/parsing/build_ast.c \
-			  $(SRC_DIR)/parsing/parse_tokens.c \
-			  $(SRC_DIR)/parsing/parse_cntl_and_or.c \
-			  $(SRC_DIR)/parsing/parse_cntl_pipe.c \
-			  $(SRC_DIR)/parsing/parse_subshell.c \
-			  $(SRC_DIR)/parsing/create_leaf.c \
-			  $(SRC_DIR)/utils/utils.c \
-			  $(SRC_DIR)/exec/exec.c \
-			  $(SRC_DIR)/built-in/built-in.c \
-			  $(SRC_DIR)/built-in/utils.c
+SRC         = \
+				$(SRC_DIR)/main.c \
+				$(SRC_DIR)/error_and_event_manager/print_error.c \
+				$(SRC_DIR)/error_and_event_manager/signal_manager.c \
+				$(SRC_DIR)/exec/execute_ast.c \
+				$(SRC_DIR)/exec/execute_leaf.c \
+				$(SRC_DIR)/lexer/lexer.c \
+				$(SRC_DIR)/lexer/utils/utils.c \
+				$(SRC_DIR)/lexer/utils/stock_functions.c \
+				$(SRC_DIR)/lexer/utils/count_tokens.c \
+				$(SRC_DIR)/lexer/syntax_check.c \
+				$(SRC_DIR)/lexer/tokenize_input.c \
+				$(SRC_DIR)/messager/messager.c \
+				$(SRC_DIR)/parsing/build_ast.c \
+				$(SRC_DIR)/parsing/parse_tokens.c \
+				$(SRC_DIR)/parsing/parse_cntl_and_or.c \
+				$(SRC_DIR)/parsing/parse_cntl_pipe.c \
+				$(SRC_DIR)/parsing/parse_subshell.c \
+				$(SRC_DIR)/parsing/create_leaf.c \
+				$(SRC_DIR)/shell/shell_init.c \
+				$(SRC_DIR)/shell/shell_kill.c \
+				$(SRC_DIR)/utils/utils.c \
+				$(SRC_DIR)/built-in/built-in.c \
+				$(SRC_DIR)/built-in/utils.c
 
 OBJ         = $(addprefix $(BUILD_DIR)/, $(subst $(SRC_DIR)/,,$(SRC:.c=.o)))
 

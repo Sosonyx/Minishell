@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_typedefs.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:22:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/04 14:01:09 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/06 17:29:16 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /*			Enums																*/
 /********************************************************************************/
 
-typedef enum	e_error_status	t_error_status;
+typedef enum	e_error_status	t_return_status;
 typedef enum 	e_toktype		t_toktype;
 typedef enum 	e_redirtype		t_redirtype;
 typedef enum	e_optype		t_op_type;
@@ -27,7 +27,7 @@ typedef enum	e_ast_branch	t_ast_branch;
 /*			Structures															*/
 /********************************************************************************/
 
-typedef struct	t_minishell		t_minishell;
+typedef struct	s_minishell		t_minishell;
 typedef			t_minishell		*t_minishell_p;
 
 typedef struct	s_tok_container	t_tok_container;
@@ -47,5 +47,8 @@ typedef			t_ast			*t_ast_p;
 
 typedef struct	s_cntl_op		t_cntl_op;
 typedef			t_cntl_op		*t_cntl_op_p;
+
+typedef struct	s_exec_var		t_exec_var;
+typedef			t_exec_var		*t_exec_var_p;
 
 #endif

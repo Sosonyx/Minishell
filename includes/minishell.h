@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/05 17:50:23 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/06 18:03:47 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,21 @@
 # include "minishell_typedefs.h"
 # include "minishell_structures_enums.h"
 # include "minishell_parsing.h"
-// # include "minishell_exec.h"
+# include "minishell_error_and_signal_manager.h"
+# include "minishell_messager.h"
+# include "minishell_exec.h"
 
 # include "libft.h"
 
 # define PROMPT_MESSAGE "\001\033[48;5;57m\002minishell>\001\033[0m\002 "
+# define SHELL_TABLES_SIZE 32
+# define LOAD_FAIL_MSG "Minishell failed at loading!\n"
+
+/********************************************************************************/
+/*			Minishell															*/
+/********************************************************************************/
+
+t_minishell_p	shell_init(int ac, char **av, char **envp);
+void			shell_kill(t_minishell_p shell, t_ast_p ast, char *errmsg);
 
 #endif

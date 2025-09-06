@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:52:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/26 11:45:13 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/06 15:57:15 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*ft_getenv(char **env, const char *name)
 	int		i;
 	size_t	len;
 
-	len = strlen(name);
+	len = ft_strlen(name);
 	i = 0;
 	while (env[i])
 	{
-		if (strncmp(env[i], name, len) == 0 && env[i][len] == '=')
+		if (ft_strncmp(env[i], name, len) == 0 && env[i][len] == '=')
 			return (env[i] + len + 1);
 		i++;
 	}

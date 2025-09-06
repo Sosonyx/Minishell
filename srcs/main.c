@@ -3,32 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/05 17:43:55 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/06 18:00:49 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_status;
+int	g_status;
 /*
 	Gere le CTRL C, reaffiche un prompt clean
 	A utiliser que dans le PARENT
 	Dans l enfant : signal(SIGINT, SIG_DFL);
 					signal(SIGQUIT, SIG_DFL);
 */
-void	sigint_handler(int sig)
-{
-	(void)sig;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
 
-char	*prompt_input(char **input)
+static char	*prompt_input(char **input)
 {
 	*input = readline(PROMPT_MESSAGE);
 	if (*input)
@@ -36,64 +28,25 @@ char	*prompt_input(char **input)
 	return (*input);
 }
 
-void	signals_setter(void)
-{
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-t_tok_container_p	tokenize_input(char *input, t_tok_container_p *tok_container)
-{
-	*tok_container = ft_calloc(1, sizeof(struct s_tok_container));
-	if (*tok_container)
-	{
-		if (!stock_tokens(*tok_container, input) || !check_syntax((*tok_container)->tokens))
-		{
-			g_status = 258;
-			// syntax error
-			free(*tok_container);		// pour rappel de free, mais une fonction est a creer
-			*tok_container = NULL;
-		}		
-		free(input);
-	}
-	else
-	{
-		// tokenization error -> close ou message d'erreur et nouveau prompt ?
-	}
-	return (*tok_container);
-}
-/* 
-t_error_status	shell_init(t_minishell_p *shell)
-{
-	shell = ft_calloc(1, sizeof(struct s_minishell));
-	if (shell)
-		return (RETURN_OK);
-	else
-		return (RETURN_FAIL);
-} */
-
 int	main(int ac, char **av, char **env)
 {
 	t_ast_p				ast = NULL;
 	t_tok_container_p	tok_container = NULL;
 	char				*input = NULL;
+	t_minishell_p		shell;
 	
-/*	t_minishell_p	shell = NULL;	
-	shell_init(&shell);
-	if (!shell)
-		minishell_kill("Fatal error. Couldn't load minishell.\n");
-*/
 	signals_setter();
+	shell = shell_init(ac, av, environ);
 	while (1)
 	{
 		if (prompt_input(&input))
 		{
-			if (tokenize_input(input, &tok_container))		// return error non ? 
+			if (tokenize_input(input, &tok_container, &g_status))		// return error non ? 
 			{
 				if (parse_tokens(&ast, tok_container))
 				{
 					ast->env = env;
-					exec_ast(ast, LEFT_BRANCH);
+					execute_ast(shell, ast);
 					// exec
 					// temporaire
 					// destroy input + destroy ast
@@ -119,6 +72,29 @@ int	main(int ac, char **av, char **env)
 	rl_clear_history();
 	return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////

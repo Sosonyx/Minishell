@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/25 19:03:53 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/06 18:20:18 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,14 @@
 # define MINISHELL_EXEC_H
 
 # include "minishell.h"
+
+int		execute_ast(t_minishell_p shell, t_ast_p ast);
+int		execute_leaf(t_minishell_p shell, t_ast_p ast);
+
+int 	get_fd_in(t_ast_p ast);
+int 	get_fd_out(t_ast_p ast);
+
+int		wait_children(t_minishell_p shell);
+int		get_exit_code(t_minishell_p shell);
 
 #endif

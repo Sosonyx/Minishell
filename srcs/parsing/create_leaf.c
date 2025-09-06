@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_leaf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/04 16:45:39 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/06 14:53:45 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	count_tok_word(t_tok_container_p tok_container, int i, int end)
 	return (words);
 }
 
-static t_error_status	build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end)
+static t_return_status	build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end)
 {
 	int			words;
 	int			j;
@@ -105,7 +105,7 @@ static t_error_status	build_cmd(char ***cmd, t_tok_container_p tok_container, in
 	return (RETURN_OK);
 }
 
-t_error_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end)
+t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end)
 {
 	*ast = ft_calloc(1, sizeof(t_ast));
 	if (!*ast)

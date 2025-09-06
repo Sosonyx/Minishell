@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/05 17:40:44 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/06 18:11:25 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,7 @@ struct s_token
 	bool				expandable;
 };
 
-// struct s_minishell
-// {
-// 	t_ast_p	ast;
-// 	t_tok_container_p	input;
-// };
+
 
 // toutes les redirections IN et OUT chainees
 struct s_redir
@@ -140,6 +136,23 @@ struct	s_ast
 	t_op_type			type;
 	t_cntl_op_p			cntl_op;
 	char				**env;
+};
+
+struct	s_exec_var
+{
+	pid_t	*pid_table;
+	int		*status_table;
+	int		*return_table;
+	int		cur_index;
+	int		tables_size;
+};
+
+struct s_minishell
+{
+	int				argc;
+	char			**argv;
+	char			**environ;	
+	t_exec_var		exec_var;
 };
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/04 15:31:33 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/06 14:53:45 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_error_status	parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
+t_return_status	parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
 {
 	if (ast)
 	{

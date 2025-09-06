@@ -1,119 +1,19 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 12:15:52 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/05 17:57:31 by ihadj            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "minishell.h"
-
-#define SELF "Minishell: "
-
-static void self_announce(int target_fd)
-{
-	write(target_fd, SELF, ft_strlen(SELF));
-}
-
-static void self_speak(int target_fd, char *msg, char *target)
-{
-	self_announce(target_fd);
-	write(target_fd, target, ft_strlen(target));
-	write(1, ": ", 2);
-	write(target_fd, msg, ft_strlen(SELF));
-	write(1, "\n", 1);
-}
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    exec.c.txt                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/08/22 12:15:52 by ihadj             #+#    #+#              #
+#    Updated: 2025/09/06 17:59:31 by cgajean          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 void close_fd(int fd)
 {
 	if (fd != -1)
 		close(fd);
-}
-
-int get_fd_in(t_ast_p ast)
-{
-	char *target;
-	int fd_in;
-	int prev = 0;
-
-	while (ast->leaf->redir)
-	{
-		if (ast->leaf->redir->type == T_REDIR_IN)
-			target = ast->leaf->redir->target;
-		fd_in = open(target, O_RDONLY);
-		if (fd_in == -1)
-		{
-			self_speak(2, "No such file or directory", target);
-			close(prev);
-			break;
-		}
-		else
-		{
-			close(prev);
-			prev = fd_in;
-		}
-		ast->leaf->redir = ast->leaf->redir->next;
-	}
-	return (fd_in);
-}
-
-int get_fd_out(t_ast_p ast)
-{
-	char *target;
-	int fd_out;
-	int prev = 0;
-
-	while (ast->leaf->redir)
-	{
-		if (ast->leaf->redir->type == T_REDIR_OUT || ast->leaf->redir->type == T_APPEND)
-			target = ast->leaf->redir->target;
-		if (fd_out == T_REDIR_OUT)
-		{
-			fd_out = open(target, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd_out == -1)
-			{
-				self_speak(2, "No such file or directory", target);
-				close(prev);
-				break;
-			}
-			else
-			{
-				close(prev);
-				prev = fd_out;
-			}
-		}
-		else
-		{
-			fd_out = open(target, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (fd_out == -1)
-			{
-				self_speak(2, "No such file or directory", target);
-				close(prev);
-				break;
-			}
-			else
-			{
-				close(prev);
-				prev = fd_out;
-			}
-		}
-		ast->leaf->redir = ast->leaf->redir->next;
-		prev = fd_out;
-	}
-
-	return (fd_out);
-}
-
-void dup2_and_closefd(int fd_in, int fd_out)
-{
-	dup2(fd_in, STDIN_FILENO);
-	dup2(fd_out, STDOUT_FILENO);
-	close_fd(fd_in);
-	close_fd(fd_out);
 }
 
 // void	heredoc_gestion(t_ast_p ast)
@@ -154,7 +54,7 @@ void exec_cntl_op(t_ast_p ast, t_ast_branch branch);
 void exec_pipe_op(t_ast_p ast, t_ast_branch branch);
 void exec_subshell(t_ast_p ast, t_ast_branch branch);
 
-t_error_status exec_leaf(t_ast_p ast)
+t_return_status exec_leaf(t_ast_p ast)
 {
 	int		fd_in;
 	int		fd_out;
@@ -193,72 +93,6 @@ static int	get_exit_code(void)
 	}
 	return (exit_code);
 }
-
-void	exec_branch(t_ast_p ast, t_ast_branch branch, void (*f)(t_ast_p, t_ast_branch))
-{
-	int	exit_code;
-
-	exit_code = -1;
-	if (branch & LEFT_BRANCH)
-		f(ast->cntl_op->left, LEFT_BRANCH);
-	exit_code = get_exit_code();
-	if ((ast->type == OP_OR && exit_code != 0) || (ast->type == OP_AND && exit_code == 0) || (ast->type == OP_PIPE))
-	{
-		f(ast->cntl_op->right, RIGHT_BRANCH);
-	}
-}
-
-t_error_status	exec_ast(t_ast_p ast, t_ast_branch branch)
-{
-	void (*f)(t_ast_p, t_ast_branch) = NULL;
-	int	way;
-	
-	way = 0;
-	if (ast->leaf)
-	{
-		if (branch == RIGHT_BRANCH || branch == LEFT_BRANCH)
-			return (exec_leaf(ast));
-		return (RETURN_OK);
-	}
-	else
-	{
-		if (ast->type == OP_AND || ast->type == OP_OR)
-		{
-			way = LEFT_BRANCH | RIGHT_BRANCH;
-			f = exec_cntl_op;
-		}
-		else if (ast->type == OP_PIPE)
-		{
-			way = LEFT_BRANCH | RIGHT_BRANCH;
-			f = exec_pipe_op;
-		}
-		else if (ast->type == OP_SUBSHELL)
-		{
-			way = LEFT_BRANCH;
-			f = exec_subshell;
-		}
-		if (f)
-			exec_branch(ast, way, f);
-	}
-	return (RETURN_OK);
-}
-
-void exec_cntl_op(t_ast_p ast, t_ast_branch branch)
-{
-	exec_ast(ast, branch);
-}
-
-void exec_pipe_op(t_ast_p ast, t_ast_branch branch)
-{
-	exec_ast(ast, branch);
-}
-
-void exec_subshell(t_ast_p ast, t_ast_branch branch)
-{
-	exec_ast(ast, branch);
-}
-
-
 
 // pid_t	first_redirection(t_leaf *cmds)
 // {
