@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/04 17:27:24 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/05 15:23:53 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 t_error_status	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int start, int end)
 {
-	int			n = 0;
-	int			subshell_end = 0;
+	int	n;
+	int	subshell_end;
 
+	subshell_end = 0;
+	n = 0;
 	if (tok_container->tokens[start] && (tok_container->tokens[start])->type == T_LPARENT)
 	{
 		subshell_end = end;
@@ -32,7 +34,6 @@ t_error_status	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int 
 		*op = ft_calloc(1, sizeof(t_ast));
 		if (*op)
 		{
-			// tok_container->op_index++;
 			(*op)->type = OP_SUBSHELL;
 			free(tok_container->tokens[start]);
 			tok_container->tokens[start] = NULL;

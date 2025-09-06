@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/30 14:48:00 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/05 17:50:23 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <sys/stat.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <sys/wait.h>
+# include <errno.h>
 
 # include "minishell_typedefs.h"
 # include "minishell_structures_enums.h"

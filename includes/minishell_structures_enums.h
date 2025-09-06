@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/04 15:26:39 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/05 17:40:44 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ struct s_redir
 	enum e_redirtype	type;
 	char				*target;
 	char				*limiter;
+	int					fd;
 	struct s_redir		*next;					//pointeur vers la redir suivante
 };
 
@@ -127,7 +128,7 @@ struct s_leaf
 		
 struct s_cntl_op
 {
-	// t_op_type   op;
+	t_op_type   op;
 	t_ast_p			left;
 	t_ast_p			right;					// si SUBSHELL pas de right
 };
@@ -138,6 +139,7 @@ struct	s_ast
 
 	t_op_type			type;
 	t_cntl_op_p			cntl_op;
+	char				**env;
 };
 
 #endif

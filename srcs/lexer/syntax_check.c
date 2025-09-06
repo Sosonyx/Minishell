@@ -6,26 +6,11 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/03 18:37:07 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/05 16:08:23 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_pipe(t_toktype t)
-{
-	return (t == T_PIPE);
-}
-
-int	is_redir(t_toktype t)
-{
-	return (t == T_REDIR_IN || t == T_REDIR_OUT || t == T_APPEND || t == T_HEREDOC);
-}
-
-int	is_control_op(t_toktype t)
-{
-	return ((is_redir(t) || is_pipe(t) || is_parenth(t)));
-}
 
 static void	syntax_err(const char *near)
 {
@@ -34,11 +19,6 @@ static void	syntax_err(const char *near)
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd((char *)near, 2);
 	ft_putstr_fd("'\n", 2);
-}
-
-int	is_parenth(t_toktype t)
-{
-	return (t == T_LPARENT || t == T_RPARENT);
 }
 
 static int parenth_checker(t_token **toks, int i)

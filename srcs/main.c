@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/04 14:26:55 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/05 17:43:55 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ t_error_status	shell_init(t_minishell_p *shell)
 
 int	main(int ac, char **av, char **env)
 {
-	extern char			**environ;
 	t_ast_p				ast = NULL;
 	t_tok_container_p	tok_container = NULL;
 	char				*input = NULL;
@@ -84,7 +83,6 @@ int	main(int ac, char **av, char **env)
 	if (!shell)
 		minishell_kill("Fatal error. Couldn't load minishell.\n");
 */
-
 	signals_setter();
 	while (1)
 	{
@@ -94,6 +92,8 @@ int	main(int ac, char **av, char **env)
 			{
 				if (parse_tokens(&ast, tok_container))
 				{
+					ast->env = env;
+					exec_ast(ast, LEFT_BRANCH);
 					// exec
 					// temporaire
 					// destroy input + destroy ast

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/04 15:26:23 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/05 17:43:37 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,10 @@ t_error_status	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int 
 // t_error_status	build_cmd(char ***cmd, t_tok_container_p tok_container, int i);
 // t_redir_p 		build_redir(t_tok_container_p tok_container, int i);
 t_error_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end);
+
+
+//exec
+
+t_error_status	exec_ast(t_ast_p ast, t_ast_branch branch);
 
 #endif
