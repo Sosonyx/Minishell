@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 18:27:13 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/07 14:03:31 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,9 @@ int	execute_ast(t_minishell_p shell, t_ast_p ast)
 {
 	int	return_code;
 
-	if (ast)
-	{
-		parse_and_execute(shell, ast);
-		wait_children(shell);
-	}
-	else
+	if (!ast)
 		return (-1);
+	parse_and_execute(shell, ast);
+	return_code = wait_children(shell);
+	return (return_code);
 }

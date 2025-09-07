@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/06 15:01:19 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/07 16:25:16 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,19 @@
 /********************************************************************************/
 /*			Builtins															*/
 /********************************************************************************/
-int				ft_cd(char *path, char **env);
-char			*ft_getcwd(char **env);
+int				ft_echo(char **args);
+int				ft_pwd(void);
+int				ft_cd(t_minishell *shell, char **args);
+int				ft_exit(char **args, int last_status);
+int				ft_export(t_minishell *shell, char **args_to_add);
+int				ft_unset(t_minishell *shell, char **args);
+void			ft_env(char **env);
+
+void			free_array(char **array);
+char	**dup_env(char **envp);
+int		get_array_size(char **arr);
+
+
 // int			ft_exit(char **option, t_ms	exit_code);
 
 /********************************************************************************/
@@ -27,6 +38,7 @@ char			*ft_getcwd(char **env);
 /********************************************************************************/
 int				is_valid_number(char *str);
 long long		ft_atol(const char *nptr);
+int	ft_strcmp(const char *s1, const char *s2);
 
 /********************************************************************************/
 /*			Lexer																*/
@@ -50,13 +62,13 @@ char			*ft_strndup(const char *s, size_t len);
 int				count_word(const char *str, char c);
 char			*ft_strcat(char *dest, const char *src);
 // int			is_blank_line(const char *s);
-int			ft_isspace(int c);
-int			is_special(char c);
-int			special_len(const char *line, int i);
-int			is_pipe(t_toktype t);
-int			is_redir(t_toktype t);
-int			is_parenth(t_toktype t);
-int			is_control_op(t_toktype t);
+int				ft_isspace(int c);
+int				is_special(char c);
+int				special_len(const char *line, int i);
+int				is_pipe(t_toktype t);
+int				is_redir(t_toktype t);
+int				is_parenth(t_toktype t);
+int				is_control_op(t_toktype t);
 
 
 /********************************************************************************/
@@ -76,7 +88,9 @@ t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int s
 
 
 //exec
+int	wait_children(t_minishell_p shell);
 
 t_return_status	exec_ast(t_ast_p ast, t_ast_branch branch);
+char	*find_cmd(char *cmd, char **env);
 
 #endif

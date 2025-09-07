@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
+#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/06 17:30:23 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/07 16:22:11 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,12 @@ SRC         = \
 				$(SRC_DIR)/error_and_event_manager/signal_manager.c \
 				$(SRC_DIR)/exec/execute_ast.c \
 				$(SRC_DIR)/exec/execute_leaf.c \
+				$(SRC_DIR)/exec/redirections/get_exit_code.c \
+				$(SRC_DIR)/exec/redirections/get_fd_in.c \
+				$(SRC_DIR)/exec/redirections/get_fd_out.c \
+				$(SRC_DIR)/exec/command_build/cmd_build.c \
+				$(SRC_DIR)/exec/command_build/path.c \
+				$(SRC_DIR)/exec/wait_children.c \
 				$(SRC_DIR)/lexer/lexer.c \
 				$(SRC_DIR)/lexer/utils/utils.c \
 				$(SRC_DIR)/lexer/utils/stock_functions.c \
@@ -50,7 +56,13 @@ SRC         = \
 				$(SRC_DIR)/shell/shell_init.c \
 				$(SRC_DIR)/shell/shell_kill.c \
 				$(SRC_DIR)/utils/utils.c \
-				$(SRC_DIR)/built-in/built-in.c \
+				$(SRC_DIR)/built-in/ft_exit.c \
+				$(SRC_DIR)/built-in/ft_cd.c \
+				$(SRC_DIR)/built-in/ft_echo.c \
+				$(SRC_DIR)/built-in/ft_env.c \
+				$(SRC_DIR)/built-in/ft_export.c \
+				$(SRC_DIR)/built-in/ft_unset.c \
+				$(SRC_DIR)/built-in/ft_pwd.c \
 				$(SRC_DIR)/built-in/utils.c
 
 OBJ         = $(addprefix $(BUILD_DIR)/, $(subst $(SRC_DIR)/,,$(SRC:.c=.o)))

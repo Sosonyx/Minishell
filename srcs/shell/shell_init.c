@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:51:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 18:42:17 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/07 15:27:22 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_minishell_p	shell_init(int ac, char **av, char **envp)
 	{
 		new_shell->argc = ac;
 		new_shell->argv = av;
-		new_shell->environ = envp;
+		new_shell->environ = dup_env(envp);
 		pid_table_init(new_shell);
 		status_table_init(new_shell);
 		//error_code_table ?

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:04:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/05 13:05:54 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/07 15:09:21 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,14 @@ char	*ft_strndup(const char *s, size_t len)
 	}
 	dup[i] = '\0';
 	return (dup);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+    while (*s1 && (*s1 == *s2))
+    {
+        s1++;
+        s2++;
+    }
+    return (unsigned char)*s1 - (unsigned char)*s2;
 }

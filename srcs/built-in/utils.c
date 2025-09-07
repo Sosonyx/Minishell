@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:57:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/24 14:43:23 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/07 16:25:52 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,36 @@ long long	ft_atol(const char *nptr)
 		i++;
 	}
 	return ((sign * nb));
+}
+
+char	**dup_env(char **envp)
+{
+    int		count;
+    char	**copy;
+    int		i;
+
+    count = get_array_size(envp);
+    copy = malloc(sizeof(char *) * (count + 1));
+    if (!copy)
+        return (NULL);
+    i = 0;
+    while (i < count)
+    {
+        copy[i] = ft_strdup(envp[i]);
+        i++;
+    }
+    copy[i] = NULL;
+    return (copy);
+}
+
+int	get_array_size(char **arr)
+{
+	int	i;
+
+	if (!arr)
+		return (0);
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
 }
