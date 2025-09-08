@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/08 16:56:28 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/08 18:31:42 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,18 @@ static void	execute_fork(t_minishell_p shell, t_ast_p ast)
 	if (*pid == 0)
 	{
 		if (ast->leaf->fds[0] == -1 || ast->leaf->fds[1] == -1)
-			exit(convert_errno(errno));
+			exit(convert_errno(ENOENT));
 		duplicate_fds(ast->leaf->fds);
 		close_fds(ast->leaf->fds);
-		// close(ast->leaf->fds[0]);
-		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
+		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);		// il faut stocker errno pour etre sur qu'il ne change pas entre temps
 		print_cmd_error(ast->leaf->command_name, errno);
 		exit(convert_errno(errno));
 	}
 	else
+	{
 		shell->exec_var.cur_index++;
-	close_fds(ast->leaf->fds);
+		close_fds(ast->leaf->fds);
+	}
 }
 
 int	execute_leaf(t_minishell_p shell, t_ast_p ast)
@@ -110,3 +111,5 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 	execute_fork(shell, ast);
 	return (RETURN_OK);
 }
+
+//		Je ne comprends pas pourquoi < in cmd > out semble avoir < in qui ne fonctionne pas (write dans 0 et 1, seul 1 fonctionne apres le dup2)

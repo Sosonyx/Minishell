@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
+#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/08 16:52:00 by ihadj            ###   ########.fr        #
+#    Updated: 2025/09/08 17:50:53 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,6 @@ SRC         = \
 				$(SRC_DIR)/exec/execute_ast.c \
 				$(SRC_DIR)/exec/execute_leaf.c \
 				$(SRC_DIR)/exec/redirections/get_exit_code.c \
-				$(SRC_DIR)/exec/redirections/get_fd_in.c \
-				$(SRC_DIR)/exec/redirections/get_fd_out.c \
 				$(SRC_DIR)/exec/redirections/get_fds.c \
 				$(SRC_DIR)/exec/redirections/duplicate_fds.c \
 				$(SRC_DIR)/exec/redirections/close_fds.c \
