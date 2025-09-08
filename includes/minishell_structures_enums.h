@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/07 15:25:02 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/08 16:29:03 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,19 +109,12 @@ struct s_redir
 struct s_leaf
 {
 	char				**cmds;
-	t_redir_p			redir;					// tableau de redirs in et de redirs out 
-	// t_leaf_p			next;					// pointeur vers le bloc suivant  a executer 
-	bool				is_builtin;				// 0/1 ou petit enum
+	char				*command_name;
+	t_redir_p			redir;
+	bool				is_builtin;
+	int					fds[2];
 };
 
-///
-/// AST
-///
-
-		// control operator
-		// 	A token that performs a control function. It is one of the following symbols: 
-		// 	|| & && ; ;; ( ) | |& <newline> 
-		
 struct s_cntl_op
 {
 	t_op_type   op;
@@ -151,7 +144,7 @@ struct s_minishell
 {
 	int				argc;
 	char			**argv;
-	char			**environ;	
+	char			**environ;
 	t_exec_var		exec_var;
 };
 

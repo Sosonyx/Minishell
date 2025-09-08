@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/07 16:25:16 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/08 16:55:35 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,13 @@ t_return_status	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int
 t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end);
 
 
-//exec
-int	wait_children(t_minishell_p shell);
-
-t_return_status	exec_ast(t_ast_p ast, t_ast_branch branch);
-char	*find_cmd(char *cmd, char **env);
+/********************************************************************************/
+/*			Exec																*/
+/********************************************************************************/
+int				wait_children(t_minishell_p shell);
+void			get_fds(t_ast_p ast, int fds[2]);
+// t_return_status	exec_ast(t_ast_p ast, t_ast_branch branch);
+char			*find_cmd(char *cmd, char **env);
+void			duplicate_fds(int fds[2]);
 
 #endif

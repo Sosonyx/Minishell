@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup2_and_closefd.c                                 :+:      :+:    :+:   */
+/*   close_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 18:04:31 by cgajean          ###   ########.fr       */
+/*   Created: 2025/09/08 16:49:45 by ihadj             #+#    #+#             */
+/*   Updated: 2025/09/08 16:57:23 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	close_fd(int fd)
+void	close_fds(int fds[2])
 {
-	if (fd != -1)
-		close(fd);
-}
-
-void	dup2_and_closefd(int fd_in, int fd_out)
-{
-	dup2(fd_in, STDIN_FILENO);
-	dup2(fd_out, STDOUT_FILENO);
-	close_fd(fd_in);
-	close_fd(fd_out);
+	if (fds[0] > 2)
+		close(fds[0]);
+	if (fds[1] > 2)
+		close(fds[1]);
 }

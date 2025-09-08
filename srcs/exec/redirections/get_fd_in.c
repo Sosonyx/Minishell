@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd_in.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:55:46 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/08 15:09:49 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/08 16:51:03 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int get_fd_in(t_ast_p ast)
 
 	prev = 0;
 	cur_redir = ast->leaf->redir;
+	fd_in = STDIN_FILENO;
 	while (cur_redir)
 	{
 		if (cur_redir->type == R_IN)

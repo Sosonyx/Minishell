@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd_out.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:56:30 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/08 15:10:43 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/08 15:57:58 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int get_fd_out(t_ast_p ast)
 	int			prev = 0;
 	t_redir_p	cur_redir;
 
+	fd_out = STDOUT_FILENO;
 	cur_redir = ast->leaf->redir;
 	while (cur_redir)
 	{

@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_exec.h                                   :+:      :+:    :+:   */
+/*   get_fds.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/08 16:50:48 by ihadj            ###   ########.fr       */
+/*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
+/*   Updated: 2025/09/08 16:15:04 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_EXEC_H
-# define MINISHELL_EXEC_H
+#include "minishell.h"
 
-# include "minishell.h"
+void	get_fds(t_ast_p ast, int fds[2])
+{
+	fds[0] = get_fd_in(ast);
+	fds[1] = get_fd_out(ast);
 
-int		execute_ast(t_minishell_p shell, t_ast_p ast);
-int		execute_leaf(t_minishell_p shell, t_ast_p ast);
-
-int 	get_fd_in(t_ast_p ast);
-int 	get_fd_out(t_ast_p ast);
-void	close_fds(int fds[2]);
-
-int		wait_children(t_minishell_p shell);
-int		get_exit_code(t_minishell_p shell);
-
-#endif
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/08 14:00:54 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/08 16:56:28 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,30 @@ static void	execute_fork(t_minishell_p shell, t_ast_p ast)
 	*pid = fork();
 	if (*pid == 0)
 	{
+		if (ast->leaf->fds[0] == -1 || ast->leaf->fds[1] == -1)
+			exit(convert_errno(errno));
+		duplicate_fds(ast->leaf->fds);
+		close_fds(ast->leaf->fds);
+		// close(ast->leaf->fds[0]);
 		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
-		print_cmd_error(*ast->leaf->cmds, errno);
+		print_cmd_error(ast->leaf->command_name, errno);
 		exit(convert_errno(errno));
 	}
 	else
 		shell->exec_var.cur_index++;
+	close_fds(ast->leaf->fds);
 }
 
 int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	char *cmd;
-	get_fd_in(ast);
-	get_fd_out(ast);
+
+	get_fds(ast, ast->leaf->fds);
+	ast->leaf->command_name = ast->leaf->cmds[0];
 	cmd = find_cmd(ast->leaf->cmds[0], shell->environ);
-	free(ast->leaf->cmds[0]);
 	ast->leaf->cmds[0] = cmd;
 	if (is_builtin(ast))
 		return (execute_builtin(shell, ast));
 	execute_fork(shell, ast);
 	return (RETURN_OK);
 }
-
