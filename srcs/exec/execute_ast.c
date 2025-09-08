@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/07 14:03:31 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/08 12:42:32 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void execute_cntl_and(t_minishell_p shell, t_ast_p ast)
 {
 	if (parse_and_execute(shell, ast->cntl_op->left))
 		parse_and_execute(shell, ast->cntl_op->right);
+	// wait des fils
 }
 
 void execute_cntl_or(t_minishell_p shell, t_ast_p ast)
 {
 	if (!parse_and_execute(shell, ast->cntl_op->left))
 		parse_and_execute(shell, ast->cntl_op->right);
+	// wait des fils
 }
 
 void execute_cntl_pipe(t_minishell_p shell, t_ast_p ast)
@@ -34,6 +36,8 @@ void execute_cntl_pipe(t_minishell_p shell, t_ast_p ast)
 
 void execute_subshell(t_minishell_p shell, t_ast_p ast)
 {
+	// obtenir le shell modifie a passer	
+	// parse_and_execute(modified_shell, ast->cntl_op->left);
 	parse_and_execute(shell, ast->cntl_op->left);
 }
 

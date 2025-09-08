@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/06 14:53:45 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/08 14:21:12 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static t_return_status	build_cmd(char ***cmd, t_tok_container_p tok_container, i
 	*cmd = ft_calloc(words + 1, sizeof(char *));
 	if (!*cmd)
 		return (RETURN_FAIL);
-	j = 0;
+	j = 1;
 	i = start;
 	while (i <= end)
 	{
@@ -101,7 +101,7 @@ static t_return_status	build_cmd(char ***cmd, t_tok_container_p tok_container, i
 		}
 		i++;
 	}
-	(*cmd)[j] = NULL;
+	// (*cmd)[j] = NULL;		// inutile puisque calloc a tout mis a 0
 	return (RETURN_OK);
 }
 

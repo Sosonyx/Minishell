@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:55:46 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 17:57:34 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/08 15:09:49 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,32 @@
 
 int get_fd_in(t_ast_p ast)
 {
-	char *target;
-	int fd_in;
-	int prev;
+	char 		*target;
+	int 		fd_in;
+	int 		prev;
+	t_redir_p	cur_redir;
 
 	prev = 0;
-	while (ast->leaf->redir)
+	cur_redir = ast->leaf->redir;
+	while (cur_redir)
 	{
-		if (ast->leaf->redir->type == T_REDIR_IN)
-			target = ast->leaf->redir->target;
-		fd_in = open(target, O_RDONLY);
-		if (fd_in == -1)
+		if (cur_redir->type == R_IN)
 		{
-			print_file_error(target);
-			close(prev);
-			break;
+			target = cur_redir->target;
+			fd_in = open(target, O_RDONLY);
+			if (fd_in == -1)
+			{
+				print_file_error(target, ENOENT);
+				close(prev);
+				break;
+			}
+			else
+			{
+				close(prev);
+				prev = fd_in;
+			}
 		}
-		else
-		{
-			close(prev);
-			prev = fd_in;
-		}
-		ast->leaf->redir = ast->leaf->redir->next;
+		cur_redir = cur_redir->next;
 	}
 	return (fd_in);
 }

@@ -11,6 +11,8 @@
 				"${workspaceFolder}/srcs/built-in/*.c",
 				"${workspaceFolder}/srcs/error_and_event_manager/*.c",
 				"${workspaceFolder}/srcs/exec/*.c",
+				"${workspaceFolder}/srcs/exec/command_build/*.c",
+				"${workspaceFolder}/srcs/exec/redirections/*.c",
 				"${workspaceFolder}/srcs/lexer/*.c",
 				"${workspaceFolder}/srcs/lexer/utils/*.c",
 				"${workspaceFolder}/srcs/messager/*.c",
@@ -57,3 +59,4 @@
         }
     ]
 }
+

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:56:30 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 17:57:22 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/08 15:10:43 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,51 @@
 
 int get_fd_out(t_ast_p ast)
 {
-	char *target;
-	int fd_out;
-	int prev = 0;
+	char 		*target;
+	int 		fd_out;
+	int			prev = 0;
+	t_redir_p	cur_redir;
 
-	while (ast->leaf->redir)
+	cur_redir = ast->leaf->redir;
+	while (cur_redir)
 	{
-		if (ast->leaf->redir->type == T_REDIR_OUT || ast->leaf->redir->type == T_APPEND)
-			target = ast->leaf->redir->target;
-		if (fd_out == T_REDIR_OUT)
+		if (cur_redir->type == R_OUT || cur_redir->type == R_APPEND)
 		{
-			fd_out = open(target, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd_out == -1)
+			target = cur_redir->target;
+			
+			if (cur_redir->type == R_OUT)
 			{
-				print_file_error(target);
-				close(prev);
-				break;
+				fd_out = open(target, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				if (fd_out == -1)
+				{
+					print_file_error(target, ENOENT);
+					close(prev);
+					break;
+				}
+				else
+				{
+					close(prev);
+					prev = fd_out;
+				}
 			}
 			else
 			{
-				close(prev);
-				prev = fd_out;
+				fd_out = open(target, O_WRONLY | O_CREAT | O_APPEND, 0644);
+				if (fd_out == -1)
+				{
+					print_file_error(target, ENOENT);
+					close(prev);
+					break;
+				}
+				else
+				{
+					close(prev);
+					prev = fd_out;
+				}
 			}
+			prev = fd_out;
 		}
-		else
-		{
-			fd_out = open(target, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (fd_out == -1)
-			{
-				print_file_error(target);
-				close(prev);
-				break;
-			}
-			else
-			{
-				close(prev);
-				prev = fd_out;
-			}
-		}
-		ast->leaf->redir = ast->leaf->redir->next;
-		prev = fd_out;
+		cur_redir = cur_redir->next;
 	}
 	return (fd_out);
 }

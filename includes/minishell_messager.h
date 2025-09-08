@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:05:48 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 16:42:01 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/08 13:38:13 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 #   define NEWLINE "\n"
 # endif
 
-# define SELF "Minishell: "
+# define SELF "Minishell"
 # define COLUMN ": "
 
-void	self_speak(int fd, char *announce, char *separator, bool announce_self)__attribute__((nonnull));
+void	speak(int fd, char *announce, char *separator, bool announce_self)__attribute__((nonnull));
 
 #endif

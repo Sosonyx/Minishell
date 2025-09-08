@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:04:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 16:41:33 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/08 13:39:20 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void self_announce(int fd)
 	print_annouce(fd, SELF, COLUMN);
 }
 
-void self_speak(int fd, char *announce, char *separator, bool announce_self)
+void speak(int fd, char *announce, char *separator, bool announce_self)
 {
 	if (announce_self)
 		self_announce(fd);

@@ -6,26 +6,28 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:24:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 17:28:20 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/08 13:38:50 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_err(char *name)
+#include "minishell.h"
+
+static void	print_err(char *name, int err_num)
 {
-	self_speak(STDERR_FILENO, name, COLUMN, true);
-	self_speak(STDERR_FILENO, FILE_ERRMSG, NEWLINE, false);
+	speak(STDERR_FILENO, name, COLUMN, true);
+	speak(STDERR_FILENO, strerror(err_num), NEWLINE, false);
 }
 
-void	print_file_error(char *filename)
+void	print_file_error(char *filename, int err_num)
 {
-	print_err(filename);
+	print_err(filename, err_num);
 }
 
-void	print_cmd_error(char *cmd_name)
+void	print_cmd_error(char *cmd_name, int err_num)
 {
-	print_err(cmd_name);
+	print_err(cmd_name, err_num);
 }
 
 void	print_generic_error(char *errmsg)

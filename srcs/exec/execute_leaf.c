@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/07 17:13:52 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/08 14:00:54 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	execute_fork(t_minishell_p shell, t_ast_p ast)
 	if (*pid == 0)
 	{
 		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
-		perror("command not found");
+		print_cmd_error(*ast->leaf->cmds, errno);
 		exit(convert_errno(errno));
 	}
 	else
@@ -94,7 +94,8 @@ static void	execute_fork(t_minishell_p shell, t_ast_p ast)
 int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	char *cmd;
-
+	get_fd_in(ast);
+	get_fd_out(ast);
 	cmd = find_cmd(ast->leaf->cmds[0], shell->environ);
 	free(ast->leaf->cmds[0]);
 	ast->leaf->cmds[0] = cmd;

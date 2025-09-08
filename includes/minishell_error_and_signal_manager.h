@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:37:01 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 16:38:41 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/08 11:43:28 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 /*			Errors																*/
 /********************************************************************************/
 
-void	print_file_error(char *filename)__attribute__((nonnull));
-void	print_cmd_error(char *cmd_name)__attribute__((nonnull));
+void	print_file_error(char *filename, int err_num)__attribute__((nonnull));
+void	print_cmd_error(char *cmd_name, int err_num)__attribute__((nonnull));
 void	print_generic_error(char *errmsg)__attribute__((nonnull));
 
 /********************************************************************************/
