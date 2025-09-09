@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/08 18:14:23 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/09 11:44:56 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static void	close_prev(int prev)
 		close(prev);
 }
 
-static void	get_fd_in(t_ast_p ast, int *fd_in)
+static void	get_fd_in(t_leaf_p leaf, int *fd_in)
 {
 	char 		*target;
 	int 		prev;
 	t_redir_p	cur_redir;
 
 	prev = 0;
-	cur_redir = ast->leaf->redir;
+	cur_redir = leaf->redir;
 	*fd_in = STDIN_FILENO;
 	while (cur_redir)
 	{
@@ -59,7 +59,7 @@ static int	get_open_flag(t_redirtype redirtype)
 		return (-1);
 }
 
-static void	get_fd_out(t_ast_p ast, int *fd_out)
+static void	get_fd_out(t_leaf_p leaf, int *fd_out)
 {
 	char 		*target;
 	int			prev = 0;
@@ -67,7 +67,7 @@ static void	get_fd_out(t_ast_p ast, int *fd_out)
 	int			open_flags;
 	
 	*fd_out = STDOUT_FILENO;
-	cur_redir = ast->leaf->redir;	
+	cur_redir = leaf->redir;	
 	
 	while (cur_redir)
 	{
@@ -92,8 +92,8 @@ static void	get_fd_out(t_ast_p ast, int *fd_out)
 	}
 }
 
-void	get_fds(t_ast_p ast, int fds[2])
+void	get_fds(t_leaf_p leaf)
 {
-	get_fd_in(ast, &fds[0]);
-	get_fd_out(ast,&fds[1]);
+	get_fd_in(leaf, &leaf->fds[0]);
+	get_fd_out(leaf, &leaf->fds[1]);
 }

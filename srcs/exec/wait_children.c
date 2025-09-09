@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_children.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 18:06:59 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/07 14:21:06 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 11:52:18 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int	wait_children(t_minishell_p shell)
 {
-	int		cur_index;
+/* 	int		cur_index;
 	int		end_index;
 	pid_t	*pid_table;
 	int		*status_table;
@@ -34,5 +34,6 @@ int	wait_children(t_minishell_p shell)
 		waitpid(pid_table[cur_index], &status_table[cur_index], 0);
 		cur_index++;
 	}
-	return (get_exit_code(shell));
+	return (get_exit_code(shell)); */
+	return (0);
 }

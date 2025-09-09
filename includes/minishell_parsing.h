@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/08 16:55:35 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 11:45:16 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int s
 /*			Exec																*/
 /********************************************************************************/
 int				wait_children(t_minishell_p shell);
-void			get_fds(t_ast_p ast, int fds[2]);
+void			get_fds(t_leaf_p leaf);
+
 // t_return_status	exec_ast(t_ast_p ast, t_ast_branch branch);
 char			*find_cmd(char *cmd, char **env);
 void			duplicate_fds(int fds[2]);

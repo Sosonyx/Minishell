@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 12:43:04 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/04 13:59:16 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 10:07:33 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_atoi(const char *nptr);
 char	**ft_split(char const *s, char c);
+void	ft_split_free(char **strs);
 char	*ft_itoa(int n);
 
 void	ft_putchar_fd(char c, int fd);

@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_fds.c                                        :+:      :+:    :+:   */
+/*   shell_destroy.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 16:49:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 11:45:57 by cgajean          ###   ########.fr       */
+/*   Created: 2025/09/09 10:04:56 by cgajean           #+#    #+#             */
+/*   Updated: 2025/09/09 10:59:43 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_fds(t_leaf_p leaf)
+void	shell_destroy(t_minishell_p shell)
 {
-	if (leaf->fds[0] > 2)
-		close(leaf->fds[0]);
-	if (leaf->fds[1] > 2)
-		close(leaf->fds[1]);
+	if (shell)
+	{
+		ft_split_free(shell->environ);
+		//free exec_var;
+	}
 }

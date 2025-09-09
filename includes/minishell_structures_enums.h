@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/08 16:29:03 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 11:51:32 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ struct s_leaf
 	t_redir_p			redir;
 	bool				is_builtin;
 	int					fds[2];
+	pid_t				pid;
 };
 
 struct s_cntl_op
@@ -131,21 +132,22 @@ struct	s_ast
 	char				**env;
 };
 
-struct	s_exec_var
+/* struct	s_exec_var
 {
 	pid_t	*pid_table;
 	int		*status_table;
 	int		*return_table;
 	int		cur_index;
 	int		tables_size;
-};
+}; */
 
 struct s_minishell
 {
-	int				argc;
-	char			**argv;
+	int				ac;
+	char			**av;
 	char			**environ;
-	t_exec_var		exec_var;
+	// t_exec_var		exec_var;
+	bool			subshell;
 };
 
 #endif

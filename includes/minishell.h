@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/06 18:03:47 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/09 11:05:39 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@
 /********************************************************************************/
 
 t_minishell_p	shell_init(int ac, char **av, char **envp);
+
+void			shell_destroy(t_minishell_p shell);
+
 void			shell_kill(t_minishell_p shell, t_ast_p ast, char *errmsg);
+
+void			shell_restart(t_minishell_p shell, t_ast_p ast);
 
 #endif

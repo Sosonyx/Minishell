@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:24:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/08 13:38:50 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/09 09:54:33 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ void	print_cmd_error(char *cmd_name, int err_num)
 
 void	print_generic_error(char *errmsg)
 {
-	write(STDERR_FILENO, errmsg, ft_strlen(errmsg));
+	speak(STDERR_FILENO, errmsg, NEWLINE, true);
 }

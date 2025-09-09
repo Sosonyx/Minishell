@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/08 17:50:53 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/09 12:11:07 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,41 +29,44 @@ LDFLAGS 	= -lreadline -lncurses
 LIBFT_A     = $(LIBFT_DIR)/libft.a
 
 SRC         = \
-				$(SRC_DIR)/main.c \
-				$(SRC_DIR)/error_and_event_manager/print_error.c \
-				$(SRC_DIR)/error_and_event_manager/signal_manager.c \
-				$(SRC_DIR)/exec/execute_ast.c \
-				$(SRC_DIR)/exec/execute_leaf.c \
-				$(SRC_DIR)/exec/redirections/get_exit_code.c \
-				$(SRC_DIR)/exec/redirections/get_fds.c \
-				$(SRC_DIR)/exec/redirections/duplicate_fds.c \
-				$(SRC_DIR)/exec/redirections/close_fds.c \
-				$(SRC_DIR)/exec/command_build/cmd_build.c \
-				$(SRC_DIR)/exec/command_build/path.c \
-				$(SRC_DIR)/exec/wait_children.c \
-				$(SRC_DIR)/lexer/lexer.c \
-				$(SRC_DIR)/lexer/utils/utils.c \
-				$(SRC_DIR)/lexer/utils/stock_functions.c \
-				$(SRC_DIR)/lexer/utils/count_tokens.c \
-				$(SRC_DIR)/lexer/syntax_check.c \
-				$(SRC_DIR)/lexer/tokenize_input.c \
-				$(SRC_DIR)/messager/messager.c \
-				$(SRC_DIR)/parsing/build_ast.c \
-				$(SRC_DIR)/parsing/parse_tokens.c \
-				$(SRC_DIR)/parsing/parse_cntl_and_or.c \
-				$(SRC_DIR)/parsing/parse_cntl_pipe.c \
-				$(SRC_DIR)/parsing/parse_subshell.c \
-				$(SRC_DIR)/parsing/create_leaf.c \
-				$(SRC_DIR)/shell/shell_init.c \
-				$(SRC_DIR)/shell/shell_kill.c \
-				$(SRC_DIR)/utils/utils.c \
-				$(SRC_DIR)/built-in/ft_exit.c \
-				$(SRC_DIR)/built-in/ft_cd.c \
-				$(SRC_DIR)/built-in/ft_echo.c \
-				$(SRC_DIR)/built-in/ft_env.c \
-				$(SRC_DIR)/built-in/ft_export.c \
-				$(SRC_DIR)/built-in/ft_unset.c \
-				$(SRC_DIR)/built-in/ft_pwd.c \
+				$(SRC_DIR)/main.c															\
+				$(SRC_DIR)/error_and_event_manager/print_error.c							\
+				$(SRC_DIR)/error_and_event_manager/signal_manager.c							\
+				$(SRC_DIR)/exec/execute_ast.c												\
+				$(SRC_DIR)/exec/execute_leaf.c												\
+				$(SRC_DIR)/exec/execute_builtin.c											\
+				$(SRC_DIR)/exec/redirections/get_exit_code.c								\
+				$(SRC_DIR)/exec/redirections/extract_return_code.c							\
+				$(SRC_DIR)/exec/redirections/get_fds.c										\
+				$(SRC_DIR)/exec/redirections/duplicate_fds.c								\
+				$(SRC_DIR)/exec/redirections/close_fds.c									\
+				$(SRC_DIR)/exec/command_build/cmd_build.c									\
+				$(SRC_DIR)/exec/command_build/path.c										\
+				$(SRC_DIR)/exec/wait_children.c												\
+				$(SRC_DIR)/lexer/lexer.c													\
+				$(SRC_DIR)/lexer/utils/utils.c												\
+				$(SRC_DIR)/lexer/utils/stock_functions.c									\
+				$(SRC_DIR)/lexer/utils/count_tokens.c										\
+				$(SRC_DIR)/lexer/syntax_check.c												\
+				$(SRC_DIR)/lexer/tokenize_input.c											\
+				$(SRC_DIR)/messager/messager.c												\
+				$(SRC_DIR)/parsing/build_ast.c												\
+				$(SRC_DIR)/parsing/parse_tokens.c											\
+				$(SRC_DIR)/parsing/parse_cntl_and_or.c										\
+				$(SRC_DIR)/parsing/parse_cntl_pipe.c										\
+				$(SRC_DIR)/parsing/parse_subshell.c											\
+				$(SRC_DIR)/parsing/create_leaf.c											\
+				$(SRC_DIR)/shell/shell_init.c												\
+				$(SRC_DIR)/shell/shell_destroy.c											\
+				$(SRC_DIR)/shell/shell_kill.c												\
+				$(SRC_DIR)/utils/utils.c													\
+				$(SRC_DIR)/built-in/ft_exit.c												\
+				$(SRC_DIR)/built-in/ft_cd.c													\
+				$(SRC_DIR)/built-in/ft_echo.c												\
+				$(SRC_DIR)/built-in/ft_env.c												\
+				$(SRC_DIR)/built-in/ft_export.c												\
+				$(SRC_DIR)/built-in/ft_unset.c												\
+				$(SRC_DIR)/built-in/ft_pwd.c												\
 				$(SRC_DIR)/built-in/utils.c
 
 OBJ         = $(addprefix $(BUILD_DIR)/, $(subst $(SRC_DIR)/,,$(SRC:.c=.o)))
