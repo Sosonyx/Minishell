@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 19:52:40 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/09 19:54:09 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	exec_ast(t_minishell_p shell, t_ast_p ast);
 
-int execute_cntl_and(t_minishell_p shell, t_ast_p ast)
+int execute_and(t_minishell_p shell, t_ast_p ast)
 {
 	int	ret_code = 0;
 
@@ -31,7 +31,7 @@ int execute_cntl_and(t_minishell_p shell, t_ast_p ast)
 	return (ret_code);
 }
 
-int execute_cntl_or(t_minishell_p shell, t_ast_p ast)
+int execute_or(t_minishell_p shell, t_ast_p ast)
 {
 	int	ret_code;
 
@@ -56,7 +56,7 @@ int execute_cntl_or(t_minishell_p shell, t_ast_p ast)
 	return (ret_code);
 }
 
-int execute_cntl_pipe(t_minishell_p shell, t_ast_p ast)
+int execute_pipe(t_minishell_p shell, t_ast_p ast)
 {
 	if (pipe(ast->cntl_op->pipefds) == -1)
 	{
@@ -109,11 +109,11 @@ static int	exec_ast(t_minishell_p shell, t_ast_p ast)
 	else
 	{
 		if (ast->type == OP_AND)
-			ret_code = execute_cntl_and(shell, ast);
+			ret_code = execute_and(shell, ast);
 		else if (ast->type == OP_OR)
-			ret_code = execute_cntl_or(shell, ast);
+			ret_code = execute_or(shell, ast);
 		else if (ast->type == OP_PIPE)
-			ret_code = execute_cntl_pipe(shell, ast);
+			ret_code = execute_pipe(shell, ast);
 		else if (ast->type == OP_SUBSHELL)
 			ret_code = execute_subshell(shell, ast);
 	}
