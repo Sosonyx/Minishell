@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 15:31:57 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 16:53:17 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static int	execute_fork(t_minishell_p shell, t_leaf_p leaf)
 		if (leaf->fds[0] == -1 || leaf->fds[1] == -1)
 			exit(convert_errno(ENOENT));
 		duplicate_fds(leaf->fds);
+		printf("%d\n", leaf->fds[1]);
 		close_fds(leaf);
 		execve(*leaf->cmds, leaf->cmds, shell->environ);
 		errnum = errno;
@@ -61,12 +62,15 @@ void	get_command_path(t_minishell_p shell, t_leaf_p leaf)
 		leaf->cmds[0] = cmd;
 }
 
-int	execute_leaf(t_minishell_p shell, t_ast_p ast)
+int	execute_leaf(t_minishell_p shell, t_ast_p ast, bool pipe_case)
 {
 	char *cmd;
 	int	return_status;
 
-	get_redirections(ast->leaf, NULL);
+	if (pipe_case == true)
+		get_redirections_pipe(ast->leaf, ast->leaf->fds, ast->leaf->pipefds);
+	else
+		get_redirections(ast->leaf, ast->leaf->fds);
 	close_fds(ast->leaf);
 	get_command_path(shell, ast->leaf);
 	if (is_builtin(ast))

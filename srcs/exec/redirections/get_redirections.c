@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 15:44:16 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 16:49:54 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	close_prev(int prev)
 		close(prev);
 }
 
-static void	get_fd_in(t_leaf_p leaf, int *fd_in, int pipe[2])
+void	get_fd_in_pipe(t_leaf_p leaf, int *fd_in, int pipe[2])
 {
 	char 		*target;
 	int 		prev;
@@ -58,36 +58,36 @@ static void	get_fd_in(t_leaf_p leaf, int *fd_in, int pipe[2])
 }
 
 
-// static void	get_redir_in(t_leaf_p leaf, int *fd_in)
-// {
-// 	char 		*target;
-// 	int 		prev;
-// 	t_redir_p	cur_redir;
+static void	get_redir_in(t_leaf_p leaf, int *fd_in)
+{
+	char 		*target;
+	int 		prev;
+	t_redir_p	cur_redir;
 
-// 	prev = 0;
-// 	cur_redir = leaf->redir;
-// 	*fd_in = STDIN_FILENO;	
-// 	while (cur_redir)
-// 	{
-// 		if (cur_redir->type == R_IN)
-// 		{
-// 			target = cur_redir->target;
-// 			*fd_in = open(target, O_RDONLY);
-// 			if (*fd_in == -1)
-// 			{
-// 				print_file_error(target, ENOENT);
-// 				close_prev(prev);
-// 				break;
-// 			}
-// 			else
-// 			{
-// 				close_prev(prev);
-// 				prev = *fd_in;
-// 			}
-// 		}
-// 		cur_redir = cur_redir->next;
-// 	}
-// }
+	prev = 0;
+	cur_redir = leaf->redir;
+	*fd_in = STDIN_FILENO;	
+	while (cur_redir)
+	{
+		if (cur_redir->type == R_IN)
+		{
+			target = cur_redir->target;
+			*fd_in = open(target, O_RDONLY);
+			if (*fd_in == -1)
+			{
+				print_file_error(target, ENOENT);
+				close_prev(prev);
+				break;
+			}
+			else
+			{
+				close_prev(prev);
+				prev = *fd_in;
+			}
+		}
+		cur_redir = cur_redir->next;
+	}
+}
 
 static int	get_open_flag(t_redirtype redirtype)
 {
@@ -99,7 +99,7 @@ static int	get_open_flag(t_redirtype redirtype)
 		return (-1);
 }
 
-static void	get_fd_out(t_leaf_p leaf, int *fd_out, int pipe[2])
+void	get_fd_out_pipe(t_leaf_p leaf, int *fd_out, int pipe[2])
 {
 	char 		*target;
 	int			prev = 0;
@@ -138,42 +138,46 @@ static void	get_fd_out(t_leaf_p leaf, int *fd_out, int pipe[2])
 	}	
 }
 
-// static void	get_redir_out(t_leaf_p leaf, int *fd_out, int pipe[2])
-// {
-// 	char 		*target;
-// 	int			prev = 0;
-// 	t_redir_p	cur_redir;
-// 	int			open_flags;
-	
-// 	*fd_out = STDOUT_FILENO;
-// 	cur_redir = leaf->redir;
-// 	while (cur_redir)
-// 	{
-// 		open_flags = get_open_flag(cur_redir->type);
-// 		if (open_flags != -1)
-// 		{
-// 			target = cur_redir->target;
-// 			*fd_out = open(target, open_flags, 0644);
-// 			if (*fd_out == -1)
-// 			{
-// 				print_file_error(target, ENOENT);
-// 				close_prev(prev);
-// 				break;
-// 			}
-// 			else
-// 			{
-// 				close_prev(prev);
-// 				prev = *fd_out;
-// 			}
-// 		}
-// 		cur_redir = cur_redir->next;
-// 	}
-// }
-
-void	get_redirections(t_leaf_p leaf, int pipe[2])
+static void	get_redir_out(t_leaf_p leaf, int *fd_out)
 {
-/* 	if (pipe)
-		return ; */
-	get_fd_in(leaf , &leaf->fds[0], pipe);
-	get_fd_out(leaf , &leaf->fds[1], pipe);
+	char 		*target;
+	int			prev = 0;
+	t_redir_p	cur_redir;
+	int			open_flags;
+	
+	*fd_out = STDOUT_FILENO;
+	cur_redir = leaf->redir;
+	while (cur_redir)
+	{
+		open_flags = get_open_flag(cur_redir->type);
+		if (open_flags != -1)
+		{
+			target = cur_redir->target;
+			*fd_out = open(target, open_flags, 0644);
+			if (*fd_out == -1)
+			{
+				print_file_error(target, ENOENT);
+				close_prev(prev);
+				break;
+			}
+			else
+			{
+				close_prev(prev);
+				prev = *fd_out;
+			}
+		}
+		cur_redir = cur_redir->next;
+	}
+}
+
+void	get_redirections_pipe(t_leaf_p leaf, int fds[2], int pipefds[2])
+{
+    get_fd_in_pipe(leaf, &(leaf->fds[0]), pipefds);
+    get_fd_out_pipe(leaf, &(leaf->fds[1]), pipefds);
+}
+
+void	get_redirections(t_leaf_p leaf, int fds[2])
+{
+    get_redir_in(leaf, &(leaf->fds[0]));
+    get_redir_out(leaf, &(leaf->fds[1]));
 }

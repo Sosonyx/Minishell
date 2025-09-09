@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 11:51:32 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:41:10 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ struct s_leaf
 	char				*command_name;
 	t_redir_p			redir;
 	bool				is_builtin;
+	int					pipefds[2];
 	int					fds[2];
 	pid_t				pid;
 };
