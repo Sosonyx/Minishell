@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 15:44:27 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 19:52:40 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,25 @@ int execute_cntl_or(t_minishell_p shell, t_ast_p ast)
 
 int execute_cntl_pipe(t_minishell_p shell, t_ast_p ast)
 {
+	if (pipe(ast->cntl_op->pipefds) == -1)
+	{
+		print_generic_error(PIP_ERRMSG);
+		;	// que faire ?
+	}
+	else
+	{
+		get_redirections(ast->cntl_op->left->leaf);
+		get_redirections(ast->cntl_op->right->leaf);
+		if (!ast->cntl_op->left->leaf->r_out)
+			ast->cntl_op->left->leaf->pipefd[1] = ast->cntl_op->pipefds[1];
+		if (!ast->cntl_op->right->leaf->r_in)
+			ast->cntl_op->right->leaf->pipefd[0] = ast->cntl_op->pipefds[0];
+	}
 	exec_ast(shell, ast->cntl_op->left);
+	close(ast->cntl_op->pipefds[1]);	
 	exec_ast(shell, ast->cntl_op->right);
+	close(ast->cntl_op->pipefds[0]);
+	
 	return (0);		// temporaire
 }
 
@@ -110,6 +127,6 @@ int	execute_ast(t_minishell_p shell, t_ast_p ast)
 	if (!ast)
 		return (-1);
 	return_code = exec_ast(shell, ast);
-	// return_code = extract_return_code(&return_code);
 	return (return_code);
 }
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_leaf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 13:01:49 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 19:48:24 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int s
 	(*ast)->leaf = ft_calloc(1, sizeof(struct s_leaf));
 	if (!(*ast)->leaf)
 		return (RETURN_FAIL);
+	(*ast)->leaf->fds[0] = dup(STDIN_FILENO);
+	(*ast)->leaf->fds[1] = dup(STDOUT_FILENO);
 	(*ast)->leaf->redir = build_redir(tok_container, start, end);
 	build_cmd(&(*ast)->leaf->cmds, tok_container, start, end);
 	return (RETURN_OK);
