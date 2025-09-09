@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/08 16:37:40 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 13:01:49 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ static t_return_status	build_cmd(char ***cmd, t_tok_container_p tok_container, i
 		}
 		i++;
 	}
-	// (*cmd)[j] = NULL;		// inutile puisque calloc a tout mis a 0
 	return (RETURN_OK);
 }
 

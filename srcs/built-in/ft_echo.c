@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/07 16:16:56 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 14:08:58 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int	ft_echo(char **args)
 	}
 	if (newline)
 		ft_putstr_fd("\n", 1);
-	return (0);
+	return (EXIT_SUCCESS);
 }

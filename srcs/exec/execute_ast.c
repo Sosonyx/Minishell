@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 12:57:59 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/09 15:44:27 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ static int	exec_ast(t_minishell_p shell, t_ast_p ast);
 
 int execute_cntl_and(t_minishell_p shell, t_ast_p ast)
 {
-	int	ret_code;
+	int	ret_code = 0;
 
-	ret_code = exec_ast(shell, ast->cntl_op->left);
-	ret_code = extract_return_code(&ret_code);
-	if (!ret_code)
+	if (ast->cntl_op->left)
+	{
+		ret_code = exec_ast(shell, ast->cntl_op->left);
+		ret_code = extract_return_code(&ret_code);
+	}
+	if (!ret_code && ast->cntl_op->right)
 	{
 		ret_code = exec_ast(shell, ast->cntl_op->right);
 		ret_code = extract_return_code(&ret_code);
@@ -30,17 +33,33 @@ int execute_cntl_and(t_minishell_p shell, t_ast_p ast)
 
 int execute_cntl_or(t_minishell_p shell, t_ast_p ast)
 {
-	if (!exec_ast(shell, ast->cntl_op->left))
-		exec_ast(shell, ast->cntl_op->right);
-	
-	return (0);		// temporaire
+	int	ret_code;
+
+	ret_code = exec_ast(shell, ast->cntl_op->left);
+	ret_code = extract_return_code(&ret_code);
+	if (ret_code)
+	{
+		ret_code = exec_ast(shell, ast->cntl_op->right);
+		ret_code = extract_return_code(&ret_code);
+	}
+	else if (!ret_code && (ast->cntl_op->right->type == OP_AND \
+		|| ast->cntl_op->right->type == OP_OR))
+	{
+		ret_code = exec_ast(shell, ast->cntl_op->right->cntl_op->right);
+		ret_code = extract_return_code(&ret_code);
+	}
+	else if (!ret_code && ast->cntl_op->right->type == OP_PIPE)
+	{
+		ret_code = exec_ast(shell, ast->cntl_op->right);
+		ret_code = extract_return_code(&ret_code);		
+	}
+	return (ret_code);
 }
 
 int execute_cntl_pipe(t_minishell_p shell, t_ast_p ast)
 {
 	exec_ast(shell, ast->cntl_op->left);
 	exec_ast(shell, ast->cntl_op->right);
-
 	return (0);		// temporaire
 }
 
@@ -57,7 +76,7 @@ int execute_subshell(t_minishell_p shell, t_ast_p ast)
 	}
 	else
 	{
-		print_generic_error(MEM_ERRMSG);		
+		print_generic_error(MEM_ERRMSG);
 		// restart immediat ou laisser finir ce qui peut etre fini ?
 	}
 
@@ -91,6 +110,6 @@ int	execute_ast(t_minishell_p shell, t_ast_p ast)
 	if (!ast)
 		return (-1);
 	return_code = exec_ast(shell, ast);
-	return_code = extract_return_code(&return_code);
+	// return_code = extract_return_code(&return_code);
 	return (return_code);
 }

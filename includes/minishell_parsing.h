@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 11:45:16 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/09 15:07:57 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int				ft_cd(t_minishell *shell, char **args);
 int				ft_exit(char **args, int last_status);
 int				ft_export(t_minishell *shell, char **args_to_add);
 int				ft_unset(t_minishell *shell, char **args);
-void			ft_env(char **env);
+int				ft_env(char **env);
 
 void			free_array(char **array);
-char	**dup_env(char **envp);
-int		get_array_size(char **arr);
+char			**dup_env(char **envp);
+int				get_array_size(char **arr);
 
 
 // int			ft_exit(char **option, t_ms	exit_code);
@@ -86,15 +86,5 @@ t_return_status	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int
 // t_redir_p 		build_redir(t_tok_container_p tok_container, int i);
 t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end);
 
-
-/********************************************************************************/
-/*			Exec																*/
-/********************************************************************************/
-int				wait_children(t_minishell_p shell);
-void			get_fds(t_leaf_p leaf);
-
-// t_return_status	exec_ast(t_ast_p ast, t_ast_branch branch);
-char			*find_cmd(char *cmd, char **env);
-void			duplicate_fds(int fds[2]);
 
 #endif

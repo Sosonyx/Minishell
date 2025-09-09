@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:24:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 09:54:33 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/09 14:27:11 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@ void	print_file_error(char *filename, int err_num)
 
 void	print_cmd_error(char *cmd_name, int err_num)
 {
-	print_err(cmd_name, err_num);
+	if (err_num == ENOENT)
+	{
+		speak(STDERR_FILENO, cmd_name, COLUMN, true);
+		speak(STDERR_FILENO, CMD_ERRMSG, NEWLINE, false);
+	}
+	else
+		print_err(cmd_name, err_num);
 }
 
 void	print_generic_error(char *errmsg)

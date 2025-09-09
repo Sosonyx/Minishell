@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 11:56:42 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/09 15:31:57 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,12 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 	char *cmd;
 	int	return_status;
 
-	get_fds(ast->leaf);
+	get_redirections(ast->leaf, NULL);
 	close_fds(ast->leaf);
 	get_command_path(shell, ast->leaf);
-	return_status = execute_builtin(shell, ast);
-	if (!return_status)
+	if (is_builtin(ast))
+		return_status = execute_builtin(shell, ast);
+	else
 		return_status = execute_fork(shell, ast->leaf);
 	return (return_status);
 }

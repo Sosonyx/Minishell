@@ -6,17 +6,18 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:18:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/07 16:22:43 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/09 14:10:58 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(char **env)
+int	ft_env(char **env)
 {
 	int	i;
 
 	i = -1;
 	while (env[++i])
 		printf("%s\n", env[i]);
+	return (EXIT_SUCCESS);
 }
