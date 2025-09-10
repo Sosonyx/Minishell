@@ -3,16 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   duplicate_fds.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/10 13:54:56 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 14:12:02 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* static int	get_open_flag(t_redirtype redirtype)
+static void	close_prev(int prev)
+{
+	if (prev > 2)
+		close(prev);
+}
+
+static int	get_open_flag(t_redirtype redirtype)
 {
 	if (redirtype == R_OUT)
 		return (O_WRONLY | O_CREAT | O_TRUNC);
@@ -40,7 +46,7 @@ static void	get_redir_in(t_leaf_p leaf)
 			{
 				print_file_error(target, ENOENT);
 				close_prev(prev);
-				break;
+				break ;
 			}
 			else
 			{
@@ -51,8 +57,6 @@ static void	get_redir_in(t_leaf_p leaf)
 		}
 		cur_redir = cur_redir->next;
 	}
-	if (!leaf->r_in)
-		leaf->fds[0] = STDIN_FILENO;
 }
 
 static void	get_redir_out(t_leaf_p leaf)
@@ -85,31 +89,14 @@ static void	get_redir_out(t_leaf_p leaf)
 		}
 		cur_redir = cur_redir->next;
 	}
-	if (!leaf->r_out)
-		leaf->fds[1] = STDOUT_FILENO;
 }
 
-void	get_redirections(t_leaf_p leaf)
-{
-	get_redir_in(leaf);
-	get_redir_out(leaf);
-}
- */
 
 ////////////////////////////////////////////////////////////////////////////////////
 /// 
 /// 
 
 
-static int	get_open_flag(t_redirtype redirtype)
-{
-	if (redirtype == R_OUT)
-		return (O_WRONLY | O_CREAT | O_TRUNC);
-	else if (redirtype == R_APPEND)
-		return (O_WRONLY | O_CREAT | O_APPEND);
-	else
-		return (-1);
-}
 
 // open et dup2 a proteger
 
@@ -127,13 +114,15 @@ void	duplicate_fds(t_leaf_p leaf)
 	}
 	if (leaf->r_in)	
 	{
-		leaf->fds[0] = open(leaf->r_in_path, O_RDONLY, 0644);
+		get_redir_in(leaf);
+		// leaf->fds[0] = open(leaf->r_in_path, O_RDONLY, 0644);
 		dup2(leaf->fds[0], STDIN_FILENO);
 	}
 	if (leaf->r_out)
 	{
-		open_flag = get_open_flag(leaf->redir->type);
-		leaf->fds[1] = open(leaf->r_out_path, open_flag, 0644);
+		// open_flag = get_open_flag(leaf->redir->type);
+		// leaf->fds[1] = open(leaf->r_out_path, open_flag, 0644);
+		get_redir_out(leaf);
 		dup2(leaf->fds[1], STDOUT_FILENO);
 	}			
 }

@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_redirections.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/10 12:40:35 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 14:11:08 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	close_prev(int prev)
-{
-	if (prev > 2)
-		close(prev);
-}
 
 static void	get_redir_in(t_leaf_p leaf)
 {
