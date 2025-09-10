@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/10 12:14:29 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 12:40:08 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ struct s_leaf
 	char				*command_name;
 	t_redir_p			redir;
 	bool				is_builtin;
+	
 	int					pipefd[2];
 	int					fds[2];
 	
@@ -119,6 +120,8 @@ struct s_leaf
 	char				*r_in_path;
 	bool				r_out;
 	char				*r_out_path;
+
+	bool				treated;
 
 	pid_t				pid;
 };

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/10 11:09:50 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 12:41:18 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static int	execute_fork(t_minishell_p shell, t_leaf_p leaf)
 	{
 		if (leaf->fds[0] == -1 || leaf->fds[1] == -1)
 			exit(convert_errno(ENOENT));
+		if (!leaf->treated)
+			get_redirections(leaf);
 		duplicate_fds(leaf);
 		close_fds(leaf);
 		execve(*leaf->cmds, leaf->cmds, shell->environ);

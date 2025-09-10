@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/10 12:12:31 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 12:36:09 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static int	exec_ast(t_minishell_p shell, t_ast_p ast);
 int execute_and(t_minishell_p shell, t_ast_p ast)
 {
 	int	ret_code = 0;
+
+	get_redirections(ast->cntl_op->left->leaf);
+	get_redirections(ast->cntl_op->right->leaf);
 
 	if (ast->cntl_op->left)
 	{
@@ -35,6 +38,9 @@ int execute_or(t_minishell_p shell, t_ast_p ast)
 {
 	int	ret_code;
 
+	get_redirections(ast->cntl_op->left->leaf);
+	get_redirections(ast->cntl_op->right->leaf);
+		
 	ret_code = exec_ast(shell, ast->cntl_op->left);
 	ret_code = extract_return_code(&ret_code);
 	if (ret_code)

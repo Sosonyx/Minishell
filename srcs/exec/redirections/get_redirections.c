@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/10 12:20:48 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 12:40:35 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,11 @@ static void	close_prev(int prev)
 		close(prev);
 }
 
-static int	get_open_flag(t_redirtype redirtype)
-{
-	if (redirtype == R_OUT)
-		return (O_WRONLY | O_CREAT | O_TRUNC);
-	else if (redirtype == R_APPEND)
-		return (O_WRONLY | O_CREAT | O_APPEND);
-	else
-		return (-1);
-}
-
 static void	get_redir_in(t_leaf_p leaf)
 {
 	char 		*target;
-	int 		prev;
 	t_redir_p	cur_redir;
 
-	prev = 0;
 	cur_redir = leaf->redir;
 	while (cur_redir)
 	{
@@ -60,15 +48,12 @@ static void	get_redir_in(t_leaf_p leaf)
 static void	get_redir_out(t_leaf_p leaf)
 {
 	char 		*target;
-	int			prev = 0;
 	t_redir_p	cur_redir;
-	int			open_flags;
 	
 	cur_redir = leaf->redir;
 	while (cur_redir)
 	{
-		open_flags = get_open_flag(cur_redir->type);
-		if (open_flags != -1)
+		if (cur_redir->type == R_OUT || cur_redir->type == R_APPEND)
 		{
 			target = cur_redir->target;
 			if (access(target, F_OK) == 0 && (access(target, W_OK) == -1))
@@ -91,4 +76,5 @@ void	get_redirections(t_leaf_p leaf)
 {
 	get_redir_in(leaf);
 	get_redir_out(leaf);
+	leaf->treated = true;
 }

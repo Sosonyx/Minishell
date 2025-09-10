@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/10 10:52:52 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 12:28:21 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int s
 	(*ast)->leaf->pipefd[0] = -2;
 	(*ast)->leaf->pipefd[1] = -2;
 	(*ast)->leaf->fds[0] = -2;
-	(*ast)->leaf->fds[1] = -2;	
+	(*ast)->leaf->fds[1] = -2;
 	(*ast)->leaf->redir = build_redir(tok_container, start, end);
 	build_cmd(&(*ast)->leaf->cmds, tok_container, start, end);
 	return (RETURN_OK);
