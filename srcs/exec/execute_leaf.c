@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/10 12:41:18 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 13:59:11 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ void	get_command_path(t_minishell_p shell, t_leaf_p leaf)
 
 int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
-	char *cmd;
-	int	return_status;
+	char	*cmd;
+	int		return_status;
 
-	// get_redirections(ast->leaf, NULL);
-	close_fds(ast->leaf);
 	get_command_path(shell, ast->leaf);
 	if (is_builtin(ast))
 		return_status = execute_builtin(shell, ast);
