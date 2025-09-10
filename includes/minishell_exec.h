@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 18:20:14 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 13:27:02 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 # include "minishell.h"
 
 int		execute_ast(t_minishell_p shell, t_ast_p ast);
-int		execute_leaf(t_minishell_p shell, t_ast_p ast);
+int		execute_leaf(t_minishell_p shell, t_leaf_p leaf);
 
 void	close_fds(t_leaf_p leaf);
 
 int		wait_children(t_minishell_p shell);
 int		get_exit_code(t_minishell_p shell);
 
-bool	is_builtin(t_ast_p ast);
-int		execute_builtin(t_minishell_p shell, t_ast_p ast);
+bool	is_builtin(t_leaf_p leaf);
+int		execute_builtin(t_minishell_p shell, t_leaf_p leaf);
 
 int		extract_return_code(int *status);
 
