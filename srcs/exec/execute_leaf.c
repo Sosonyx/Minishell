@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/10 13:47:54 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 13:59:18 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	execute_leaf(t_minishell_p shell, t_leaf_p leaf)
 	char *cmd;
 	int	return_status;
 
-	close_fds(leaf);
 	if (!leaf->treated)
 		get_redirections(leaf);
 	get_command_path(shell, leaf);
