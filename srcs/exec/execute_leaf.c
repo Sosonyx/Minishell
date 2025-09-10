@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/10 12:41:18 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 13:47:54 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static int	execute_fork(t_minishell_p shell, t_leaf_p leaf)
 	{
 		if (leaf->fds[0] == -1 || leaf->fds[1] == -1)
 			exit(convert_errno(ENOENT));
-		if (!leaf->treated)
-			get_redirections(leaf);
 		duplicate_fds(leaf);
 		close_fds(leaf);
 		execve(*leaf->cmds, leaf->cmds, shell->environ);
@@ -63,17 +61,18 @@ void	get_command_path(t_minishell_p shell, t_leaf_p leaf)
 		leaf->cmds[0] = cmd;
 }
 
-int	execute_leaf(t_minishell_p shell, t_ast_p ast)
+int	execute_leaf(t_minishell_p shell, t_leaf_p leaf)
 {
 	char *cmd;
 	int	return_status;
 
-	// get_redirections(ast->leaf, NULL);
-	close_fds(ast->leaf);
-	get_command_path(shell, ast->leaf);
-	if (is_builtin(ast))
-		return_status = execute_builtin(shell, ast);
+	close_fds(leaf);
+	if (!leaf->treated)
+		get_redirections(leaf);
+	get_command_path(shell, leaf);
+	if (is_builtin(leaf))
+		return_status = execute_builtin(shell, leaf);
 	else
-		return_status = execute_fork(shell, ast->leaf);
+		return_status = execute_fork(shell, leaf);
 	return (return_status);
 }
