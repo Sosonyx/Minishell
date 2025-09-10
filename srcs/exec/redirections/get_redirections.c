@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/10 10:38:15 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 12:20:48 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,20 @@ static void	get_redir_in(t_leaf_p leaf)
 		if (cur_redir->type == R_IN)
 		{
 			target = cur_redir->target;
-			leaf->fds[0] = open(target, O_RDONLY);
-			if (leaf->fds[0] == -1)
+			if (access(target, R_OK) == -1)
 			{
 				print_file_error(target, ENOENT);
-				close_prev(prev);
+				//	traiter si fichier pas ok, pour l'instant je suppose les fichiers OK
 				break;
 			}
 			else
 			{
 				leaf->r_in = true;
-				close_prev(prev);
-				prev = leaf->fds[0];
+				leaf->r_in_path = target;
 			}
 		}
 		cur_redir = cur_redir->next;
 	}
-	if (!leaf->r_in)
-		leaf->fds[0] = STDIN_FILENO;
 }
 
 static void	get_redir_out(t_leaf_p leaf)
@@ -75,24 +71,20 @@ static void	get_redir_out(t_leaf_p leaf)
 		if (open_flags != -1)
 		{
 			target = cur_redir->target;
-			leaf->fds[1] = open(target, open_flags, 0644);
-			if (leaf->fds[1] == -1)
+			if (access(target, F_OK) == 0 && (access(target, W_OK) == -1))
 			{
 				print_file_error(target, ENOENT);
-				close_prev(prev);
+				//	traiter si fichier pas ok, pour l'instant je suppose les fichiers OK
 				break;
 			}
 			else
 			{
 				leaf->r_out = true;
-				close_prev(prev);
-				prev = leaf->fds[1];
+				leaf->r_out_path = target;
 			}
 		}
 		cur_redir = cur_redir->next;
 	}
-	if (!leaf->r_out)
-		leaf->fds[1] = STDOUT_FILENO;
 }
 
 void	get_redirections(t_leaf_p leaf)
