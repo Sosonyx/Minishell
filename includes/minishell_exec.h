@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/10 13:27:02 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 14:38:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		get_exit_code(t_minishell_p shell);
 bool	is_builtin(t_leaf_p leaf);
 int		execute_builtin(t_minishell_p shell, t_leaf_p leaf);
 
-int		extract_return_code(int *status);
+int		extract_return_code(int status);
 
 
 int		wait_children(t_minishell_p shell);
