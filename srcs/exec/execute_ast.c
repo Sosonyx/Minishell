@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 19:54:09 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 11:49:04 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,19 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 		get_redirections(ast->cntl_op->right->leaf);
 		if (!ast->cntl_op->left->leaf->r_out)
 			ast->cntl_op->left->leaf->pipefd[1] = ast->cntl_op->pipefds[1];
+		else
+			close(ast->cntl_op->pipefds[1]);
 		if (!ast->cntl_op->right->leaf->r_in)
 			ast->cntl_op->right->leaf->pipefd[0] = ast->cntl_op->pipefds[0];
+		else
+			close(ast->cntl_op->pipefds[0]);
 	}
 	exec_ast(shell, ast->cntl_op->left);
-	close(ast->cntl_op->pipefds[1]);	
+	close(ast->cntl_op->pipefds[1]);
+	close_fds(ast->cntl_op->left->leaf);
 	exec_ast(shell, ast->cntl_op->right);
 	close(ast->cntl_op->pipefds[0]);
+	close_fds(ast->cntl_op->right->leaf);
 	
 	return (0);		// temporaire
 }

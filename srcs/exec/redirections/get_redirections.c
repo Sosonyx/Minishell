@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 19:02:26 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 10:38:15 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void	get_redir_in(t_leaf_p leaf)
 		}
 		cur_redir = cur_redir->next;
 	}
+	if (!leaf->r_in)
+		leaf->fds[0] = STDIN_FILENO;
 }
 
 static void	get_redir_out(t_leaf_p leaf)
@@ -89,6 +91,8 @@ static void	get_redir_out(t_leaf_p leaf)
 		}
 		cur_redir = cur_redir->next;
 	}
+	if (!leaf->r_out)
+		leaf->fds[1] = STDOUT_FILENO;
 }
 
 void	get_redirections(t_leaf_p leaf)

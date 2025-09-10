@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 19:48:24 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/10 10:52:52 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,10 @@ t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int s
 	(*ast)->leaf = ft_calloc(1, sizeof(struct s_leaf));
 	if (!(*ast)->leaf)
 		return (RETURN_FAIL);
-	(*ast)->leaf->fds[0] = dup(STDIN_FILENO);
-	(*ast)->leaf->fds[1] = dup(STDOUT_FILENO);
+	(*ast)->leaf->pipefd[0] = -2;
+	(*ast)->leaf->pipefd[1] = -2;
+	(*ast)->leaf->fds[0] = -2;
+	(*ast)->leaf->fds[1] = -2;	
 	(*ast)->leaf->redir = build_redir(tok_container, start, end);
 	build_cmd(&(*ast)->leaf->cmds, tok_container, start, end);
 	return (RETURN_OK);
