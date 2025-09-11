@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 12:31:25 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 12:43:55 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static int	execute_fork(t_minishell_p shell, t_leaf_p leaf)
 		return (return_status);
 	}
 }
-
-
 
 int	execute_leaf(t_minishell_p shell, t_leaf_p leaf)
 {
