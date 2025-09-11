@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/07 15:25:43 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/11 10:32:53 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int ac, char **av, char **env)
 	t_tok_container_p	tok_container = NULL;
 	char				*input = NULL;
 	t_minishell_p		shell;
+	int					return_code;
 	
 	signals_setter();
 	shell = shell_init(ac, av, environ);
@@ -47,7 +48,7 @@ int	main(int ac, char **av, char **env)
 				if (parse_tokens(&ast, tok_container))
 				{
 					ast->env = env;
-					execute_ast(shell, ast);
+					return_code = execute_ast(shell, ast);
 					// exec
 					// temporaire
 					// destroy input + destroy ast
@@ -64,14 +65,14 @@ int	main(int ac, char **av, char **env)
 		{
 			if (!input)
 			{
-				printf("exit\n");
+				// printf("exit\n");
 				break ;
 			}	
 					// prompt error -> close ou message d'erreur et nouveau prompt ?
 		}
 	}
 	rl_clear_history();
-	return (0);
+	return (return_code);
 }
 
 

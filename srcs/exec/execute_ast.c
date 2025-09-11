@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/10 14:49:02 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/11 10:27:50 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	execute_ast(t_minishell_p shell, t_ast_p ast)
 	int	return_code;
 
 	if (!ast)
-		return (-1);
+		return (EXIT_FAILURE);
 	return_code = exec_ast(shell, ast);
 	return_code = extract_return_code(return_code);
 	return (return_code);

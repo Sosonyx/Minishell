@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:49:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/10 11:38:03 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 10:31:16 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,4 @@ void	close_fds(t_leaf_p leaf)
 		close(leaf->fds[0]);
 	if (leaf->fds[1] > 2)
 		close(leaf->fds[1]);
-/* 	if (leaf->pipefd[0] > 2)
-		close(leaf->pipefd[0]);
-	if (leaf->pipefd[1] > 2)
-		close(leaf->pipefd[1]);		 */
 }

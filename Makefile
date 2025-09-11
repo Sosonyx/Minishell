@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
+#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/09 15:08:40 by ihadj            ###   ########.fr        #
+#    Updated: 2025/09/11 10:29:09 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ SRC         = \
 				$(SRC_DIR)/exec/redirections/close_fds.c									\
 				$(SRC_DIR)/exec/command_build/cmd_build.c									\
 				$(SRC_DIR)/exec/command_build/path.c										\
-				$(SRC_DIR)/exec/wait_children.c												\
 				$(SRC_DIR)/lexer/lexer.c													\
 				$(SRC_DIR)/lexer/utils/utils.c												\
 				$(SRC_DIR)/lexer/utils/stock_functions.c									\
