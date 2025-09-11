@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/11 10:29:09 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/11 12:38:46 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,9 @@ SRC         = \
 				$(SRC_DIR)/exec/execute_ast.c												\
 				$(SRC_DIR)/exec/execute_leaf.c												\
 				$(SRC_DIR)/exec/execute_builtin.c											\
-				$(SRC_DIR)/exec/redirections/get_exit_code.c								\
 				$(SRC_DIR)/exec/extract_return_code.c										\
-				$(SRC_DIR)/exec/redirections/get_redirections.c								\
-				$(SRC_DIR)/exec/redirections/duplicate_fds.c								\
+				$(SRC_DIR)/exec/configure_leaf.c											\
+				$(SRC_DIR)/exec/redirect_leaf.c												\
 				$(SRC_DIR)/exec/redirections/close_fds.c									\
 				$(SRC_DIR)/exec/command_build/cmd_build.c									\
 				$(SRC_DIR)/exec/command_build/path.c										\

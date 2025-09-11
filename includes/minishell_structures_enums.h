@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/10 12:40:08 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 11:42:19 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ enum e_ast_branch
 	RIGHT_BRANCH = 2
 };
 
-enum e_error_status
+enum e_return_status
 {
 	RETURN_FAIL = 0,
 	RETURN_OK = 1,
@@ -121,7 +121,7 @@ struct s_leaf
 	bool				r_out;
 	char				*r_out_path;
 
-	bool				treated;
+	bool				configured;
 
 	pid_t				pid;
 };

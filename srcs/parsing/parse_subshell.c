@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 14:53:45 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 11:52:34 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_return_status	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int start, int end)
+int	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int start, int end)
 {
 	int	n;
 	int	subshell_end;

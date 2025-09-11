@@ -40,6 +40,7 @@
 		"minishell_typedefs.h": "c",
 		"type_traits": "c",
 		"history.h": "c",
-		"minishell_error_and_signal_manager.h": "c"
+		"minishell_error_and_signal_manager.h": "c",
+		"minishell_structures_enums.h": "c"
 	}
 }

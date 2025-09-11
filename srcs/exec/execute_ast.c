@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 10:27:50 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 10:49:47 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int execute_and(t_minishell_p shell, t_ast_p ast)
 	int	ret_code = 0;
 
 	if (ast->cntl_op->left->leaf)
-		get_redirections(ast->cntl_op->left->leaf);
+		configure_leaf(shell, ast->cntl_op->left->leaf);
 	if (ast->cntl_op->right->leaf)
-		get_redirections(ast->cntl_op->right->leaf);
+		configure_leaf(shell, ast->cntl_op->right->leaf);
 
 	if (ast->cntl_op->left)
 	{
@@ -40,9 +40,9 @@ int execute_or(t_minishell_p shell, t_ast_p ast)
 	int	ret_code;
 
 	if (ast->cntl_op->left->leaf)
-		get_redirections(ast->cntl_op->left->leaf);
+		configure_leaf(shell, ast->cntl_op->left->leaf);
 	if (ast->cntl_op->right->leaf)
-		get_redirections(ast->cntl_op->right->leaf);
+		configure_leaf(shell, ast->cntl_op->right->leaf);
 	ret_code = exec_ast(shell, ast->cntl_op->left);
 	if (ret_code)
 	{
@@ -69,8 +69,8 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 	}
 	else
 	{
-		get_redirections(ast->cntl_op->left->leaf);
-		get_redirections(ast->cntl_op->right->leaf);
+		configure_leaf(shell, ast->cntl_op->left->leaf);
+		configure_leaf(shell, ast->cntl_op->right->leaf);
 		if (!ast->cntl_op->left->leaf->r_out)
 			ast->cntl_op->left->leaf->pipefd[1] = ast->cntl_op->pipefds[1];
 		else

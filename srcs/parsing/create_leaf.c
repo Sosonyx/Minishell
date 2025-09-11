@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/10 12:28:21 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 11:53:46 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	count_tok_word(t_tok_container_p tok_container, int i, int end)
 	return (words);
 }
 
-static t_return_status	build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end)
+static int	build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end)
 {
 	int			words;
 	int			j;
@@ -104,7 +104,7 @@ static t_return_status	build_cmd(char ***cmd, t_tok_container_p tok_container, i
 	return (RETURN_OK);
 }
 
-t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end)
+int	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end)
 {
 	*ast = ft_calloc(1, sizeof(t_ast));
 	if (!*ast)

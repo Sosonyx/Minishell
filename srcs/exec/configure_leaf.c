@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_redirections.c                                 :+:      :+:    :+:   */
+/*   configure_leaf.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/10 14:11:08 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/11 11:54:41 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	get_redir_in(t_leaf_p leaf)
+static void	get_command_path(t_minishell_p shell, t_leaf_p leaf)
+{
+	char *cmd;
+	
+	leaf->command_name = leaf->cmds[0];
+	cmd = find_cmd(leaf->cmds[0], shell->environ);
+	if (cmd)
+		leaf->cmds[0] = cmd;
+}
+
+static void	redir_in_conf(t_leaf_p leaf)
 {
 	char 		*target;
 	t_redir_p	cur_redir;
@@ -39,7 +49,7 @@ static void	get_redir_in(t_leaf_p leaf)
 	}
 }
 
-static void	get_redir_out(t_leaf_p leaf)
+static void	redir_out_conf(t_leaf_p leaf)
 {
 	char 		*target;
 	t_redir_p	cur_redir;
@@ -66,9 +76,10 @@ static void	get_redir_out(t_leaf_p leaf)
 	}
 }
 
-void	get_redirections(t_leaf_p leaf)
+void	configure_leaf(t_minishell_p shell, t_leaf_p leaf)
 {
-	get_redir_in(leaf);
-	get_redir_out(leaf);
-	leaf->treated = true;
+	redir_in_conf(leaf);
+	redir_out_conf(leaf);
+	get_command_path(shell, leaf);
+	leaf->configured = true;
 }

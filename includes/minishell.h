@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 11:05:39 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 11:57:35 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define PROMPT_MESSAGE "\001\033[48;5;57m\002minishell>\001\033[0m\002 "
 # define SHELL_TABLES_SIZE 32
 # define LOAD_FAIL_MSG "Minishell failed at loading!\n"
+
+# define OPEN_PERM 0644
 
 /********************************************************************************/
 /*			Minishell															*/

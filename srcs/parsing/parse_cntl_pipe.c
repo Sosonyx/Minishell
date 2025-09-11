@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 14:53:45 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 11:52:34 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_return_status	parse_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, int end)
+int	parse_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, int end)
 {
 	t_token_p	cur_token;
 	int			in_parenthesis;
