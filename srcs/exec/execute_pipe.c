@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 17:14:59 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 17:41:05 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 		ast->cntl_op->left->prev_pipefds = ast->pipefds;
 	}
 
-
+	execute_ast(shell, ast->cntl_op->left);
+	close(ast->pipefds[1]);
 
 	
 	/************************************************** */
@@ -79,8 +80,7 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 	{
 		ast->cntl_op->right->prev_pipefds = ast->pipefds;
 	}
-	execute_ast(shell, ast->cntl_op->left);
-	close(ast->pipefds[1]);
+
 	execute_ast(shell, ast->cntl_op->right);
 	close(ast->pipefds[0]);
 	
