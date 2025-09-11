@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 15:34:01 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 17:14:59 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,43 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 	
 	cur_leaf = ast->cntl_op->left->leaf;
 	if (cur_leaf)
-		configure_leaf(shell, cur_leaf);
+	{
+		preconfig_leaf(shell, cur_leaf);
+		if (!ast->cntl_op->left->leaf->r_out)
+		{
+			if (ast->prev_pipefds)
+				ast->cntl_op->left->leaf->pipefd[1] = ast->prev_pipefds[1];
+			else
+				ast->cntl_op->left->leaf->pipefd[1] = ast->pipefds[1];
+		}
+		else
+			close(ast->pipefds[1]);		
+	}
 	else
 	{
 		ast->cntl_op->left->prev_pipefds = ast->pipefds;
 	}
-	
 
-	if (!ast->cntl_op->left->leaf->r_out)
-		ast->cntl_op->left->leaf->pipefd[1] = ast->pipefds[1];
-	else
-		close(ast->pipefds[1]);
-	if (!ast->cntl_op->right->leaf->r_in)
-		ast->cntl_op->right->leaf->pipefd[0] = ast->pipefds[0];
-	else
-		close(ast->pipefds[0]);
+
+
 	
 	/************************************************** */
 	/* right */
 	
 	cur_leaf = ast->cntl_op->right->leaf;
 	if (cur_leaf)
-		configure_leaf(shell, cur_leaf);
+	{
+		preconfig_leaf(shell, cur_leaf);
+		if (!ast->cntl_op->right->leaf->r_in)
+		{
+			if (ast->prev_pipefds)
+				ast->cntl_op->right->leaf->pipefd[0] = ast->prev_pipefds[0];
+			else
+				ast->cntl_op->right->leaf->pipefd[0] = ast->pipefds[0];
+		}
+		else
+			close(ast->pipefds[0]);
+	}
 	else
 	{
 		ast->cntl_op->right->prev_pipefds = ast->pipefds;
@@ -81,8 +96,8 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 	}
 	else
 	{
-		configure_leaf(shell, ast->cntl_op->left->leaf);
-		configure_leaf(shell, ast->cntl_op->right->leaf);
+		preconfig_leaf(shell, ast->cntl_op->left->leaf);
+		preconfig_leaf(shell, ast->cntl_op->right->leaf);
 		if (!ast->cntl_op->left->leaf->r_out)
 			ast->cntl_op->left->leaf->pipefd[1] = ast->cntl_op->pipefds[1];
 		else

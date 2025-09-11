@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:39 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 14:39:46 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 15:42:22 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ int execute_subshell(t_minishell_p shell, t_ast_p ast)
 	if (subshell)
 	{
 		subshell->depth = shell->depth + 1;
+		
+		if (ast->prev_pipefds)
+			ast->cntl_op->left->prev_pipefds = ast->prev_pipefds;
+
 		ret_code = execute_ast(subshell, ast->cntl_op->left);
 		shell_destroy(subshell);
 	}

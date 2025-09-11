@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/11 14:26:24 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/11 16:26:59 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRC         = \
 				$(SRC_DIR)/exec/execute_pipe.c												\
 				$(SRC_DIR)/exec/execute_builtin.c											\
 				$(SRC_DIR)/exec/extract_return_code.c										\
-				$(SRC_DIR)/exec/configure_leaf.c											\
+				$(SRC_DIR)/exec/preconfig_leaf.c											\
 				$(SRC_DIR)/exec/redirect_leaf.c												\
 				$(SRC_DIR)/exec/redirections/close_fds.c									\
 				$(SRC_DIR)/exec/command_build/cmd_build.c									\

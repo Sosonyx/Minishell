@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 12:43:55 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 17:03:58 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,46 +21,46 @@ static int	convert_errno(int err)  // convertir le errno vers un code de retour 
 	return (1);
 }
 
-static int	execute_fork(t_minishell_p shell, t_leaf_p leaf)
+static int	execute_fork(t_minishell_p shell, t_ast_p ast)
 {
 	pid_t	*pid;
 	int		errnum;
 	int		return_status;
 
-	leaf->pid = fork();
-	if (leaf->pid == -1)
+	ast->leaf->pid = fork();
+	if (ast->leaf->pid == -1)
 	{
 		;	// sequence erreur
 	}
-	if (leaf->pid == 0)
+	if (ast->leaf->pid == 0)
 	{
-		if (leaf->fds[0] == -1 || leaf->fds[1] == -1)
+		if (ast->leaf->fds[0] == -1 || ast->leaf->fds[1] == -1)
 			exit(convert_errno(ENOENT));
-		redirect_leaf(leaf);
-		close_fds(leaf);
-		execve(*leaf->cmds, leaf->cmds, shell->environ);
+		redirect_leaf(ast);
+		close_fds(ast->leaf);
+		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
 		errnum = errno;
-		print_cmd_error(leaf->command_name, errnum);
+		print_cmd_error(ast->leaf->command_name, errnum);
 		exit(convert_errno(errnum));
 	}
 	else
 	{
-		close_fds(leaf);
-		waitpid(leaf->pid, &return_status, 0);
+		close_fds(ast->leaf);
+		waitpid(ast->leaf->pid, &return_status, 0);
 		return (return_status);
 	}
 }
 
-int	execute_leaf(t_minishell_p shell, t_leaf_p leaf)
+int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	char	*cmd;
 	int		return_status;
 
-	if (!leaf->configured)
-		configure_leaf(shell, leaf);
-	if (is_builtin(leaf))
-		return_status = execute_builtin(shell, leaf);
+	if (!ast->leaf->configured)
+		preconfig_leaf(shell, ast->leaf);
+	if (is_builtin(ast->leaf))
+		return_status = execute_builtin(shell, ast->leaf);
 	else
-		return_status = execute_fork(shell, leaf);
+		return_status = execute_fork(shell, ast);
 	return (return_status);
 }

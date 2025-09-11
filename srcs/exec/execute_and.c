@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:34 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 15:34:20 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 16:26:59 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@ int execute_and(t_minishell_p shell, t_ast_p ast)
 {
 	int	ret_code = 0;
 
-	if (ast->cntl_op->left->leaf)
-		configure_leaf(shell, ast->cntl_op->left->leaf);
-	if (ast->cntl_op->right->leaf)
-		configure_leaf(shell, ast->cntl_op->right->leaf);
-
-/* 	if (ast->prev_pipefds)
+	if (ast->prev_pipefds)
 	{
 		ast->cntl_op->left->prev_pipefds = ast->prev_pipefds;
 		ast->cntl_op->right->prev_pipefds = ast->prev_pipefds;	
-	} */
+	}
+	
+	if (ast->cntl_op->left->leaf)
+		preconfig_leaf(shell, ast->cntl_op->left->leaf);
+	if (ast->cntl_op->right->leaf)
+		preconfig_leaf(shell, ast->cntl_op->right->leaf);
+
 	// if (ast->cntl_op->left)
 	// {
 		ret_code = execute_ast(shell, ast->cntl_op->left);

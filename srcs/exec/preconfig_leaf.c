@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/11 11:54:41 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 16:26:59 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	redir_out_conf(t_leaf_p leaf)
 	}
 }
 
-void	configure_leaf(t_minishell_p shell, t_leaf_p leaf)
+void	preconfig_leaf(t_minishell_p shell, t_leaf_p leaf)
 {
 	redir_in_conf(leaf);
 	redir_out_conf(leaf);

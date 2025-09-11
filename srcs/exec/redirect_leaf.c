@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 12:32:41 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 17:09:51 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,50 @@ static int	set_redir(t_leaf_p leaf, t_redirtype redirtype)
 }
 // open et dup2 a proteger
 
-int	redirect_leaf(t_leaf_p leaf)
+int	redirect_leaf(t_ast_p ast)
+{
+	int	open_flag;
+
+	if (ast->prev_pipefds)
+	{
+		if (!ast->leaf->r_in)
+		{
+			dup2(ast->prev_pipefds[0], STDIN_FILENO);
+		}
+		if (!ast->leaf->r_out)
+		{
+			dup2(ast->prev_pipefds[1], STDOUT_FILENO);
+		}		
+	}
+	else
+	{
+		if (!ast->leaf->r_in && ast->leaf->pipefd[0] >= 0)
+		{
+			dup2(ast->leaf->pipefd[0], STDIN_FILENO);
+		}
+		if (!ast->leaf->r_out && ast->leaf->pipefd[1] >= 0)
+		{
+			dup2(ast->leaf->pipefd[1], STDOUT_FILENO);
+		}
+	}
+	if (ast->leaf->r_in)	
+	{
+		if (set_redir(ast->leaf, R_IN) == -1)
+			return (-1);
+		else
+			dup2(ast->leaf->fds[0], STDIN_FILENO);
+	}
+	if (ast->leaf->r_out)
+	{
+		if (set_redir(ast->leaf, R_OUT))
+			return (-1);
+		else
+			dup2(ast->leaf->fds[1], STDOUT_FILENO);
+	}
+	return (0);
+}
+
+/* int	redirect_leaf(t_leaf_p leaf)
 {
 	int	open_flag;
 
@@ -117,4 +160,4 @@ int	redirect_leaf(t_leaf_p leaf)
 			dup2(leaf->fds[1], STDOUT_FILENO);
 	}
 	return (0);
-}
+} */

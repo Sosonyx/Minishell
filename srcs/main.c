@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/11 10:32:53 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 16:15:23 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int ac, char **av, char **env)
 					// destroy input + destroy ast
 					// execve(ast->leaf->cmds[0], ast->leaf->cmds, env);
 					free(ast);
+					ast = NULL;
 				}
 				else
 				{
