@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 11:42:19 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 15:30:24 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ struct s_cntl_op
 	t_op_type  		op;
 	t_ast_p			left;
 	t_ast_p			right;
-	int				pipefds[2];				// si SUBSHELL pas de right
+/* 	int				pipefds[2];
+	int				*prev_pipefds; */
 };
 
 struct	s_ast
@@ -141,24 +142,16 @@ struct	s_ast
 	t_op_type			type;
 	t_cntl_op_p			cntl_op;
 	char				**env;
+	int					pipefds[2];
+	int					*prev_pipefds;
 };
-
-/* struct	s_exec_var
-{
-	pid_t	*pid_table;
-	int		*status_table;
-	int		*return_table;
-	int		cur_index;
-	int		tables_size;
-}; */
 
 struct s_minishell
 {
 	int				ac;
 	char			**av;
 	char			**environ;
-	// t_exec_var		exec_var;
-	bool			subshell;
+	int				depth;
 };
 
 #endif
