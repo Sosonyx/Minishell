@@ -1,7 +1,3 @@
-(< Makefile cat -e | sort | cat -e) | sort -r | (cat -e | wc)
-(< Makefile cat -e | sort | cat -e) | sort -r | wc
-(< Makefile cat -e | cat) | cat
 (ls) | (cat) | (cat)
-(ls | cat) | cat
 (ls) | (cat) | wc
 ls | (cat) | wc

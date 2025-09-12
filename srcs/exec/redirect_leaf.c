@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/12 17:02:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/12 20:02:03 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	set_redir(t_leaf_p leaf, t_redirtype redirtype)
 }
 // open et dup2 a proteger
 
-int	redirect_leaf(t_ast_p ast)
+/* int	redirect_leaf(t_ast_p ast)
 {
 	int	open_flag;
 
@@ -131,9 +131,9 @@ int	redirect_leaf(t_ast_p ast)
 			dup2(ast->leaf->fds[1], STDOUT_FILENO);
 	}
 	return (0);
-}
+} */
 
-/* int	redirect_leaf(t_ast_p ast)
+int	redirect_leaf(t_ast_p ast)
 {
 	int	open_flag;
 
@@ -174,4 +174,4 @@ int	redirect_leaf(t_ast_p ast)
 			dup2(ast->leaf->fds[1], STDOUT_FILENO);
 	}
 	return (0);
-} */
+}
