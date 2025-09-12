@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/12 15:00:35 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/12 17:11:09 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	main(int ac, char **av, char **env)
 			{
 				if (parse_tokens(&ast, tok_container))
 				{
-					ast->env = env;
 					return_code = execute_ast(shell, ast);
 					free(ast);
 					ast = NULL;

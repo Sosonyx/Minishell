@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/12 15:02:30 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/12 16:44:52 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	create_pipe(t_ast_p ast)
 {
 	int	pipe_return;
 
-	pipe_return = pipe(ast->pipefds);
+	pipe_return = pipe(ast->cur_pipe);
 	if (pipe_return == -1)
 		return (print_generic_error(PIP_ERRMSG), -1);
 	else
@@ -27,10 +27,12 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 {
 	t_leaf_p	cur_leaf;
 	t_cntl_op_p	cur_cntl;
+	int			ret_code;
 	
 	/************************************************** */
 	/* pipe */
 		
+
 	if (create_pipe(ast) == -1) return (-1);
 
 	/************************************************** */
@@ -44,37 +46,35 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 		preconfig_leaf(shell, cur_leaf);
 		if (!ast->cntl_op->left->leaf->r_out)
 		{
-			if (ast->prev_pipefds && ast->prev_pipefds[1] > 2)
-				ast->cntl_op->left->leaf->pipefd[1] = ast->prev_pipefds[1];
+			if (ast->prev_pipe && ast->prev_pipe[1] > 2)
+				ast->cntl_op->left->leaf->pipefd[1] = ast->prev_pipe[1];
 			else
-				ast->cntl_op->left->leaf->pipefd[1] = ast->pipefds[1];
+				ast->cntl_op->left->leaf->pipefd[1] = ast->cur_pipe[1];
 		}
 		else
 		{
-			close(ast->pipefds[1]);
+			close_secure(&ast->cur_pipe[1]);
 		}
-		if (ast->prev_pipefds && ast->prev_pipefds[0] > 2)
+		if (ast->prev_pipe && ast->prev_pipe[0] > 2)
 		{
-			ast->cntl_op->left->leaf->pipefd[0] = ast->prev_pipefds[0];
+			ast->cntl_op->left->leaf->pipefd[0] = ast->prev_pipe[0];
 			test_flag = 1;
 		}		
-		execute_ast(shell, ast->cntl_op->left);
+		ret_code = execute_ast(shell, ast->cntl_op->left);
 		if (test_flag)
 		{
-			close(ast->prev_pipefds[0]);
-			ast->prev_pipefds[0] = -2;
+			close_secure(&ast->prev_pipe[0]);
 		}	
 	}
 	else
 	{
-		ast->cntl_op->left->prev_pipefds = ast->pipefds;
-		execute_ast(shell, ast->cntl_op->left);
+		ast->cntl_op->left->prev_pipe = ast->cur_pipe;
+		ret_code = execute_ast(shell, ast->cntl_op->left);
 	}
 
 	// execute_ast(shell, ast->cntl_op->left);
 	
-	close(ast->pipefds[1]);
-	ast->pipefds[1] = -2;
+	close_secure(&ast->cur_pipe[1]);
 	
 	/************************************************** */
 	/* right */
@@ -85,23 +85,24 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 		preconfig_leaf(shell, cur_leaf);
 		if (!ast->cntl_op->right->leaf->r_in)
 		{
-			if (ast->prev_pipefds && ast->prev_pipefds[0] > 2)
-				ast->cntl_op->right->leaf->pipefd[0] = ast->prev_pipefds[0];
+			if (ast->prev_pipe && ast->prev_pipe[0] > 2)
+				ast->cntl_op->right->leaf->pipefd[0] = ast->prev_pipe[0];
 			else
-				ast->cntl_op->right->leaf->pipefd[0] = ast->pipefds[0];
+				ast->cntl_op->right->leaf->pipefd[0] = ast->cur_pipe[0];
 		}
 		else
-			close(ast->pipefds[0]);
+		{
+			close_secure(&ast->cur_pipe[0]);
+		}
 	}
 	else
 	{
-		ast->cntl_op->right->prev_pipefds = ast->pipefds;
+		ast->cntl_op->right->prev_pipe = ast->cur_pipe;
 	}
 
-	execute_ast(shell, ast->cntl_op->right);
+	ret_code = execute_ast(shell, ast->cntl_op->right);
 	
-	close(ast->pipefds[0]);
-	ast->pipefds[0] = -2;
+	close_secure(&ast->cur_pipe[0]);
 	
-	return (0);		// temporaire
+	return (ret_code);		// temporaire
 }

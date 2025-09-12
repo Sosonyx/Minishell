@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 17:09:51 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/12 17:02:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,58 @@ int	redirect_leaf(t_ast_p ast)
 {
 	int	open_flag;
 
-	if (ast->prev_pipefds)
+	if (!ast->leaf->r_in)
 	{
-		if (!ast->leaf->r_in)
+		if (ast->prev_pipe && ast->prev_pipe[0] >= 0)
 		{
-			dup2(ast->prev_pipefds[0], STDIN_FILENO);
+			dup2(ast->prev_pipe[0], STDIN_FILENO);
 		}
-		if (!ast->leaf->r_out)
+		else if (ast->leaf->pipefd[0] >= 0)
 		{
-			dup2(ast->prev_pipefds[1], STDOUT_FILENO);
+			dup2(ast->leaf->pipefd[0], STDIN_FILENO);
+		}
+	}
+	else
+	{
+		if (set_redir(ast->leaf, R_IN) == -1)
+			return (-1);
+		else
+			dup2(ast->leaf->fds[0], STDIN_FILENO);
+	}	
+	if (!ast->leaf->r_out)
+	{
+		if (ast->prev_pipe && ast->prev_pipe[1] >= 0)
+		{
+			dup2(ast->prev_pipe[1], STDIN_FILENO);
+		}
+		if (ast->leaf->pipefd[1] >= 0)
+		{
+			dup2(ast->leaf->pipefd[1], STDOUT_FILENO);
+		}
+	}
+	else
+	{
+		if (set_redir(ast->leaf, R_OUT))
+			return (-1);
+		else
+			dup2(ast->leaf->fds[1], STDOUT_FILENO);
+	}
+	return (0);
+}
+
+/* int	redirect_leaf(t_ast_p ast)
+{
+	int	open_flag;
+
+	if (ast->prev_pipe)
+	{
+		if (!ast->leaf->r_in && ast->prev_pipe[0] >= 0)
+		{
+			dup2(ast->prev_pipe[0], STDIN_FILENO);
+		}
+		if (!ast->leaf->r_out && ast->prev_pipe[1] >= 0)
+		{
+			dup2(ast->prev_pipe[1], STDOUT_FILENO);
 		}		
 	}
 	else
@@ -129,35 +172,6 @@ int	redirect_leaf(t_ast_p ast)
 			return (-1);
 		else
 			dup2(ast->leaf->fds[1], STDOUT_FILENO);
-	}
-	return (0);
-}
-
-/* int	redirect_leaf(t_leaf_p leaf)
-{
-	int	open_flag;
-
-	if (!leaf->r_in && leaf->pipefd[0] >= 0)
-	{
-		dup2(leaf->pipefd[0], STDIN_FILENO);
-	}
-	if (!leaf->r_out && leaf->pipefd[1] >= 0)
-	{
-		dup2(leaf->pipefd[1], STDOUT_FILENO);
-	}
-	if (leaf->r_in)	
-	{
-		if (set_redir(leaf, R_IN) == -1)
-			return (-1);
-		else
-			dup2(leaf->fds[0], STDIN_FILENO);
-	}
-	if (leaf->r_out)
-	{
-		if (set_redir(leaf, R_OUT))
-			return (-1);
-		else
-			dup2(leaf->fds[1], STDOUT_FILENO);
 	}
 	return (0);
 } */

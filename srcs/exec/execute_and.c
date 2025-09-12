@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:34 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 16:26:59 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/12 16:14:08 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int execute_and(t_minishell_p shell, t_ast_p ast)
 {
 	int	ret_code = 0;
 
-	if (ast->prev_pipefds)
+	if (ast->prev_pipe)
 	{
-		ast->cntl_op->left->prev_pipefds = ast->prev_pipefds;
-		ast->cntl_op->right->prev_pipefds = ast->prev_pipefds;	
+		ast->cntl_op->left->prev_pipe = ast->prev_pipe;
+		ast->cntl_op->right->prev_pipe = ast->prev_pipe;	
 	}
 	
 	if (ast->cntl_op->left->leaf)
