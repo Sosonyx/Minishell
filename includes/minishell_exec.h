@@ -24,8 +24,11 @@ int 	execute_or(t_minishell_p shell, t_ast_p ast);
 int		execute_leaf(t_minishell_p shell, t_ast_p ast);
 int		execute_builtin(t_minishell_p shell, t_leaf_p leaf);
 
-void	close_fds(t_leaf_p leaf);
+void	close_fds(t_ast_p ast, int mode);
 void	close_secure(int *fd);
+
+void	close_lfds(int fds[2]);	// temporaire pour essayer
+
 
 bool	is_builtin(t_leaf_p leaf);
 

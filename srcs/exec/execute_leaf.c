@@ -37,15 +37,15 @@ static int	execute_fork(t_minishell_p shell, t_ast_p ast)
 		if (ast->leaf->fds[0] == -1 || ast->leaf->fds[1] == -1)
 			exit(convert_errno(ENOENT));
 		redirect_leaf(ast);
-		close_fds(ast->leaf);
+		close_fds(ast, 1);
 		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
 		errnum = errno;
-		print_cmd_error(ast->leaf->command_name, errnum);
+		print_cmd_error(ast->leaf->name, errnum);
 		exit(convert_errno(errnum));
 	}
 	else
 	{
-		close_fds(ast->leaf);
+		close_fds(ast, 0);
 		waitpid(ast->leaf->pid, &return_status, 0);
 		return (return_status);
 	}

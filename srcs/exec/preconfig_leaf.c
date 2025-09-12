@@ -16,7 +16,7 @@ static void	get_command_path(t_minishell_p shell, t_leaf_p leaf)
 {
 	char *cmd;
 	
-	leaf->command_name = leaf->cmds[0];
+	leaf->name = leaf->cmds[0];
 	cmd = find_cmd(leaf->cmds[0], shell->environ);
 	if (cmd)
 		leaf->cmds[0] = cmd;

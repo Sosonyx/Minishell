@@ -103,18 +103,20 @@ struct s_redir
 	char				*target;
 	char				*limiter;
 	int					fd;
-	struct s_redir		*next;					//pointeur vers la redir suivante
+	struct s_redir		*next;
 };
 
 struct s_leaf
 {
+	pid_t				pid;
+
 	char				**cmds;
-	char				*command_name;
+	char				*name;
 	t_redir_p			redir;
-	bool				is_builtin;
 	
 	int					pipefd[2];
 	int					fds[2];
+	int					*cur_pipe;
 	
 	bool				r_in;
 	char				*r_in_path;
@@ -122,8 +124,6 @@ struct s_leaf
 	char				*r_out_path;
 
 	bool				configured;
-
-	pid_t				pid;
 };
 
 struct s_cntl_op
@@ -131,8 +131,6 @@ struct s_cntl_op
 	t_op_type  		op;
 	t_ast_p			left;
 	t_ast_p			right;
-/* 	int				pipefds[2];
-	int				*prev_pipe; */
 };
 
 struct	s_ast
@@ -141,11 +139,9 @@ struct	s_ast
 
 	t_op_type			type;
 	t_cntl_op_p			cntl_op;
-	// char				**env;
+
 	int					cur_pipe[2];
 	int					*prev_pipe;
-
-	// int					depth;
 };
 
 struct s_minishell
