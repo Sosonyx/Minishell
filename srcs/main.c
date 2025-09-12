@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/11 16:15:23 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/12 15:00:35 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	g_status;
 static char	*prompt_input(char **input)
 {
 	*input = readline(PROMPT_MESSAGE);
-	if (*input)
+	if (*input && **input)
 		add_history(*input);
 	return (*input);
 }
@@ -49,10 +49,6 @@ int	main(int ac, char **av, char **env)
 				{
 					ast->env = env;
 					return_code = execute_ast(shell, ast);
-					// exec
-					// temporaire
-					// destroy input + destroy ast
-					// execve(ast->leaf->cmds[0], ast->leaf->cmds, env);
 					free(ast);
 					ast = NULL;
 				}

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 11:52:34 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/12 15:11:58 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int start, int 
 	if (tok_container->tokens[start] && (tok_container->tokens[start])->type == T_LPARENT)
 	{
 		subshell_end = end;
-		while (subshell_end > start)
+		while (subshell_end >= 0 && subshell_end > start)
         {
 			if ((!tok_container->tokens[subshell_end]))
 				subshell_end--;

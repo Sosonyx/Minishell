@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/11 16:26:59 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/12 12:38:07 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC         = \
 				$(SRC_DIR)/exec/execute_leaf.c												\
 				$(SRC_DIR)/exec/execute_and.c												\
 				$(SRC_DIR)/exec/execute_or.c												\
-				$(SRC_DIR)/exec/execute_subshell.c												\
+				$(SRC_DIR)/exec/execute_subshell.c											\
 				$(SRC_DIR)/exec/execute_pipe.c												\
 				$(SRC_DIR)/exec/execute_builtin.c											\
 				$(SRC_DIR)/exec/extract_return_code.c										\
