@@ -1,7 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
-/*         {
+        {
             "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
@@ -20,8 +20,8 @@
                 },
             ],
             "preLaunchTask": "build"
-        }, */
- 		{
+        },
+/*  		{
             "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
@@ -52,6 +52,6 @@
                 }
             ],
             "preLaunchTask": "build"
-        },
+        }, */
     ]
 }

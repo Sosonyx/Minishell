@@ -20,11 +20,8 @@ int execute_subshell(t_minishell_p shell, t_ast_p ast)
 	pid = fork();
 	if (pid == 0)
 	{
-
-		if (ast->prev_pipe)
-		{
-			ast->cntl_op->left->prev_pipe = ast->prev_pipe;
-		}
+		ast->cntl_op->left->read_fd = ast->read_fd;
+		ast->cntl_op->left->write_fd = ast->write_fd;
 			
 		ret_code = execute_ast(shell, ast->cntl_op->left);
 		exit(ret_code);
@@ -32,7 +29,6 @@ int execute_subshell(t_minishell_p shell, t_ast_p ast)
 	else if (pid > 0)
 	{
 		close_fds(ast, 0);
-		// close_lfds(ast->prev_pipe);
 		waitpid(pid, &ret_code, 0);
 	}
 	else

@@ -112,8 +112,8 @@ int	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int en
 	(*ast)->leaf = ft_calloc(1, sizeof(struct s_leaf));
 	if (!(*ast)->leaf)
 		return (RETURN_FAIL);
-	(*ast)->leaf->pipefd[0] = -2;
-	(*ast)->leaf->pipefd[1] = -2;
+/* 	(*ast)->leaf->pipefd[0] = -2;
+	(*ast)->leaf->pipefd[1] = -2; */
 	(*ast)->leaf->fds[0] = -2;
 	(*ast)->leaf->fds[1] = -2;
 	(*ast)->leaf->redir = build_redir(tok_container, start, end);

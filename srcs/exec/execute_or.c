@@ -14,32 +14,28 @@
 
 int execute_or(t_minishell_p shell, t_ast_p ast)
 {
-	int	ret_code;
+	int	return_code;
 
-	if (ast->prev_pipe)
-	{
-		ast->cntl_op->left->prev_pipe = ast->prev_pipe;
-		ast->cntl_op->right->prev_pipe = ast->prev_pipe;
-	}
+	ast->cntl_op->left->read_fd = ast->read_fd;
+	ast->cntl_op->left->write_fd = ast->write_fd;
+	ast->cntl_op->right->read_fd = ast->read_fd;
+	ast->cntl_op->right->write_fd = ast->write_fd;
+	
 	if (ast->cntl_op->left->leaf)
 		preconfig_leaf(shell, ast->cntl_op->left->leaf);
-	if (ast->cntl_op->right->leaf)
-		preconfig_leaf(shell, ast->cntl_op->right->leaf);
 
-	ret_code = execute_ast(shell, ast->cntl_op->left);
-	if (ret_code)
+	return_code = execute_ast(shell, ast->cntl_op->left);
+	if (return_code)
 	{
-		ret_code = execute_ast(shell, ast->cntl_op->right);
+		if (ast->cntl_op->right->leaf)
+			preconfig_leaf(shell, ast->cntl_op->right->leaf);
+		return_code = execute_ast(shell, ast->cntl_op->right);
 	}
-	else if (!ret_code && (ast->cntl_op->right->type == OP_AND || ast->cntl_op->right->type == OP_OR))
+	else if (!return_code && (ast->cntl_op->right->type == OP_AND))
 	{
-		if (ast->prev_pipe)
-			ast->cntl_op->right->cntl_op->right->prev_pipe = ast->prev_pipe;
-		ret_code = execute_ast(shell, ast->cntl_op->right->cntl_op->right);
+		if (ast->cntl_op->right->leaf)
+			preconfig_leaf(shell, ast->cntl_op->right->leaf);
+		return_code = execute_ast(shell, ast->cntl_op->right->cntl_op->right);
 	}
-	else if (!ret_code && ast->cntl_op->right->type == OP_PIPE)
-	{
-		ret_code = execute_ast(shell, ast->cntl_op->right);
-	}
-	return (ret_code);
+	return (return_code);
 }

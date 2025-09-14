@@ -140,8 +140,12 @@ struct	s_ast
 	t_op_type			type;
 	t_cntl_op_p			cntl_op;
 
-	int					cur_pipe[2];
-	int					*prev_pipe;
+	// int					cur_pipe[2];
+
+	int					*read_fd;
+	int					*write_fd;
+
+	int					*cur_pipe;
 };
 
 struct s_minishell

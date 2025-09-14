@@ -20,23 +20,16 @@ void	close_fds(t_ast_p ast, int mode)
 	{
 		close_secure(&ast->leaf->fds[0]);
 		close_secure(&ast->leaf->fds[1]);
-		close_secure(&ast->leaf->pipefd[0]);
-		close_secure(&ast->leaf->pipefd[1]);
 	}
 	if (mode)
 	{
-		close_secure(&ast->cur_pipe[0]);
-		close_secure(&ast->cur_pipe[1]);
-		if (ast->prev_pipe)
+		if (ast->cur_pipe)
 		{
-			close_secure(&ast->prev_pipe[0]);
-			close_secure(&ast->prev_pipe[1]);
+			close_secure(&ast->cur_pipe[0]);
+			close_secure(&ast->cur_pipe[1]);
 		}
-		if (ast->leaf && ast->leaf->cur_pipe)
-		{
-			close_secure(&ast->leaf->cur_pipe[0]);
-			close_secure(&ast->leaf->cur_pipe[1]);
-		}
+		close_secure(ast->write_fd);
+		close_secure(ast->read_fd);
 	}
 }
 
@@ -48,4 +41,5 @@ void	close_lfds(int fds[2])
 		close_secure(&fds[1]);
 	}
 }
+
 

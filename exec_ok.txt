@@ -1,0 +1,18 @@
+(ls) | (cat) | (cat && echo test) | (cat -e | cat -e | (wc && wc)) | cat -e | cat -e
+
+ls | (cat -e | cat -e | (wc && wc)) | wc -l
+ls | (cat -e | cat -e | cat -e) | wc
+(ls | cat -e | cat -e) | wc
+
+clear && lsblk | (sort && wc | wc -l) | wc
+clear && lsblk | (sort && wc | wc -l && echo test) | wc
+clear && lsblk | (sort && wc | wc -l || echo test) | wc
+
+ls | cat -e | cat -e | cat -e | (cat -e && cat -e) | cat
+ls | cat -e | cat -e | cat -e | (cat -e | cat -e) | cat
+ls | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
+
+(ls && ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
+(ls && ls || < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
+(ls || ls || < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
+(ls || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat

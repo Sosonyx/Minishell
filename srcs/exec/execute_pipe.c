@@ -16,11 +16,18 @@ static int	create_pipe(t_ast_p ast)
 {
 	int	pipe_return;
 
-	pipe_return = pipe(ast->cur_pipe);
-	if (pipe_return == -1)
-		return (print_generic_error(PIP_ERRMSG), -1);
+	ast->cur_pipe = ft_calloc(2, sizeof(int));
+	if (ast->cur_pipe)
+	{
+		pipe_return = pipe(ast->cur_pipe);
+		if (pipe_return == -1)
+			return (print_generic_error(PIP_ERRMSG), -1);
+	}
 	else
-		return(0);
+	{
+		return (print_generic_error(MEM_ERRMSG), -1);
+	}
+	return (0);
 }
 
 int execute_pipe(t_minishell_p shell, t_ast_p ast)
@@ -36,76 +43,26 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 
 
 	/************************************************** */
-	/* left */
-	
-	cur_leaf = ast->cntl_op->left->leaf;
-	if (cur_leaf)
-	{
-		int	test_flag = 0;
-		ast->cntl_op->left->leaf->cur_pipe = ast->cur_pipe;
-		preconfig_leaf(shell, cur_leaf);
-		if (!ast->cntl_op->left->leaf->r_out)
-		{
-			if (ast->prev_pipe && ast->prev_pipe[1] > 2)
-				ast->cntl_op->left->leaf->pipefd[1] = ast->prev_pipe[1];
-			else
-				ast->cntl_op->left->leaf->pipefd[1] = ast->cur_pipe[1];
-			
-		}
-		else
-		{
-			close_secure(&ast->cur_pipe[1]);
-		}
-		if (ast->prev_pipe && ast->prev_pipe[0] > 2)
-		{
-			ast->cntl_op->left->leaf->pipefd[0] = ast->prev_pipe[0];
-			test_flag = 1;
-		}		
-		ret_code = execute_ast(shell, ast->cntl_op->left);
-		if (test_flag)
-		{
-			close_secure(&ast->prev_pipe[0]);
-		}	
-	}
-	else
-	{
-		ast->cntl_op->left->prev_pipe = ast->cur_pipe;
-		ret_code = execute_ast(shell, ast->cntl_op->left);
-	}
+	/* redir */
 
-	// execute_ast(shell, ast->cntl_op->left);
+	ast->cntl_op->left->write_fd = &ast->cur_pipe[1];
+	ast->cntl_op->left->read_fd = ast->read_fd;
 	
+	ast->cntl_op->right->read_fd = &ast->cur_pipe[0];
+	ast->cntl_op->right->write_fd = ast->write_fd;
+
+	/************************************************** */
+	/* left */
+
+	ret_code = execute_ast(shell, ast->cntl_op->left);
 	close_secure(&ast->cur_pipe[1]);
 	
 	
 	/************************************************** */
 	/* right */
 	
-	cur_leaf = ast->cntl_op->right->leaf;
-	if (cur_leaf)
-	{
-		ast->cntl_op->right->leaf->cur_pipe = ast->cur_pipe;
-		preconfig_leaf(shell, cur_leaf);
-		if (!ast->cntl_op->right->leaf->r_in)
-		{
-			if (ast->prev_pipe && ast->prev_pipe[0] > 2)
-				ast->cntl_op->right->leaf->pipefd[0] = ast->prev_pipe[0];
-			else
-				ast->cntl_op->right->leaf->pipefd[0] = ast->cur_pipe[0];
-		}
-		else
-		{
-			close_secure(&ast->cur_pipe[0]);
-		}
-	}
-	else
-	{
-		ast->cntl_op->right->prev_pipe = ast->cur_pipe;
-	}
-
 	ret_code = execute_ast(shell, ast->cntl_op->right);
-	
 	close_secure(&ast->cur_pipe[0]);
 	
-	return (ret_code);		// temporaire
+	return (ret_code);
 }

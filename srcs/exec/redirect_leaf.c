@@ -88,77 +88,19 @@ static int	set_redir(t_leaf_p leaf, t_redirtype redirtype)
 	}
 	return (0);
 }
-// open et dup2 a proteger
-
-/* int	redirect_leaf(t_ast_p ast)
-{
-	int	open_flag;
-
-	if (!ast->leaf->r_in)
-	{
-		if (ast->prev_pipe && ast->prev_pipe[0] >= 0)
-		{
-			dup2(ast->prev_pipe[0], STDIN_FILENO);
-		}
-		else if (ast->leaf->pipefd[0] >= 0)
-		{
-			dup2(ast->leaf->pipefd[0], STDIN_FILENO);
-		}
-	}
-	else
-	{
-		if (set_redir(ast->leaf, R_IN) == -1)
-			return (-1);
-		else
-			dup2(ast->leaf->fds[0], STDIN_FILENO);
-	}	
-	if (!ast->leaf->r_out)
-	{
-		if (ast->prev_pipe && ast->prev_pipe[1] >= 0)
-		{
-			dup2(ast->prev_pipe[1], STDIN_FILENO);
-		}
-		if (ast->leaf->pipefd[1] >= 0)
-		{
-			dup2(ast->leaf->pipefd[1], STDOUT_FILENO);
-		}
-	}
-	else
-	{
-		if (set_redir(ast->leaf, R_OUT))
-			return (-1);
-		else
-			dup2(ast->leaf->fds[1], STDOUT_FILENO);
-	}
-	return (0);
-} */
 
 int	redirect_leaf(t_ast_p ast)
 {
 	int	open_flag;
 
-	if (ast->prev_pipe)
+	if (!ast->leaf->r_in && ast->read_fd && *ast->read_fd > 2)
 	{
-		if (!ast->leaf->r_in && ast->prev_pipe[0] >= 0)
-		{
-			dup2(ast->prev_pipe[0], STDIN_FILENO);
-		}
-		if (!ast->leaf->r_out && ast->prev_pipe[1] >= 0)
-		{
-			dup2(ast->prev_pipe[1], STDOUT_FILENO);
-		}		
+		dup2(*ast->read_fd, STDIN_FILENO);
 	}
-	else
+	if (!ast->leaf->r_out && ast->write_fd && *ast->write_fd > 2)
 	{
-		if (!ast->leaf->r_in && ast->leaf->pipefd[0] >= 0)
-		{
-			dup2(ast->leaf->pipefd[0], STDIN_FILENO);
-		}
-		if (!ast->leaf->r_out && ast->leaf->pipefd[1] >= 0)
-		{
-			dup2(ast->leaf->pipefd[1], STDOUT_FILENO);
-		}
-	}
+		dup2(*ast->write_fd, STDOUT_FILENO);
+	}		
 	if (ast->leaf->r_in)	
 	{
 		if (set_redir(ast->leaf, R_IN) == -1)
