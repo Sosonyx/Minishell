@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_leaf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/12 20:02:03 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/14 15:40:44 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static int	open_target(t_leaf_p leaf, t_redir_p cur_redir, t_redirtype redirtype
 	if (*target_fd == -1)
 	{
 		print_file_error(cur_redir->target, ENOENT);
+		exit(EXIT_FAILURE);
 	}
 	else
 	{

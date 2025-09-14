@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/12 20:04:08 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/14 15:39:27 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 	t_tok_container_p	tok_container = NULL;
 	char				*input = NULL;
 	t_minishell_p		shell;
-	int					return_code;
+	int					rcode;
 	
 	signals_setter();
 	shell = shell_init(ac, av, environ);
@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **env)
 			{
 				if (parse_tokens(&ast, tok_container))
 				{
-					return_code = execute_ast(shell, ast);
+					rcode = execute_ast(shell, ast);
 					free(ast);
 					ast = NULL;
 				}
@@ -68,28 +68,8 @@ int	main(int ac, char **av, char **env)
 		}
 	}
 	rl_clear_history();
-	return (return_code);
+	return (rcode);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

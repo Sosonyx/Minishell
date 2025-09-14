@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/12 19:56:55 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/14 15:28:32 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,39 +30,29 @@ static int	create_pipe(t_ast_p ast)
 	return (0);
 }
 
-int execute_pipe(t_minishell_p shell, t_ast_p ast)
+static void	connect_nodes(t_ast_p ast)
 {
-	t_leaf_p	cur_leaf;
-	t_cntl_op_p	cur_cntl;
-	int			ret_code;
-	
-	/************************************************** */
-	/* pipe */
-		
-	if (create_pipe(ast) == -1) return (-1);
-
-
-	/************************************************** */
-	/* redir */
-
 	ast->cntl_op->left->write_fd = &ast->cur_pipe[1];
 	ast->cntl_op->left->read_fd = ast->read_fd;
 	
 	ast->cntl_op->right->read_fd = &ast->cur_pipe[0];
 	ast->cntl_op->right->write_fd = ast->write_fd;
+}
 
-	/************************************************** */
-	/* left */
+int execute_pipe(t_minishell_p shell, t_ast_p ast)
+{
+	int			rstatus;
+		
+	if (create_pipe(ast) == -1) 
+		return (-1);
 
-	ret_code = execute_ast(shell, ast->cntl_op->left);
+	connect_nodes(ast);
+
+	rstatus = execute_ast(shell, ast->cntl_op->left);
 	close_secure(&ast->cur_pipe[1]);
-	
-	
-	/************************************************** */
-	/* right */
-	
-	ret_code = execute_ast(shell, ast->cntl_op->right);
+
+	rstatus = execute_ast(shell, ast->cntl_op->right);
 	close_secure(&ast->cur_pipe[0]);
 	
-	return (ret_code);
+	return (rstatus);
 }

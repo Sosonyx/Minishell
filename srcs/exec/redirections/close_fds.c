@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 12:38:16 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 12:38:21 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/14 15:12:47 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	close_fds(t_ast_p ast, int mode)
 		close_secure(&ast->leaf->fds[0]);
 		close_secure(&ast->leaf->fds[1]);
 	}
-	if (mode)
+	if (mode == CHILD)
 	{
 		if (ast->cur_pipe)
 		{
@@ -32,14 +32,3 @@ void	close_fds(t_ast_p ast, int mode)
 		close_secure(ast->read_fd);
 	}
 }
-
-void	close_lfds(int fds[2])
-{
-	if (fds)
-	{
-		close_secure(&fds[0]);
-		close_secure(&fds[1]);
-	}
-}
-
-

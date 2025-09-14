@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_subshell.c                                 :+:      :+:    :+:   */
+/*   forward_fds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 14:21:39 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/14 15:28:32 by fox              ###   ########.fr       */
+/*   Created: 2025/09/14 14:49:17 by fox               #+#    #+#             */
+/*   Updated: 2025/09/14 14:53:34 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int execute_subshell(t_minishell_p shell, t_ast_p ast)
+void	forward_fds(t_ast_p ast)
 {
-	int				rstatus;
-	pid_t			pid;
-
-	pid = fork();
-	if (pid == 0)
+	t_ast_p	branch;
+	
+	branch = ast->cntl_op->left;
+	if (branch)
 	{
-		forward_fds(ast);
-			
-		rstatus = execute_ast(shell, ast->cntl_op->left);
-		exit(rstatus);
+		branch->read_fd = ast->read_fd;
+		branch->write_fd = ast->write_fd;
 	}
-	else if (pid > 0)
+	branch = ast->cntl_op->right;
+	if (branch)
 	{
-		close_fds(ast, PARENT);
-		waitpid(pid, &rstatus, 0);
+		branch->read_fd = ast->read_fd;
+		branch->write_fd = ast->write_fd;
 	}
-	else
-	{
-		print_generic_error(FORK_ERRMSG);
-	}
-	return (rstatus);
 }
-

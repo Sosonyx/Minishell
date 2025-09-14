@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/12 17:11:26 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/14 15:36:46 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	convert_errno(int err)  // convertir le errno vers un code de retour valable
+static int	convert_errno(int err)
 {
 	if (err == ENOENT)
 		return (127);
@@ -21,46 +21,52 @@ static int	convert_errno(int err)  // convertir le errno vers un code de retour 
 	return (1);
 }
 
-static int	execute_fork(t_minishell_p shell, t_ast_p ast)
+static void	_execute_leaf(t_minishell_p shell, t_ast_p ast)
+{
+	int		errnum;
+
+	if (ast->leaf->fds[0] == -1 || ast->leaf->fds[1] == -1)
+		exit(convert_errno(ENOENT));
+	redirect_leaf(ast);
+	close_fds(ast, CHILD);
+	execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
+	errnum = errno;
+	print_cmd_error(ast->leaf->name, errnum);
+	exit(convert_errno(errnum));
+}
+
+static int	execute_command(t_minishell_p shell, t_ast_p ast)
 {
 	pid_t	*pid;
-	int		errnum;
-	int		return_status;
+	int		rstatus;
 
 	ast->leaf->pid = fork();
 	if (ast->leaf->pid == -1)
 	{
-		;	// sequence erreur
+		;
 	}
 	if (ast->leaf->pid == 0)
 	{
-		if (ast->leaf->fds[0] == -1 || ast->leaf->fds[1] == -1)
-			exit(convert_errno(ENOENT));
-		redirect_leaf(ast);
-		close_fds(ast, 1);
-		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
-		errnum = errno;
-		print_cmd_error(ast->leaf->name, errnum);
-		exit(convert_errno(errnum));
+		_execute_leaf(shell, ast);
 	}
 	else
 	{
-		close_fds(ast, 0);
-		waitpid(ast->leaf->pid, &return_status, 0);
-		return (return_status);
+		close_fds(ast, PARENT);
+		waitpid(ast->leaf->pid, &rstatus, 0);
+		return (rstatus);
 	}
 }
 
 int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	char	*cmd;
-	int		return_status;
+	int		rstatus;
 
 	if (!ast->leaf->configured)
 		preconfig_leaf(shell, ast->leaf);
 	if (is_builtin(ast->leaf))
-		return_status = execute_builtin(shell, ast->leaf);
+		rstatus = execute_builtin(shell, ast->leaf);
 	else
-		return_status = execute_fork(shell, ast);
-	return (return_status);
+		rstatus = execute_command(shell, ast);
+	return (rstatus);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/12 17:10:04 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/14 15:19:08 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ enum e_optype
 	OP_LEAF = 16
 };
 
+enum e_process
+{
+	CHILD = 1,
+	PARENT = 2
+};
+
 /********************************************************************************/
 /*			Structures															*/
 /********************************************************************************/
@@ -77,9 +83,6 @@ struct s_tok_container
 	int			start_index;
 	int			end_index;
 	int			op_index;
-	// int			oldfd[2];		// a garder ?
-	// int			nextfd[2];		// a garder ?
-	// int			ac;				// a garder ?
 };
 
 ///
@@ -140,12 +143,10 @@ struct	s_ast
 	t_op_type			type;
 	t_cntl_op_p			cntl_op;
 
-	// int					cur_pipe[2];
-
+	int					*cur_pipe;
+	
 	int					*read_fd;
 	int					*write_fd;
-
-	int					*cur_pipe;
 };
 
 struct s_minishell
@@ -153,7 +154,7 @@ struct s_minishell
 	int				ac;
 	char			**av;
 	char			**environ;
-	int				depth;
+	int				retcode;
 };
 
 #endif
