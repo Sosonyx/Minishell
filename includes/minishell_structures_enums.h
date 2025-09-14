@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/14 15:19:08 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/15 00:00:56 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ enum e_toktype
 
 enum e_redirtype
 {
-	R_IN,
-	R_OUT,
-	R_APPEND,
-	R_HDOC,
+	R_IN = 1,
+	R_OUT = 2,
+	R_APPEND = 4,
+	R_HDOC = 8,
 };
 
 enum e_optype

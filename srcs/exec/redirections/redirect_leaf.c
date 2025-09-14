@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/14 15:40:44 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/15 00:01:07 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	set_redir(t_leaf_p leaf, t_redirtype redirtype)
 	cur_redir = leaf->redir;
 	while (cur_redir)
 	{
-		if (cur_redir->type == redirtype)
+		if (cur_redir->type & redirtype)
 		{
 			if (open_target(leaf, cur_redir, redirtype) == -1)
 			{
@@ -111,7 +111,7 @@ int	redirect_leaf(t_ast_p ast)
 	}
 	if (ast->leaf->r_out)
 	{
-		if (set_redir(ast->leaf, R_OUT))
+		if (set_redir(ast->leaf, R_OUT | R_APPEND))
 			return (-1);
 		else
 			dup2(ast->leaf->fds[1], STDOUT_FILENO);
