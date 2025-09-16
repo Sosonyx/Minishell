@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/16 19:40:26 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/16 21:51:08 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ int	execute_ast(t_minishell_p shell, t_ast_p ast)
 	{
 		execute_leaf(shell, ast);
 		waitpid(ast->leaf->pid, &rstatus, 0);
-		return (rstatus);
 	}
 	else
-		return (_execute_ast(shell, ast));
+	{
+		rstatus = _execute_ast(shell, ast);
+	}
+	destroy_ast(&ast);
+	return (rstatus);
 }

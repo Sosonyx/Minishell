@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/16 19:45:29 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/16 22:03:05 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int	main(int ac, char **av, char **env)
 	
 	signals_setter();
 	shell = shell_init(ac, av, environ);
+	if (!shell)
+	{
+		print_generic_error(MEM_ERRMSG);
+		exit(EXIT_FAILURE);
+	}
 	while (1)
 	{
 		if (prompt_input(&input))
@@ -61,7 +66,7 @@ int	main(int ac, char **av, char **env)
 		{
 			if (!input)
 			{
-				
+				shell_destroy(shell);
 				break ;
 			}
 					// prompt error -> close ou message d'erreur et nouveau prompt ?

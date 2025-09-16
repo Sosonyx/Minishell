@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/16 16:11:38 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/16 21:18:10 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRC         = \
 				$(SRC_DIR)/lexer/tokenize_input.c											\
 				$(SRC_DIR)/messager/messager.c												\
 				$(SRC_DIR)/parsing/build_ast.c												\
+				$(SRC_DIR)/parsing/destroy_ast.c											\
 				$(SRC_DIR)/parsing/parse_tokens.c											\
 				$(SRC_DIR)/parsing/parse_cntl_and_or.c										\
 				$(SRC_DIR)/parsing/parse_cntl_pipe.c										\

@@ -6,35 +6,11 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:51:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 11:51:11 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/16 21:08:41 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* static void	pid_table_init(t_minishell_p shell)
-{
-	shell->exec_var.pid_table = ft_calloc(SHELL_TABLES_SIZE, sizeof(int *));
-	if (!shell->exec_var.pid_table)
-	{
-		shell_kill(shell, NULL, LOAD_FAIL_MSG);
-	}
-	else
-		shell->exec_var.tables_size = SHELL_TABLES_SIZE;
-	return ;
-}
-
-static void	status_table_init(t_minishell_p shell)
-{
-	shell->exec_var.status_table = ft_calloc(SHELL_TABLES_SIZE, sizeof(int *));
-	if (!shell->exec_var.status_table)
-	{
-		shell_kill(shell, NULL, LOAD_FAIL_MSG);
-	}
-	else
-		shell->exec_var.tables_size = SHELL_TABLES_SIZE;
-	return ;
-} */
 
 t_minishell_p	shell_init(int ac, char **av, char **envp)
 {
@@ -50,9 +26,6 @@ t_minishell_p	shell_init(int ac, char **av, char **envp)
 		new_shell->ac = ac;
 		new_shell->av = av;
 		new_shell->environ = dup_env(envp);
-/* 		pid_table_init(new_shell);
-		status_table_init(new_shell); */
-		//error_code_table ?
 	}
 	return (new_shell);
 }

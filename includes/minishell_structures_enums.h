@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/16 19:46:03 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/16 21:59:24 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,6 @@ struct s_cntl_op
 
 struct	s_ast
 {
-	pid_t				subpid;
-	
 	t_leaf_p			leaf;
 
 	t_op_type			type;
