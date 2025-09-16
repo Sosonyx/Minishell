@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/14 15:39:27 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/16 19:45:29 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int	main(int ac, char **av, char **env)
 		{
 			if (!input)
 			{
-				// printf("exit\n");
+				
 				break ;
-			}	
+			}
 					// prompt error -> close ou message d'erreur et nouveau prompt ?
 		}
 	}
 	rl_clear_history();
-	return (rcode);
+	return (extract_return_code(rcode));
 }
 
 

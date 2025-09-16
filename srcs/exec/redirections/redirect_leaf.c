@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_leaf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/15 00:01:07 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/16 18:30:13 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	open_target(t_leaf_p leaf, t_redir_p cur_redir, t_redirtype redirtype
 	int		open_flag;
 	int		*target_fd;
 	bool	*r_flag;
+	int		errnum;
 
 	if (redirtype == R_IN)
 	{
@@ -48,10 +49,11 @@ static int	open_target(t_leaf_p leaf, t_redir_p cur_redir, t_redirtype redirtype
 	}
 	open_flag = get_open_flag(cur_redir->type);
 	*target_fd = open(cur_redir->target, open_flag, OPEN_PERM);
+	errnum = errno;
 	if (*target_fd == -1)
 	{
-		print_file_error(cur_redir->target, ENOENT);
-		exit(EXIT_FAILURE);
+		print_file_error(cur_redir->target, errnum);
+		leaf->abort = true;
 	}
 	else
 	{

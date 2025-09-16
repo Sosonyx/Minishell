@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/14 15:31:19 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/16 19:40:26 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_ast(t_minishell_p shell, t_ast_p ast)
+int	_execute_ast(t_minishell_p shell, t_ast_p ast)
 {
 	int	rstatus;
 
 	if (!ast)
 		return (EXIT_FAILURE);
 	if (ast->leaf)
-		rstatus = execute_leaf(shell, ast);
+		execute_leaf(shell, ast);
 	else
 	{
 		if (ast->type == OP_AND)
@@ -31,5 +31,24 @@ int	execute_ast(t_minishell_p shell, t_ast_p ast)
 		else if (ast->type == OP_SUBSHELL)
 			rstatus = execute_subshell(shell, ast);
 	}
-	return (extract_return_code(rstatus));
+	return (rstatus);
+}
+
+int	execute_ast(t_minishell_p shell, t_ast_p ast)
+{
+	int	rstatus;
+	
+	if (!ast)
+	{
+		print_generic_error(AST_ERRMSG);
+		return (EXIT_FAILURE);
+	}
+	if (ast->leaf)
+	{
+		execute_leaf(shell, ast);
+		waitpid(ast->leaf->pid, &rstatus, 0);
+		return (rstatus);
+	}
+	else
+		return (_execute_ast(shell, ast));
 }

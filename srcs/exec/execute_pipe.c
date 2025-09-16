@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/14 15:28:32 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/16 18:10:51 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,20 @@ static void	connect_nodes(t_ast_p ast)
 int execute_pipe(t_minishell_p shell, t_ast_p ast)
 {
 	int			rstatus;
-		
+	
 	if (create_pipe(ast) == -1) 
 		return (-1);
 
 	connect_nodes(ast);
 
-	rstatus = execute_ast(shell, ast->cntl_op->left);
+	rstatus = _execute_ast(shell, ast->cntl_op->left);
 	close_secure(&ast->cur_pipe[1]);
 
-	rstatus = execute_ast(shell, ast->cntl_op->right);
+	rstatus = _execute_ast(shell, ast->cntl_op->right);
 	close_secure(&ast->cur_pipe[0]);
-	
+
+	wait_if_leaf(ast->cntl_op->left->leaf, &rstatus);
+	wait_if_leaf(ast->cntl_op->right->leaf, &rstatus);
+		
 	return (rstatus);
 }

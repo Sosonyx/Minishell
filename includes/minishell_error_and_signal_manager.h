@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:37:01 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/12 19:50:29 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/16 17:17:14 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define MEM_ERRMSG		"Memory error. Try again or restart Minishell.\n"
 # define PIP_ERRMSG		"Pipe error. Try again or restart Minishell.\n"
 # define FORK_ERRMSG	"Fork error. Try again or restart Minishell.\n"
+# define AST_ERRMSG		"Execution failed. Try again or restart Minishell.\n"
 
 /********************************************************************************/
 /*			Errors																*/
