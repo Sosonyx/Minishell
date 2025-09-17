@@ -24,6 +24,9 @@ clear && lsblk | (((sort && wc | wc -l || echo test))) | wc
 (lsblk | (sort | (wc | (wc | (wc -l)))))
 (lsblk | (sort | (wc -l | (wc))))
 
+(las || ls && touch out && chmod 000 out && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cate
+mais les messages d'erreur ne sont pas dans le même ordre
+
 //////////////////////
 lsblk | ((sort && wc | wc -l || echo test) | wc) -> N'est pas censé fonctionner, et c'est le cas chez nous. Seul le message d'erreur n'est pas bon
 

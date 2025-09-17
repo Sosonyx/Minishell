@@ -1,1 +1,17 @@
+*************************
+
+bash-5.2$ (las || ls && touch out && chmod 000 out < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cate
+bash: cadft: command not found
+bash: cate: command not found
+bash: las: command not found
+bash: out: Permission denied
+chmod: cannot access 'cat': No such file or directory
+
+minishell> (las || ls && touch out && chmod 000 out < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cate
+Minishell: las: command not found
+/usr/bin/chmod: cannot access 'cat': No such file or directory
+Minishell: cadft: command not found
+Minishell: cate: command not found
+
+**************************
 
