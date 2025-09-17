@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 14:36:15 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/17 14:53:41 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ static void	_execute_leaf(t_minishell_p shell, t_ast_p ast)
 		exit(EXIT_FAILURE);
 	else
 	{
-		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
+		if (is_builtin(ast->leaf))
+			exit(execute_builtin(shell, ast->leaf));
+		else
+			execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
 		errnum = errno;
 		print_cmd_error(ast->leaf->name, errnum);
 		exit(convert_errno(errnum));
@@ -66,8 +69,5 @@ void	execute_leaf(t_minishell_p shell, t_ast_p ast)
 
 	if (!ast->leaf->configured)
 		preconfig_leaf(shell, ast->leaf);
-	if (is_builtin(ast->leaf))
-		execute_builtin(shell, ast->leaf);
-	else
-		execute_command(shell, ast);
+	execute_command(shell, ast);
 }
