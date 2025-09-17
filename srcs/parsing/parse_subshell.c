@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_subshell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/12 15:11:58 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 20:09:51 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int start, int end)
+int	parse_subshell(t_minishell_p shell, t_ast_p *op, t_tok_container_p tok_container, int start, int end)
 {
 	int	n;
 	int	subshell_end;
@@ -42,7 +42,7 @@ int	parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int start, int 
 			(*op)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
 			if ((*op)->cntl_op)
 			{
-				build_ast(&(*op)->cntl_op->left, tok_container, ++start, subshell_end - 1, LEFT_BRANCH, 0);
+				build_ast(shell, &(*op)->cntl_op->left, tok_container, ++start, subshell_end - 1, LEFT_BRANCH, 0);
 				return (RETURN_OK);
 			}			
 		}

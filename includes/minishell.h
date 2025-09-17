@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/11 11:57:35 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 17:49:16 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include "minishell_structures_enums.h"
 # include "minishell_parsing.h"
 # include "minishell_error_and_signal_manager.h"
-# include "minishell_messager.h"
 # include "minishell_exec.h"
 
 # include "libft.h"

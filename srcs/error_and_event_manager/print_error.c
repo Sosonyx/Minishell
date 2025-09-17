@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:24:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 14:27:11 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/17 18:17:11 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 #include "minishell.h"
 
-static void	print_err(char *name, int err_num)
+static void	print_err(t_minishell_p shell, char *name, int err_num)
 {
-	speak(STDERR_FILENO, name, COLUMN, true);
-	speak(STDERR_FILENO, strerror(err_num), NEWLINE, false);
+	speak(shell, STDERR_FILENO, name, COLUMN);
+	speak(NULL, STDERR_FILENO, strerror(err_num), NEWLINE);
 }
 
-void	print_file_error(char *filename, int err_num)
+void	print_file_error(t_minishell_p shell, char *filename, int err_num)
 {
-	print_err(filename, err_num);
+	print_err(shell, filename, err_num);
 }
 
-void	print_cmd_error(char *cmd_name, int err_num)
+void	print_cmd_error(t_minishell_p shell, char *cmd_name, int err_num)
 {
 	if (err_num == ENOENT)
 	{
-		speak(STDERR_FILENO, cmd_name, COLUMN, true);
-		speak(STDERR_FILENO, CMD_ERRMSG, NEWLINE, false);
+		speak(shell, STDERR_FILENO, cmd_name, COLUMN);
+		speak(NULL, STDERR_FILENO, CMD_ERRMSG, NEWLINE);
 	}
 	else
-		print_err(cmd_name, err_num);
+		print_err(shell, cmd_name, err_num);
 }
 
-void	print_generic_error(char *errmsg)
+void	print_generic_error(t_minishell_p shell, char *errmsg)
 {
-	speak(STDERR_FILENO, errmsg, NEWLINE, true);
+	speak(shell, STDERR_FILENO, errmsg, NEWLINE);
 }

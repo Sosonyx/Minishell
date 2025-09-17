@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/16 18:10:51 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 18:21:55 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	create_pipe(t_ast_p ast)
+static int	create_pipe(t_minishell_p shell, t_ast_p ast)
 {
 	int	pipe_return;
 
@@ -21,11 +21,11 @@ static int	create_pipe(t_ast_p ast)
 	{
 		pipe_return = pipe(ast->cur_pipe);
 		if (pipe_return == -1)
-			return (print_generic_error(PIP_ERRMSG), -1);
+			return (print_generic_error(shell, PIP_ERRMSG), -1);
 	}
 	else
 	{
-		return (print_generic_error(MEM_ERRMSG), -1);
+		return (print_generic_error(shell, MEM_ERRMSG), -1);
 	}
 	return (0);
 }
@@ -43,7 +43,7 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 {
 	int			rstatus;
 	
-	if (create_pipe(ast) == -1) 
+	if (create_pipe(shell, ast) == -1) 
 		return (-1);
 
 	connect_nodes(ast);

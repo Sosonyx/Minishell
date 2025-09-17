@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 15:43:49 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/17 17:33:34 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,8 @@ struct s_minishell
 	int				ac;
 	char			**av;
 	char			**environ;
-	int				retcode;
+	int				readlines;
+	char			*input;
 };
 
 #endif

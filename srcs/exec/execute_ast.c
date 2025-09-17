@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/16 21:51:08 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 18:22:15 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	execute_ast(t_minishell_p shell, t_ast_p ast)
 	
 	if (!ast)
 	{
-		print_generic_error(AST_ERRMSG);
+		print_generic_error(shell, AST_ERRMSG);
 		return (EXIT_FAILURE);
 	}
 	if (ast->leaf)

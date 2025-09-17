@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 16:30:37 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/17 19:58:33 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_open_flag(t_redirtype redirtype)
 		return (-1);
 }
 
-static int	open_files(t_leaf_p leaf, t_redir_p cur_redir, t_redirtype redirtype)
+static int	open_files(t_minishell_p shell, t_leaf_p leaf, t_redir_p cur_redir, t_redirtype redirtype)
 {
 	int		open_flag;
 	int		*target_fd;
@@ -52,7 +52,7 @@ static int	open_files(t_leaf_p leaf, t_redir_p cur_redir, t_redirtype redirtype)
 	errnum = errno;
 	if (*target_fd == -1)
 	{
-		print_file_error(cur_redir->target, errnum);
+		print_file_error(shell, cur_redir->target, errnum);
 		leaf->abort = true;
 	}
 	else
@@ -63,19 +63,18 @@ static int	open_files(t_leaf_p leaf, t_redir_p cur_redir, t_redirtype redirtype)
 }
 
 
-static int	set_redir(t_leaf_p leaf, t_redirtype redirtype)
+static int	set_redir(t_minishell_p shell, t_leaf_p leaf, t_redirtype redirtype)
 {
 	t_redir_p	cur_redir;
 	int			prev_redir;
 	
 	prev_redir = 0;
 	cur_redir = leaf->redir;
-	input_heredocs(leaf);
 	while (cur_redir)
 	{
 		if (cur_redir->type & redirtype)
 		{
-			if (open_files(leaf, cur_redir, redirtype) == -1)
+			if (open_files(shell, leaf, cur_redir, redirtype) == -1)
 			{
 				close_prev(prev_redir);
 				return (-1);
@@ -99,7 +98,7 @@ static int	set_redir(t_leaf_p leaf, t_redirtype redirtype)
 	return (0);
 }
 
-int	redirect_leaf(t_ast_p ast)
+int	redirect_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	int	open_flag;
 
@@ -113,14 +112,14 @@ int	redirect_leaf(t_ast_p ast)
 	}		
 	if (ast->leaf->r_in)	
 	{
-		if (set_redir(ast->leaf, R_IN) == -1)
+		if (set_redir(shell, ast->leaf, R_IN) == -1)
 			return (-1);
 		else
 			dup2(ast->leaf->fds[0], STDIN_FILENO);
 	}
 	if (ast->leaf->r_out)
 	{
-		if (set_redir(ast->leaf, R_OUT | R_APPEND))
+		if (set_redir(shell, ast->leaf, R_OUT | R_APPEND))
 			return (-1);
 		else
 			dup2(ast->leaf->fds[1], STDOUT_FILENO);

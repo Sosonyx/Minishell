@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/17 16:31:06 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/17 18:30:07 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ bool	is_builtin(t_leaf_p leaf);
 void	preconfig_leaf(t_minishell_p shell, t_leaf_p leaf);
 
 char	*find_cmd(char *cmd, char **env);
-int		redirect_leaf(t_ast_p ast);
-void	input_heredocs(t_leaf_p leaf);
+int		redirect_leaf(t_minishell_p shell, t_ast_p ast);
+void	input_heredoc(t_minishell_p shell, t_leaf_p leaf);
 
 
 int		extract_return_code(int status);

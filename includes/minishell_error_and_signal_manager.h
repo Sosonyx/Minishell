@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_error_and_signal_manager.h               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:37:01 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/16 17:17:14 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 18:17:00 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,26 @@
 # define FORK_ERRMSG	"Fork error. Try again or restart Minishell.\n"
 # define AST_ERRMSG		"Execution failed. Try again or restart Minishell.\n"
 
+# define LEN_INTMAX		12
+
+# ifdef NEWLINE
+#  undef NEWLINE
+#   define NEWLINE "\n"
+# endif
+
+# define SELF "Minishell"
+# define COLUMN ": "
+
+
 /********************************************************************************/
 /*			Errors																*/
 /********************************************************************************/
 
-void	print_file_error(char *filename, int err_num)__attribute__((nonnull));
-void	print_cmd_error(char *cmd_name, int err_num)__attribute__((nonnull));
-void	print_generic_error(char *errmsg)__attribute__((nonnull));
+void	speak(t_minishell_p shell, int fd, char *announce, char *separator);
+void	print_file_error(t_minishell_p shell, char *filename, int err_num);
+void	print_cmd_error(t_minishell_p shell, char *cmd_name, int err_num);
+void	print_generic_error(t_minishell_p shell, char *errmsg);
+void	print_hd_error(t_minishell_p shell, char *limiter);
 
 /********************************************************************************/
 /*			Signals																*/

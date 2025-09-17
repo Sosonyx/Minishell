@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:02:23 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/12 15:20:30 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 20:11:07 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	get_right_limits(int op_pos, int end, t_tok_container_p tok_container
 	return (right_end);
 }
 
-void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
+void	build_ast(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
 {
 	int	op_pos;
 	int	left_end;
@@ -64,9 +64,9 @@ void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end
 	end = reset_global_end(first, start, end, tok_container);
 	if (!parse_cntl_and_or(ast, tok_container, start, end) && \
 		!parse_cntl_pipe(ast, tok_container, start, end) && \
-		!parse_subshell(ast, tok_container, start, end))
+		!parse_subshell(shell, ast, tok_container, start, end))
 	{
-		if (create_leaf(ast, tok_container, start, end) == RETURN_FAIL)
+		if (create_leaf(shell, ast, tok_container, start, end) == RETURN_FAIL)
 		; // kill_shell()
 	else
 		return ;
@@ -81,9 +81,9 @@ void	build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end
 	op_pos = tok_container->op_index;
 	left_end = get_left_end(start, op_pos, tok_container);
 	if (start <= left_end)
-		build_ast(&(*ast)->cntl_op->left, tok_container, start, left_end, LEFT_BRANCH, 0);
+		build_ast(shell, &(*ast)->cntl_op->left, tok_container, start, left_end, LEFT_BRANCH, 0);
 	right_end = get_right_limits(op_pos, end, tok_container, &right_start);
 	if (right_start <= right_end)
-		build_ast(&(*ast)->cntl_op->right, tok_container, right_start, right_end, RIGHT_BRANCH, 0);
+		build_ast(shell, &(*ast)->cntl_op->right, tok_container, right_start, right_end, RIGHT_BRANCH, 0);
 	}
 }

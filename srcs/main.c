@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/16 22:03:05 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 20:12:11 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,16 @@ int	g_status;
 					signal(SIGQUIT, SIG_DFL);
 */
 
-static char	*prompt_input(char **input)
+static void	*prompt_input(t_minishell_p shell)
 {
-	*input = readline(PROMPT_MESSAGE);
-	if (*input && **input)
-		add_history(*input);
-	return (*input);
+	if (shell->input)
+		free(shell->input);
+	shell->input = readline(PROMPT_MESSAGE);
+	if (shell->input && *shell->input)
+	{
+		add_history(shell->input);
+		shell->readlines++;
+	}
 }
 
 
@@ -33,24 +37,19 @@ int	main(int ac, char **av, char **env)
 {
 	t_ast_p				ast = NULL;
 	t_tok_container_p	tok_container = NULL;
-	char				*input = NULL;
 	t_minishell_p		shell;
 	int					rcode;
 	
 	signals_setter();
 	shell = shell_init(ac, av, environ);
-	if (!shell)
-	{
-		print_generic_error(MEM_ERRMSG);
-		exit(EXIT_FAILURE);
-	}
 	while (1)
 	{
-		if (prompt_input(&input))
+		prompt_input(shell);
+		if (shell->input)
 		{
-			if (tokenize_input(input, &tok_container, &g_status))		// return error non ? 
+			if (tokenize_input(shell->input, &tok_container, &g_status))
 			{
-				if (parse_tokens(&ast, tok_container))
+				if (parse_tokens(shell, &ast, tok_container))
 				{
 					rcode = execute_ast(shell, ast);
 					free(ast);
@@ -64,11 +63,8 @@ int	main(int ac, char **av, char **env)
 		}
 		else
 		{
-			if (!input)
-			{
-				shell_destroy(shell);
-				break ;
-			}
+			shell_destroy(shell);
+			break ;
 					// prompt error -> close ou message d'erreur et nouveau prompt ?
 		}
 	}

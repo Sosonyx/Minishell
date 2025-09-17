@@ -6,7 +6,7 @@
 #    By: fox <fox@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/17 16:33:14 by fox              ###   ########.fr        #
+#    Updated: 2025/09/17 20:08:28 by fox              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ LIBFT_A     = $(LIBFT_DIR)/libft.a
 SRC         = \
 				$(SRC_DIR)/main.c															\
 				$(SRC_DIR)/error_and_event_manager/print_error.c							\
+				$(SRC_DIR)/error_and_event_manager/print_hd_error.c							\
 				$(SRC_DIR)/error_and_event_manager/signal_manager.c							\
+				$(SRC_DIR)/error_and_event_manager/messager.c								\
 				$(SRC_DIR)/exec/execute_ast.c												\
 				$(SRC_DIR)/exec/execute_leaf.c												\
 				$(SRC_DIR)/exec/execute_and.c												\
@@ -45,7 +47,6 @@ SRC         = \
 				$(SRC_DIR)/exec/redirections/redirect_leaf.c								\
 				$(SRC_DIR)/exec/redirections/forward_fds.c									\
 				$(SRC_DIR)/exec/redirections/close_fds.c									\
-				$(SRC_DIR)/exec/redirections/input_heredocs.c								\
 				$(SRC_DIR)/exec/wait_if_leaf.c												\
 				$(SRC_DIR)/exec/command_build/cmd_build.c									\
 				$(SRC_DIR)/exec/command_build/path.c										\
@@ -55,7 +56,6 @@ SRC         = \
 				$(SRC_DIR)/lexer/utils/count_tokens.c										\
 				$(SRC_DIR)/lexer/syntax_check.c												\
 				$(SRC_DIR)/lexer/tokenize_input.c											\
-				$(SRC_DIR)/messager/messager.c												\
 				$(SRC_DIR)/parsing/build_ast.c												\
 				$(SRC_DIR)/parsing/build_redir.c											\
 				$(SRC_DIR)/parsing/destroy_ast.c											\
@@ -65,6 +65,7 @@ SRC         = \
 				$(SRC_DIR)/parsing/parse_cntl_pipe.c										\
 				$(SRC_DIR)/parsing/parse_subshell.c											\
 				$(SRC_DIR)/parsing/create_leaf.c											\
+				$(SRC_DIR)/parsing/input_heredoc.c											\
 				$(SRC_DIR)/shell/shell_init.c												\
 				$(SRC_DIR)/shell/shell_destroy.c											\
 				$(SRC_DIR)/shell/shell_kill.c												\

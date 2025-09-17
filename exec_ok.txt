@@ -19,6 +19,8 @@ ls | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
 (las || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
 (las || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cate
 
+(ls && ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || << eof cat -e) | cat
+
 clear && lsblk | (((sort && wc | wc -l || echo test))) | wc
 
 (lsblk | (sort | (wc | (wc | (wc -l)))))
@@ -36,3 +38,6 @@ bash: ((: (sort && wc | wc -l || echo test): missing `)' (error token is "test)"
 Minishell: : Bad address
       0       0       0
 
+
+<< 1 << 2 < Makefile  cat | wc && << 3 << 4 wc
+<< 1 << 2 < Makefile  cat | wc && << 3 << 4 wqc

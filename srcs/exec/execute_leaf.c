@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 14:12:41 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/17 18:22:23 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,19 @@ static void	_execute_leaf(t_minishell_p shell, t_ast_p ast)
 
 	if (ast->leaf->fds[0] == -1 || ast->leaf->fds[1] == -1)
 		exit(convert_errno(ENOENT));
-	redirect_leaf(ast);
+	redirect_leaf(shell, ast);
 	close_fds(ast, CHILD);
 	if (ast->leaf->abort == true)
 		exit(EXIT_FAILURE);
+/* 	else if (!*ast->leaf->cmds)
+	{
+		exit(EXIT_SUCCESS);			// cas par exemple de la commande "<< eof"
+	} */
 	else
 	{
 		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
 		errnum = errno;
-		print_cmd_error(ast->leaf->name, errnum);
+		print_cmd_error(shell, ast->leaf->name, errnum);
 		exit(convert_errno(errnum));
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:00:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 15:00:49 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 17:37:22 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ t_tok_container_p	tokenize_input(char *input, t_tok_container_p *tok_container, 
 			// syntax error
 			free(*tok_container);		// pour rappel de free, mais une fonction est a creer
 			*tok_container = NULL;
-		}		
-		free(input);
+		}
 	}
 	else
 	{

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_heredocs.c                                   :+:      :+:    :+:   */
+/*   input_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 16:30:25 by fox               #+#    #+#             */
-/*   Updated: 2025/09/17 16:40:54 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/17 18:29:56 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	_input_heredocs(t_leaf_p leaf, t_redir_p redir)
+static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
 	char		*hd;
 	
@@ -21,12 +21,13 @@ static void	_input_heredocs(t_leaf_p leaf, t_redir_p redir)
 	{
 		hd = readline(">");
 		if (!hd)
-			continue ;
-		if (*hd == 4)
 		{
-			free(hd);
+			print_hd_error(shell, redir->limiter);
+			break ;
 		}
-		else if (ft_strcmp(hd, redir->limiter))
+		if (*hd)
+			shell->readlines++;
+		if (ft_strcmp(hd, redir->limiter))
 		{
 			write(leaf->hd_fd[1], hd, ft_strlen(hd));
 			write(leaf->hd_fd[1], "\n", 1);
@@ -38,7 +39,7 @@ static void	_input_heredocs(t_leaf_p leaf, t_redir_p redir)
 	close_secure(&leaf->hd_fd[1]);	
 }
 
-void	input_heredocs(t_leaf_p leaf)
+void	input_heredoc(t_minishell_p shell, t_leaf_p leaf)
 {
 	t_redir_p	redir;
 	
@@ -49,7 +50,7 @@ void	input_heredocs(t_leaf_p leaf)
 			close_secure(&leaf->hd_fd[0]);
 		if (redir->type == R_HDOC)
 		{
-			_input_heredocs(leaf, redir);
+			_input_heredoc(shell, leaf, redir);
 		}
 		redir = redir->next;
 	}
