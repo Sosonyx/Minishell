@@ -6,11 +6,16 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/07 17:30:21 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/17 13:25:38 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	print_cd_error(const char *path)
+{
+    fprintf(stderr, "minishell: cd: %s: %s\n", path, strerror(errno));
+}
 
 static char	*ft_getenv(char **env, const char *name)
 {
@@ -53,7 +58,7 @@ int	ft_cd(t_minishell *shell, char **args)
 	path = get_target_dir(shell, args);
 	if (!path || chdir(path) == -1)
 	{
-		//error print
+		print_cd_error(path);
 		return (free(oldpwd), 1);
 	}
 	newpwd = getcwd(NULL, 0);

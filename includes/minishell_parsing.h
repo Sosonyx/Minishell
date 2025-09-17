@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/16 21:15:02 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 13:28:00 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 /*			Builtins															*/
 /********************************************************************************/
 int				ft_echo(char **args);
-int				ft_pwd(void);
+// int				ft_pwd(void);
+int				ft_pwd(char **args);
+
 int				ft_cd(t_minishell *shell, char **args);
 int				ft_exit(char **args, int last_status);
 int				ft_export(t_minishell *shell, char **args_to_add);
