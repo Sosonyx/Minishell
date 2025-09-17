@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/05 16:08:23 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/17 13:17:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,17 @@ int	check_syntax(t_token **toks)
 	while (toks[++i])
 	{
 		cur = toks[i]->type;
+		if ((is_pipe(cur) || cur == T_AND || cur == T_OR) &&
+            toks[i + 1] && (is_pipe(toks[i + 1]->type) || toks[i + 1]->type == T_AND || toks[i + 1]->type == T_OR))
+        {
+            syntax_err(toks[i + 1]->val);
+            return (0);
+        }
 		if (is_pipe(cur))
 		{
 			if (!toks[i + 1])
 			{
-				if (toks[i + 1])
-					syntax_err(toks[i + 1]->val);
-				else
-					syntax_err(NULL);
+				syntax_err(NULL);
 				return (0);
 			}
 		}
