@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_fds.c                                        :+:      :+:    :+:   */
+/*   forward_fds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 12:38:16 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/14 15:12:47 by fox              ###   ########.fr       */
+/*   Created: 2025/09/14 14:49:17 by fox               #+#    #+#             */
+/*   Updated: 2025/09/14 14:53:34 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_fds(t_ast_p ast, int mode)
+void	forward_fds(t_ast_p ast)
 {
-	if (!ast)
-		return ;
-	if (ast->leaf)
+	t_ast_p	branch;
+	
+	branch = ast->cntl_op->left;
+	if (branch)
 	{
-		close_secure(&ast->leaf->fds[0]);
-		close_secure(&ast->leaf->fds[1]);
+		branch->read_fd = ast->read_fd;
+		branch->write_fd = ast->write_fd;
 	}
-	if (mode == CHILD)
+	branch = ast->cntl_op->right;
+	if (branch)
 	{
-		if (ast->cur_pipe)
-		{
-			close_secure(&ast->cur_pipe[0]);
-			close_secure(&ast->cur_pipe[1]);
-		}
-		close_secure(ast->write_fd);
-		close_secure(ast->read_fd);
+		branch->read_fd = ast->read_fd;
+		branch->write_fd = ast->write_fd;
 	}
 }

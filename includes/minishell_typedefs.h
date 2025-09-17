@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:22:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 17:29:16 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/11 11:54:05 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /*			Enums																*/
 /********************************************************************************/
 
-typedef enum	e_error_status	t_return_status;
+typedef enum	e_return_status	t_return_status;
 typedef enum 	e_toktype		t_toktype;
 typedef enum 	e_redirtype		t_redirtype;
 typedef enum	e_optype		t_op_type;

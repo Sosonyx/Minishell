@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_leaf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 13:01:49 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/11 11:53:46 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	count_tok_word(t_tok_container_p tok_container, int i, int end)
 	return (words);
 }
 
-static t_return_status	build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end)
+static int	build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end)
 {
 	int			words;
 	int			j;
@@ -104,7 +104,7 @@ static t_return_status	build_cmd(char ***cmd, t_tok_container_p tok_container, i
 	return (RETURN_OK);
 }
 
-t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end)
+int	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int start, int end)
 {
 	*ast = ft_calloc(1, sizeof(t_ast));
 	if (!*ast)
@@ -112,6 +112,10 @@ t_return_status	create_leaf(t_ast_p *ast, t_tok_container_p tok_container, int s
 	(*ast)->leaf = ft_calloc(1, sizeof(struct s_leaf));
 	if (!(*ast)->leaf)
 		return (RETURN_FAIL);
+/* 	(*ast)->leaf->pipefd[0] = -2;
+	(*ast)->leaf->pipefd[1] = -2; */
+	(*ast)->leaf->fds[0] = -2;
+	(*ast)->leaf->fds[1] = -2;
 	(*ast)->leaf->redir = build_redir(tok_container, start, end);
 	build_cmd(&(*ast)->leaf->cmds, tok_container, start, end);
 	return (RETURN_OK);

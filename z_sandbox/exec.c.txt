@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/22 12:15:52 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/06 17:59:31 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/11 11:52:34 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ void exec_cntl_op(t_ast_p ast, t_ast_branch branch);
 void exec_pipe_op(t_ast_p ast, t_ast_branch branch);
 void exec_subshell(t_ast_p ast, t_ast_branch branch);
 
-t_return_status exec_leaf(t_ast_p ast)
+int exec_leaf(t_ast_p ast)
 {
 	int		fd_in;
 	int		fd_out;

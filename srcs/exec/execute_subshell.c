@@ -1,19 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   duplicate_fds.c                                    :+:      :+:    :+:   */
+/*   execute_subshell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/08 18:27:06 by cgajean          ###   ########.fr       */
+/*   Created: 2025/09/11 14:21:39 by cgajean           #+#    #+#             */
+/*   Updated: 2025/09/16 21:58:58 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	duplicate_fds(int fds[2])
+int execute_subshell(t_minishell_p shell, t_ast_p ast)
 {
-	dup2(fds[0], STDIN_FILENO);
-	dup2(fds[1], STDOUT_FILENO);
+	int				rstatus;
+	pid_t			pid;
+	
+	pid = fork();
+	if (pid == 0)
+	{
+		forward_fds(ast);
+
+		rstatus = _execute_ast(shell, ast->cntl_op->left);
+		wait_if_leaf(ast->cntl_op->left->leaf, &rstatus);
+		exit(rstatus);
+	}
+	else if (pid > 0)
+	{
+		close_fds(ast, PARENT);
+		waitpid(pid, &rstatus, 0);
+	}
+	else
+	{
+		print_generic_error(FORK_ERRMSG);
+	}
+	return (rstatus);
 }
+

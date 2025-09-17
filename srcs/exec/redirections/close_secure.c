@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_tokens.c                                     :+:      :+:    :+:   */
+/*   close_secure.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/16 21:17:59 by cgajean          ###   ########.fr       */
+/*   Created: 2025/09/12 16:18:35 by cgajean           #+#    #+#             */
+/*   Updated: 2025/09/12 16:44:03 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
+void	close_secure(int *fd)
 {
-	if (ast)
+	if (fd && *fd > 2)
 	{
-		build_ast(ast, tok_container, 0, 0, AST_INIT, 1);
-		if (*ast)
-		{
-			return (RETURN_OK);
-		}
+		close(*fd);
+		*fd = -2;
 	}
-	return (RETURN_FAIL);
 }

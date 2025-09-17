@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_tokens.c                                     :+:      :+:    :+:   */
+/*   wait_if_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/16 21:17:59 by cgajean          ###   ########.fr       */
+/*   Created: 2025/09/16 15:59:42 by cgajean           #+#    #+#             */
+/*   Updated: 2025/09/16 16:21:49 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_tokens(t_ast_p *ast, t_tok_container_p tok_container)
+void	wait_if_leaf(t_leaf_p leaf, int *rstatus)
 {
-	if (ast)
-	{
-		build_ast(ast, tok_container, 0, 0, AST_INIT, 1);
-		if (*ast)
-		{
-			return (RETURN_OK);
-		}
-	}
-	return (RETURN_FAIL);
+	if (leaf)
+		waitpid(leaf->pid, rstatus, 0);
 }

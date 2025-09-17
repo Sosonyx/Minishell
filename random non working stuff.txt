@@ -1,0 +1,1 @@
+(cd ./srcs/ && ls)			-> Le cd est applique a tort a l'environnement initial

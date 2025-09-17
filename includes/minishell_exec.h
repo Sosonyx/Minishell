@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 16:43:04 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/17 13:00:25 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 
 # include "minishell.h"
 
-int		execute_leaf(t_minishell_p shell, t_ast_p ast, bool pipe_case);
+// int		execute_leaf(t_minishell_p shell, t_ast_p ast, bool pipe_case);
 int		execute_ast(t_minishell_p shell, t_ast_p ast);
+int		_execute_ast(t_minishell_p shell, t_ast_p ast);
 
-void	close_fds(t_leaf_p leaf);
-
-int		wait_children(t_minishell_p shell);
-int		get_exit_code(t_minishell_p shell);
-
-bool	is_builtin(t_ast_p ast);
-int		execute_builtin(t_minishell_p shell, t_ast_p ast);
-
-int		extract_return_code(int *status);
-
-
-int				wait_children(t_minishell_p shell);
-void			get_redirections(t_leaf_p leaf, int pipe[2]);
-void			get_redirections_pipe(t_leaf_p leaf, int fds[2], int pipefds[2]);
-void			get_fd_in_pipe(t_leaf_p leaf, int *fd_out, int pipe[2]);
-void			get_fd_out_pipe(t_leaf_p leaf, int *fd_out, int pipe[2]);
+int 	execute_subshell(t_minishell_p shell, t_ast_p ast);
+int 	execute_pipe(t_minishell_p shell, t_ast_p ast);
+int 	execute_and(t_minishell_p shell, t_ast_p ast);
+int 	execute_or(t_minishell_p shell, t_ast_p ast);
+void	execute_leaf(t_minishell_p shell, t_ast_p ast);
+int		execute_builtin(t_minishell_p shell, t_leaf_p leaf);
+void	wait_if_leaf(t_leaf_p leaf, int *rstatus);
 
 
-// t_return_status	exec_ast(t_ast_p ast, t_ast_branch branch);
-char			*find_cmd(char *cmd, char **env);
+void	forward_fds(t_ast_p ast);
 
-void			duplicate_fds(int fds[2]);
-void	get_fd_out_pipe(t_leaf_p leaf, int *fd_out, int pipe[2]);
-void	get_fd_in_pipe(t_leaf_p leaf, int *fd_in, int pipe[2]);
+void	close_fds(t_ast_p ast, int mode);
+void	close_secure(int *fd);
 
+
+
+bool	is_builtin(t_leaf_p leaf);
+
+void	preconfig_leaf(t_minishell_p shell, t_leaf_p leaf);
+
+char	*find_cmd(char *cmd, char **env);
+int		redirect_leaf(t_ast_p ast);
+
+int		extract_return_code(int status);
 
 #endif

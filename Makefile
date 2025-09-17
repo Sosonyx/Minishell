@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
+#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/09 15:08:40 by ihadj            ###   ########.fr        #
+#    Updated: 2025/09/16 21:18:10 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,15 +34,20 @@ SRC         = \
 				$(SRC_DIR)/error_and_event_manager/signal_manager.c							\
 				$(SRC_DIR)/exec/execute_ast.c												\
 				$(SRC_DIR)/exec/execute_leaf.c												\
+				$(SRC_DIR)/exec/execute_and.c												\
+				$(SRC_DIR)/exec/execute_or.c												\
+				$(SRC_DIR)/exec/execute_subshell.c											\
+				$(SRC_DIR)/exec/execute_pipe.c												\
 				$(SRC_DIR)/exec/execute_builtin.c											\
-				$(SRC_DIR)/exec/redirections/get_exit_code.c								\
 				$(SRC_DIR)/exec/extract_return_code.c										\
-				$(SRC_DIR)/exec/redirections/get_redirections.c								\
-				$(SRC_DIR)/exec/redirections/duplicate_fds.c								\
+				$(SRC_DIR)/exec/redirections/close_secure.c									\
+				$(SRC_DIR)/exec/redirections/preconfig_leaf.c								\
+				$(SRC_DIR)/exec/redirections/redirect_leaf.c								\
+				$(SRC_DIR)/exec/redirections/forward_fds.c									\
 				$(SRC_DIR)/exec/redirections/close_fds.c									\
+				$(SRC_DIR)/exec/wait_if_leaf.c												\
 				$(SRC_DIR)/exec/command_build/cmd_build.c									\
 				$(SRC_DIR)/exec/command_build/path.c										\
-				$(SRC_DIR)/exec/wait_children.c												\
 				$(SRC_DIR)/lexer/lexer.c													\
 				$(SRC_DIR)/lexer/utils/utils.c												\
 				$(SRC_DIR)/lexer/utils/stock_functions.c									\
@@ -51,6 +56,7 @@ SRC         = \
 				$(SRC_DIR)/lexer/tokenize_input.c											\
 				$(SRC_DIR)/messager/messager.c												\
 				$(SRC_DIR)/parsing/build_ast.c												\
+				$(SRC_DIR)/parsing/destroy_ast.c											\
 				$(SRC_DIR)/parsing/parse_tokens.c											\
 				$(SRC_DIR)/parsing/parse_cntl_and_or.c										\
 				$(SRC_DIR)/parsing/parse_cntl_pipe.c										\
@@ -139,3 +145,4 @@ re: fc all
               $(SRC_DIR)/exit/error.c \
               $(SRC_DIR)/utils/utils.c \
 			  $(SRC_DIR)/utils/color.c
+			  

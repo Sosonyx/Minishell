@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 16:41:10 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/17 12:59:31 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ enum e_ast_branch
 	RIGHT_BRANCH = 2
 };
 
-enum e_error_status
+enum e_return_status
 {
 	RETURN_FAIL = 0,
 	RETURN_OK = 1,
@@ -50,10 +50,10 @@ enum e_toktype
 
 enum e_redirtype
 {
-	R_IN,
-	R_OUT,
-	R_APPEND,
-	R_HDOC,
+	R_IN = 1,
+	R_OUT = 2,
+	R_APPEND = 4,
+	R_HDOC = 8,
 };
 
 enum e_optype
@@ -63,6 +63,12 @@ enum e_optype
 	OP_OR = 4,
 	OP_SUBSHELL = 8,
 	OP_LEAF = 16
+};
+
+enum e_process
+{
+	CHILD = 1,
+	PARENT = 2
 };
 
 /********************************************************************************/
@@ -77,9 +83,6 @@ struct s_tok_container
 	int			start_index;
 	int			end_index;
 	int			op_index;
-	// int			oldfd[2];		// a garder ?
-	// int			nextfd[2];		// a garder ?
-	// int			ac;				// a garder ?
 };
 
 ///
@@ -103,25 +106,36 @@ struct s_redir
 	char				*target;
 	char				*limiter;
 	int					fd;
-	struct s_redir		*next;					//pointeur vers la redir suivante
+	struct s_redir		*next;
 };
 
 struct s_leaf
 {
-	char				**cmds;
-	char				*command_name;
-	t_redir_p			redir;
-	bool				is_builtin;
-	int					pipefds[2];
-	int					fds[2];
 	pid_t				pid;
+
+	char				**cmds;
+	char				*name;
+	t_redir_p			redir;
+	
+	int					pipefd[2];
+	int					fds[2];
+	int					*cur_pipe;
+	
+	bool				r_in;
+	char				*r_in_path;
+	bool				r_out;
+	char				*r_out_path;
+
+	bool				configured;
+
+	bool				abort;
 };
 
 struct s_cntl_op
 {
-	t_op_type   op;
+	t_op_type  		op;
 	t_ast_p			left;
-	t_ast_p			right;					// si SUBSHELL pas de right
+	t_ast_p			right;
 };
 
 struct	s_ast
@@ -130,25 +144,19 @@ struct	s_ast
 
 	t_op_type			type;
 	t_cntl_op_p			cntl_op;
-	char				**env;
-};
 
-/* struct	s_exec_var
-{
-	pid_t	*pid_table;
-	int		*status_table;
-	int		*return_table;
-	int		cur_index;
-	int		tables_size;
-}; */
+	int					*cur_pipe;
+	
+	int					*read_fd;
+	int					*write_fd;
+};
 
 struct s_minishell
 {
 	int				ac;
 	char			**av;
 	char			**environ;
-	// t_exec_var		exec_var;
-	bool			subshell;
+	int				retcode;
 };
 
 #endif

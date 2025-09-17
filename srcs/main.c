@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/07 15:25:43 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/16 22:03:05 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	g_status;
 static char	*prompt_input(char **input)
 {
 	*input = readline(PROMPT_MESSAGE);
-	if (*input)
+	if (*input && **input)
 		add_history(*input);
 	return (*input);
 }
@@ -35,9 +35,15 @@ int	main(int ac, char **av, char **env)
 	t_tok_container_p	tok_container = NULL;
 	char				*input = NULL;
 	t_minishell_p		shell;
+	int					rcode;
 	
 	signals_setter();
 	shell = shell_init(ac, av, environ);
+	if (!shell)
+	{
+		print_generic_error(MEM_ERRMSG);
+		exit(EXIT_FAILURE);
+	}
 	while (1)
 	{
 		if (prompt_input(&input))
@@ -46,13 +52,9 @@ int	main(int ac, char **av, char **env)
 			{
 				if (parse_tokens(&ast, tok_container))
 				{
-					ast->env = env;
-					execute_ast(shell, ast);
-					// exec
-					// temporaire
-					// destroy input + destroy ast
-					// execve(ast->leaf->cmds[0], ast->leaf->cmds, env);
+					rcode = execute_ast(shell, ast);
 					free(ast);
+					ast = NULL;
 				}
 				else
 				{
@@ -64,35 +66,15 @@ int	main(int ac, char **av, char **env)
 		{
 			if (!input)
 			{
-				printf("exit\n");
+				shell_destroy(shell);
 				break ;
-			}	
+			}
 					// prompt error -> close ou message d'erreur et nouveau prompt ?
 		}
 	}
 	rl_clear_history();
-	return (0);
+	return (extract_return_code(rcode));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

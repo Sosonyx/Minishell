@@ -1,0 +1,38 @@
+(ls) | (cat) | (cat && echo test) | (cat -e | cat -e | (wc && wc)) | cat -e | cat -e
+
+ls | (cat -e | cat -e | (wc && wc)) | wc -l
+ls | (cat -e | cat -e | cat -e) | wc
+(ls | cat -e | cat -e) | wc
+
+clear && lsblk | (sort && wc | wc -l) | wc
+clear && lsblk | (sort && wc | wc -l && echo test) | wc
+clear && lsblk | (sort && wc | wc -l || echo test) | wc
+
+ls | cat -e | cat -e | cat -e | (cat -e && cat -e) | cat
+ls | cat -e | cat -e | cat -e | (cat -e | cat -e) | cat
+ls | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
+
+(ls && ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
+(ls && ls || < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
+(ls || ls || < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
+(ls || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
+(las || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
+(las || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cate
+
+clear && lsblk | (((sort && wc | wc -l || echo test))) | wc
+
+(lsblk | (sort | (wc | (wc | (wc -l)))))
+(lsblk | (sort | (wc -l | (wc))))
+
+(las || ls && touch out && chmod 000 out && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cate
+mais les messages d'erreur ne sont pas dans le même ordre
+
+//////////////////////
+lsblk | ((sort && wc | wc -l || echo test) | wc) -> N'est pas censé fonctionner, et c'est le cas chez nous. Seul le message d'erreur n'est pas bon
+
+bash-5.2$ lsblk | ((((sort && wc | wc -l || echo test))) | (wc))
+bash: ((: (sort && wc | wc -l || echo test): missing `)' (error token is "test)")
+
+Minishell: : Bad address
+      0       0       0
+
