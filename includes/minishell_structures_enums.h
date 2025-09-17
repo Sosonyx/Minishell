@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/16 21:59:24 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 12:47:35 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,7 @@ struct s_leaf
 	char				*name;
 	t_redir_p			redir;
 	
-	int					pipefd[2];
 	int					fds[2];
-	int					*cur_pipe;
 	
 	bool				r_in;
 	char				*r_in_path;

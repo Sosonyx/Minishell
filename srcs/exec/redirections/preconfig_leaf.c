@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preconfig_leaf.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/16 18:26:01 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 12:44:53 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	redir_in_conf(t_leaf_p leaf)
 	cur_redir = leaf->redir;
 	while (cur_redir)
 	{
-		if (cur_redir->type == R_IN)
+		if (cur_redir->type == R_IN || cur_redir->type == R_HDOC)
 		{
 			target = cur_redir->target;
 			leaf->r_in = true;
