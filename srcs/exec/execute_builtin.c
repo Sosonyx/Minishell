@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/16 21:30:40 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 14:11:53 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ bool	is_builtin(t_leaf_p leaf)
 {
 	char	*cmd;
 
-	if (!leaf->cmds || !leaf->cmds[0]) // si NULL ? jsplus si on l a testee avant
+	if (!leaf->cmds || !leaf->name) // si NULL ? jsplus si on l a testee avant
 		return (false);
-	cmd = leaf->cmds[0];
+	cmd = leaf->name;
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (true); //on peut exec ici mais vaut mieux decouper en deux blocs distincts selon moi
 	if (ft_strcmp(cmd, "cd") == 0)
@@ -40,7 +40,7 @@ int	execute_builtin(t_minishell_p shell, t_leaf_p leaf)
 {
 	char	*cmd;
 
-	cmd = leaf->cmds[0];
+	cmd = leaf->name;
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (ft_echo(leaf->cmds));
 	if (ft_strcmp(cmd, "cd") == 0)

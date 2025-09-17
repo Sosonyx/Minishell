@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_leaf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/16 18:30:13 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 16:30:37 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	close_prev(int prev)
 {
-	if (prev > 2)
+	if (prev IS_VALID_FD)
 		close(prev);
 }
 
@@ -30,7 +30,7 @@ static int	get_open_flag(t_redirtype redirtype)
 		return (-1);
 }
 
-static int	open_target(t_leaf_p leaf, t_redir_p cur_redir, t_redirtype redirtype)
+static int	open_files(t_leaf_p leaf, t_redir_p cur_redir, t_redirtype redirtype)
 {
 	int		open_flag;
 	int		*target_fd;
@@ -62,6 +62,7 @@ static int	open_target(t_leaf_p leaf, t_redir_p cur_redir, t_redirtype redirtype
 	return (*target_fd);
 }
 
+
 static int	set_redir(t_leaf_p leaf, t_redirtype redirtype)
 {
 	t_redir_p	cur_redir;
@@ -69,11 +70,12 @@ static int	set_redir(t_leaf_p leaf, t_redirtype redirtype)
 	
 	prev_redir = 0;
 	cur_redir = leaf->redir;
+	input_heredocs(leaf);
 	while (cur_redir)
 	{
 		if (cur_redir->type & redirtype)
 		{
-			if (open_target(leaf, cur_redir, redirtype) == -1)
+			if (open_files(leaf, cur_redir, redirtype) == -1)
 			{
 				close_prev(prev_redir);
 				return (-1);
@@ -89,6 +91,11 @@ static int	set_redir(t_leaf_p leaf, t_redirtype redirtype)
 		}
 		cur_redir = cur_redir->next;
 	}
+	if (leaf->hd_fd[0] IS_VALID_FD)
+	{
+		close_secure(&leaf->fds[0]);
+		leaf->fds[0] = leaf->hd_fd[0];
+	}
 	return (0);
 }
 
@@ -96,11 +103,11 @@ int	redirect_leaf(t_ast_p ast)
 {
 	int	open_flag;
 
-	if (!ast->leaf->r_in && ast->read_fd && *ast->read_fd > 2)
+	if (!ast->leaf->r_in && ast->read_fd && *ast->read_fd IS_VALID_FD)
 	{
 		dup2(*ast->read_fd, STDIN_FILENO);
 	}
-	if (!ast->leaf->r_out && ast->write_fd && *ast->write_fd > 2)
+	if (!ast->leaf->r_out && ast->write_fd && *ast->write_fd IS_VALID_FD)
 	{
 		dup2(*ast->write_fd, STDOUT_FILENO);
 	}		

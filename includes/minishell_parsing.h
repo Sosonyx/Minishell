@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/16 21:15:02 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 15:27:04 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			destroy_tok_container(t_tok_container_p tok_container);
 /********************************************************************************/
 int				check_syntax(t_token **toks);
 char			*ft_strndup(const char *s, size_t len);
-int				count_word(const char *str, char c);
+// int				count_word(const char *str, char c);
 char			*ft_strcat(char *dest, const char *src);
 // int			is_blank_line(const char *s);
 int				ft_isspace(int c);
@@ -78,7 +78,10 @@ int				is_control_op(t_toktype t);
 
 int				parse_tokens(t_ast_p *ast, t_tok_container_p tok_container);
 void			build_ast(t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first);
+t_redir_p		build_redir(t_tok_container_p tok_container, int i, int end);
+int				build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end);
 void			destroy_ast(t_ast_p *ast);
+
 int				parse_cntl_and_or(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
 int				parse_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
 int				parse_subshell(t_ast_p *op, t_tok_container_p tok_container, int start, int end);

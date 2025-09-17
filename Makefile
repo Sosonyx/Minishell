@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
+#    By: fox <fox@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/16 21:18:10 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/17 16:33:14 by fox              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC         = \
 				$(SRC_DIR)/exec/redirections/redirect_leaf.c								\
 				$(SRC_DIR)/exec/redirections/forward_fds.c									\
 				$(SRC_DIR)/exec/redirections/close_fds.c									\
+				$(SRC_DIR)/exec/redirections/input_heredocs.c								\
 				$(SRC_DIR)/exec/wait_if_leaf.c												\
 				$(SRC_DIR)/exec/command_build/cmd_build.c									\
 				$(SRC_DIR)/exec/command_build/path.c										\
@@ -56,7 +57,9 @@ SRC         = \
 				$(SRC_DIR)/lexer/tokenize_input.c											\
 				$(SRC_DIR)/messager/messager.c												\
 				$(SRC_DIR)/parsing/build_ast.c												\
+				$(SRC_DIR)/parsing/build_redir.c											\
 				$(SRC_DIR)/parsing/destroy_ast.c											\
+				$(SRC_DIR)/parsing/build_cmd.c												\
 				$(SRC_DIR)/parsing/parse_tokens.c											\
 				$(SRC_DIR)/parsing/parse_cntl_and_or.c										\
 				$(SRC_DIR)/parsing/parse_cntl_pipe.c										\
@@ -65,7 +68,6 @@ SRC         = \
 				$(SRC_DIR)/shell/shell_init.c												\
 				$(SRC_DIR)/shell/shell_destroy.c											\
 				$(SRC_DIR)/shell/shell_kill.c												\
-				$(SRC_DIR)/utils/utils.c													\
 				$(SRC_DIR)/built-in/ft_exit.c												\
 				$(SRC_DIR)/built-in/ft_cd.c													\
 				$(SRC_DIR)/built-in/ft_echo.c												\
@@ -145,4 +147,3 @@ re: fc all
               $(SRC_DIR)/exit/error.c \
               $(SRC_DIR)/utils/utils.c \
 			  $(SRC_DIR)/utils/color.c
-			  

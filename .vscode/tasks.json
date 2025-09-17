@@ -18,7 +18,6 @@
 				"${workspaceFolder}/srcs/messager/*.c",
 				"${workspaceFolder}/srcs/parsing/*.c",
 				"${workspaceFolder}/srcs/shell/*.c",
-				"${workspaceFolder}/srcs/utils/*.c",
 				"${workspaceFolder}/libft/libft.a",
                 "-I",
                 "${workspaceFolder}/includes",

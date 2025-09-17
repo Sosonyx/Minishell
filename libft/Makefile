@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
+#    By: fox <fox@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:48:39 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/09 10:06:41 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/17 15:29:38 by fox              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS =  ft_strncmp.c ft_strlen.c ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c f
         ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 		printf/ft_printf.c printf/ft_printf_checking.c  printf/ft_printf_printinghexa.c \
 		printf/ft_printf_printingint.c printf/ft_printf_printingchar.c \
-		GNL/get_next_line.c GNL/get_next_line_utils.c ft_split_free.c
+		GNL/get_next_line.c GNL/get_next_line_utils.c ft_split_free.c ft_strcmp.c ft_strcat.c ft_isspace.c ft_strndup.c
 
 OBJS = $(SRCS:.c=.o)
 

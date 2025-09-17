@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/16 20:22:39 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/17 16:31:06 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_EXEC_H
 
 # include "minishell.h"
+
+# define IS_VALID_FD > 2
 
 int		execute_ast(t_minishell_p shell, t_ast_p ast);
 int		_execute_ast(t_minishell_p shell, t_ast_p ast);
@@ -33,13 +35,14 @@ void	close_fds(t_ast_p ast, int mode);
 void	close_secure(int *fd);
 
 
-
 bool	is_builtin(t_leaf_p leaf);
 
 void	preconfig_leaf(t_minishell_p shell, t_leaf_p leaf);
 
 char	*find_cmd(char *cmd, char **env);
 int		redirect_leaf(t_ast_p ast);
+void	input_heredocs(t_leaf_p leaf);
+
 
 int		extract_return_code(int status);
 
