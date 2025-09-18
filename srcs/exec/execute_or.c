@@ -20,7 +20,6 @@ int execute_or(t_minishell_p shell, t_ast_p ast)
 	
 	if (ast->cntl_op->left->leaf)
 		preconfig_leaf(shell, ast->cntl_op->left->leaf);
-
 	rstatus = _execute_ast(shell, ast->cntl_op->left);
 	wait_if_leaf(ast->cntl_op->left->leaf, &rstatus);
 	if (rstatus)

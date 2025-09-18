@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:20:18 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/07 16:23:14 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/17 13:36:19 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@ static char	*ft_getcwd(char **env)
 	return (NULL);
 }
 
-int	ft_pwd(void)
+int	ft_pwd(char **args)
 {
-	char *cwd;
+	char	*cwd;
 
+	if (args && args[1])
+	{
+		ft_putstr_fd("minishell: pwd: too many arguments\n", 2);
+		return (1);
+	}
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (1);
