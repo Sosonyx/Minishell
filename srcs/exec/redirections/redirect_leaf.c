@@ -100,8 +100,6 @@ static int	set_redir(t_minishell_p shell, t_leaf_p leaf, t_redirtype redirtype)
 
 int	redirect_leaf(t_minishell_p shell, t_ast_p ast)
 {
-	int	open_flag;
-
 	if (!ast->leaf->r_in && ast->read_fd && *ast->read_fd IS_VALID_FD)
 	{
 		dup2(*ast->read_fd, STDIN_FILENO);

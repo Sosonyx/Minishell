@@ -14,7 +14,6 @@
 
 int execute_subshell(t_minishell_p shell, t_ast_p ast)
 {
-	int				rstatus;
 	pid_t			pid;
 	
 	pid = fork();
@@ -22,19 +21,19 @@ int execute_subshell(t_minishell_p shell, t_ast_p ast)
 	{
 		forward_fds(ast);
 
-		rstatus = _execute_ast(shell, ast->cntl_op->left);
-		wait_if_leaf(ast->cntl_op->left->leaf, &rstatus);
-		exit(rstatus);
+		shell->last_status = _execute_ast(shell, ast->cntl_op->left);
+		wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status);
+		exit(shell->last_status);
 	}
 	else if (pid > 0)
 	{
 		close_fds(ast, PARENT);
-		waitpid(pid, &rstatus, 0);
+		waitpid(pid, &shell->last_status, 0);
 	}
 	else
 	{
 		print_generic_error(shell, FORK_ERRMSG);
 	}
-	return (rstatus);
+	return (shell->last_status);
 }
 

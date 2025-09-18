@@ -36,7 +36,7 @@ static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 		else
 			break;
 	}
-	close_secure(&leaf->hd_fd[1]);	
+	close_secure(&leaf->hd_fd[1]);
 }
 
 void	input_heredoc(t_minishell_p shell, t_leaf_p leaf)

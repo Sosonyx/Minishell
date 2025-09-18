@@ -47,9 +47,10 @@ SRC         = \
 				$(SRC_DIR)/exec/redirections/redirect_leaf.c								\
 				$(SRC_DIR)/exec/redirections/forward_fds.c									\
 				$(SRC_DIR)/exec/redirections/close_fds.c									\
+				$(SRC_DIR)/exec/redirections/save_std_fileno.c								\
+				$(SRC_DIR)/exec/redirections/restore_std_fileno.c							\
 				$(SRC_DIR)/exec/wait_if_leaf.c												\
 				$(SRC_DIR)/exec/command_build/cmd_build.c									\
-				$(SRC_DIR)/exec/command_build/path.c										\
 				$(SRC_DIR)/lexer/lexer.c													\
 				$(SRC_DIR)/lexer/utils/utils.c												\
 				$(SRC_DIR)/lexer/utils/stock_functions.c									\

@@ -26,7 +26,7 @@ int 	execute_pipe(t_minishell_p shell, t_ast_p ast);
 int 	execute_and(t_minishell_p shell, t_ast_p ast);
 int 	execute_or(t_minishell_p shell, t_ast_p ast);
 int 	execute_leaf(t_minishell_p shell, t_ast_p ast);
-int		execute_builtin(t_minishell_p shell, t_leaf_p leaf);
+void	execute_buitin(t_minishell_p shell, t_ast_p ast);
 void	wait_if_leaf(t_leaf_p leaf, int *rstatus);
 
 void	forward_fds(t_ast_p ast);
@@ -43,5 +43,9 @@ int		redirect_leaf(t_minishell_p shell, t_ast_p ast);
 void	input_heredoc(t_minishell_p shell, t_leaf_p leaf);
 
 int		extract_return_code(int status);
+
+
+void    restore_std_fileno(t_minishell_p shell, t_ast_p ast);
+void    save_std_fileno(t_minishell_p shell);
 
 #endif

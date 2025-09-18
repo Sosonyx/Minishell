@@ -14,7 +14,7 @@
 
 void	close_secure(int *fd)
 {
-	if (fd && *fd > 2)
+	if (fd && *fd IS_VALID_FD)
 	{
 		close(*fd);
 		*fd = -2;

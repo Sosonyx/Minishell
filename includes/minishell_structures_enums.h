@@ -157,6 +157,8 @@ struct s_minishell
 	char			**environ;
 	int				readlines;
 	char			*input;
+	int				last_status;
+	int				std_fds[3];
 };
 
 #endif

@@ -40,22 +40,20 @@ static void	connect_nodes(t_ast_p ast)
 }
 
 int execute_pipe(t_minishell_p shell, t_ast_p ast)
-{
-	int			rstatus;
-	
+{	
 	if (create_pipe(shell, ast) == -1) 
 		return (-1);
 
 	connect_nodes(ast);
 
-	rstatus = _execute_ast(shell, ast->cntl_op->left);
+	shell->last_status = _execute_ast(shell, ast->cntl_op->left);
 	close_secure(&ast->cur_pipe[1]);
 
-	rstatus = _execute_ast(shell, ast->cntl_op->right);
+	shell->last_status = _execute_ast(shell, ast->cntl_op->right);
 	close_secure(&ast->cur_pipe[0]);
 
-	wait_if_leaf(ast->cntl_op->left->leaf, &rstatus);
-	wait_if_leaf(ast->cntl_op->right->leaf, &rstatus);
+	wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status);
+	wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
 		
-	return (rstatus);
+	return (shell->last_status);
 }

@@ -48,7 +48,6 @@ static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 static void	execute_command(t_minishell_p shell, t_ast_p ast)
 {
 	pid_t	*pid;
-	int		rstatus;
 
 	ast->leaf->pid = fork();
 	if (ast->leaf->pid == -1)
@@ -72,7 +71,10 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 	if (!ast->leaf->configured)
 		preconfig_leaf(shell, ast->leaf);
 	if (is_builtin(ast->leaf))
-		return (execute_builtin(shell, ast->leaf));
+	{
+		execute_builtin(shell, ast);
+		return (shell->last_status);
+	}
 	execute_command(shell, ast);
 	return (0);
 }

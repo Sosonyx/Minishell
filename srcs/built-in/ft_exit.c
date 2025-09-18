@@ -18,6 +18,11 @@ int	ft_exit(char **args, int last_status)
 
 	if (!args[1])
 		exit(last_status);
+	if (args[1] && args[2] && is_valid_number(args[1]))
+	{
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		exit(1);
+	}
 	if (args[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);

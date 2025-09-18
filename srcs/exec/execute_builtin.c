@@ -36,25 +36,33 @@ bool	is_builtin(t_leaf_p leaf)
 	return (false);
 }
 
-int	execute_builtin(t_minishell_p shell, t_leaf_p leaf)
+static int	 _execute_builtin(t_minishell_p shell, t_ast_p ast)
 {
 	char	*cmd;
 
-	cmd = leaf->name;
+	cmd = ast->leaf->name;
 	if (ft_strcmp(cmd, "echo") == 0)
-		return (ft_echo(leaf->cmds));
+		return (ft_echo(ast->leaf->cmds));
 	if (ft_strcmp(cmd, "cd") == 0)
-		return (ft_cd(shell, leaf->cmds));
+		return (ft_cd(shell, ast->leaf->cmds));
 	if (ft_strcmp(cmd, "pwd") == 0)
-		return (ft_pwd(leaf->cmds));
+		return (ft_pwd(ast->leaf->cmds));
 	if (ft_strcmp(cmd, "export") == 0)
-		return (ft_export(shell, &leaf->cmds[1])); // pas prendre la premiere cmd
+		return (ft_export(shell, &ast->leaf->cmds[1]));
 	if (ft_strcmp(cmd, "unset") == 0)
-		return (ft_unset(shell, leaf->cmds));
+		return (ft_unset(shell, ast->leaf->cmds));
 	if (ft_strcmp(cmd, "env") == 0)
-		return (ft_env(shell->environ, leaf->cmds));
-	if (ft_strcmp(cmd, "exit") == 0) // exit a revoir
-		return (ft_exit(leaf->cmds, 0));
+		return (ft_env(shell->environ, ast->leaf->cmds));
+	if (ft_strcmp(cmd, "exit") == 0) // exit doit appeler CLEANEXIT
+		return (ft_exit(ast->leaf->cmds, shell->last_status));
 	else
 		return (EXIT_FAILURE);
+}
+
+void	execute_builtin(t_minishell_p shell, t_ast_p ast)
+{
+	save_std_fileno(shell);
+	redirect_leaf(shell, ast);
+	shell->last_status = _execute_builtin(shell, ast);
+	restore_std_fileno(shell, ast);
 }

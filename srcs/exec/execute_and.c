@@ -14,19 +14,17 @@
 
 int execute_and(t_minishell_p shell, t_ast_p ast)
 {
-	int	rstatus;
-
 	forward_fds(ast);
 	if (ast->cntl_op->left->leaf)
 		preconfig_leaf(shell, ast->cntl_op->left->leaf);
-	rstatus = _execute_ast(shell, ast->cntl_op->left);
-	wait_if_leaf(ast->cntl_op->left->leaf, &rstatus);
-	if (!rstatus && ast->cntl_op->right)
+	shell->last_status = _execute_ast(shell, ast->cntl_op->left);
+	wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status);
+	if (!shell->last_status && ast->cntl_op->right)
 	{		
 		if (ast->cntl_op->right->leaf)
 			preconfig_leaf(shell, ast->cntl_op->right->leaf);
-		rstatus = _execute_ast(shell, ast->cntl_op->right);
-		wait_if_leaf(ast->cntl_op->right->leaf, &rstatus);
+		shell->last_status = _execute_ast(shell, ast->cntl_op->right);
+		wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
 	}
-	return (rstatus);
+	return (shell->last_status);
 }
