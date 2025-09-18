@@ -15,6 +15,8 @@
 
 # include "minishell.h"
 
+# define IS_VALID_FD > 2
+
 // int		execute_leaf(t_minishell_p shell, t_ast_p ast, bool pipe_case);
 int		execute_ast(t_minishell_p shell, t_ast_p ast);
 int		_execute_ast(t_minishell_p shell, t_ast_p ast);
