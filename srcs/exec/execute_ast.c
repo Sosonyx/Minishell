@@ -19,7 +19,7 @@ int	_execute_ast(t_minishell_p shell, t_ast_p ast)
 	if (!ast)
 		return (EXIT_FAILURE);
 	if (ast->leaf)
-		execute_leaf(shell, ast);
+		rstatus = execute_leaf(shell, ast);
 	else
 	{
 		if (ast->type == OP_AND)
@@ -37,7 +37,7 @@ int	_execute_ast(t_minishell_p shell, t_ast_p ast)
 int	execute_ast(t_minishell_p shell, t_ast_p ast)
 {
 	int	rstatus;
-	
+
 	if (!ast)
 	{
 		print_generic_error(shell, AST_ERRMSG);
@@ -45,7 +45,7 @@ int	execute_ast(t_minishell_p shell, t_ast_p ast)
 	}
 	if (ast->leaf)
 	{
-		execute_leaf(shell, ast);
+		rstatus = execute_leaf(shell, ast);
 		waitpid(ast->leaf->pid, &rstatus, 0);
 	}
 	else

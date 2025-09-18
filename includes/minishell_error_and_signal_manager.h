@@ -32,6 +32,8 @@
 # define SELF "Minishell"
 # define COLUMN ": "
 
+# define ERRVAL1 1 << 7
+# define ERRVAL2 2 << 7
 
 /********************************************************************************/
 /*			Errors																*/

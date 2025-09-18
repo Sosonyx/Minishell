@@ -12,10 +12,15 @@
 
 #include "minishell.h"
 
-int	ft_env(char **env)
+int	ft_env(char **env, char **args)
 {
 	int	i;
 
+	if (args && args[1])
+	{
+		ft_putstr_fd("minishell: env: too many arguments\n", 2);
+		return (ERRVAL1);
+	}
 	i = -1;
 	while (env[++i])
 		printf("%s\n", env[i]);

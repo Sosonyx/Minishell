@@ -25,7 +25,7 @@ int 	execute_subshell(t_minishell_p shell, t_ast_p ast);
 int 	execute_pipe(t_minishell_p shell, t_ast_p ast);
 int 	execute_and(t_minishell_p shell, t_ast_p ast);
 int 	execute_or(t_minishell_p shell, t_ast_p ast);
-void	execute_leaf(t_minishell_p shell, t_ast_p ast);
+int 	execute_leaf(t_minishell_p shell, t_ast_p ast);
 int		execute_builtin(t_minishell_p shell, t_leaf_p leaf);
 void	wait_if_leaf(t_leaf_p leaf, int *rstatus);
 
@@ -41,7 +41,6 @@ void	preconfig_leaf(t_minishell_p shell, t_leaf_p leaf);
 char	*find_cmd(char *cmd, char **env);
 int		redirect_leaf(t_minishell_p shell, t_ast_p ast);
 void	input_heredoc(t_minishell_p shell, t_leaf_p leaf);
-
 
 int		extract_return_code(int status);
 

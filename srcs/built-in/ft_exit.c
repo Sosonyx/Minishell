@@ -14,7 +14,7 @@
 
 int	ft_exit(char **args, int last_status)
 {
-	long code;
+	long	code;
 
 	if (!args[1])
 		exit(last_status);
@@ -26,6 +26,7 @@ int	ft_exit(char **args, int last_status)
 	if (!is_valid_number(args[1]))
 	{
 		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+		ft_putstr_fd("exit\n", 2);
 		exit(2);
 	}
 	code = ft_atol(args[1]);

@@ -14,8 +14,8 @@
 
 int	ft_echo(char **args)
 {
-	int i;
-	int newline;
+	int	i;
+	int	newline;
 
 	newline = 1;
 	i = 1;

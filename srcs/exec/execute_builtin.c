@@ -52,9 +52,9 @@ int	execute_builtin(t_minishell_p shell, t_leaf_p leaf)
 	if (ft_strcmp(cmd, "unset") == 0)
 		return (ft_unset(shell, leaf->cmds));
 	if (ft_strcmp(cmd, "env") == 0)
-		return (ft_env(shell->environ));
+		return (ft_env(shell->environ, leaf->cmds));
 	if (ft_strcmp(cmd, "exit") == 0) // exit a revoir
-		return (ft_exit(leaf->cmds, 0)); //g_status ici
+		return (ft_exit(leaf->cmds, 0));
 	else
 		return (EXIT_FAILURE);
 }

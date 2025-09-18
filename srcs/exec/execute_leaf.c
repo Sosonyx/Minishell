@@ -21,7 +21,7 @@ static int	convert_errno(int err)
 	return (1);
 }
 
-static void	_execute_leaf(t_minishell_p shell, t_ast_p ast)
+static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 {
 	int		errnum;
 	int		access_value;
@@ -38,10 +38,7 @@ static void	_execute_leaf(t_minishell_p shell, t_ast_p ast)
 	} */
 	else
 	{
-		if (is_builtin(ast->leaf))
-			exit(execute_builtin(shell, ast->leaf));
-		else
-			execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
+		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
 		errnum = errno;
 		print_cmd_error(shell, ast->leaf->name, errnum);
 		exit(convert_errno(errnum));
@@ -51,6 +48,7 @@ static void	_execute_leaf(t_minishell_p shell, t_ast_p ast)
 static void	execute_command(t_minishell_p shell, t_ast_p ast)
 {
 	pid_t	*pid;
+	int		rstatus;
 
 	ast->leaf->pid = fork();
 	if (ast->leaf->pid == -1)
@@ -59,7 +57,7 @@ static void	execute_command(t_minishell_p shell, t_ast_p ast)
 	}
 	if (ast->leaf->pid == 0)
 	{
-		_execute_leaf(shell, ast);
+		_execute_command(shell, ast);
 	}
 	else
 	{
@@ -67,11 +65,14 @@ static void	execute_command(t_minishell_p shell, t_ast_p ast)
 	}
 }
 
-void	execute_leaf(t_minishell_p shell, t_ast_p ast)
+int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	char	*cmd;
 
 	if (!ast->leaf->configured)
 		preconfig_leaf(shell, ast->leaf);
+	if (is_builtin(ast->leaf))
+		return (execute_builtin(shell, ast->leaf));
 	execute_command(shell, ast);
+	return (0);
 }

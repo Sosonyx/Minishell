@@ -34,11 +34,11 @@ int	ft_pwd(char **args)
 	if (args && args[1])
 	{
 		ft_putstr_fd("minishell: pwd: too many arguments\n", 2);
-		return (1);
+		return (ERRVAL2);
 	}
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		return (1);
+		return (ERRVAL2);
 	ft_putstr_fd(cwd, 1);
 	ft_putstr_fd("\n", 1);
 	free(cwd);

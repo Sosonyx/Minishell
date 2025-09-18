@@ -20,7 +20,6 @@ static void	print_cd_error(char *path)
 	ft_putendl_fd(strerror(errno), 2);
 }
 
-
 static char	*ft_getenv(char **env, char *name)
 {
 	int		i;
@@ -74,7 +73,6 @@ static int	update_pwd(t_minishell *shell, char *oldpwd, char *newpwd)
 	return (0);
 }
 
-
 int	ft_cd(t_minishell *shell, char **args)
 {
 	char	*path;
@@ -83,16 +81,16 @@ int	ft_cd(t_minishell *shell, char **args)
 
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
-		return (1);
+		return (ERRVAL1);
 	path = get_target_dir(shell, args);
 	if (!path || chdir(path) == -1)
 	{
 		print_cd_error(path);
-		return (free(oldpwd), 1);
+		return (free(oldpwd), ERRVAL1);
 	}
 	newpwd = getcwd(NULL, 0);
 	if (!newpwd)
-		return (free(oldpwd), 1);
+		return (free(oldpwd), ERRVAL1);
 	update_pwd(shell, oldpwd, newpwd);
 	free(oldpwd);
 	free(newpwd);

@@ -26,7 +26,7 @@ int				ft_cd(t_minishell *shell, char **args);
 int				ft_exit(char **args, int last_status);
 int				ft_export(t_minishell *shell, char **args_to_add);
 int				ft_unset(t_minishell *shell, char **args);
-int				ft_env(char **env);
+int				ft_env(char **env, char **args);
 
 void			free_array(char **array);
 char			**dup_env(char **envp);
