@@ -38,7 +38,6 @@ int	main(int ac, char **av, char **env)
 	t_ast_p				ast = NULL;
 	t_tok_container_p	tok_container = NULL;
 	t_minishell_p		shell;
-	int					rcode;
 	
 	signals_setter();
 	shell = shell_init(ac, av, environ);
@@ -51,7 +50,8 @@ int	main(int ac, char **av, char **env)
 			{
 				if (parse_tokens(shell, &ast, tok_container))
 				{
-					rcode = execute_ast(shell, ast);
+					execute_ast(shell, ast);
+					// printf("last_status in main : %d\n", extract_return_code(shell->last_status));
 					free(ast);
 					ast = NULL;
 				}
@@ -69,7 +69,7 @@ int	main(int ac, char **av, char **env)
 		}
 	}
 	rl_clear_history();
-	return (extract_return_code(rcode));
+	return (extract_return_code(shell->last_status));
 }
 
 

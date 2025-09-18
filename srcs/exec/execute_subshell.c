@@ -23,7 +23,7 @@ int execute_subshell(t_minishell_p shell, t_ast_p ast)
 
 		shell->last_status = _execute_ast(shell, ast->cntl_op->left);
 		wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status);
-		exit(shell->last_status);
+		exit(shell->last_status >> 8);
 	}
 	else if (pid > 0)
 	{
