@@ -12,12 +12,16 @@
 
 #include "minishell.h"
 
-static void	print_cd_error(const char *path)
+static void	print_cd_error(char *path)
 {
-    fprintf(stderr, "minishell: cd: %s: %s\n", path, strerror(errno));
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd(path, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(strerror(errno), 2);
 }
 
-static char	*ft_getenv(char **env, const char *name)
+
+static char	*ft_getenv(char **env, char *name)
 {
 	int		i;
 	size_t	len;
