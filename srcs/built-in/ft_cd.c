@@ -46,9 +46,34 @@ static char	*get_target_dir(t_minishell *shell, char **args)
 
 static int	update_pwd(t_minishell *shell, char *oldpwd, char *newpwd)
 {
-	// ici je parcours shell->env, puis je "realloc" oldpwd et newpwd avec la bonne valeur
+	int		i;
+	char	*old_var;
+	char	*new_var;
+
+	old_var = ft_strjoin("OLDPWD=", oldpwd);
+	new_var = ft_strjoin("PWD=", newpwd);
+	if (!old_var || !new_var)
+		return (free(old_var), free(new_var), 1);
+	i = 0;
+	while (shell->environ[i])
+	{
+		if (!ft_strncmp(shell->environ[i], "OLDPWD=", 7))
+		{
+			free(shell->environ[i]);
+			shell->environ[i] = ft_strdup(old_var);
+		}
+		else if (!ft_strncmp(shell->environ[i], "PWD=", 4))
+		{
+			free(shell->environ[i]);
+			shell->environ[i] = ft_strdup(new_var);
+		}
+		i++;
+	}
+	free(old_var);
+	free(new_var);
 	return (0);
 }
+
 
 int	ft_cd(t_minishell *shell, char **args)
 {
@@ -69,5 +94,7 @@ int	ft_cd(t_minishell *shell, char **args)
 	if (!newpwd)
 		return (free(oldpwd), 1);
 	update_pwd(shell, oldpwd, newpwd);
+	free(oldpwd);
+	free(newpwd);
 	return (0);
 }
