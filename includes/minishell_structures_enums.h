@@ -97,6 +97,11 @@ struct s_token
 	bool				expandable;
 };
 
+typedef struct s_expanded
+{
+    char    *value;
+    bool     split_allowed;
+}   t_expanded;
 
 
 // toutes les redirections IN et OUT chainees

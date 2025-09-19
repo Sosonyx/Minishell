@@ -16,3 +16,15 @@ Minishell: cate: command not found
 **************************
 
 << eof | ls | cat
+
+
+EXPAND >> 
+
+bash-5.1$ echo ""pre$VAR"post"
+preVARpost
+bash-5.1$ ./minishell 
+minishell> export VAR="VAR"
+minishell> echo "pre$VARpost"
+pre
+
+Marche mtn

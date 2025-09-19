@@ -41,10 +41,11 @@ int	main(int ac, char **av, char **env)
 	
 	signals_setter();
 	shell = shell_init(ac, av, environ);
+	if (ac == 2 && !ft_strcmp(av[1], "--help"))
+		minishell_help();
 	while (1)
 	{
 		prompt_input(shell);
-		minishell_help();
 		if (shell->input)
 		{
 			if (tokenize_input(shell->input, &tok_container, &g_status))

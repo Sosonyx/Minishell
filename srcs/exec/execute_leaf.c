@@ -67,7 +67,11 @@ static void	execute_command(t_minishell_p shell, t_ast_p ast)
 int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	char	*cmd;
-
+	char	**new_cmds;
+	
+	new_cmds = expand_leaf(shell, ast->leaf->cmds);
+    ft_free_split(ast->leaf->cmds);
+    ast->leaf->cmds = new_cmds;	
 	if (!ast->leaf->configured)
 		preconfig_leaf(shell, ast->leaf);
 	if (is_builtin(ast->leaf))

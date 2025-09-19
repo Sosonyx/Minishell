@@ -40,7 +40,9 @@ int				get_array_size(char **arr);
 /********************************************************************************/
 int				is_valid_number(char *str);
 long long		ft_atol(const char *nptr);
-int	ft_strcmp(const char *s1, const char *s2);
+int         	ft_strcmp(const char *s1, const char *s2);
+void	        ft_free_split(char **arr);
+
 
 /********************************************************************************/
 /*			Lexer																*/
@@ -72,6 +74,8 @@ int				is_pipe(t_toktype t);
 int				is_redir(t_toktype t);
 int				is_parenth(t_toktype t);
 int				is_control_op(t_toktype t);
+
+char	        **expand_leaf(t_minishell *shell, char **cmds);
 
 
 /********************************************************************************/
