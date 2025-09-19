@@ -44,6 +44,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		prompt_input(shell);
+		minishell_help();
 		if (shell->input)
 		{
 			if (tokenize_input(shell->input, &tok_container, &g_status))
@@ -63,6 +64,7 @@ int	main(int ac, char **av, char **env)
 		}
 		else
 		{
+			ft_putstr_fd("exit\n", STDOUT_FILENO);
 			shell_destroy(shell);
 			break ;
 					// prompt error -> close ou message d'erreur et nouveau prompt ?

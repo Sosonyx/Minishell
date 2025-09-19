@@ -30,5 +30,6 @@ void	close_fds(t_ast_p ast, int mode)
 		}
 		close_secure(ast->write_fd);
 		close_secure(ast->read_fd);
+		close_secure(ast->closed_fd);
 	}
 }

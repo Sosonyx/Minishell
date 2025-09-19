@@ -148,6 +148,7 @@ struct	s_ast
 	
 	int					*read_fd;
 	int					*write_fd;
+	int					*closed_fd;
 };
 
 struct s_minishell

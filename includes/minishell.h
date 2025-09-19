@@ -32,7 +32,7 @@
 # include "libft.h"
 
 # define PROMPT_MESSAGE "\001\033[48;5;57m\002minishell>\001\033[0m\002 "
-# define SHELL_TABLES_SIZE 32
+
 # define LOAD_FAIL_MSG "Minishell failed at loading!\n"
 
 # define OPEN_PERM 0644
@@ -49,5 +49,7 @@ void			shell_destroy(t_minishell_p shell);
 void			shell_kill(t_minishell_p shell, t_ast_p ast, char *errmsg);
 
 void			shell_restart(t_minishell_p shell, t_ast_p ast);
+
+void     minishell_help(void);
 
 #endif

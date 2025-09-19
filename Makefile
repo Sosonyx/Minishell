@@ -77,7 +77,8 @@ SRC         = \
 				$(SRC_DIR)/built-in/ft_export.c												\
 				$(SRC_DIR)/built-in/ft_unset.c												\
 				$(SRC_DIR)/built-in/ft_pwd.c												\
-				$(SRC_DIR)/built-in/utils.c
+				$(SRC_DIR)/built-in/utils.c													\
+				$(SRC_DIR)/mini_help.c
 
 OBJ         = $(addprefix $(BUILD_DIR)/, $(subst $(SRC_DIR)/,,$(SRC:.c=.o)))
 
