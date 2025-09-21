@@ -6,7 +6,7 @@
 #    By: fox <fox@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/17 20:08:28 by fox              ###   ########.fr        #
+#    Updated: 2025/09/21 19:13:10 by fox              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,13 @@ SRC         = \
 				$(SRC_DIR)/parsing/parse_subshell.c											\
 				$(SRC_DIR)/parsing/create_leaf.c											\
 				$(SRC_DIR)/parsing/input_heredoc.c											\
+				$(SRC_DIR)/wildcards/isasterisk.c											\
+				$(SRC_DIR)/wildcards/iswildcard.c											\
+				$(SRC_DIR)/wildcards/pathmatch.c											\
+				$(SRC_DIR)/wildcards/printargs.c											\
+				$(SRC_DIR)/wildcards/recdir.c												\
+				$(SRC_DIR)/wildcards/sortmatches.c											\
+				$(SRC_DIR)/wildcards/wildcard_expand.c										\
 				$(SRC_DIR)/shell/shell_init.c												\
 				$(SRC_DIR)/shell/shell_destroy.c											\
 				$(SRC_DIR)/shell/shell_kill.c												\

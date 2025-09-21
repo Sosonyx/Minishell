@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 12:43:04 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/17 15:28:45 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/21 20:05:57 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stddef.h>
+
+typedef char t_byte;
+typedef size_t			t_op_t;
 
 typedef struct s_list
 {
@@ -70,6 +73,7 @@ int		ft_toupper(int c);
 int		ft_atoi(const char *nptr);
 char	**ft_split(char const *s, char c);
 void	ft_split_free(char **strs);
+char	**split_clone(char **strs);
 char	*ft_itoa(int n);
 
 void	ft_putchar_fd(char c, int fd);
@@ -106,5 +110,7 @@ char	*join_bf_and_tmp(char *s1, char *s2);
 char	*extract_line(char *str);
 char	*extract_rest(char *str);
 char	*read_buffer_and_create_tmp(int fd, char **tmp, char **tmp2);
+
+void	*ft_realloc(void **ptr, size_t old_size, size_t new_size);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 14:53:41 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/21 19:11:00 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 
 	if (!ast->leaf->configured)
 		preconfig_leaf(shell, ast->leaf);
+	wildcard_expand(&ast->leaf->cmds);
 	if (is_builtin(ast->leaf))
 	{
 		execute_builtin(shell, ast);

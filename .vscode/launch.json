@@ -1,7 +1,27 @@
 {
     "version": "0.2.0",
     "configurations": [
-/*         {
+        {
+            "name": "Wildcards",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/wildcards/wilc",
+            "args": ["*/*"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+            ],
+            "preLaunchTask": "wildcd"
+        },
+        {
             "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
@@ -20,9 +40,9 @@
                 },
             ],
             "preLaunchTask": "build"
-        }, */
+        },
  		{
-            "name": "Debug",
+            "name": "Children",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/minishell",
