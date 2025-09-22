@@ -79,7 +79,6 @@ void	wildcard_expand(char ***cmd_args)
 		{
 			while (*commands)
 				_wildcard_expand(wc, *commands++);
-				
 			sortmatches(wc);
 			*cmd_args = rebuild_cmd_args(wc, *cmd_args);
 			// printargs(wc);
