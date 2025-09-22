@@ -117,26 +117,27 @@ static char    **ft_join_array(char **tab1, char **tab2)
     return (res);
 }
 
-static char    *append_char(char *s, char c)
+static char    *append_char(char *str, char c)
 {
     size_t  len;
     char    *res;
     size_t  i;
 
-    if (!s)
+    if (!str)
         return (NULL);
-    len = ft_strlen(s);
+    len = ft_strlen(str);
     res = malloc(len + 2);
     if (!res)
         return (NULL);
     i = 0;
     while (i < len)
     {
-        res[i] = s[i];
+        res[i] = str[i];
         i++;
     }
     res[len] = c;
     res[len + 1] = '\0';
+    free(str);
     return (res);
 }
 
