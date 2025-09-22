@@ -41,7 +41,7 @@ int				get_array_size(char **arr);
 int				is_valid_number(char *str);
 long long		ft_atol(const char *nptr);
 int         	ft_strcmp(const char *s1, const char *s2);
-void	        ft_free_split(char **arr);
+void	        ft_split_free(char **arr);
 
 
 /********************************************************************************/
@@ -75,8 +75,6 @@ int				is_redir(t_toktype t);
 int				is_parenth(t_toktype t);
 int				is_control_op(t_toktype t);
 
-char	        **expand_leaf(t_minishell *shell, char **cmds);
-
 
 /********************************************************************************/
 /*			Parsing																*/
@@ -93,6 +91,15 @@ int				parse_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, 
 int				parse_subshell(t_minishell_p shell, t_ast_p *op, t_tok_container_p tok_container, int start, int end);
 
 int				create_leaf(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_container, int start, int end);
+
+
+/********************************************************************************/
+/*			Expand																*/
+/********************************************************************************/
+
+char			**expand_leaf(t_minishell *shell, char **cmds);
+t_expanded		expand_old_cmd(t_minishell *shell, char *str);
+char			*get_env_value(t_minishell *shell, char *name);
 
 
 #endif

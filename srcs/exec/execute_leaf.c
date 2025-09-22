@@ -70,7 +70,7 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 	char	**new_cmds;
 	
 	new_cmds = expand_leaf(shell, ast->leaf->cmds);
-    ft_free_split(ast->leaf->cmds);
+    ft_split_free(ast->leaf->cmds);
     ast->leaf->cmds = new_cmds;	
 	if (!ast->leaf->configured)
 		preconfig_leaf(shell, ast->leaf);

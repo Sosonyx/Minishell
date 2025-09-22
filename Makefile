@@ -67,7 +67,8 @@ SRC         = \
 				$(SRC_DIR)/parsing/parse_subshell.c											\
 				$(SRC_DIR)/parsing/create_leaf.c											\
 				$(SRC_DIR)/parsing/input_heredoc.c											\
-				$(SRC_DIR)/parsing/expander.c												\
+				$(SRC_DIR)/parsing/expander/expand_leaf.c									\
+				$(SRC_DIR)/parsing/expander/expand_old_cmd.c								\
 				$(SRC_DIR)/wildcards/isasterisk.c											\
 				$(SRC_DIR)/wildcards/iswildcard.c											\
 				$(SRC_DIR)/wildcards/pathmatch.c											\
