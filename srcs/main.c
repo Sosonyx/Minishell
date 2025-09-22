@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/17 13:43:42 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/19 10:41:31 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		prompt_input(shell);
+		// minishell_help();
 		if (shell->input)
 		{
 			if (tokenize_input(shell->input, &tok_container, &g_status))

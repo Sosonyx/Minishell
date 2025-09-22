@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/17 17:49:16 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/21 19:09:46 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@
 # include <stdbool.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <dirent.h>
 
 # include "minishell_typedefs.h"
 # include "minishell_structures_enums.h"
 # include "minishell_parsing.h"
 # include "minishell_error_and_signal_manager.h"
 # include "minishell_exec.h"
+# include "wildcards.h"
 
 # include "libft.h"
 

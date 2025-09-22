@@ -1,19 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_std_fileno.c                                  :+:      :+:    :+:   */
+/*   sortmatches.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/19 10:42:04 by fox               #+#    #+#             */
-/*   Updated: 2025/09/19 10:42:05 by fox              ###   ########.fr       */
+/*   Created: 2025/09/21 17:28:41 by fox               #+#    #+#             */
+/*   Updated: 2025/09/21 19:45:28 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "wildcards.h"
 
-void save_std_fileno(t_minishell_p shell)
+void	sortmatches(t_wildcard_p wc)
 {
-    shell->std_fds[0] = dup(STDIN_FILENO);
-    shell->std_fds[1] = dup(STDOUT_FILENO);
-}   
+	char	*temp;
+	int		n;
+
+	n = 1;
+	while (n + 1 < wc->totalmatches)
+	{
+		if (strcmp(wc->matches[n], wc->matches[n + 1]) > 0)
+		{
+			temp = wc->matches[n];
+			wc->matches[n] = wc->matches[n + 1];
+			wc->matches[n + 1] = temp;
+			n = 0;
+		}
+		else
+			n++;
+	}
+}

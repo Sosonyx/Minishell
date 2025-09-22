@@ -1,43 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_split_clone.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/25 18:21:58 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/21 14:47:43 by fox              ###   ########.fr       */
+/*   Created: 2025/09/21 20:04:31 by fox               #+#    #+#             */
+/*   Updated: 2025/09/21 20:07:35 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static int	_get_array_size(char **arr)
 {
-	size_t	s1size = 0;
-	size_t	s2size = 0;
-	char	*ptr;
-	size_t	i;
-	size_t	j;
+	int	i;
 
+	if (!arr)
+		return (0);
 	i = 0;
-	j = 0;
-	if (s1)
-		s1size = strlen(s1);
-	if (s2)
-		s2size = strlen(s2);
-	ptr = calloc(s1size + s2size + 1, sizeof(char));
-	if (!ptr)
-		return (NULL);
-	while (s1 && s1[i])
-	{
-		ptr[i] = s1[i];
+	while (arr[i])
 		i++;
-	}
-	while (s2 && (i + j) < (s1size + s2size + 1))
-	{
-		ptr[i + j] = s2[j];
-		j++;
-	}
-	return (ptr);
+	return (i);
+}
+
+char	**split_clone(char **strs)
+{
+    int		count;
+    char	**copy;
+    int		i;
+
+    count = _get_array_size(strs);
+    copy = malloc(sizeof(char *) * (count + 1));
+    if (!copy)
+        return (NULL);
+    i = 0;
+    while (i < count)
+    {
+        copy[i] = ft_strdup(strs[i]);
+        i++;
+    }
+    copy[i] = NULL;
+    return (copy);
 }
