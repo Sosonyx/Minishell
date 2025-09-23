@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:32:58 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 16:10:43 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 16:54:25 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static void	matchlist_resize(t_wildcard_p wc)
 		wc->matches = calloc(++(wc->totalmatches), sizeof(char *));
 	else
 	{
-		ptr = realloc(wc->matches, ++(wc->totalmatches) * sizeof(char *));
+		// ptr = realloc(wc->matches, ++(wc->totalmatches) * sizeof(char *));
+		ptr = ft_realloc((void **) wc->matches, (wc->totalmatches) * sizeof(char *), (wc->totalmatches + 1) * sizeof(char *));
+			++wc->totalmatches;
 		if (ptr)
 			wc->matches = ptr;
 	}					

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:47:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/06/03 16:28:57 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/23 16:53:49 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_realloc(void **ptr, size_t old_size, size_t new_size)
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 {
 	void	*new_ptr;
 
@@ -21,8 +21,8 @@ void	*ft_realloc(void **ptr, size_t old_size, size_t new_size)
 		return (NULL);
 	else
 	{
-		ft_memcpy(new_ptr, *ptr, old_size);
-		free(*ptr);
+		ft_memcpy(new_ptr, ptr, old_size);
+		free(ptr);
 	}
 	return (new_ptr);
 }
