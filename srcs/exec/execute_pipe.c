@@ -35,7 +35,7 @@ static void	connect_nodes(t_ast_p ast)
 	ast->cntl_op->left->write_fd = &ast->cur_pipe[1];
 	ast->cntl_op->left->read_fd = ast->read_fd;
 	ast->cntl_op->left->closed_fd = &ast->cur_pipe[0];	
-	
+
 	ast->cntl_op->right->read_fd = &ast->cur_pipe[0];
 	ast->cntl_op->right->write_fd = ast->write_fd;
 	ast->cntl_op->right->closed_fd = &ast->cur_pipe[1];	

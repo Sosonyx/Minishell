@@ -49,7 +49,9 @@ int	main(int ac, char **av, char **env)
 		// minishell_help();
 		if (shell->input)
 		{
-			if (tokenize_input(shell->input, &tok_container, &g_status))
+			if (!*(shell->input))
+				shell->last_status = 0;			
+			else if (tokenize_input(shell->input, &tok_container, &g_status))
 			{
 				if (parse_tokens(shell, &ast, tok_container))
 				{

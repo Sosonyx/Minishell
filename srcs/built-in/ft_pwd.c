@@ -31,11 +31,12 @@ int	ft_pwd(char **args)
 {
 	char	*cwd;
 
-	if (args && args[1])
-	{
-		ft_putstr_fd("minishell: pwd: too many arguments\n", 2);
-		return (ERRVAL2);
-	}
+	(void)args;
+	// if (args && args[1])
+	// {
+	// 	ft_putstr_fd("minishell: pwd: too many arguments\n", 2);
+	// 	return (ERRVAL2);
+	// }
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (ERRVAL2);

@@ -74,7 +74,7 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
     ast->leaf->cmds = new_cmds;	
 	if (!ast->leaf->configured)
 		preconfig_leaf(shell, ast->leaf);
-	wildcard_expand(&ast->leaf->cmds);
+	// wildcard_expand(&ast->leaf->cmds);
 	if (is_builtin(ast->leaf))
 	{
 		execute_builtin(shell, ast);

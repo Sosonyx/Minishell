@@ -82,15 +82,20 @@ int	ft_cd(t_minishell *shell, char **args)
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		return (ERRVAL1);
+	if (args[1] && args[2])
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		return (free(oldpwd), ERRVAL2);
+	}
 	path = get_target_dir(shell, args);
 	if (!path || chdir(path) == -1)
 	{
 		print_cd_error(path);
-		return (free(oldpwd), ERRVAL1);
+		return (free(oldpwd), ERRVAL2);
 	}
 	newpwd = getcwd(NULL, 0);
 	if (!newpwd)
-		return (free(oldpwd), ERRVAL1);
+		return (free(oldpwd), ERRVAL2);
 	update_pwd(shell, oldpwd, newpwd);
 	free(oldpwd);
 	free(newpwd);

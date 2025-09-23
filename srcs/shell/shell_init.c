@@ -27,7 +27,6 @@ t_minishell_p	shell_init(int ac, char **av, char **envp)
 	{
 		new_shell->ac = ac;
 		new_shell->av = av;
-		new_shell->last_status = 0;
 		new_shell->environ = dup_env(envp); // if ENV NULL recreer un petit env
 	}
 	return (new_shell);
