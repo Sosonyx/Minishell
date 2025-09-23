@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 12:43:04 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/21 20:05:57 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 14:12:17 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ char	*extract_rest(char *str);
 char	*read_buffer_and_create_tmp(int fd, char **tmp, char **tmp2);
 
 void	*ft_realloc(void **ptr, size_t old_size, size_t new_size);
+int		ft_min(int a, int b);
 
 #endif

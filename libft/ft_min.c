@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printargs.c                                        :+:      :+:    :+:   */
+/*   ft_min.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 18:18:17 by fox               #+#    #+#             */
-/*   Updated: 2025/09/21 18:18:19 by fox              ###   ########.fr       */
+/*   Created: 2025/09/23 14:10:42 by fox               #+#    #+#             */
+/*   Updated: 2025/09/23 15:00:00 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wildcards.h"
-
-void	printargs(t_wildcard_p wc)
+int	ft_min(int a, int b)
 {
-	int	n = 0;
-	
-	while (n < wc->totalmatches)
-		printf("%s\n", wc->matches[n++]);
+	if (a > b)
+		return (b);
+	else
+		return (a);
 }
