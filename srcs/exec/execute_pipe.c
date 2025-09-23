@@ -47,7 +47,6 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 		return (-1);
 
 	connect_nodes(ast);
-
 	shell->last_status = _execute_ast(shell, ast->cntl_op->left);
 	close_secure(&ast->cur_pipe[1]);
 
@@ -59,3 +58,32 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 		
 	return (shell->last_status);
 }
+
+// int execute_pipe(t_minishell_p shell, t_ast_p ast)
+// {	
+// 	if (create_pipe(shell, ast) == -1) 
+// 		return (-1);
+
+// 	connect_nodes(ast);
+// 	pid_t pid = fork();
+// 	if (pid == 0)
+// 	{
+// 		shell->last_status = _execute_ast(shell, ast->cntl_op->left);
+// 		close_secure(&ast->cur_pipe[1]);
+// 		exit(shell->last_status);
+// 	}
+// 	pid_t pid2 = fork();
+// 	if (pid2 == 0)
+// 	{
+// 		shell->last_status = _execute_ast(shell, ast->cntl_op->right);
+// 		close_secure(&ast->cur_pipe[0]);
+// 		exit(shell->last_status);
+// 	}
+
+// 	// wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status);
+// 	// wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
+// 	waitpid(pid, &shell->last_status, 0);
+// 	waitpid(pid2, &shell->last_status, 0);
+		
+// 	return (shell->last_status);
+// }
