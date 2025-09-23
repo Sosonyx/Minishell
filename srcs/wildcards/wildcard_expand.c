@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 14:45:33 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 16:07:19 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ void	_wildcard_expand(t_wildcard_p wc, char *path)
 	if (wc->spath)
 	{
 		if (iswildcard(*wc->spath))
+		{
+			wc->startbydot = true;
 			recdir(wc, ".", 0);
+		}
 		else
 			recdir(wc, *wc->spath, 1);
 		ft_split_free(wc->spath);

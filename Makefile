@@ -6,7 +6,7 @@
 #    By: fox <fox@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/23 14:10:07 by fox              ###   ########.fr        #
+#    Updated: 2025/09/23 16:03:17 by fox              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ SRC         = \
 				$(SRC_DIR)/wildcards/utils/catpath.c										\
 				$(SRC_DIR)/wildcards/utils/dotdot.c											\
 				$(SRC_DIR)/wildcards/utils/ishidden.c										\
+				$(SRC_DIR)/wildcards/utils/islastsequence.c									\
 				$(SRC_DIR)/wildcards/utils/strncmprev.c										\
 				$(SRC_DIR)/wildcards/addmatch.c												\
 				$(SRC_DIR)/wildcards/pathmatch.c											\

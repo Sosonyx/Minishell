@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:25:25 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 14:09:55 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 16:06:35 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ struct s_wildcard
 	int				totalmatches;
 	int				max_depth;
 	bool			lastisdir;
+	bool			startbydot;
+};
+
+struct s_pathmatch
+{
+	char			*start_sequence;
+	char			*end_sequence;
 };
 
 typedef struct s_path t_path;
@@ -40,6 +47,7 @@ int		skipdotdotdot(char *dir, char *field);
 bool	ishidden(char *dir);
 char 	*catpath(char *pathopen, char *added);
 int 	strncmprev(const char *s1, const char *s2, int size);
+bool	islastsequence(char *field);
 
 void	wildcard_expand(char ***cmd_args);
 
