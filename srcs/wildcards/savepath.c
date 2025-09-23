@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:22:28 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 13:54:46 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 19:58:01 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	savepath(t_wildcard_p wc, struct dirent *sdir, char *path, int depth)
 	if (pathmatch(sdir->d_name, wc->spath[depth]))
 	{
 		path = getfullpath(wc, sdir, path);
-		addmatch(wc, path);
+		if (!ishidden(path))
+			addmatch(wc, path);
+		else
+			free(path);
 	}
 }

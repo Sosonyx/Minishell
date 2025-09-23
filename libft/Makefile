@@ -6,13 +6,13 @@
 #    By: fox <fox@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:48:39 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/23 16:26:24 by fox              ###   ########.fr        #
+#    Updated: 2025/09/23 19:38:22 by fox              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 CC = cc
 
 SRCS =  ft_strncmp.c ft_strlen.c ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memchr.c \

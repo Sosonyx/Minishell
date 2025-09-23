@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:34:09 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 16:02:51 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 19:33:02 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ int pathmatch(char *ptested, char *pref)
 
 	if (iswildcard(pref))
 	{
+		ptr = pref;
 		if (*pref && *pref != '*')
 		{
-			ptr = pref;
 			while (*ptr && *ptr != '*')
 				ptr++;
 			wref.start_sequence = ft_substr(pref, 0, ptr - pref);

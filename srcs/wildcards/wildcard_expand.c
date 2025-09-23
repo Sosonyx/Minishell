@@ -6,23 +6,11 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 19:19:13 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 19:37:11 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
-
-void	fft_split_free(char **strs)
-{
-	char	**ptr_to_strs;
-
-	if (!strs)
-		return ;
-	ptr_to_strs = strs;
-	while (*ptr_to_strs)
-		free(*ptr_to_strs++);
-	free(strs);
-}
 
 static char	**rebuild_cmd_args(t_wildcard_p wc, char **cmd_args)
 {
@@ -33,20 +21,20 @@ static char	**rebuild_cmd_args(t_wildcard_p wc, char **cmd_args)
 	new_args = calloc((wc->totalmatches + 2), sizeof(char *));
 	if (new_args)
 	{
-		*new_args = strdup(*cmd_args);
+		*new_args = ft_strdup(*cmd_args);
 		n = 1;
 		failed = 0;
 		while (n <= wc->totalmatches)
 		{
-			new_args[n] = strdup(wc->matches[n - 1]);
+			new_args[n] = ft_strdup(wc->matches[n - 1]);
 			if (!new_args[n++])
 				failed = 1;
 		}
 		if (!failed)
-			fft_split_free(cmd_args);
+			ft_split_free(cmd_args);
 		else
 		{
-			fft_split_free(new_args);
+			ft_split_free(new_args);
 			return (cmd_args);
 		}
 	}
@@ -92,7 +80,7 @@ void	wildcard_expand(char ***cmd_args)
 	if (*cmd_args && **cmd_args)
 	{
 		commands = *cmd_args + 1;
-		wc = calloc(1, sizeof(struct s_wildcard));
+		wc = ft_calloc(1, sizeof(struct s_wildcard));
 		if (wc)
 		{
 			while (*commands)
