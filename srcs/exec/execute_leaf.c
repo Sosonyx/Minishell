@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/23 17:12:36 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 18:39:14 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
     ast->leaf->cmds = new_cmds;	
 	if (!ast->leaf->configured)
 		preconfig_leaf(shell, ast->leaf);
-	// wildcard_expand(&ast->leaf->cmds);
+	wildcard_expand(&ast->leaf->cmds);
 	if (is_builtin(ast->leaf))
 	{
 		execute_builtin(shell, ast);

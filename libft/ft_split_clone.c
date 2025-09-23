@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 20:04:31 by fox               #+#    #+#             */
-/*   Updated: 2025/09/21 20:07:35 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 19:15:29 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	_get_array_size(char **arr)
 	return (i);
 }
 
-char	**split_clone(char **strs)
+char	**ft_split_clone(char **strs)
 {
     int		count;
     char	**copy;

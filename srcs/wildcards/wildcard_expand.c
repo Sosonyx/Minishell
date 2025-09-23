@@ -6,11 +6,23 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 16:07:19 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 19:19:13 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
+
+void	fft_split_free(char **strs)
+{
+	char	**ptr_to_strs;
+
+	if (!strs)
+		return ;
+	ptr_to_strs = strs;
+	while (*ptr_to_strs)
+		free(*ptr_to_strs++);
+	free(strs);
+}
 
 static char	**rebuild_cmd_args(t_wildcard_p wc, char **cmd_args)
 {
@@ -31,10 +43,10 @@ static char	**rebuild_cmd_args(t_wildcard_p wc, char **cmd_args)
 				failed = 1;
 		}
 		if (!failed)
-			ft_split_free(cmd_args);
+			fft_split_free(cmd_args);
 		else
 		{
-			ft_split_free(new_args);
+			fft_split_free(new_args);
 			return (cmd_args);
 		}
 	}
@@ -91,7 +103,6 @@ void	wildcard_expand(char ***cmd_args)
 					addmatch(wc, *commands);
 				commands++;
 			}
-				
 			sortmatches(wc);
 			*cmd_args = rebuild_cmd_args(wc, *cmd_args);
 			free(wc);

@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:57:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/21 20:05:26 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 19:14:24 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ long long	ft_atol(const char *nptr)
 
 char	**dup_env(char **envp)
 {
-	return (split_clone(envp));
+	return (ft_split_clone(envp));
 }
 
 int	get_array_size(char **arr)
