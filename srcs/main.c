@@ -63,6 +63,10 @@ int	main(int ac, char **av, char **env)
 					// ast error -> close ou message d'erreur et nouveau prompt ?
 				}
 			}
+			else
+			{
+				shell->last_status = 258;
+			}
 		}
 		else
 		{
