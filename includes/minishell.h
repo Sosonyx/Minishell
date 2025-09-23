@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/21 19:09:46 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/22 19:48:19 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # define _GNU_SOURCE
+/* # define __USE_MISC */
 
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -52,6 +53,6 @@ void			shell_kill(t_minishell_p shell, t_ast_p ast, char *errmsg);
 
 void			shell_restart(t_minishell_p shell, t_ast_p ast);
 
-void     minishell_help(void);
+void     		minishell_help(void);
 
 #endif

@@ -42,6 +42,7 @@
 		"history.h": "c",
 		"minishell_error_and_signal_manager.h": "c",
 		"minishell_structures_enums.h": "c",
-		"wait.h": "c"
+		"wait.h": "c",
+		"wildcards.h": "c"
 	}
 }

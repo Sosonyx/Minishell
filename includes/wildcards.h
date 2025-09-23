@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:25:25 by fox               #+#    #+#             */
-/*   Updated: 2025/09/21 20:26:03 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/23 16:06:35 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,35 @@ struct s_wildcard
 	char			*cur_path;
 	int				totalmatches;
 	int				max_depth;
+	bool			lastisdir;
+	bool			startbydot;
 };
+
+struct s_pathmatch
+{
+	char			*start_sequence;
+	char			*end_sequence;
+};
+
+typedef struct s_path t_path;
+typedef t_path *t_path_p;
 
 int		iswildcard(char *field);
 int		isasterisk(char c);
+int		isdotdotdotentry(char *dir);
+int		skipdotdotdot(char *dir, char *field);
+bool	ishidden(char *dir);
+char 	*catpath(char *pathopen, char *added);
+int 	strncmprev(const char *s1, const char *s2, int size);
+bool	islastsequence(char *field);
 
-//	Return 1 if both arguments match, else 0
-int		pathmatch(char *ptested, char *pref);
-
-//	Initialize wildcard expansion for the given path
 void	wildcard_expand(char ***cmd_args);
-void	recdir(t_wildcard_p wc, char *pathopen, int depth);
 
+
+int		pathmatch(char *ptested, char *pref);
+void	recdir(t_wildcard_p wc, char *pathopen, int depth);
+void	savepath(t_wildcard_p wc, struct dirent *sdir, char *path, int depth);
+void	addmatch(t_wildcard_p wc, char *path);
 void	sortmatches(t_wildcard_p wc);
 
-// debug
-void	printargs(t_wildcard_p wc);
-
 #endif
-
