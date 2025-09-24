@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/24 15:42:49 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 16:10:03 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	execute_nofork(t_minishell_p shell, t_ast_p ast)
 {
 	save_std_fileno(shell);
 	redirect_leaf(shell, ast);
-	shell->last_status = execute_command(shell, ast);
+	if (ast->leaf->abort == false)
+		shell->last_status = execute_command(shell, ast);
+	else
+		shell->last_status = 1;
 	restore_std_fileno(shell, ast);
 }
 
