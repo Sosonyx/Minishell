@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 17:28:41 by fox               #+#    #+#             */
-/*   Updated: 2025/09/24 12:27:48 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 12:34:43 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ static int	strcmp_nocase(const char *s1, const char *s2)
 static int	_compare(const char *s1, const char *s2)
 {
 	int	diff_nocase;
-	int	diff_wcase;
-
+	
 	diff_nocase = strcmp_nocase(s1, s2);
-	diff_wcase = ft_strcmp(s1, s2);
 	if (diff_nocase)
 		return (diff_nocase);
 	else
-		return (-diff_wcase);
+		return (-ft_strcmp(s1, s2));
 }
 
 static void	_swap(char **s1, char **s2)
