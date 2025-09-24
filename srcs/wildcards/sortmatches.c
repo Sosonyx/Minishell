@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 17:28:41 by fox               #+#    #+#             */
-/*   Updated: 2025/09/24 12:34:43 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 13:37:24 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	sortmatches(t_wildcard_p wc)
 	int		n;
 
 	n = 0;
-	while (n + 1 < wc->totalmatches)
+	while (n + 1 < wc->tmp_totalmatches)
 	{
-		if (_compare(wc->matches[n], wc->matches[n + 1]) > 0)
+		if (_compare(wc->tmp_matches[n], wc->tmp_matches[n + 1]) > 0)
 		{
-			_swap(&wc->matches[n], &wc->matches[n + 1]);
+			_swap(&wc->tmp_matches[n], &wc->tmp_matches[n + 1]);
 			n = 0;
 		}
 		else

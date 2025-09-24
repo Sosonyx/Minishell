@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:32:58 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 19:50:36 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 13:35:19 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ static void	matchlist_resize(t_wildcard_p wc)
 {
 	char	**ptr;
 	
-	if (!wc->matches)
+	if (!wc->tmp_matches)
 	{
-		wc->matches = ft_calloc(++wc->totalmatches + 1, sizeof(char *));
+		wc->tmp_matches = ft_calloc(++wc->tmp_totalmatches + 1, sizeof(char *));
 	}
 	else
 	{
-		ptr = ft_realloc((void **) wc->matches, (wc->totalmatches) * sizeof(char *), (++wc->totalmatches + 1) * sizeof(char *));
+		ptr = ft_realloc((void **) wc->tmp_matches, (wc->tmp_totalmatches) * sizeof(char *), (++wc->tmp_totalmatches + 1) * sizeof(char *));
 		if (ptr)
-			wc->matches = ptr;
+			wc->tmp_matches = ptr;
 	}					
 }
 
@@ -34,8 +34,8 @@ void	addmatch(t_wildcard_p wc, char *path)
 	{
 		matchlist_resize(wc);
 		if (wc->startbydot && !strncmp(path, "./", 2))
-			wc->matches[wc->totalmatches - 1] = ft_strdup(path + 2);
+			wc->tmp_matches[wc->tmp_totalmatches - 1] = ft_strdup(path + 2);
 		else
-			wc->matches[wc->totalmatches - 1] = ft_strdup(path);
+			wc->tmp_matches[wc->tmp_totalmatches - 1] = ft_strdup(path);
 	}
 }

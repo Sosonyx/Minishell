@@ -6,22 +6,22 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 19:37:11 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 14:14:22 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
-static char	**rebuild_cmd_args(t_wildcard_p wc, char **cmd_args)
+static void	rebuild_cmd_args(t_wildcard_p wc, char ***cmd_args)
 {
 	char	**new_args;
 	int		n;
 	int		failed;
 	
-	new_args = calloc((wc->totalmatches + 2), sizeof(char *));
+	new_args = ft_calloc((wc->totalmatches + 2), sizeof(char *));
 	if (new_args)
 	{
-		*new_args = ft_strdup(*cmd_args);
+		*new_args = ft_strdup(**cmd_args);
 		n = 1;
 		failed = 0;
 		while (n <= wc->totalmatches)
@@ -31,14 +31,13 @@ static char	**rebuild_cmd_args(t_wildcard_p wc, char **cmd_args)
 				failed = 1;
 		}
 		if (!failed)
-			ft_split_free(cmd_args);
-		else
 		{
-			ft_split_free(new_args);
-			return (cmd_args);
+			ft_split_free(*cmd_args);
+			*cmd_args = new_args;
 		}
+		else
+			ft_split_free(new_args);
 	}
-	return (new_args);
 }
 
 static void	wcconfig(t_wildcard_p wc, char *path)
@@ -55,20 +54,44 @@ static void	wcconfig(t_wildcard_p wc, char *path)
 	wc->lastisdir = (*(path - 1) == '/');	
 }
 
-void	_wildcard_expand(t_wildcard_p wc, char *path)
+void	aggregate_matches(t_wildcard_p wc)
 {
-	wcconfig(wc, path);	
-	if (wc->spath)
+	char	**matches;
+
+	matches = ft_calloc((wc->totalmatches + wc->tmp_totalmatches + 1), sizeof(char *));
+	if (matches)
 	{
-		if (iswildcard(*wc->spath))
-		{
-			wc->startbydot = true;
-			recdir(wc, ".", 0);
-		}
-		else
-			recdir(wc, *wc->spath, 1);
-		ft_split_free(wc->spath);
+		ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
+		ft_memcpy(matches + wc->totalmatches, wc->tmp_matches, wc->tmp_totalmatches * sizeof(char *));
+		wc->totalmatches += wc->tmp_totalmatches;
+		wc->tmp_totalmatches = 0;
+		wc->matches = matches;
 	}
+}
+
+void	_wildcard_expand(t_wildcard_p wc, char *command)
+{
+	if (iswildcard(command))
+	{
+		wcconfig(wc, command);	
+		if (wc->spath)
+		{
+			if (iswildcard(*wc->spath))
+			{
+				wc->startbydot = true;
+				recdir(wc, ".", 0);
+			}
+			else
+				recdir(wc, *wc->spath, 1);
+			ft_split_free(wc->spath);
+		}
+	}
+	else
+	{
+		addmatch(wc, command);
+	}
+	sortmatches(wc);
+	aggregate_matches(wc);		
 }
 
 void	wildcard_expand(char ***cmd_args)
@@ -76,7 +99,7 @@ void	wildcard_expand(char ***cmd_args)
 	t_wildcard_p	wc;
 	char			**commands;
 	char			**expanded_args;
-	
+
 	if (*cmd_args && **cmd_args)
 	{
 		commands = *cmd_args + 1;
@@ -84,15 +107,8 @@ void	wildcard_expand(char ***cmd_args)
 		if (wc)
 		{
 			while (*commands)
-			{
-				if (iswildcard(*commands))
-					_wildcard_expand(wc, *commands);
-				else
-					addmatch(wc, *commands);
-				commands++;
-			}
-			sortmatches(wc);
-			*cmd_args = rebuild_cmd_args(wc, *cmd_args);
+				_wildcard_expand(wc, *commands++);
+			rebuild_cmd_args(wc, cmd_args);
 			free(wc);
 		}
 	}

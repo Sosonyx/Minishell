@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:25:25 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 16:06:35 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 13:35:39 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ struct s_wildcard
 {
 	char			**spath;
 	char			**matches;
+	char			**tmp_matches;
 	char			*cur_path;
 	int				totalmatches;
+	int				tmp_totalmatches;
 	int				max_depth;
 	bool			lastisdir;
 	bool			startbydot;
