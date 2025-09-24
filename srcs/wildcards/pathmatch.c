@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:34:09 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 19:33:02 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 17:57:51 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char *next_sample(char **path)
 static char *find_match(char *ptested, char *psample)
 {
 	if (psample && *psample)
-		return (strstr(ptested, psample));
+		return (ft_strstr(ptested, psample));
 	else
 		return (ptested);
 }
@@ -42,7 +42,7 @@ static char *align_segment(char *segment, char *psample)
 	if (!segment || !psample)
 		return (segment);
 
-	n = strlen(psample);
+	n = ft_strlen(psample);
 	return (segment + n);
 }
 
@@ -56,7 +56,7 @@ static int _pathmatch(char *ptested, char *pref)
 		if (!*ptested && !*pref)
 			return (1);
 		else if (!iswildcard(pref))
-			return (strncmprev(ptested, pref, ft_min(strlen(ptested), strlen(pref))) == 0);
+			return (strncmprev(ptested, pref, ft_min(strlen(ptested), ft_strlen(pref))) == 0);
 		else
 		{
 			psample = next_sample(&pref);
@@ -89,7 +89,7 @@ int pathmatch(char *ptested, char *pref)
 			while (*ptr && *ptr != '*')
 				ptr++;
 			wref.start_sequence = ft_substr(pref, 0, ptr - pref);
-			if (strncmp(ptested, wref.start_sequence, strlen(wref.start_sequence)))
+			if (ft_strncmp(ptested, wref.start_sequence, ft_strlen(wref.start_sequence)))
 				return (0);
 		}
 		while (*ptr)
@@ -100,7 +100,7 @@ int pathmatch(char *ptested, char *pref)
 			while (*ptr && *ptr != '*')
 				ptr--;
 			wref.end_sequence = ft_substr(pref, ptr - pref + 1, wref.end_sequence - ptr + 1);
-			if (strncmprev(ptested, wref.end_sequence, strlen(wref.end_sequence)))
+			if (strncmprev(ptested, wref.end_sequence, ft_strlen(wref.end_sequence)))
 				return (0);	
 		}
 	}

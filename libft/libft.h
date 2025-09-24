@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 12:43:04 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/23 19:14:54 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 18:17:49 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 int		ft_min(int a, int b);
 char	*ft_tolower_str(char *str);
 int		ft_isupper(int c);
+char	*ft_strstr(const char *haystack, const char *needle);
 
 #endif

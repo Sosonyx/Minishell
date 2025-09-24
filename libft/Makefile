@@ -6,7 +6,7 @@
 #    By: fox <fox@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:48:39 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/23 19:38:22 by fox              ###   ########.fr        #
+#    Updated: 2025/09/24 18:04:06 by fox              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS =  ft_strncmp.c ft_strlen.c ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c f
         ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c \
         ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 		printf/ft_printf.c printf/ft_printf_checking.c  printf/ft_printf_printinghexa.c \
-		printf/ft_printf_printingint.c printf/ft_printf_printingchar.c ft_min.c ft_tolower_str.c ft_isupper.c\
+		printf/ft_printf_printingint.c printf/ft_printf_printingchar.c ft_min.c ft_tolower_str.c ft_isupper.c ft_strstr.c\
 		GNL/get_next_line.c GNL/get_next_line_utils.c ft_split_free.c ft_strcmp.c ft_strcat.c ft_isspace.c ft_strndup.c ft_realloc.c ft_split_clone.c
 
 OBJS = $(SRCS:.c=.o)

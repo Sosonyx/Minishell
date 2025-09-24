@@ -6,7 +6,7 @@
 #    By: fox <fox@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/23 16:03:17 by fox              ###   ########.fr        #
+#    Updated: 2025/09/24 18:22:23 by fox              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,7 @@ SRC         = \
 				$(SRC_DIR)/built-in/ft_unset.c												\
 				$(SRC_DIR)/built-in/ft_pwd.c												\
 				$(SRC_DIR)/built-in/utils.c													\
-				$(SRC_DIR)/mini_help.c
+				$(SRC_DIR)/minishell_help.c
 
 OBJ         = $(addprefix $(BUILD_DIR)/, $(subst $(SRC_DIR)/,,$(SRC:.c=.o)))
 
