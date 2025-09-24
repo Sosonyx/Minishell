@@ -6,42 +6,54 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 17:28:41 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 16:31:09 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 12:19:06 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
+static int	strcmp_nocase(const char *s1, const char *s2)
+{
+	int	diff;
+	
+    while (s1 && s2 && *s1 && *s2)
+    {
+		diff = ft_tolower(*s1) - (ft_tolower(*s2));
+		if (diff)
+			break ;
+        s1++;
+        s2++;
+    }
+    return (diff);
+}
+
+static int	_compare(const char *s1, const char *s2)
+{
+	int	diff_nocase;
+	int	diff_wcase;
+
+	diff_nocase = strcmp_nocase(s1, s2);
+	diff_wcase = ft_strcmp(s1, s2);
+	if (diff_nocase)
+		return (diff_nocase);
+	else
+		return (-diff_wcase);
+}
+
 void	sortmatches(t_wildcard_p wc)
 {
-	char	*dupped1;
-	char	*dupped2;
 	char	*temp;
 	int		n;
 
 	n = 1;
 	while (n + 1 < wc->totalmatches)
 	{
-		dupped1 = ft_tolower_str(strdup(wc->matches[n]));
-		dupped2 = ft_tolower_str(strdup(wc->matches[n + 1]));
-		if (!dupped1 || !dupped2)
-		{
-			if (dupped1)
-				free(dupped1);
-			if (dupped2)
-				free(dupped2);
-			break ;			
-		}
-		if ((strcmp(dupped1, dupped2) > 0))
+		if (_compare(wc->matches[n], wc->matches[n + 1]) > 0)
 		{
 			temp = wc->matches[n];
 			wc->matches[n] = wc->matches[n + 1];
 			wc->matches[n + 1] = temp;
 			n = 0;
-			if (dupped1)
-				free(dupped1);
-			if (dupped2)
-				free(dupped2);
 		}
 		else
 			n++;

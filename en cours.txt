@@ -1,4 +1,0 @@
-< Makefile  << f1 <Makefile  << f2 <Makefile  ls
-< Makefile  << f1 <Makefile  << f2 cat
-
-< Makefile  << f1 <Makefile  << f2 <Makefile cat
