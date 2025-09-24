@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 17:28:41 by fox               #+#    #+#             */
-/*   Updated: 2025/09/24 12:19:06 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 12:27:48 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,25 @@ static int	_compare(const char *s1, const char *s2)
 		return (-diff_wcase);
 }
 
-void	sortmatches(t_wildcard_p wc)
+static void	_swap(char **s1, char **s2)
 {
 	char	*temp;
+	
+	temp = *s1;
+	*s1 = *s2;
+	*s2 = temp;
+}
+
+void	sortmatches(t_wildcard_p wc)
+{
 	int		n;
 
-	n = 1;
+	n = 0;
 	while (n + 1 < wc->totalmatches)
 	{
 		if (_compare(wc->matches[n], wc->matches[n + 1]) > 0)
 		{
-			temp = wc->matches[n];
-			wc->matches[n] = wc->matches[n + 1];
-			wc->matches[n + 1] = temp;
+			_swap(&wc->matches[n], &wc->matches[n + 1]);
 			n = 0;
 		}
 		else
