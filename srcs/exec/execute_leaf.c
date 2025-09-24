@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/23 18:39:14 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 15:20:38 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,7 @@ static void	execute_command(t_minishell_p shell, t_ast_p ast)
 
 int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
-	char	*cmd;
-	char	**new_cmds;
-	
-	new_cmds = expand_leaf(shell, ast->leaf->cmds);
-    ft_split_free(ast->leaf->cmds);
-    ast->leaf->cmds = new_cmds;	
+	variable_expand(shell, ast);
 	if (!ast->leaf->configured)
 		preconfig_leaf(shell, ast->leaf);
 	wildcard_expand(&ast->leaf->cmds);

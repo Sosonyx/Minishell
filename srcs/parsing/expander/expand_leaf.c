@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   expand_leaf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:50:56 by ihadj             #+#    #+#             */
-/*   Updated: 2025/08/25 13:51:42 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/24 15:20:49 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char    **ft_join_array(char **tab1, char **tab2)
     return (res);
 }
 
-char	**expand_leaf(t_minishell *shell, char **cmds)
+char	**_variable_expand(t_minishell *shell, char **cmds)
 {
     char		**new_cmds;
     char		**tmp;
@@ -81,4 +81,13 @@ char	**expand_leaf(t_minishell *shell, char **cmds)
         i++;
     }
     return (new_cmds);
+}
+
+void	variable_expand(t_minishell *shell, t_ast_p ast)
+{
+	char	**new_cmds;
+	
+	new_cmds = _variable_expand(shell, ast->leaf->cmds);
+	ft_split_free(ast->leaf->cmds);
+    ast->leaf->cmds = new_cmds;	
 }

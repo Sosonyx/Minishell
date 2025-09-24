@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/17 13:28:00 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/24 15:20:53 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		    create_leaf(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_co
 /*  Expand                            										    */
 /********************************************************************************/
 
-char	    **expand_leaf(t_minishell *shell, char **cmds);
+void		variable_expand(t_minishell *shell, t_ast_p ast);
 t_expanded	expand_old_cmd(t_minishell *shell, char *str);
 char	    *get_env_value(t_minishell *shell, char *name);
 

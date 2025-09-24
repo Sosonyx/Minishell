@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 14:11:32 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/24 15:42:49 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	is_builtin(t_leaf_p leaf)
 	return (false);
 }
 
-static int	 _execute_builtin(t_minishell_p shell, t_ast_p ast)
+static int	 execute_command(t_minishell_p shell, t_ast_p ast)
 {
 	char	*cmd;
 
@@ -59,10 +59,42 @@ static int	 _execute_builtin(t_minishell_p shell, t_ast_p ast)
 		return (EXIT_FAILURE);
 }
 
-void	execute_builtin(t_minishell_p shell, t_ast_p ast)
+void	execute_nofork(t_minishell_p shell, t_ast_p ast)
 {
 	save_std_fileno(shell);
 	redirect_leaf(shell, ast);
-	shell->last_status = _execute_builtin(shell, ast);
+	shell->last_status = execute_command(shell, ast);
 	restore_std_fileno(shell, ast);
+}
+
+void	execute_wfork(t_minishell_p shell, t_ast_p ast)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		execute_nofork(shell, ast);
+		exit(shell->last_status);
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &shell->last_status, 0);
+	}
+	else
+	{
+		print_generic_error(shell, FORK_ERRMSG);
+	}
+}
+
+void	execute_builtin(t_minishell_p shell, t_ast_p ast)
+{
+	if (ast->write_fd || ast->read_fd)
+	{
+		execute_wfork(shell, ast);
+	}
+	else
+	{
+		execute_nofork(shell, ast);
+	}
 }
