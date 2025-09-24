@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:17:05 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/07 16:17:30 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/24 17:46:28 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	should_remove(char *entry, char **args)
 	return (0);
 }
 
-int	ft_unset(t_minishell *shell, char **args)
+int	ft_unset(t_minishell_p shell, char **args)
 {
 	int		i;
 	int		j;
@@ -48,11 +48,11 @@ int	ft_unset(t_minishell *shell, char **args)
 	char	**new_env;
 
 	if (!args || !args[0])
-		return (0);
+		return (EXIT_SUCCESS);
 	len = get_array_size(shell->environ);
 	new_env = malloc(sizeof(char *) * (len + 1));
 	if (!new_env)
-		return (1);
+		return (ERRVAL1);
 	i = 0;
 	j = 0;
 	while (i < len)
@@ -64,5 +64,5 @@ int	ft_unset(t_minishell *shell, char **args)
 	new_env[j] = NULL;
 	free_array(shell->environ);
 	shell->environ = new_env;
-	return (0);
+	return (EXIT_SUCCESS);
 }

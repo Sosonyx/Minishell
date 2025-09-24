@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/24 15:20:53 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 17:51:23 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 # define MINISHELL_PARSING_H
 
 # include "minishell.h"
-
-
-/********************************************************************************/
-/*  Builtins                        										    */
-/********************************************************************************/
-
-int	    	ft_echo(char **args);
-int	    	ft_pwd(char **args);
-int	    	ft_cd(t_minishell *shell, char **args);
-int	    	ft_exit(char **args, int last_status);
-int	    	ft_export(t_minishell *shell, char **args_to_add);
-int	    	ft_unset(t_minishell *shell, char **args);
-int	    	ft_env(char **env, char **args);
-
 
 /********************************************************************************/
 /*  Environment / arrays / utils											    */
@@ -42,7 +28,6 @@ long long	ft_atol(const char *nptr);
 int	    	ft_strcmp(const char *s1, const char *s2);
 void    	ft_split_free(char **arr);
 
-
 /********************************************************************************/
 /*  Lexer                       											    */
 /********************************************************************************/
@@ -56,7 +41,6 @@ int			stock_special(t_token **arr, int j, char *line, int *i);
 int			stock_tokens(t_tok_container *a, char *line);
 t_tok_container_p	tokenize_input(char *input, t_tok_container_p *tok_container, int *g_status);
 // void		destroy_tok_container(t_tok_container_p tok_container);
-
 
 /********************************************************************************/
 /*  Parsing / AST                      										    */
@@ -83,7 +67,6 @@ int		    parse_cntl_and_or(t_ast_p *op, t_tok_container_p tok_container, int sta
 int	    	parse_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
 int	    	parse_subshell(t_minishell_p shell, t_ast_p *op, t_tok_container_p tok_container, int start, int end);
 int		    create_leaf(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_container, int start, int end);
-
 
 /********************************************************************************/
 /*  Expand                            										    */

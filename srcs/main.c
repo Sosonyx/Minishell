@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/19 10:41:31 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 16:40:41 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,33 +32,22 @@ static void	*prompt_input(t_minishell_p shell)
 	}
 }
 
-
-int	main(int ac, char **av, char **env)
+void	mainloop(t_minishell_p shell, t_ast_p *ast, t_tok_container_p *tok_container)
 {
-	t_ast_p				ast = NULL;
-	t_tok_container_p	tok_container = NULL;
-	t_minishell_p		shell;
-	
-	signals_setter();
-	shell = shell_init(ac, av, environ);
-	if (ac == 2 && !ft_strcmp(av[1], "--help"))
-		minishell_help();
 	while (1)
 	{
 		prompt_input(shell);
-		// minishell_help();
 		if (shell->input)
 		{
 			if (!*(shell->input))
 				shell->last_status = 0;			
-			else if (tokenize_input(shell->input, &tok_container, &g_status))
+			else if (tokenize_input(shell->input, tok_container, &g_status))
 			{
-				if (parse_tokens(shell, &ast, tok_container))
+				if (parse_tokens(shell, ast, *tok_container))
 				{
-					execute_ast(shell, ast);
-					// printf("last_status in main : %d\n", extract_return_code(shell->last_status));
-					free(ast);
-					ast = NULL;
+					execute_ast(shell, *ast);
+					free(*ast);
+					*ast = NULL;
 				}
 				else
 				{
@@ -75,9 +64,21 @@ int	main(int ac, char **av, char **env)
 			ft_putstr_fd("exit\n", STDOUT_FILENO);
 			shell_destroy(shell);
 			break ;
-					// prompt error -> close ou message d'erreur et nouveau prompt ?
 		}
-	}
+	}	
+}
+
+int	main(int ac, char **av, char **env)
+{
+	t_ast_p				ast = NULL;
+	t_tok_container_p	tok_container = NULL;
+	t_minishell_p		shell;
+	
+	
+	shell = shell_init(ac, av, environ);
+	
+	mainloop(shell, &ast, &tok_container);
+	
 	rl_clear_history();
 	return (extract_return_code(shell->last_status));
 }

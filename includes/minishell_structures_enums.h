@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 12:59:31 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/24 17:55:10 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ struct s_token
 {
 	t_toktype			type;
 	char				*val;
-	bool				was_single_quoted;		// pour heredoc (si delim etait quote)
-	bool				was_double_quoted;		// on autorise l expansion
+	bool				was_single_quoted;
+	bool				was_double_quoted;
 	bool				expandable;
 };
 
@@ -104,7 +104,6 @@ typedef struct s_expanded
 }   t_expanded;
 
 
-// toutes les redirections IN et OUT chainees
 struct s_redir
 {
 	enum e_redirtype	type;
@@ -158,6 +157,7 @@ struct	s_ast
 
 struct s_minishell
 {
+	char			*name;
 	int				ac;
 	char			**av;
 	char			**environ;
@@ -165,6 +165,7 @@ struct s_minishell
 	char			*input;
 	int				last_status;
 	int				std_fds[3];
+	bool			abort;
 };
 
 #endif

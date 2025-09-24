@@ -3,38 +3,114 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:15:33 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/17 14:17:03 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/24 17:46:01 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_export(t_minishell *shell, char **args_to_add)
+static int	is_valid_var_name(char *str)
+{
+	int i;
+
+	if (!str || !str[0])
+		return (0);
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+		return (0);
+	i = 1;
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static int	find_var_index(char **env, char *arg)
+{
+	int i;
+	int len;
+
+	if (!env || !arg)
+		return (-1);
+	len = 0;
+	while (arg[len] && arg[len] != '=')
+		len++;
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], arg, len) == 0 && env[i][len] == '=')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+static void	copy_old_env(char **new_env, char **old_env, int size)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+	{
+		new_env[i] = ft_strdup(old_env[i]);
+		i++;
+	}
+}
+
+static void	add_or_replace_vars(t_minishell_p shell, char **env, char **args, int start_index)
+{
+	int i;
+	int j;
+	int env_index;
+
+	i = 0;
+	j = start_index;
+
+	while (args[i])
+	{
+		if (is_valid_var_name(args[i]))
+		{
+			env_index = find_var_index(env, args[i]);
+			if (env_index >= 0)
+			{
+				free(env[env_index]);
+				env[env_index] = ft_strdup(args[i]);
+			}
+			else
+			{
+				env[j] = ft_strdup(args[i]);
+				j++;
+			}
+		}
+		else
+			// print_cmd_error2(shell, "export", INVALID_ID_ERRMSG);
+			printf("minishell: export: `%s': not a valid identifier\n", args[i]);
+		i++;
+	}
+	env[j] = NULL;
+}
+
+int	ft_export(t_minishell_p shell, char **args_to_add)
 {
 	char	**new_env;
 	int		env_count;
 	int		add_count;
-	int		i;
-	int		j;
 
 	if (!args_to_add || !args_to_add[0])
-		return (0);
+		return (EXIT_SUCCESS);
 	env_count = get_array_size(shell->environ);
 	add_count = get_array_size(args_to_add);
 	new_env = malloc(sizeof(char *) * (env_count + add_count + 1));
 	if (!new_env)
-		return (1);
-	i = -1;
-	while (++i < env_count)
-		new_env[i] = ft_strdup(shell->environ[i]);
-	j = -1;
-	while (++j < add_count)
-		new_env[env_count + j] = ft_strdup(args_to_add[j]);
-	new_env[env_count + add_count] = NULL;
+		return (ERRVAL1);
+	copy_old_env(new_env, shell->environ, env_count);
+	add_or_replace_vars(shell, new_env, args_to_add, env_count);
 	free_array(shell->environ);
 	shell->environ = new_env;
-	return (0);
+	return (EXIT_SUCCESS);
 }

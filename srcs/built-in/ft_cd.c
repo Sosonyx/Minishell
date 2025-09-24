@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/17 13:25:38 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/24 17:45:25 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_cd_error(char *path)
+/* static void	print_cd_error(char *path)
 {
 	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(path, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(strerror(errno), 2);
-}
+} */
 
 static char	*ft_getenv(char **env, char *name)
 {
@@ -70,10 +70,10 @@ static int	update_pwd(t_minishell *shell, char *oldpwd, char *newpwd)
 	}
 	free(old_var);
 	free(new_var);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
-int	ft_cd(t_minishell *shell, char **args)
+int	ft_cd(t_minishell_p shell, char **args)
 {
 	char	*path;
 	char	*oldpwd;
@@ -84,13 +84,13 @@ int	ft_cd(t_minishell *shell, char **args)
 		return (ERRVAL1);
 	if (args[1] && args[2])
 	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		print_cmd_error2(shell, "cd", ARG_EXCESS_ERRMSG);
 		return (free(oldpwd), ERRVAL2);
 	}
 	path = get_target_dir(shell, args);
 	if (!path || chdir(path) == -1)
 	{
-		print_cd_error(path);
+		print_cmd_error(shell, "cd", errno);
 		return (free(oldpwd), ERRVAL2);
 	}
 	newpwd = getcwd(NULL, 0);
@@ -99,5 +99,5 @@ int	ft_cd(t_minishell *shell, char **args)
 	update_pwd(shell, oldpwd, newpwd);
 	free(oldpwd);
 	free(newpwd);
-	return (0);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:04:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 18:15:24 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/24 17:39:03 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	print_annouce(int fd, char *announce, char *separator)
 
 static void self_announce(t_minishell_p shell, int fd)
 {
-	print_annouce(fd, shell->av[0], COLUMN);
+	print_annouce(fd, shell->name, COLUMN);
 }
 
 void speak(t_minishell_p shell, int fd, char *announce, char *separator)

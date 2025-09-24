@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/09 14:08:58 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/24 17:16:04 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(char **args)
+int	ft_echo(t_minishell_p shell, char **args)
 {
 	int	i;
 	int	newline;
 
+	(void) shell;
 	newline = 1;
 	i = 1;
 	if (args[1] && ft_strcmp(args[1], "-n") == 0)
