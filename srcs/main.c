@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 11:43:47 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/25 14:34:57 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	mainloop(t_minishell_p shell, t_ast_p *ast, t_tok_container_p *tok_containe
 				if (parse_tokens(shell, ast, *tok_container))
 				{
 					execute_ast(shell, *ast);
-/* 					free(*ast);
-					*ast = NULL; */
 					continue ;
 				}
 				else
@@ -57,13 +55,13 @@ void	mainloop(t_minishell_p shell, t_ast_p *ast, t_tok_container_p *tok_containe
 			}
 			else
 			{
-				shell->last_status = 258;
+				shell->last_status = ERRVAL2;
 			}
 		}
 		else
 		{
 			ft_putstr_fd("exit\n", STDOUT_FILENO);
-			
+		
 			break ;
 		}
 	}	
@@ -82,8 +80,9 @@ int	main(int ac, char **av, char **env)
 	mainloop(shell, &ast, &tok_container);
 	
 	rstatus = shell->last_status;
+
 	shell_destroy(shell);
-	
+
 	rl_clear_history();
 	return (extract_return_code(rstatus));
 }

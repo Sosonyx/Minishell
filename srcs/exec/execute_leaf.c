@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/24 16:22:30 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 14:15:29 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 	wildcard_expand(&ast->leaf->cmds);
 	if (is_builtin(ast->leaf))
 	{
-		execute_builtin(shell, ast);
+		execute_builtin(shell, ast);	
 		return (shell->last_status);
 	}
 	execute_command(shell, ast);

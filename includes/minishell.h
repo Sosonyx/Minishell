@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 10:42:52 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/25 13:07:28 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 # include "libft.h"
 
-# define PROMPT_MESSAGE "\001\033[48;5;57m\002minishell>\001\033[0m\002 "
+# define PROMPT_MESSAGE "\001\033[48;5;77m\002minishell>\001\033[0m\002 "
 
 # define LOAD_FAIL_MSG "Minishell failed at loading!\n"
 
