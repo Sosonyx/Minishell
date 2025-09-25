@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_help.c                                        :+:      :+:    :+:   */
+/*   minishell_help.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 17:53:22 by fox               #+#    #+#             */
-/*   Updated: 2025/09/24 17:53:23 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 11:51:15 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 #define W   "\033[1;37m"
 #define E   "\033[0m"   // reset
 #define CV  "\033[46m"  // fond cyan
-#define CR  "\033[41m"  // fond rouge
+#define CR  "\033[41m"  // fond rouge 608 allocs, 377 frees,
 
 void minishell_help(void)
 {
     printf("\n");
     ft_putstr_fd(CV "                       " CR ">>>"
-                 G " Minishell Help " R "<<<" E "\n\n", 2);
+                G " Minishell Help " R "<<<" E "\n\n", 2);
 
     printf(C "Usage: " E W "./minishell [options]" E "\n\n");
 
@@ -51,4 +51,5 @@ void minishell_help(void)
     printf("  • " C "Operators: " W "pipes, redirections, &&, ||, ()" E " supported\n\n");
 
     printf(CV "======================================================" E "\n\n");
+	exit(EXIT_SUCCESS);
 }

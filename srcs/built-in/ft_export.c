@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:15:33 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/24 17:46:01 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 13:30:16 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	copy_old_env(char **new_env, char **old_env, int size)
 	}
 }
 
-static void	add_or_replace_vars(t_minishell_p shell, char **env, char **args, int start_index)
+static int	add_or_replace_vars(t_minishell_p shell, char **env, char **args, int start_index)
 {
 	int i;
 	int j;
@@ -88,11 +88,16 @@ static void	add_or_replace_vars(t_minishell_p shell, char **env, char **args, in
 			}
 		}
 		else
-			// print_cmd_error2(shell, "export", INVALID_ID_ERRMSG);
+		{
 			printf("minishell: export: `%s': not a valid identifier\n", args[i]);
+			return (-1);
+		}
+			// print_cmd_error2(shell, "export", INVALID_ID_ERRMSG);
+
 		i++;
 	}
 	env[j] = NULL;
+	return (1);
 }
 
 int	ft_export(t_minishell_p shell, char **args_to_add)
@@ -109,7 +114,8 @@ int	ft_export(t_minishell_p shell, char **args_to_add)
 	if (!new_env)
 		return (ERRVAL1);
 	copy_old_env(new_env, shell->environ, env_count);
-	add_or_replace_vars(shell, new_env, args_to_add, env_count);
+	if ((add_or_replace_vars(shell, new_env, args_to_add, env_count)) == -1)
+		return (ERRVAL1);
 	free_array(shell->environ);
 	shell->environ = new_env;
 	return (EXIT_SUCCESS);

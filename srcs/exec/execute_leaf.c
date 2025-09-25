@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/24 16:22:30 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 15:46:05 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	convert_errno(int err)
 {
 	if (err == ENOENT)
 		return (127);
+	// if (err == EACCES && was_a_dir == true)
+	// 	return (127)
 	if (err == EACCES || err == EISDIR)
 		return (126);
 	return (1);
@@ -40,6 +42,7 @@ static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 	}
 	else
 	{
+		// tester ici si jamais astleafcmd est un dir ou non pour ajuster le errno apres coup avec un flag jimagine dans SHELL
 		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
 		errnum = errno;
 		print_cmd_error(shell, ast->leaf->name, errnum);
@@ -74,7 +77,7 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 	wildcard_expand(&ast->leaf->cmds);
 	if (is_builtin(ast->leaf))
 	{
-		execute_builtin(shell, ast);
+		execute_builtin(shell, ast);	
 		return (shell->last_status);
 	}
 	execute_command(shell, ast);

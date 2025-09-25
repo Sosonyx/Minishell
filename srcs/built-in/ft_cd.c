@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/24 17:45:25 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 13:44:09 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,17 @@ int	ft_cd(t_minishell_p shell, char **args)
 	if (args[1] && args[2])
 	{
 		print_cmd_error2(shell, "cd", ARG_EXCESS_ERRMSG);
-		return (free(oldpwd), ERRVAL2);
+		return (free(oldpwd), ERRVAL1);
 	}
 	path = get_target_dir(shell, args);
 	if (!path || chdir(path) == -1)
 	{
-		print_cmd_error(shell, "cd", errno);
-		return (free(oldpwd), ERRVAL2);
+		print_cmd_error2(shell, "cd", strerror(ENOENT));
+		return (free(oldpwd), ERRVAL1);
 	}
 	newpwd = getcwd(NULL, 0);
 	if (!newpwd)
-		return (free(oldpwd), ERRVAL2);
+		return (free(oldpwd), ERRVAL1);
 	update_pwd(shell, oldpwd, newpwd);
 	free(oldpwd);
 	free(newpwd);
