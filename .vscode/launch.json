@@ -21,7 +21,7 @@
             ],
             "preLaunchTask": "build"
         },
-/*  		{
+ 		{
             "name": "Children",
             "type": "cppdbg",
             "request": "launch",
@@ -52,6 +52,6 @@
                 }
             ],
             "preLaunchTask": "build"
-        }, */
+        },
     ]
 }

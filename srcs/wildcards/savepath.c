@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   savepath.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:22:28 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 19:58:01 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 18:24:04 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 static char	*getfullpath(t_wildcard_p wc, struct dirent *sdir, char *path)
 {
+	char	*tmp;
+	
 	if (wc && sdir && path)
 	{
 		path = catpath(path, sdir->d_name);
 		if (wc->lastisdir)
-			path = catpath(path, NULL);	
+		{
+			tmp = path;
+			path = catpath(path, NULL);
+			free(tmp);
+		}
 	}
 	return (path);
 }

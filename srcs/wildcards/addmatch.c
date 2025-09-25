@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   addmatch.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:32:58 by fox               #+#    #+#             */
-/*   Updated: 2025/09/24 13:35:19 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 18:30:17 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	matchlist_resize(t_wildcard_p wc)
 	}
 	else
 	{
-		ptr = ft_realloc((void **) wc->tmp_matches, (wc->tmp_totalmatches) * sizeof(char *), (++wc->tmp_totalmatches + 1) * sizeof(char *));
+		ptr = ft_realloc(wc->tmp_matches, (wc->tmp_totalmatches) * sizeof(char *), (++wc->tmp_totalmatches + 1) * sizeof(char *));
 		if (ptr)
 			wc->tmp_matches = ptr;
 	}					
@@ -37,5 +37,6 @@ void	addmatch(t_wildcard_p wc, char *path)
 			wc->tmp_matches[wc->tmp_totalmatches - 1] = ft_strdup(path + 2);
 		else
 			wc->tmp_matches[wc->tmp_totalmatches - 1] = ft_strdup(path);
+		free(path);
 	}
 }

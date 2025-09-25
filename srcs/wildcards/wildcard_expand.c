@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/24 14:14:22 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 18:38:56 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	rebuild_cmd_args(t_wildcard_p wc, char ***cmd_args)
 			if (!new_args[n++])
 				failed = 1;
 		}
+		// ft_split_free(wc->matches);
 		if (!failed)
 		{
 			ft_split_free(*cmd_args);
@@ -58,13 +59,18 @@ void	aggregate_matches(t_wildcard_p wc)
 {
 	char	**matches;
 
-	matches = ft_calloc((wc->totalmatches + wc->tmp_totalmatches + 1), sizeof(char *));
+	matches = ft_calloc(wc->totalmatches + wc->tmp_totalmatches + 1, sizeof(char *));
 	if (matches)
 	{
 		ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
 		ft_memcpy(matches + wc->totalmatches, wc->tmp_matches, wc->tmp_totalmatches * sizeof(char *));
 		wc->totalmatches += wc->tmp_totalmatches;
 		wc->tmp_totalmatches = 0;
+
+		/*	lesquels servent ? */
+		// free(wc->matches);
+		free(wc->tmp_matches);
+		/***/
 		wc->matches = matches;
 	}
 }

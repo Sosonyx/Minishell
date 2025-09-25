@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 15:46:05 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/25 17:34:06 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 	else
 	{
 		// tester ici si jamais astleafcmd est un dir ou non pour ajuster le errno apres coup avec un flag jimagine dans SHELL
-		execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
+		// execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
+		execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
 		errnum = errno;
-		print_cmd_error(shell, ast->leaf->name, errnum);
+		print_cmd_error(shell, *ast->leaf->cmds, errnum);
 		exit(convert_errno(errnum));
 	}
 }

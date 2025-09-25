@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:04:20 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 11:18:57 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/25 17:33:42 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	destroy_leaf(t_ast_p ast)
 {
 	ft_split_free(ast->leaf->cmds);
-	if (ast->leaf->name)
-		free(ast->leaf->name);
+	if (ast->leaf->full_path)
+		free(ast->leaf->full_path);
 	destroy_redir(ast);
 	free(ast->leaf);
 	ast->leaf = NULL;

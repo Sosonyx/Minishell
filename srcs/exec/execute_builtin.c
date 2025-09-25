@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 16:18:31 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/25 17:59:51 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	is_builtin(t_leaf_p leaf)
 
 	if (!leaf->cmds || !leaf->cmds[0])
 		return (false);
-	cmd = leaf->name;
+	cmd = leaf->cmds[0];
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (true);
 	if (ft_strcmp(cmd, "cd") == 0)
@@ -40,7 +40,7 @@ static int	 execute_command(t_minishell_p shell, t_ast_p ast)
 {
 	char	*cmd;
 
-	cmd = ast->leaf->name;
+	cmd = ast->leaf->cmds[0];
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (ft_echo(shell, ast->leaf->cmds));
 	if (ft_strcmp(cmd, "cd") == 0)
@@ -80,11 +80,6 @@ void	execute_wfork(t_minishell_p shell, t_ast_p ast)
 		execute_nofork(shell, ast);
 		exit(shell->last_status);
 
-	}
-	else if (ast->leaf->pid > 0)
-	{
-		// waitpid(pid, &shell->last_status, 0);
-		;
 	}
 	else
 	{

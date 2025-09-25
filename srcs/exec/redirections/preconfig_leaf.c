@@ -3,24 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   preconfig_leaf.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/17 12:44:53 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 17:33:36 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	get_command_path(t_minishell_p shell, t_leaf_p leaf)
+/* static void	get_command_path(t_minishell_p shell, t_leaf_p leaf)
 {
-	char *cmd;
-	
+	char	*cmd;
+
 	leaf->name = leaf->cmds[0];
 	cmd = find_cmd(leaf->cmds[0], shell->environ);
 	if (cmd)
 		leaf->cmds[0] = cmd;
 }
+ */
+
+static void	get_command_path(t_minishell_p shell, t_leaf_p leaf)
+{
+	char	*cmd;
+
+	leaf->full_path = find_cmd(leaf->cmds[0], shell->environ);
+}
+
 
 static void	redir_in_conf(t_leaf_p leaf)
 {
