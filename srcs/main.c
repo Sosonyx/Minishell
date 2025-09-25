@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 14:34:57 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/25 16:25:42 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(int ac, char **av, char **env)
 	shell = shell_init(ac, av, environ);
 	
 	mainloop(shell, &ast, &tok_container);
-	
+
 	rstatus = shell->last_status;
 
 	shell_destroy(shell);

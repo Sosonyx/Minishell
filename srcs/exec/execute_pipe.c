@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 14:20:09 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/25 16:36:51 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,37 +53,12 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 	shell->last_status = _execute_ast(shell, ast->cntl_op->right);
 	close_secure(&ast->cur_pipe[0]);
 
-	wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status);
-	wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
-		
+	/* wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status); */
+	wait_if_leaf(ast->cntl_op->left->leaf, NULL);
+	if (ast->cntl_op->right->type == OP_PIPE)
+		wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &shell->last_status);
+	else
+		wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
+	
 	return (shell->last_status);
 }
-
-// int execute_pipe(t_minishell_p shell, t_ast_p ast)
-// {	
-// 	if (create_pipe(shell, ast) == -1) 
-// 		return (-1);
-
-// 	connect_nodes(ast);
-// 	pid_t pid = fork();
-// 	if (pid == 0)
-// 	{
-// 		shell->last_status = _execute_ast(shell, ast->cntl_op->left);
-// 		close_secure(&ast->cur_pipe[1]);
-// 		exit(shell->last_status);
-// 	}
-// 	pid_t pid2 = fork();
-// 	if (pid2 == 0)
-// 	{
-// 		shell->last_status = _execute_ast(shell, ast->cntl_op->right);
-// 		close_secure(&ast->cur_pipe[0]);
-// 		exit(shell->last_status);
-// 	}
-
-// 	// wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status);
-// 	// wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
-// 	waitpid(pid, &shell->last_status, 0);
-// 	waitpid(pid2, &shell->last_status, 0);
-		
-// 	return (shell->last_status);
-// }

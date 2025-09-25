@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 14:21:13 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/25 16:18:31 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,55 @@ void	execute_nofork(t_minishell_p shell, t_ast_p ast)
 	save_std_fileno(shell);
 	redirect_leaf(shell, ast);
 	if (ast->leaf->abort == false)
+	{
 		shell->last_status = execute_command(shell, ast);
+	}
+
 	else
 		shell->last_status = EXIT_FAILURE;
 	restore_std_fileno(shell, ast);
 }
-
 void	execute_wfork(t_minishell_p shell, t_ast_p ast)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0)
+	ast->leaf->pid = fork();
+	if (ast->leaf->pid == 0)
 	{
 		execute_nofork(shell, ast);
 		exit(shell->last_status);
 
 	}
-	else if (pid > 0)
+	else if (ast->leaf->pid > 0)
 	{
-		waitpid(pid, &shell->last_status, 0);
+		// waitpid(pid, &shell->last_status, 0);
+		;
 	}
 	else
 	{
 		print_generic_error(shell, FORK_ERRMSG);
 	}
 }
+
+// void	execute_wfork(t_minishell_p shell, t_ast_p ast)
+// {
+// 	pid_t	pid;
+
+// 	pid = fork();
+// 	if (pid == 0)
+// 	{
+// 		execute_nofork(shell, ast);
+// 		exit(shell->last_status);
+
+// 	}
+// 	else if (pid > 0)
+// 	{
+// 		// waitpid(pid, &shell->last_status, 0);
+// 		;
+// 	}
+// 	else
+// 	{
+// 		print_generic_error(shell, FORK_ERRMSG);
+// 	}
+// }
 
 void	execute_builtin(t_minishell_p shell, t_ast_p ast)
 {
