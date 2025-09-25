@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 14:18:35 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/25 14:40:53 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	execute_ast(t_minishell_p shell, t_ast_p ast)
 	}
 	if (ast->leaf)
 	{
-		printf("last status = %d\n", shell->last_status);
-
 		shell->last_status = execute_leaf(shell, ast);
 		waitpid(ast->leaf->pid, &shell->last_status, 0);
 	}
