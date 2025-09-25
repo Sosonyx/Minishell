@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 10:43:42 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:43:47 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	g_status;
 					signal(SIGQUIT, SIG_DFL);
 */
 
-static void	*prompt_input(t_minishell_p shell)
+static void	prompt_input(t_minishell_p shell)
 {
 	if (shell->input)
 		free(shell->input);

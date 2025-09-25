@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:06:53 by fox               #+#    #+#             */
-/*   Updated: 2025/09/17 13:07:10 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 11:47:15 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static int	count_tok_word(t_tok_container_p tok_container, int i, int end)
 
 	words = 0;
 	tok = tok_container->tokens[i];	
-	while (i <= end && tok_container->tokens[i])
+	while (i <= end)
 	{
 		tok = tok_container->tokens[i];			
-		if (tok->type == T_WORD)
+		if (tok_container->tokens[i] && tok->type == T_WORD)
 			words++;
 		i++;			
 	}
