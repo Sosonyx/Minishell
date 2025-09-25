@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/24 17:51:23 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 10:25:49 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,32 @@ t_tok_container_p	tokenize_input(char *input, t_tok_container_p *tok_container, 
 /*  Parsing / AST                      										    */
 /********************************************************************************/
 
+void    	build_ast(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first);
+int		    create_leaf(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_container, int start, int end);
+t_redir_p   build_redir(t_tok_container_p tok_container, int i, int end);
+int		    build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end);
+
+int	    	parse_tokens(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_container);
+int		    parse_cntl_and_or(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
+int	    	parse_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
+int	    	parse_subshell(t_minishell_p shell, t_ast_p *op, t_tok_container_p tok_container, int start, int end);
+
+void	    destroy_ast(t_ast_p *ast);
+void		destroy_leaf(t_ast_p ast);
+void		destroy_redir(t_ast_p ast);
+
+
+	///
+	///	misc parsing
+	///
+	
 int	    	check_syntax(t_token **toks);
-char	    *ft_strndup(const char *s, size_t len);
-char	    *ft_strcat(char *dest, const char *src);
-int		    ft_isspace(int c);
 int		    is_special(char c);
 int		    special_len(const char *line, int i);
 int		    is_pipe(t_toktype t);
 int		    is_redir(t_toktype t);
 int		    is_parenth(t_toktype t);
 int		    is_control_op(t_toktype t);
-
-int	    	parse_tokens(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_container);
-void    	build_ast(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first);
-t_redir_p   build_redir(t_tok_container_p tok_container, int i, int end);
-int		    build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end);
-void	    destroy_ast(t_ast_p *ast);
-
-int		    parse_cntl_and_or(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
-int	    	parse_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, int end);
-int	    	parse_subshell(t_minishell_p shell, t_ast_p *op, t_tok_container_p tok_container, int start, int end);
-int		    create_leaf(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_container, int start, int end);
 
 /********************************************************************************/
 /*  Expand                            										    */

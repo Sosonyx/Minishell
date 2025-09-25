@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 19:55:17 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/16 22:03:09 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:37:32 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,25 @@
 
 static void	_destroy_ast(t_ast_p *ast)
 {
-	if ((*ast))
+	if ((*ast)->leaf)
+		destroy_leaf((*ast));
+	else
 	{
-		if ((*ast)->leaf)
-		{
-			ft_split_free((*ast)->leaf->cmds);
-			free((*ast)->leaf->name);
-			free((*ast)->leaf);
-		}
-		else
-		{
+		if ((*ast)->cntl_op->left)
 			_destroy_ast(&(*ast)->cntl_op->left);
-			free((*ast)->cntl_op->left);
-			(*ast)->cntl_op->left = NULL;
+		if ((*ast)->cntl_op->right)
 			_destroy_ast(&(*ast)->cntl_op->right);
-			(*ast)->cntl_op->right = NULL;
-			free((*ast)->cntl_op->right);			
-			free((*ast)->cntl_op);
-			(*ast)->cntl_op = NULL;
-		}
+		free((*ast)->cntl_op);
+		(*ast)->cntl_op = NULL;
 	}
+	free(*ast);
+	*ast = NULL;	
 }
 
 void	destroy_ast(t_ast_p *ast)
 {
-/* 	if (*ast)
+	if (ast && *ast)
 	{
 		_destroy_ast(ast);
-		free(*ast);
 	}
-	*ast = NULL; */
 }

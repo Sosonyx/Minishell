@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/24 17:53:03 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 10:05:49 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ char	*find_cmd(char *cmd, char **env);
 bool	is_builtin(t_leaf_p leaf);
 
 void	preconfig_leaf(t_minishell_p shell, t_leaf_p leaf);
+
+
+
 
 /********************************************************************************/
 /*		Files & redirections              										*/

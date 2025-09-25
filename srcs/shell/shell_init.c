@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:51:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/24 17:38:54 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 10:09:58 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ t_minishell_p	shell_init(int ac, char **av, char **envp)
 {
 	signals_setter();
 	_minishell_help(ac, av);
-	_shell_init(ac, av, envp);
+	return (_shell_init(ac, av, envp));
 }

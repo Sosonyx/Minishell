@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fox <fox@student.42.fr>                    +#+  +:+       +#+         #
+#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/24 18:22:23 by fox              ###   ########.fr        #
+#    Updated: 2025/09/25 10:26:41 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ SRC         = \
 				$(SRC_DIR)/parsing/build_ast.c												\
 				$(SRC_DIR)/parsing/build_redir.c											\
 				$(SRC_DIR)/parsing/destroy_ast.c											\
+				$(SRC_DIR)/parsing/destroy_leaf.c											\
+				$(SRC_DIR)/parsing/destroy_redir.c											\
 				$(SRC_DIR)/parsing/build_cmd.c												\
 				$(SRC_DIR)/parsing/parse_tokens.c											\
 				$(SRC_DIR)/parsing/parse_cntl_and_or.c										\

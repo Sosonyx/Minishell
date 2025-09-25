@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/24 16:40:41 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 10:43:42 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ void	mainloop(t_minishell_p shell, t_ast_p *ast, t_tok_container_p *tok_containe
 				if (parse_tokens(shell, ast, *tok_container))
 				{
 					execute_ast(shell, *ast);
-					free(*ast);
-					*ast = NULL;
+/* 					free(*ast);
+					*ast = NULL; */
+					continue ;
 				}
 				else
 				{
@@ -62,7 +63,7 @@ void	mainloop(t_minishell_p shell, t_ast_p *ast, t_tok_container_p *tok_containe
 		else
 		{
 			ft_putstr_fd("exit\n", STDOUT_FILENO);
-			shell_destroy(shell);
+			
 			break ;
 		}
 	}	
@@ -73,14 +74,18 @@ int	main(int ac, char **av, char **env)
 	t_ast_p				ast = NULL;
 	t_tok_container_p	tok_container = NULL;
 	t_minishell_p		shell;
+	int					rstatus;
 	
 	
 	shell = shell_init(ac, av, environ);
 	
 	mainloop(shell, &ast, &tok_container);
 	
+	rstatus = shell->last_status;
+	shell_destroy(shell);
+	
 	rl_clear_history();
-	return (extract_return_code(shell->last_status));
+	return (extract_return_code(rstatus));
 }
 
 

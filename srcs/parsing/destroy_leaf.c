@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_destroy.c                                    :+:      :+:    :+:   */
+/*   destroy_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/09 10:04:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 10:42:42 by cgajean          ###   ########.fr       */
+/*   Created: 2025/09/25 10:04:20 by cgajean           #+#    #+#             */
+/*   Updated: 2025/09/25 11:18:57 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	shell_destroy(t_minishell_p shell)
+void	destroy_leaf(t_ast_p ast)
 {
-	if (shell)
-	{
-		ft_split_free(shell->environ);
-		free(shell);
-	}
+	ft_split_free(ast->leaf->cmds);
+	if (ast->leaf->name)
+		free(ast->leaf->name);
+	destroy_redir(ast);
+	free(ast->leaf);
+	ast->leaf = NULL;
 }
