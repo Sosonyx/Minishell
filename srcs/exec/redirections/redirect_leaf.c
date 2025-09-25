@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_leaf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 19:58:33 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/25 14:35:07 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	open_files(t_minishell_p shell, t_leaf_p leaf, t_redir_p cur_redir, t
 	}
 	return (*target_fd);
 }
-
 
 static int	set_redir(t_minishell_p shell, t_leaf_p leaf, t_redirtype redirtype)
 {
