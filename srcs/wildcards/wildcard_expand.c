@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/26 16:41:30 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/26 18:27:12 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ static void	rebuild_cmd_args(t_wildcard_p wc, char ***cmd_args)
 		}
 		ft_split_free(wc->matches);
 		if (!failed)
-		{
-			// ft_split_free(*cmd_args);
 			*cmd_args = new_args;
-		}
+
 		else
 			ft_split_free(new_args);
 	}
@@ -57,29 +55,30 @@ static void	wcconfig(t_wildcard_p wc, char *path)
 	wc->lastisdir = (*(path - 1) == '/');	
 }
 
-void	aggregate_matches(t_wildcard_p wc)
+void	aggregate_matches(t_wildcard_p wc, char *command)
 {
 	char	**matches;
 
-	if (wc->matches)
+	matches = ft_calloc(wc->totalmatches + wc->tmp_totalmatches + 2, sizeof(char *));
+	if (!matches)
+		return ;
+	ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
+
+	if (wc->tmp_matches)
 	{
-		matches = ft_calloc(wc->totalmatches + wc->tmp_totalmatches + 1, sizeof(char *));
-		if (matches)
-		{
-			ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
-			ft_memcpy(matches + wc->totalmatches, wc->tmp_matches, wc->tmp_totalmatches * sizeof(char *));
-			free(wc->matches);
-			free(wc->tmp_matches);
-			wc->matches = matches;			
-		}
+		ft_memcpy(matches + wc->totalmatches, wc->tmp_matches, wc->tmp_totalmatches * sizeof(char *));
+		free(wc->tmp_matches);
+		wc->tmp_matches = NULL;
+		wc->totalmatches += wc->tmp_totalmatches;
+		wc->tmp_totalmatches = 0;
 	}
 	else
 	{
-		wc->matches = wc->tmp_matches;
+		matches[wc->totalmatches] = command;
+		++wc->totalmatches;
 	}
-	wc->totalmatches += wc->tmp_totalmatches;
-	wc->tmp_matches = NULL;
-	wc->tmp_totalmatches = 0;
+	free(wc->matches);
+	wc->matches = matches;	
 }
 
 void	_wildcard_expand(t_wildcard_p wc, char *command)
@@ -104,7 +103,7 @@ void	_wildcard_expand(t_wildcard_p wc, char *command)
 		addmatch(wc, command);
 	}
 	sortmatches(wc);
-	aggregate_matches(wc);
+	aggregate_matches(wc, command);
 }
 
 void	wildcard_expand(char ***cmd_args)
