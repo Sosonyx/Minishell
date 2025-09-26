@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 16:36:51 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/26 13:07:53 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 		wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &shell->last_status);
 	else
 		wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
+	
+	free(ast->cur_pipe);
 	
 	return (shell->last_status);
 }
