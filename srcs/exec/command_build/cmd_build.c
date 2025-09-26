@@ -77,11 +77,7 @@ char	*find_cmd(char *cmd, char **env)
 	if (!cmd)
 		return (NULL);
 	if (ft_strchr(cmd, '/'))
-	{
-		if (access(cmd, F_OK) == 0 && access(cmd, X_OK) == 0)
-			return (ft_strdup(cmd));
 		return (ft_strdup(cmd));
-	}
 	paths_index = get_paths_index(env);
 	if (paths_index == -1)
 		return (ft_strdup(cmd));
@@ -92,4 +88,3 @@ char	*find_cmd(char *cmd, char **env)
 	free_array(paths);
 	return (correct_path);
 }
-
