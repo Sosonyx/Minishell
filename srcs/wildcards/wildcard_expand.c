@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/26 12:58:59 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/26 16:41:30 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ void	wildcard_expand(char ***cmd_args)
 		{
 			while (*commands)
 				_wildcard_expand(wc, *commands++);
-			rebuild_cmd_args(wc, cmd_args);
+			if (wc->totalmatches)
+				rebuild_cmd_args(wc, cmd_args);
 			free(wc);
 		}
 	}

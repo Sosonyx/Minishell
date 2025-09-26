@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 17:34:06 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/26 16:08:50 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,74 @@ static int	convert_errno(int err)
 {
 	if (err == ENOENT)
 		return (127);
-	// if (err == EACCES && was_a_dir == true)
-	// 	return (127)
 	if (err == EACCES || err == EISDIR)
 		return (126);
 	return (1);
+}
+
+
+static int	isfile(char *path)
+{
+	struct stat	file_stat;
+
+	if (stat(path, &file_stat) == 0)
+	{
+		if (S_ISREG(file_stat.st_mode))
+			return (1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+}
+
+static int	isdir(char *path)
+{
+	struct stat	file_stat;
+
+	if (stat(path, &file_stat) == 0)
+	{
+		if (S_ISDIR(file_stat.st_mode))
+			return (1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+}
+
+static int	islocalfile(char *filepath)
+{
+	if (ft_strncmp(filepath, "./", 2))
+		return (0);
+	else
+		return (1);
+}
+
+static void	_execve(t_minishell_p shell, t_ast_p ast)
+{
+	int	errnum;
+
+	errnum = 0;
+	
+	if (isdir(ast->leaf->full_path))
+	{
+		if (ft_strncmp(ast->leaf->full_path, "./", 2))
+			errnum = ENOENT;
+		else
+			errnum = EISDIR;
+	}
+	if (errnum)
+	{
+		print_cmd_error(shell, *ast->leaf->cmds, errnum);
+		exit(convert_errno(errnum));
+	}
+	else
+	{
+		execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
+		print_cmd_error(shell, *ast->leaf->cmds, errno);
+		exit(convert_errno(errno));
+	}
 }
 
 static void	_execute_command(t_minishell_p shell, t_ast_p ast)
@@ -42,12 +105,22 @@ static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 	}
 	else
 	{
-		// tester ici si jamais astleafcmd est un dir ou non pour ajuster le errno apres coup avec un flag jimagine dans SHELL
-		// execve(*ast->leaf->cmds, ast->leaf->cmds, shell->environ);
-		execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
-		errnum = errno;
-		print_cmd_error(shell, *ast->leaf->cmds, errnum);
-		exit(convert_errno(errnum));
+		_execve(shell, ast);
+
+		// le code actuel est une aide à la réflexion non aboutie
+		
+		// il faut distinguer les chemins locaux et absolus.
+
+		// Nous avons actuellement deux problèmes : 
+
+		//	1) Des commandes comme "minishell" fonctionnent, alors qu'elles ne devraient pas
+		//	(seul ./minishell devrait être accepté)
+		
+		// 	2) stat() et access() parviennent à trouver n'importe quel fichier local, en plus du PATH
+		// 	par conséquent ils ne peuvent pas, seuls, servir à tester une commande
+
+		// il faut en amont (à la construction de la commande) savoir si c'est un chemin direct (./minishell, /usr/bin/ls) 
+		// ou non, et effectuer nous-mêmes les recherches au(x) bon(s) endroit(s) pour décider d'execve ou non
 	}
 }
 
