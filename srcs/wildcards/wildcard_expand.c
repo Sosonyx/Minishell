@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/26 12:42:52 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/26 12:58:59 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ void	aggregate_matches(t_wildcard_p wc)
 		{
 			ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
 			ft_memcpy(matches + wc->totalmatches, wc->tmp_matches, wc->tmp_totalmatches * sizeof(char *));
-			wc->matches = matches;
+			free(wc->matches);
+			free(wc->tmp_matches);
+			wc->matches = matches;			
 		}
 	}
 	else
