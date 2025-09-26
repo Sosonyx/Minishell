@@ -96,7 +96,7 @@ t_expanded expand_old_cmd(t_minishell *shell, char *str)
         return (result);
     state = 0;
     i = 0;
-    while (str[i])
+    while (str && str[i])
     {
         new_state = update_state(state, str[i], &result);
         if (new_state != state)

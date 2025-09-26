@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 20:10:32 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/26 20:03:36 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,13 @@ int	parse_cntl_pipe(t_ast_p *op, t_tok_container_p tok_container, int start, int
 				return (free(tok_container->tokens[start]), tok_container->tokens[start] = NULL, tok_container->op_index = start, RETURN_OK);
 			}
 			else if (cur_token->type == T_LPARENT && !in_parenthesis)
+				++in_parenthesis;
+			else if (cur_token->type == T_RPARENT && in_parenthesis)
+				--in_parenthesis;					
+/* 			else if (cur_token->type == T_LPARENT && !in_parenthesis)
 				in_parenthesis = 1;
 			else if (cur_token->type == T_RPARENT && in_parenthesis)
-				in_parenthesis = 0;		
+				in_parenthesis = 0;		 */
 			start++;
 		}
 		free(*op);

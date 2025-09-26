@@ -28,3 +28,25 @@ minishell> echo "pre$VARpost"
 pre
 
 Marche mtn
+
+
+************************************************
+
+(echo */*/*/*/*/* * */*/*/*/*/*/*/* * */*/*/*/*/**/* | sort | wc | (wc && echo test > out) && << eof cat -e) | cat -e
+
+bug minimum : 
+(echo test | (cat -e && cat -e) && cat -e)
+
+fonctionne : 
+echo test | (cat -e && cat -e) && cat -e
+
+
+***************************************************
+
+clear && lsblk | (((sort && wc | wc -l || echo test))) | wc
+
+ça fonctionne MAIS, en réalité minishell ne devrait pas accepter les ((()))
+
+Nous, on fork() trois fois, techniquement on obtient le résultat de : 
+
+clear && lsblk | (sort && wc | wc -l || echo test) | wc
