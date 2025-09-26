@@ -3,7 +3,10 @@
 static int	update_state(int state, char c, t_expanded *exp)
 {
 	if (c == '\'' && state == 0)
+	{
+		exp->split_allowed = 0;
 		return (1);
+	}
 	else if (c == '\'' && state == 1)
 		return (0);
 	else if (c == '"' && state == 0)
@@ -112,8 +115,8 @@ t_expanded expand_old_cmd(t_minishell *shell, char *str)
         }
         else
             result.value = append_char(result.value, str[i]);
-        // if (!result.value)
-        //     return (result);
+        if (!result.value)
+            return (result);
         i++;
     }
     return (result);
