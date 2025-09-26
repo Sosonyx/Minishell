@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:25:18 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 13:26:46 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/26 11:47:32 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ int	skipdotdotdot(char *dir, char *field)
 	{
 		return (isdotdotdotentry(dir));
 	}
+	else if (!ft_strcmp(dir, DOTDOT_ENTRY) && !ft_strcmp(field, DOT_ENTRY))
+	{
+		return (1);
+	}
+	else if (!ft_strcmp(dir, DOT_ENTRY) && !ft_strcmp(field, DOTDOT_ENTRY))
+	{
+		return (1);
+	}	
 	else
 		return (0);
 }
