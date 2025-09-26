@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/26 13:07:53 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/26 16:09:24 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int execute_pipe(t_minishell_p shell, t_ast_p ast)
 	shell->last_status = _execute_ast(shell, ast->cntl_op->right);
 	close_secure(&ast->cur_pipe[0]);
 
-	/* wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status); */
 	wait_if_leaf(ast->cntl_op->left->leaf, NULL);
 	if (ast->cntl_op->right->type == OP_PIPE)
 		wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &shell->last_status);

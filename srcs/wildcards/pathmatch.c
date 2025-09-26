@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:34:09 by fox               #+#    #+#             */
-/*   Updated: 2025/09/24 17:57:51 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/26 16:48:00 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,26 +83,31 @@ int pathmatch(char *ptested, char *pref)
 
 	if (iswildcard(pref))
 	{
-		ptr = pref;
-		if (*pref && *pref != '*')
+		if (ft_strncmp(ptested, DOT_ENTRY, 2) && ft_strncmp(ptested, DOTDOT_ENTRY, 2))
 		{
-			while (*ptr && *ptr != '*')
+			ptr = pref;
+			if (*pref && *pref != '*')
+			{
+				while (*ptr && *ptr != '*')
+					ptr++;
+				wref.start_sequence = ft_substr(pref, 0, ptr - pref);
+				if (ft_strncmp(ptested, wref.start_sequence, ft_strlen(wref.start_sequence)))
+					return (0);
+			}
+			while (*ptr)
 				ptr++;
-			wref.start_sequence = ft_substr(pref, 0, ptr - pref);
-			if (ft_strncmp(ptested, wref.start_sequence, ft_strlen(wref.start_sequence)))
-				return (0);
+			if (*--ptr != '*')
+			{
+				wref.end_sequence = ptr;
+				while (*ptr && *ptr != '*')
+					ptr--;
+				wref.end_sequence = ft_substr(pref, ptr - pref + 1, wref.end_sequence - ptr + 1);
+				if (strncmprev(ptested, wref.end_sequence, ft_strlen(wref.end_sequence)))
+					return (0);	
+			}
 		}
-		while (*ptr)
-			ptr++;
-		if (*--ptr != '*')
-		{
-			wref.end_sequence = ptr;
-			while (*ptr && *ptr != '*')
-				ptr--;
-			wref.end_sequence = ft_substr(pref, ptr - pref + 1, wref.end_sequence - ptr + 1);
-			if (strncmprev(ptested, wref.end_sequence, ft_strlen(wref.end_sequence)))
-				return (0);	
-		}
+		else
+			return (0);
 	}
 	return (_pathmatch(ptested, pref));
 }

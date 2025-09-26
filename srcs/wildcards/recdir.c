@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 18:16:52 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 15:01:24 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/26 16:34:40 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	_recdir(t_wildcard_p wc, struct dirent *sdir, char *pathopen, int de
 {
 	char	*path = NULL;
 		
-	if (!skipdotdotdot(sdir->d_name, wc->spath[depth]) && pathmatch(sdir->d_name, wc->spath[depth]))
+	if (!skipdotdotdot(sdir->d_name, wc->spath[depth]) && !ishidden(sdir->d_name) && pathmatch(sdir->d_name, wc->spath[depth]))
 	{
 		path = catpath(pathopen, sdir->d_name);
 		recdir(wc, path, depth + 1);
