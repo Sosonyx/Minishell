@@ -57,34 +57,41 @@ static void	skip_spaces(char *line, int *i)
 		(*i)++;
 }
 
-static int	fill_tokens(t_token **tokens, char *line)
+static int fill_tokens(t_token **tokens, char *line)
 {
-	int	i;
-	int	j;
+    int i = 0;
+    int j = 0;
+    int ret;
 
-	i = 0;
-	j = 0;
-	while (line[i])
-	{
-		skip_spaces(line, &i);
-		if (!line[i])
-			break ;
-		if (is_special(line[i]))
-			j = stock_special(tokens, j, line, &i);
-		else
-			j = stock_word(tokens, j, line, &i);
-	}
-	tokens[j] = NULL;
-	return (j);
+    while (line[i])
+    {
+        skip_spaces(line, &i);
+        if (!line[i])
+            break;
+        if (is_special(line[i]))
+            j = stock_special(tokens, j, line, &i);
+        else
+        {
+            ret = stock_word(tokens, j, line, &i);
+            if (ret == -1)
+            {
+                ft_putstr_fd("minishell: unexpected EOF while looking for matching quote\n", 2);
+                return (0);
+            }
+            j = ret;
+        }
+    }
+    tokens[j] = NULL;
+    return (j);
 }
 
-int	stock_tokens(t_tok_container *t, char *line)
+int stock_tokens(t_tok_container *t, char *line)
 {
-	int	words;
+    int words;
 
-	words = count_tokens(line);
-	t->tokens = ft_calloc(words + 1, sizeof(t_token *));
-	if (!t->tokens)
-		return (0);
-	return (fill_tokens(t->tokens, line));
+    words = count_tokens(line);
+    t->tokens = ft_calloc(words + 1, sizeof(t_token *));
+    if (!t->tokens)
+        return (0);
+    return (fill_tokens(t->tokens, line));
 }
