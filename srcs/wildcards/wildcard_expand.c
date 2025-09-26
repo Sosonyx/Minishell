@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/25 18:38:56 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/26 11:05:55 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	rebuild_cmd_args(t_wildcard_p wc, char ***cmd_args)
 		// ft_split_free(wc->matches);
 		if (!failed)
 		{
-			ft_split_free(*cmd_args);
+			// ft_split_free(*cmd_args);
 			*cmd_args = new_args;
 		}
 		else

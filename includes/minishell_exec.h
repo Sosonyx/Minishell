@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 10:05:49 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/26 11:02:21 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	    	ft_env(t_minishell_p shell, char **args);
 /*		Execute                        											*/
 /********************************************************************************/
 
-int		execute_ast(t_minishell_p shell, t_ast_p ast);
+int		execute_ast(t_minishell_p shell, t_ast_p *ast);
 int		_execute_ast(t_minishell_p shell, t_ast_p ast);
 
 int 	execute_subshell(t_minishell_p shell, t_ast_p ast);

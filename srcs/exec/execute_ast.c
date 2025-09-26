@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 14:40:53 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/26 11:02:06 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ int	_execute_ast(t_minishell_p shell, t_ast_p ast)
 	return (shell->last_status);
 }
 
-int	execute_ast(t_minishell_p shell, t_ast_p ast)
+int	execute_ast(t_minishell_p shell, t_ast_p *ast)
 {
-	if (!ast)
+	if (!*ast)
 	{
 		print_generic_error(shell, AST_ERRMSG);
 		return (EXIT_FAILURE);
 	}
-	if (ast->leaf)
+	if ((*ast)->leaf)
 	{
-		shell->last_status = execute_leaf(shell, ast);
-		waitpid(ast->leaf->pid, &shell->last_status, 0);
+		shell->last_status = execute_leaf(shell, *ast);
+		waitpid((*ast)->leaf->pid, &shell->last_status, 0);
 	}
 	else
 	{
-		shell->last_status = _execute_ast(shell, ast);
+		shell->last_status = _execute_ast(shell, *ast);
 	}
-	destroy_ast(&ast);
+	destroy_ast(ast);
 	return (shell->last_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 17:59:51 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/26 11:08:38 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	execute_nofork(t_minishell_p shell, t_ast_p ast)
 		shell->last_status = EXIT_FAILURE;
 	restore_std_fileno(shell, ast);
 }
+
 void	execute_wfork(t_minishell_p shell, t_ast_p ast)
 {
 	ast->leaf->pid = fork();
@@ -79,9 +80,8 @@ void	execute_wfork(t_minishell_p shell, t_ast_p ast)
 	{
 		execute_nofork(shell, ast);
 		exit(shell->last_status);
-
 	}
-	else
+	else if (ast->leaf->pid < 0)
 	{
 		print_generic_error(shell, FORK_ERRMSG);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 16:25:42 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/26 11:02:59 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	mainloop(t_minishell_p shell, t_ast_p *ast, t_tok_container_p *tok_containe
 			{
 				if (parse_tokens(shell, ast, *tok_container))
 				{
-					execute_ast(shell, *ast);
+					execute_ast(shell, ast);
 					continue ;
 				}
 				else

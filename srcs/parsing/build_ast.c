@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:02:23 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 20:11:07 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/26 11:04:52 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	build_ast(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_containe
 	int	right_start;
 	int	right_end;
 
-	if (*ast && (*ast)->type == OP_SUBSHELL)
-		return ;
+/* 	if (*ast && (*ast)->type == OP_SUBSHELL)
+		return ; */
 	end = reset_global_end(first, start, end, tok_container);
 	if (!parse_cntl_and_or(ast, tok_container, start, end) && \
 		!parse_cntl_pipe(ast, tok_container, start, end) && \
