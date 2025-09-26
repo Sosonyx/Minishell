@@ -44,10 +44,18 @@ static char    **ft_join_array(char **tab1, char **tab2)
         return (NULL);
     i = -1;
     while (++i < len1)
+    {
         res[i] = ft_strdup(tab1[i]);
+        if (!res[i])
+            return (NULL);
+    }
     j = -1;
     while (++j < len2)
+    {
         res[len1 + j] = ft_strdup(tab2[j]);
+        if (!res[len1 + j])
+            return (NULL);
+    }
     res[len1 + len2] = NULL;
     return (res);
 }
@@ -72,7 +80,22 @@ char	**_variable_expand(t_minishell *shell, char **cmds)
         if (exp.split_allowed == true)
             splitted = ft_split(exp.value, ' ');
         else
-            splitted = ft_split(exp.value, '\0');
+        {
+            splitted = malloc(sizeof(char *) * 2);
+            if (!splitted)
+            {
+                free(exp.value);
+                return (ft_split_free(new_cmds), NULL);
+            }
+            splitted[0] = ft_strdup(exp.value);
+            if (!splitted[0])
+            {
+                free(splitted);
+                free(exp.value);
+                return (ft_split_free(new_cmds), NULL);
+            }
+            splitted[1] = NULL;
+        }
         free(exp.value);
         tmp = ft_join_array(new_cmds, splitted);
         ft_split_free(new_cmds);
@@ -89,48 +112,62 @@ static void free_redirs(t_redir_p list)
     while (list)
     {
         tmp = list->next;
-        ft_split_free(&list->target);
+        free(list->target);
+        free(list->limiter);
         free(list);
         list = tmp;
     }
 }
 
-// static void	init_node()
+t_redir_p	_redirs_expand(t_minishell *shell, t_redir_p redirs)
+{
+	t_redir_p	head;
+	t_redir_p	curr;
+	t_redir_p	new;
+    char		**splitted;
+    t_expanded	exp;
+    int         i;
 
-// t_redir_p	_redirs_expand(t_minishell *shell, t_redir_p redirs)
-// {
-// 	t_redir_p	head;
-// 	t_redir_p	curr;
-// 	t_redir_p	new;
-//     char		**splitted;
-//     char		**tmp;
-//     t_expanded	exp;
-
-// 	head = NULL;
-// 	curr = NULL;
-// 	while (redirs)
-// 	{
-//         exp = expand_old_cmd(shell, redirs->target);
-//         if (!exp.value)
-//             return (free_redirs(head), NULL);
-//         if (exp.split_allowed == true)
-//             splitted = ft_split(exp.value, ' ');
-//         else
-//             splitted = ft_split(exp.value, '\0');
-//         free(exp.value);
-// 		new = ft_calloc(1, sizeof(t_redir));
-//         tmp = ft_join_array(&new->target, splitted);
-//         ft_split_free(splitted);
-//         new->target = *tmp;
-//         if (!head)
-// 				head = new;
-// 		else
-// 			curr->next = new;
-// 		curr = new;
-// 		redirs = redirs->next;
-//     }
-// 	return (head);
-// }
+	head = NULL;
+	curr = NULL;
+	while (redirs)
+	{
+        exp = expand_old_cmd(shell, redirs->target);
+        if (!exp.value)
+            return (free_redirs(head), NULL);
+        if (exp.split_allowed == true)
+            splitted = ft_split(exp.value, ' ');
+        else
+            splitted = ft_split(exp.value, '\0');
+        free(exp.value);
+        i = 0;
+        while (splitted[i])
+        {
+            new = ft_calloc(1, sizeof(t_redir));
+            if (!new)
+            {
+                ft_split_free(splitted);
+                return (free_redirs(head), NULL);
+            }
+            new->type = redirs->type;
+            new->target = ft_strdup(splitted[i]);
+            if (redirs->limiter)
+                new->limiter = ft_strdup(redirs->limiter);
+            new->fd = redirs->fd;
+            new->next = NULL;
+            
+            if (!head)
+                head = new;
+            else
+                curr->next = new;
+            curr = new;
+            i++;
+        }
+        ft_split_free(splitted);
+		redirs = redirs->next;
+    }
+	return (head);
+}
 
 void	variable_expand(t_minishell *shell, t_ast_p ast)
 {
@@ -141,7 +178,7 @@ void	variable_expand(t_minishell *shell, t_ast_p ast)
 	ft_split_free(ast->leaf->cmds);
     ast->leaf->cmds = new_cmds;
 
-	// new_redirs = _redirs_expand(shell, ast->leaf->redir);
-	// destroy_redir(ast);
-	// ast->leaf->redir = new_redirs;
+	new_redirs = _redirs_expand(shell, ast->leaf->redir);
+	free_redirs(ast->leaf->redir);
+	ast->leaf->redir = new_redirs;
 }
