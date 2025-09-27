@@ -6,7 +6,7 @@
 /*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/26 20:12:58 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/27 14:27:06 by fox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static int	check_path(char *path)
 	{
 		if (access(path, F_OK) != 0)
 			return (42);
-		else if (access(path, X_OK) != 0)
+		else if (access(path, X_OK) != 0)		// dans le cas d'un DIR sans permissions, on ne doit pas return EACCES mais EISDIR
 			return (EACCES);
 	}
 	if (len > 0 && path[len - 1] == '/')
-		return (EISDIR);
+		return (EISDIR);						// dans le cas d'un DIR inexistant, on ne doit pas renvoyer EISDIR mais ENOENT
 	if (stat(path, &file_stats) != 0)
 		return (ENOENT);
 	if (S_ISDIR(file_stats.st_mode))
@@ -68,7 +68,7 @@ static void	_execve(t_minishell_p shell, t_ast_p ast)
 	{
 		print_cmd_error(shell, *ast->leaf->cmds, errnum);
 		if (errnum == 42)
-			errnum = 2;
+			errnum = ENOENT;
 		exit(convert_errno(errnum)); // clean exit surement ici
 	}
 	execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
@@ -78,8 +78,8 @@ static void	_execve(t_minishell_p shell, t_ast_p ast)
 
 static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 {
-	if (ast->leaf->fds[0] == -1 || ast->leaf->fds[1] == -1)
-		exit(convert_errno(ENOENT));
+/* 	if (ast->leaf->fds[0] == -1 || ast->leaf->fds[1] == -1)
+		exit(convert_errno(ENOENT)); */		// à ce stade ça ne devrait jamais arriver puisqu'on n'a pas encore touché aux leaf->fds
 	redirect_leaf(shell, ast);
 	close_fds(ast, CHILD);
 	if (ast->leaf->abort == true)
