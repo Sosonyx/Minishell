@@ -59,8 +59,8 @@ void	build_ast(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_containe
 	int	right_start;
 	int	right_end;
 
-/* 	if (*ast && (*ast)->type == OP_SUBSHELL)
-		return ; */
+	// if (*ast && (*ast)->type == OP_SUBSHELL)
+	// 	return ;
 	end = reset_global_end(first, start, end, tok_container);
 	if (!parse_cntl_and_or(ast, tok_container, start, end) && \
 		!parse_cntl_pipe(ast, tok_container, start, end) && \

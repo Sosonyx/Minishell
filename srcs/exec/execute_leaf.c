@@ -21,107 +21,72 @@ static int	convert_errno(int err)
 	return (1);
 }
 
-
-static int	isfile(char *path)
+/*
+	Renvoie 0 si executable,
+	-- ENOENT fichier inexistant -> on fait stat plutot que F_OK ici
+		pour remplir la struct
+	-- ISDIR renvoie une valeur non nulle si c est un DIR, generalement 1
+	-- PAS EXEC (X_Ok)
+*/
+static int	check_path(char *path)
 {
-	struct stat	file_stat;
+	struct stat	file_stats;
+	int			len;
 
-	if (stat(path, &file_stat) == 0)
+	if (!path)
+		return (ENOENT);
+	len = ft_strlen(path);
+	if (ft_strncmp(path, "./", 2) == 0 || ft_strncmp(path, "../", 3) == 0 || path[0] == '/')
 	{
-		if (S_ISREG(file_stat.st_mode))
-			return (1);
-		else
-			return (0);
+		if (access(path, F_OK) != 0)
+			return (42);
+		else if (access(path, X_OK) != 0)
+			return (EACCES);
 	}
-	else
-		return (0);
-}
-
-static int	isdir(char *path)
-{
-	struct stat	file_stat;
-
-	if (stat(path, &file_stat) == 0)
+	if (len > 0 && path[len - 1] == '/')
+		return (EISDIR);
+	if (stat(path, &file_stats) != 0)
+		return (ENOENT);
+	if (S_ISDIR(file_stats.st_mode))
 	{
-		if (S_ISDIR(file_stat.st_mode))
-			return (1);
-		else
-			return (0);
+		if (ft_strncmp(path, "./", 2) == 0 || ft_strncmp(path, "../", 3) == 0 || path[0] == '/')
+			return (EISDIR);
+		return (ENOENT);
 	}
-	else
-		return (0);
+	if (access(path, X_OK) != 0)
+		return (ENOENT); // ici on renvoie quand meme ENOENT pour coller a bash
+	return (0);
 }
 
-static int	islocalfile(char *filepath)
-{
-	if (ft_strncmp(filepath, "./", 2))
-		return (0);
-	else
-		return (1);
-}
 
 static void	_execve(t_minishell_p shell, t_ast_p ast)
 {
 	int	errnum;
 
-	errnum = 0;
-	
-	if (isdir(ast->leaf->full_path))
-	{
-		if (ft_strncmp(ast->leaf->full_path, "./", 2))
-			errnum = ENOENT;
-		else
-			errnum = EISDIR;
-	}
-	if (errnum)
+	errnum = check_path(ast->leaf->full_path);
+	if (errnum) // on met a jour errnum, si 0 pas d erreurs donc on exec
 	{
 		print_cmd_error(shell, *ast->leaf->cmds, errnum);
-		exit(convert_errno(errnum));
+		if (errnum == 42)
+			errnum = 2;
+		exit(convert_errno(errnum)); // clean exit surement ici
 	}
-	else
-	{
-		execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
-		print_cmd_error(shell, *ast->leaf->cmds, errno);
-		exit(convert_errno(errno));
-	}
+	execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
+	print_cmd_error(shell, *ast->leaf->cmds, errno);
+	exit(convert_errno(errno));
 }
 
 static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 {
-	int		errnum;
-	int		access_value;
-
 	if (ast->leaf->fds[0] == -1 || ast->leaf->fds[1] == -1)
 		exit(convert_errno(ENOENT));
 	redirect_leaf(shell, ast);
 	close_fds(ast, CHILD);
 	if (ast->leaf->abort == true)
-	{
 		exit(EXIT_FAILURE);
-	}
-	else if (!*ast->leaf->cmds)
-	{
+	if (!*ast->leaf->cmds)
 		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		_execve(shell, ast);
-
-		// le code actuel est une aide à la réflexion non aboutie
-		
-		// il faut distinguer les chemins locaux et absolus.
-
-		// Nous avons actuellement deux problèmes : 
-
-		//	1) Des commandes comme "minishell" fonctionnent, alors qu'elles ne devraient pas
-		//	(seul ./minishell devrait être accepté)
-		
-		// 	2) stat() et access() parviennent à trouver n'importe quel fichier local, en plus du PATH
-		// 	par conséquent ils ne peuvent pas, seuls, servir à tester une commande
-
-		// il faut en amont (à la construction de la commande) savoir si c'est un chemin direct (./minishell, /usr/bin/ls) 
-		// ou non, et effectuer nous-mêmes les recherches au(x) bon(s) endroit(s) pour décider d'execve ou non
-	}
+	_execve(shell, ast);
 }
 
 static void	execute_command(t_minishell_p shell, t_ast_p ast)
@@ -157,3 +122,35 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 	execute_command(shell, ast);
 	return (0);
 }
+
+
+
+
+
+
+
+// static void	_execve(t_minishell_p shell, t_ast_p ast)
+// {
+// 	int	errnum;
+
+// 	errnum = 0;
+	
+// 	if (isdir(ast->leaf->full_path))
+// 	{
+// 		if (ft_strncmp(ast->leaf->full_path, "./", 2))
+// 			errnum = ENOENT;
+// 		else
+// 			errnum = EISDIR;
+// 	}
+// 	if (errnum)
+// 	{
+// 		print_cmd_error(shell, *ast->leaf->cmds, errnum);
+// 		exit(convert_errno(errnum));
+// 	}
+// 	else
+// 	{
+// 		execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
+// 		print_cmd_error(shell, *ast->leaf->cmds, errno);
+// 		exit(convert_errno(errno));
+// 	}
+// }

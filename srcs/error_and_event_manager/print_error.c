@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-#include "minishell.h"
-
 static void	print_err(t_minishell_p shell, char *name, int errnum)
 {
 	speak(shell, STDERR_FILENO, name, COLUMN);
@@ -27,7 +25,12 @@ void	print_file_error(t_minishell_p shell, char *filename, int errnum)
 
 void	print_cmd_error(t_minishell_p shell, char *cmd_name, int errnum)
 {
-	if (errnum == ENOENT)
+	if (errnum == 42)
+	{
+		speak(shell, STDERR_FILENO, cmd_name, COLUMN);
+		speak(NULL, STDERR_FILENO, FILE_ERRMSG, NEWLINE);
+	}
+	else if (errnum == ENOENT)
 	{
 		speak(shell, STDERR_FILENO, cmd_name, COLUMN);
 		speak(NULL, STDERR_FILENO, CMD_ERRMSG, NEWLINE);
