@@ -24,12 +24,10 @@ static int	convert_errno(int err)
 static int	check_path(char *path)
 {
 	struct stat	file_stats;
-	int			len;
 
 	if (!path)
 		return (ENOENT);
-	len = ft_strlen(path);
-	if (path[0] == '/' || ft_strncmp(path, "./", 2) == 0 || ft_strncmp(path, "../", 3) == 0)
+	if (ft_strchr(path, '/'))
 	{
 		if (stat(path, &file_stats) != 0)
 			return (ENOENT);
@@ -41,6 +39,7 @@ static int	check_path(char *path)
 	}
 	return (ENOENT);
 }
+
 
 static void	_execve(t_minishell_p shell, t_ast_p ast)
 {
