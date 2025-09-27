@@ -28,6 +28,36 @@ static int	convert_errno(int err)
 	-- ISDIR renvoie une valeur non nulle si c est un DIR, generalement 1
 	-- PAS EXEC (X_Ok)
 */
+// static int	check_path(char *path)
+// {
+// 	struct stat	file_stats;
+// 	int			len;
+
+// 	if (!path)
+// 		return (ENOENT);
+// 	len = ft_strlen(path);
+// 	if (ft_strncmp(path, "./", 2) == 0 || ft_strncmp(path, "../", 3) == 0 || path[0] == '/')
+// 	{
+// 		if (access(path, F_OK) != 0)
+// 			return (42);
+// 		else if (access(path, X_OK) != 0)		// dans le cas d'un DIR sans permissions, on ne doit pas return EACCES mais EISDIR
+// 			return (EACCES);
+// 	}
+// 	if (len > 0 && path[len - 1] == '/')
+// 		return (EISDIR);						// dans le cas d'un DIR inexistant, on ne doit pas renvoyer EISDIR mais ENOENT
+// 	if (stat(path, &file_stats) != 0)
+// 		return (ENOENT);
+// 	if (S_ISDIR(file_stats.st_mode))
+// 	{
+// 		if (ft_strncmp(path, "./", 2) == 0 || ft_strncmp(path, "../", 3) == 0 || path[0] == '/')
+// 			return (EISDIR);
+// 		return (ENOENT);
+// 	}
+// 	if (access(path, X_OK) != 0)
+// 		return (ENOENT); // ici on renvoie quand meme ENOENT pour coller a bash
+// 	return (0);
+// }
+
 static int	check_path(char *path)
 {
 	struct stat	file_stats;
@@ -36,27 +66,19 @@ static int	check_path(char *path)
 	if (!path)
 		return (ENOENT);
 	len = ft_strlen(path);
-	if (ft_strncmp(path, "./", 2) == 0 || ft_strncmp(path, "../", 3) == 0 || path[0] == '/')
+	if (path[0] == '/' || ft_strncmp(path, "./", 2) == 0 || ft_strncmp(path, "../", 3) == 0)
 	{
-		if (access(path, F_OK) != 0)
-			return (42);
-		else if (access(path, X_OK) != 0)		// dans le cas d'un DIR sans permissions, on ne doit pas return EACCES mais EISDIR
-			return (EACCES);
-	}
-	if (len > 0 && path[len - 1] == '/')
-		return (EISDIR);						// dans le cas d'un DIR inexistant, on ne doit pas renvoyer EISDIR mais ENOENT
-	if (stat(path, &file_stats) != 0)
-		return (ENOENT);
-	if (S_ISDIR(file_stats.st_mode))
-	{
-		if (ft_strncmp(path, "./", 2) == 0 || ft_strncmp(path, "../", 3) == 0 || path[0] == '/')
+		if (stat(path, &file_stats) != 0)
+			return (ENOENT);
+		if (S_ISDIR(file_stats.st_mode))
 			return (EISDIR);
-		return (ENOENT);
+		if (access(path, X_OK) != 0)
+			return (EACCES);
+		return (0);
 	}
-	if (access(path, X_OK) != 0)
-		return (ENOENT); // ici on renvoie quand meme ENOENT pour coller a bash
-	return (0);
+	return (ENOENT);
 }
+
 
 
 static void	_execve(t_minishell_p shell, t_ast_p ast)

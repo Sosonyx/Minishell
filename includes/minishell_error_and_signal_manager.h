@@ -24,6 +24,8 @@
 # define ARG_EXCESS_ERRMSG	"too many arguments"
 # define ARG_NON_NUM_ERRMSG	"numeric argument required"
 # define INVALID_ID_ERRMSG	"not a valid identifier"
+# define DIRECTORY_ERRMSG   "Is a directory"
+# define PERMISSION_ERRMSG  "Permission denied"
 
 # define LEN_INTMAX		12
 
