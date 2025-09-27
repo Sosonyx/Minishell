@@ -40,6 +40,20 @@ static int	check_path(char *path)
 	return (ENOENT);
 }
 
+// static void	_execve(t_minishell_p shell, t_ast_p ast)
+// {
+// 	int	errnum;
+
+// 	errnum = check_path(ast->leaf->full_path);
+// 	if (errnum == EISDIR || errnum == EACCES)
+// 	{
+// 		print_cmd_error(shell, *ast->leaf->cmds, errnum);
+// 		exit(convert_errno(errnum));
+// 	}
+// 	execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
+// 	print_cmd_error(shell, *ast->leaf->cmds, errno);
+// 	exit(convert_errno(errno));
+// }
 
 static void	_execve(t_minishell_p shell, t_ast_p ast)
 {
