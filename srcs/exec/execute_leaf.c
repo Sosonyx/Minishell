@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/27 14:27:06 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/29 14:05:32 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,34 @@ static int	check_path(char *path)
 	return (ENOENT);
 }
 
-// static void	_execve(t_minishell_p shell, t_ast_p ast)
-// {
-// 	int	errnum;
-
-// 	errnum = check_path(ast->leaf->full_path);
-// 	if (errnum == EISDIR || errnum == EACCES)
-// 	{
-// 		print_cmd_error(shell, *ast->leaf->cmds, errnum);
-// 		exit(convert_errno(errnum));
-// 	}
-// 	execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
-// 	print_cmd_error(shell, *ast->leaf->cmds, errno);
-// 	exit(convert_errno(errno));
-// }
-
 static void	_execve(t_minishell_p shell, t_ast_p ast)
 {
 	int	errnum;
 
-	errnum = check_path(ast->leaf->full_path);
-	if (errnum) // on met a jour errnum, si 0 pas d erreurs donc on exec
+	errnum = check_path(ast->leaf->exec_path);
+	if (errnum)
 	{
 		print_cmd_error(shell, *ast->leaf->cmds, errnum);
-		exit(convert_errno(errnum)); // clean exit surement ici
+		exit(convert_errno(errnum));
 	}
 	execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
 	print_cmd_error(shell, *ast->leaf->cmds, errno);
 	exit(convert_errno(errno));
 }
+
+// static void	_execve(t_minishell_p shell, t_ast_p ast)
+// {
+// 	int	errnum;
+
+// 	errnum = check_path(ast->leaf->full_path);
+// 	if (errnum) // on met a jour errnum, si 0 pas d erreurs donc on exec
+// 	{
+// 		print_cmd_error(shell, *ast->leaf->cmds, errnum);
+// 		exit(convert_errno(errnum)); // clean exit surement ici
+// 	}
+// 	print_cmd_error(shell, *ast->leaf->cmds, errno);
+// 	exit(convert_errno(errno));
+// }
 
 static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 {
@@ -106,7 +105,7 @@ int	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	variable_expand(shell, ast);
 	if (!ast->leaf->configured)
-		preconfig_leaf(shell, ast->leaf);
+		preconfig_leaf(shell, ast);
 	wildcard_expand(&ast->leaf->cmds);
 	if (is_builtin(ast->leaf))
 	{

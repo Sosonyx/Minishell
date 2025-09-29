@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/26 11:02:21 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/29 13:22:51 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ void	execute_builtin(t_minishell_p shell, t_ast_p ast);
 void	wait_if_leaf(t_leaf_p leaf, int *rstatus);
 int		extract_return_code(int status);
 
-char	*find_cmd(char *cmd, char **env);
+// char	*find_cmd(char *cmd, char **env);
+char	*find_cmd(t_minishell_p shell, t_ast_p ast);
+
 bool	is_builtin(t_leaf_p leaf);
 
-void	preconfig_leaf(t_minishell_p shell, t_leaf_p leaf);
+void	preconfig_leaf(t_minishell_p shell, t_ast_p ast);
 
 
 /********************************************************************************/

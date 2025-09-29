@@ -3,31 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   preconfig_leaf.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 17:33:36 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/29 13:54:53 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* static void	get_command_path(t_minishell_p shell, t_leaf_p leaf)
+static void	get_command_path(t_minishell_p shell, t_ast_p ast)
 {
 	char	*cmd;
 
-	leaf->name = leaf->cmds[0];
-	cmd = find_cmd(leaf->cmds[0], shell->environ);
-	if (cmd)
-		leaf->cmds[0] = cmd;
-}
- */
-
-static void	get_command_path(t_minishell_p shell, t_leaf_p leaf)
-{
-	char	*cmd;
-
-	leaf->full_path = find_cmd(leaf->cmds[0], shell->environ);
+	ast->leaf->full_path = find_cmd(shell, ast);
 }
 
 
@@ -67,10 +56,10 @@ static void	redir_out_conf(t_leaf_p leaf)
 	}
 }
 
-void	preconfig_leaf(t_minishell_p shell, t_leaf_p leaf)
+void	preconfig_leaf(t_minishell_p shell, t_ast_p ast)
 {
-	redir_in_conf(leaf);
-	redir_out_conf(leaf);
-	get_command_path(shell, leaf);
-	leaf->configured = true;
+	redir_in_conf(ast->leaf);
+	redir_out_conf(ast->leaf);
+	get_command_path(shell, ast);
+	ast->leaf->configured = true;
 }
