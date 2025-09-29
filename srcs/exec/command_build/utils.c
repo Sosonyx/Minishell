@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 16:43:43 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 18:25:51 by ihadj            ###   ########.fr       */
+/*   Created: 2025/09/29 18:25:30 by ihadj             #+#    #+#             */
+/*   Updated: 2025/09/29 18:39:17 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 static int	count_word(const char *str, char c)
 {
@@ -19,18 +19,10 @@ static int	count_word(const char *str, char c)
 
 	i = 0;
 	count = 0;
-	while (str[i] && str[i] == c)
-		i++;
 	while (str[i])
 	{
-		if (str[i] != c)
-		{
+		if (str[i++] != c)
 			count++;
-			while (str[i] && str[i] != c)
-				i++;
-		}
-		while (str[i] && str[i] == c)
-			i++;
 	}
 	return (count);
 }
@@ -47,6 +39,8 @@ static char	*malloc_word(const char *str, char c)
 	if (!word)
 		return (NULL);
 	i = 0;
+	// if (!str[i])
+	// 	return (ft_strdup("./"));
 	while (str[i] && str[i] != c)
 	{
 		word[i] = str[i];
@@ -63,7 +57,7 @@ static void	free_tab(char **tab, int index)
 	free(tab);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_path(char const *s, char c)
 {
 	char	**tab;
 	int		i;
@@ -73,7 +67,7 @@ char	**ft_split(char const *s, char c)
 	j = 0;
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (count_word(s, c) + 1));
+	tab = malloc(sizeof(char *) * (count_word(s, c) + 2));
 	if (!tab)
 		return (NULL);
 	while (s[i])
@@ -84,7 +78,10 @@ char	**ft_split(char const *s, char c)
 			if (!tab[j - 1])
 				return (free_tab(tab, j), NULL);
 			while (s[i] && s[i] != c)
+			{
+				tab[j++] = ft_strdup("./");
 				i++;
+			}
 		}
 		else
 			i++;

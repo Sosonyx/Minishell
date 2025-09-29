@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 14:05:32 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/29 14:28:41 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	_execve(t_minishell_p shell, t_ast_p ast)
 		print_cmd_error(shell, *ast->leaf->cmds, errnum);
 		exit(convert_errno(errnum));
 	}
-	execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
+	execve(ast->leaf->exec_path, ast->leaf->cmds, shell->environ);
 	print_cmd_error(shell, *ast->leaf->cmds, errno);
 	exit(convert_errno(errno));
 }

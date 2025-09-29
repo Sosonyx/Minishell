@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 13:22:51 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/29 18:26:21 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*find_cmd(t_minishell_p shell, t_ast_p ast);
 bool	is_builtin(t_leaf_p leaf);
 
 void	preconfig_leaf(t_minishell_p shell, t_ast_p ast);
+char	**ft_split_path(char const *s, char c);
 
 
 /********************************************************************************/
