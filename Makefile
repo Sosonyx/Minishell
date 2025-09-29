@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/29 16:31:23 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/29 20:10:42 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,6 @@ SRC         = \
 				$(SRC_DIR)/lexer/utils/count_tokens.c										\
 				$(SRC_DIR)/lexer/syntax_check.c												\
 				$(SRC_DIR)/lexer/tokenize_input.c											\
-				$(SRC_DIR)/parsing/build_ast.c												\
 				$(SRC_DIR)/parsing/build_redir.c											\
 				$(SRC_DIR)/parsing/destroy_ast.c											\
 				$(SRC_DIR)/parsing/destroy_leaf.c											\
@@ -74,6 +73,7 @@ SRC         = \
 				$(SRC_DIR)/parsing/input_heredoc.c											\
 				$(SRC_DIR)/parsing/expander/expand_leaf.c									\
 				$(SRC_DIR)/parsing/expander/expand_old_cmd.c								\
+				$(SRC_DIR)/parsing/utils/set_ends.c											\
 				$(SRC_DIR)/wildcards/utils/isasterisk.c										\
 				$(SRC_DIR)/wildcards/utils/iswildcard.c										\
 				$(SRC_DIR)/wildcards/utils/catpath.c										\

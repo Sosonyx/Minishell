@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 17:02:43 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:55:45 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,27 @@ static void	_create_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_token_p cur_to
 		set_abort(shell, MEM_ERRMSG);
 }
 
-int	parse_cntl_pipe(t_minishell_p shell, t_ast_p *op, int start, int end)
+int	parse_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 {
 	t_token_p	cur_token;
 	int			in_parenthesis;
 
 	
 	in_parenthesis = 0;
-	cur_token = shell->tokens->tokens[start];
+	cur_token = shell->tokens->tokens[vars.start];
 	
-	while (cur_token && start <= end)
+	while (cur_token && vars.start <= vars.end)
 	{
 		if (cur_token->type == T_PIPE && !in_parenthesis)
 		{
-			_create_cntl_pipe(shell, op, cur_token, start);
+			_create_cntl_pipe(shell, op, cur_token, vars.start);
 			return (shell->abort == false);
 		}
 		else if (cur_token->type == T_LPARENT)
 			++in_parenthesis;
 		else if (cur_token->type == T_RPARENT)
 			--in_parenthesis;
-		cur_token = shell->tokens->tokens[++start];
+		cur_token = shell->tokens->tokens[++vars.start];
 	}
 	return (RETURN_FAIL);
 }

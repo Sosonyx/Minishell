@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 19:30:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/29 20:06:25 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	get_subshell_limit(t_minishell_p shell, int start, int *end)
 	}
 }
 
-static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, struct s_build_var vars)
+static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 {
 	if (create_cntl_op(shell, op, T_LPARENT))
 	{
@@ -36,7 +36,7 @@ static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, struct s_build_var
 		{
 			++vars.start;
 			--vars.end;
-			_build_ast(shell, &(*op)->cntl_op->left, vars, LEFT_BRANCH);
+			build_ast(shell, &(*op)->cntl_op->left, vars);
 		}
 		else
 		{
@@ -48,9 +48,10 @@ static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, struct s_build_var
 		set_abort(shell, MEM_ERRMSG);
 }
 
-int	parse_subshell(t_minishell_p shell, t_ast_p *op, struct s_build_var vars)
+int	parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 {
-	if (shell->tokens->tokens[vars.start] && (shell->tokens->tokens[vars.start])->type == T_LPARENT)
+	if (shell->tokens->tokens[vars.start] 
+		&& (shell->tokens->tokens[vars.start])->type == T_LPARENT)
 	{
 		get_subshell_limit(shell, vars.start, &vars.end);
 		_parse_subshell(shell, op, vars);
@@ -58,5 +59,4 @@ int	parse_subshell(t_minishell_p shell, t_ast_p *op, struct s_build_var vars)
 	}
 	else
 		return (RETURN_FAIL);
-	
 }

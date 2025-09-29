@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 10:52:29 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/29 20:11:47 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	mainloop(t_minishell_p shell, t_ast_p *ast)
 		if (shell->input)
 		{
 			if (!*(shell->input))
-				shell->last_status = EXIT_SUCCESS;			
+				shell->last_status = EXIT_SUCCESS;
 			else if (tokenize_input(shell, &g_status))
 			{
 				if (parse_tokens(shell, ast))

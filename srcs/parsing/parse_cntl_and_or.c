@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:55 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 16:58:05 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:55:13 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	_create_cntl_and_or(t_minishell_p shell, t_ast_p *op, t_token_p cur_
 		set_abort(shell, MEM_ERRMSG);
 }
 
-int	parse_cntl_and_or(t_minishell_p shell, t_ast_p *op, int start, int end)
+int	parse_cntl_and_or(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 {
 	t_token_p			cur_token;
 	int					in_parenthesis;
@@ -33,20 +33,20 @@ int	parse_cntl_and_or(t_minishell_p shell, t_ast_p *op, int start, int end)
 	
 	tok_copy = shell->tokens;
 	in_parenthesis = 0;
-	cur_token = shell->tokens->tokens[start];
+	cur_token = shell->tokens->tokens[vars.start];
 	
-	while (cur_token && start <= end)
+	while (cur_token && vars.start <= vars.end)
 	{
 		if ((cur_token->type & (T_AND | T_OR)) && !in_parenthesis)
 		{
-			_create_cntl_and_or(shell, op, cur_token, start);
+			_create_cntl_and_or(shell, op, cur_token, vars.start);
 			return (shell->abort == false);
 		}
 		else if (cur_token->type == T_LPARENT)
 			++in_parenthesis;
 		else if (cur_token->type == T_RPARENT)
 			--in_parenthesis;			
-		cur_token = shell->tokens->tokens[++start];
+		cur_token = shell->tokens->tokens[++vars.start];
 	}
 	return (RETURN_FAIL);
 }
