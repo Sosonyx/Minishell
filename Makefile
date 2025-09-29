@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/25 10:26:41 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/29 16:31:23 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC         = \
 				$(SRC_DIR)/error_and_event_manager/print_hd_error.c							\
 				$(SRC_DIR)/error_and_event_manager/signal_manager.c							\
 				$(SRC_DIR)/error_and_event_manager/messager.c								\
+				$(SRC_DIR)/error_and_event_manager/set_abort.c								\
 				$(SRC_DIR)/exec/execute_ast.c												\
 				$(SRC_DIR)/exec/execute_leaf.c												\
 				$(SRC_DIR)/exec/execute_and.c												\
@@ -52,6 +53,7 @@ SRC         = \
 				$(SRC_DIR)/exec/wait_if_leaf.c												\
 				$(SRC_DIR)/exec/command_build/cmd_build.c									\
 				$(SRC_DIR)/lexer/lexer.c													\
+				$(SRC_DIR)/lexer/discard_token.c											\
 				$(SRC_DIR)/lexer/utils/utils.c												\
 				$(SRC_DIR)/lexer/utils/stock_functions.c									\
 				$(SRC_DIR)/lexer/utils/count_tokens.c										\
@@ -63,6 +65,7 @@ SRC         = \
 				$(SRC_DIR)/parsing/destroy_leaf.c											\
 				$(SRC_DIR)/parsing/destroy_redir.c											\
 				$(SRC_DIR)/parsing/build_cmd.c												\
+				$(SRC_DIR)/parsing/create_cntl_op.c											\
 				$(SRC_DIR)/parsing/parse_tokens.c											\
 				$(SRC_DIR)/parsing/parse_cntl_and_or.c										\
 				$(SRC_DIR)/parsing/parse_cntl_pipe.c										\

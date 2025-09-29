@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_tokens.c                                     :+:      :+:    :+:   */
+/*   set_abort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 16:37:42 by cgajean          ###   ########.fr       */
+/*   Created: 2025/09/29 16:30:50 by cgajean           #+#    #+#             */
+/*   Updated: 2025/09/29 16:39:33 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_tokens(t_minishell_p shell, t_ast_p *ast)
+void	set_abort(t_minishell_p shell, char *errmsg)
 {
-	if (ast)
-		build_ast(shell, ast, 0, 0, AST_INIT, 1);
-	return (shell->abort == false);
+	print_generic_error(shell, errmsg);
+	shell->abort = true;
 }

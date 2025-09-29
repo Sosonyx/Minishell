@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_tokens.c                                     :+:      :+:    :+:   */
+/*   discard_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 16:37:42 by cgajean          ###   ########.fr       */
+/*   Created: 2025/09/29 12:34:53 by cgajean           #+#    #+#             */
+/*   Updated: 2025/09/29 12:35:05 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_tokens(t_minishell_p shell, t_ast_p *ast)
+void	discard_token(t_minishell_p shell, int token_index)
 {
-	if (ast)
-		build_ast(shell, ast, 0, 0, AST_INIT, 1);
-	return (shell->abort == false);
+	free(shell->tokens->tokens[token_index]);
+	shell->tokens->tokens[token_index] = NULL;
 }

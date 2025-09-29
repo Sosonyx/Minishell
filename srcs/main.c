@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/26 11:13:00 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/29 10:52:29 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	prompt_input(t_minishell_p shell)
 	}
 }
 
-void	mainloop(t_minishell_p shell, t_ast_p *ast, t_tok_container_p *tok_container)
+static void	mainloop(t_minishell_p shell, t_ast_p *ast)
 {
 	while (1)
 	{
@@ -41,9 +41,9 @@ void	mainloop(t_minishell_p shell, t_ast_p *ast, t_tok_container_p *tok_containe
 		{
 			if (!*(shell->input))
 				shell->last_status = EXIT_SUCCESS;			
-			else if (tokenize_input(shell->input, tok_container, &g_status))
+			else if (tokenize_input(shell, &g_status))
 			{
-				if (parse_tokens(shell, ast, *tok_container))
+				if (parse_tokens(shell, ast))
 				{
 					execute_ast(shell, ast);
 					continue ;
@@ -70,14 +70,13 @@ void	mainloop(t_minishell_p shell, t_ast_p *ast, t_tok_container_p *tok_containe
 int	main(int ac, char **av, char **env)
 {
 	t_ast_p				ast = NULL;
-	t_tok_container_p	tok_container = NULL;
 	t_minishell_p		shell;
 	int					rstatus;
 	
 	
 	shell = shell_init(ac, av, environ);
 	
-	mainloop(shell, &ast, &tok_container);
+	mainloop(shell, &ast);
 
 	rstatus = shell->last_status;
 

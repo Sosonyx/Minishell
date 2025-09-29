@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:02:23 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/26 19:59:51 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/29 16:59:58 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,20 @@ static int	get_right_limits(int op_pos, int end, t_tok_container_p tok_container
 	return (right_end);
 }
 
-void	build_ast(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_container, int start, int end, t_ast_branch branch, int first)
+void	build_ast(t_minishell_p shell, t_ast_p *ast, int start, int end, t_ast_branch branch, int first)
 {
 	int	op_pos;
 	int	left_end;
 	int	right_start;
 	int	right_end;
 
-	// if (*ast && (*ast)->type == OP_SUBSHELL)
-	// 	return ;
-	end = reset_global_end(first, start, end, tok_container);
-	if (!parse_cntl_and_or(ast, tok_container, start, end) && \
-		!parse_cntl_pipe(ast, tok_container, start, end) && \
-		!parse_subshell(shell, ast, tok_container, start, end))
+	end = reset_global_end(first, start, end, shell->tokens);
+	if (!parse_cntl_and_or(shell, ast, start, end) && !parse_cntl_pipe(shell, ast, start, end) && !parse_subshell(shell, ast, start, end))
 	{
-		if (create_leaf(shell, ast, tok_container, start, end) == RETURN_FAIL)
-		; // kill_shell()
-	else
-		return ;
+		if (create_leaf(shell, ast, start, end) == RETURN_FAIL)
+			; // kill_shell()
+		else
+			return ;
 	}
 	if (*ast && (*ast)->type != OP_SUBSHELL)
 	{
@@ -78,12 +74,12 @@ void	build_ast(t_minishell_p shell, t_ast_p *ast, t_tok_container_p tok_containe
 		(*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
 	if (!(*ast)->cntl_op)
 		; // kill_shell()
-	op_pos = tok_container->op_index;
-	left_end = get_left_end(start, op_pos, tok_container);
+	op_pos = shell->tokens->op_index;
+	left_end = get_left_end(start, op_pos, shell->tokens);
 	if (start <= left_end)
-		build_ast(shell, &(*ast)->cntl_op->left, tok_container, start, left_end, LEFT_BRANCH, 0);
-	right_end = get_right_limits(op_pos, end, tok_container, &right_start);
+		build_ast(shell, &(*ast)->cntl_op->left, start, left_end, LEFT_BRANCH, 0);
+	right_end = get_right_limits(op_pos, end, shell->tokens, &right_start);
 	if (right_start <= right_end)
-		build_ast(shell, &(*ast)->cntl_op->right, tok_container, right_start, right_end, RIGHT_BRANCH, 0);
+		build_ast(shell, &(*ast)->cntl_op->right, right_start, right_end, RIGHT_BRANCH, 0);
 	}
 }

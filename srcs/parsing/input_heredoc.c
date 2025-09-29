@@ -49,9 +49,7 @@ void	input_heredoc(t_minishell_p shell, t_leaf_p leaf)
 		if (redir->type & (R_IN | R_HDOC))
 			close_secure(&leaf->hd_fd[0]);
 		if (redir->type == R_HDOC)
-		{
 			_input_heredoc(shell, leaf, redir);
-		}
 		redir = redir->next;
 	}
 }
