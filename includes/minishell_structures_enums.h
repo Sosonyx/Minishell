@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 11:22:49 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:32:59 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,16 @@ struct s_token
 	bool				was_single_quoted;
 	bool				was_double_quoted;
 	bool				expandable;
+};
+
+struct s_build_var
+{
+	int	start;
+	int	end;
+	int	op_pos;
+	int	left_end;
+	int	right_start;
+	int	right_end;
 };
 
 typedef struct s_expanded

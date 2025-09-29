@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 16:12:10 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:32:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_PARSING_H
 
 # include "minishell.h"
+
 
 /********************************************************************************/
 /*  Environment / arrays / utils											    */
@@ -40,7 +41,7 @@ int			stock_quoted(t_token **arr, int j, char *line, int *i);
 int			stock_special(t_token **arr, int j, char *line, int *i);
 int			stock_tokens(t_tok_container *a, char *line);
 // t_tok_container_p	tokenize_input(char *input, t_tok_container_p *tok_container, int *g_status);
- int	tokenize_input(t_minishell_p shell, int *g_status);
+ int		tokenize_input(t_minishell_p shell, int *g_status);
 // void		destroy_tok_container(t_tok_container_p tok_container);
 
 /********************************************************************************/
@@ -60,12 +61,18 @@ int		    build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int 
 
 /****************/
 int			parse_tokens(t_minishell_p shell, t_ast_p *ast);
-void		build_ast(t_minishell_p shell, t_ast_p *ast, int start, int end, t_ast_branch branch, int first);
+void		build_ast(t_minishell_p shell, t_ast_p *ast);
+void	_build_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars, t_ast_branch branch);
+;
+// void		build_ast(t_minishell_p shell, t_ast_p *ast, int start, int end, t_ast_branch branch, int first);
 int			parse_cntl_and_or(t_minishell_p shell, t_ast_p *op, int start, int end);
 int			parse_cntl_pipe(t_minishell_p shell, t_ast_p *op, int start, int end);
 int			create_leaf(t_minishell_p shell, t_ast_p *ast, int start, int end);
-int			parse_subshell(t_minishell_p shell, t_ast_p *op, int start, int end);
+// int			parse_subshell(t_minishell_p shell, t_ast_p *op, int start, int end);
+int			parse_subshell(t_minishell_p shell, t_ast_p *op, struct s_build_var vars);
 
+
+// int			create_cntl_op(t_minishell_p shell, t_ast_p *op, t_toktype type);
 int			create_cntl_op(t_minishell_p shell, t_ast_p *op, t_toktype type);
 void		discard_token(t_minishell_p shell, int token_index);
 

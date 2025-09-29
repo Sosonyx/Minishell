@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 16:56:49 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/29 17:02:43 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	parse_cntl_pipe(t_minishell_p shell, t_ast_p *op, int start, int end)
 	t_token_p	cur_token;
 	int			in_parenthesis;
 
+	
 	in_parenthesis = 0;
 	cur_token = shell->tokens->tokens[start];
 	

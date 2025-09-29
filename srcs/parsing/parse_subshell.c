@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 16:42:10 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:30:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,18 @@ static void	get_subshell_limit(t_minishell_p shell, int start, int *end)
 	}
 }
 
-static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, int start, int end)
+static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, struct s_build_var vars)
 {
 	if (create_cntl_op(shell, op, T_LPARENT))
 	{
-		discard_token(shell, start);
-		discard_token(shell, end);
+		discard_token(shell, vars.start);
+		discard_token(shell, vars.end);
 		(*op)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
 		if ((*op)->cntl_op)
 		{
-			build_ast(shell, &(*op)->cntl_op->left, ++start, end - 1, LEFT_BRANCH, 0);
+			++vars.start;
+			--vars.end;
+			_build_ast(shell, &(*op)->cntl_op->left, vars, LEFT_BRANCH);
 		}
 		else
 		{
@@ -46,12 +48,12 @@ static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, int start, int end
 		set_abort(shell, MEM_ERRMSG);
 }
 
-int	parse_subshell(t_minishell_p shell, t_ast_p *op, int start, int end)
+int	parse_subshell(t_minishell_p shell, t_ast_p *op, struct s_build_var vars)
 {
-	if (shell->tokens->tokens[start] && (shell->tokens->tokens[start])->type == T_LPARENT)
+	if (shell->tokens->tokens[vars.start] && (shell->tokens->tokens[vars.start])->type == T_LPARENT)
 	{
-		get_subshell_limit(shell, start, &end);
-		_parse_subshell(shell, op, start, end);
+		get_subshell_limit(shell, vars.start, &vars.end);
+		_parse_subshell(shell, op, vars);
 		return (shell->abort == false);
 	}
 	else
