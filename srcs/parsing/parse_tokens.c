@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/30 11:12:48 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 13:09:53 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,11 @@ static void	_init_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 {
 	vars.end = init_global_end(vars, shell->tokens);
 	_recbuild(shell, ast, vars);
+	free(shell->tokens);
 }
 
 int	parse_tokens(t_minishell_p shell, t_ast_p *ast)
 {
-	if (NO_ABORT)
-	{
-		_init_ast(shell, ast, (t_build_var) {0});
-	}
+	_init_ast(shell, ast, (t_build_var) {0});
 	return (shell->abort == false);
 }
