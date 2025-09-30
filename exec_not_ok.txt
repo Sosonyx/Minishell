@@ -32,13 +32,9 @@ Marche mtn
 
 ************************************************
 
-(echo */*/*/*/*/* * */*/*/*/*/*/*/* * */*/*/*/*/**/* | sort | wc | (wc && echo test > out) && << eof cat -e) | cat -e
 
-bug minimum : 
-(echo test | (cat -e && cat -e) && cat -e)
 
-fonctionne : 
-echo test | (cat -e && cat -e) && cat -e
+
 
 
 ***************************************************

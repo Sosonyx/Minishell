@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 13:17:24 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/30 14:17:45 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@
 /*			Enums																*/
 /********************************************************************************/
 
-enum e_ast_branch
-{
-	AST_INIT = 0,
-	LEFT_BRANCH	= 1,
-	RIGHT_BRANCH = 2
-};
-
 enum e_return_status
 {
 	RETURN_FAIL = 0,
@@ -34,18 +27,18 @@ enum e_return_status
 
 enum e_toktype
 {
-	T_WORD,
-	T_PIPE,
-	T_REDIR_IN,
-	T_REDIR_OUT,
-	T_APPEND,
-	T_HEREDOC,
-	T_AND,
-	T_OR,
-	T_LPARENT,
-	T_RPARENT,
-	T_INCORRECT,
-	T_TARGET
+	T_WORD = 1,
+	T_PIPE = 2,
+	T_REDIR_IN = 4,
+	T_REDIR_OUT = 8,
+	T_APPEND = 16,
+	T_HEREDOC = 32,
+	T_AND = 64,
+	T_OR = 128,
+	T_LPARENT = 256,
+	T_RPARENT = 512,
+	T_INCORRECT = 1024,
+	T_TARGET = 2048
 };
 
 enum e_redirtype
@@ -95,6 +88,17 @@ struct s_token
 	bool				was_single_quoted;
 	bool				was_double_quoted;
 	bool				expandable;
+};
+
+struct s_build_var
+{
+	int	start;
+	int	end;
+	int	op_pos;
+	int	left_end;
+	int	right_start;
+	int	right_end;
+	int	i;
 };
 
 typedef struct s_expanded
@@ -159,15 +163,17 @@ struct	s_ast
 
 struct s_minishell
 {
-	char			*name;
-	int				ac;
-	char			**av;
-	char			**environ;
-	int				readlines;
-	char			*input;
-	int				last_status;
-	int				std_fds[3];
-	bool			abort;
+	char				*name;
+	int					ac;
+	char				**av;
+	char				**environ;
+	int					readlines;
+	char				*input;
+	int					last_status;
+	int					std_fds[3];
+	bool				abort;
+
+	t_tok_container_p	tokens;
 };
 
 #endif

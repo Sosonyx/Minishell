@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:22:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/11 11:54:05 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:32:31 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,8 @@ typedef			t_cntl_op		*t_cntl_op_p;
 
 typedef struct	s_exec_var		t_exec_var;
 typedef			t_exec_var		*t_exec_var_p;
+
+typedef struct	s_build_var 	t_build_var;
+typedef struct	t_build_var		*t_build_var_p;;
 
 #endif

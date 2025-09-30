@@ -6,7 +6,11 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2025/09/29 18:27:36 by ihadj            ###   ########.fr        #
+=======
+#    Updated: 2025/09/29 20:10:42 by cgajean          ###   ########.fr        #
+>>>>>>> origin/protect_facto_parse
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +38,7 @@ SRC         = \
 				$(SRC_DIR)/error_and_event_manager/print_hd_error.c							\
 				$(SRC_DIR)/error_and_event_manager/signal_manager.c							\
 				$(SRC_DIR)/error_and_event_manager/messager.c								\
+				$(SRC_DIR)/error_and_event_manager/set_abort.c								\
 				$(SRC_DIR)/exec/execute_ast.c												\
 				$(SRC_DIR)/exec/execute_leaf.c												\
 				$(SRC_DIR)/exec/execute_and.c												\
@@ -53,17 +58,18 @@ SRC         = \
 				$(SRC_DIR)/exec/command_build/cmd_build.c									\
 				$(SRC_DIR)/exec/command_build/utils.c										\
 				$(SRC_DIR)/lexer/lexer.c													\
+				$(SRC_DIR)/lexer/discard_token.c											\
 				$(SRC_DIR)/lexer/utils/utils.c												\
 				$(SRC_DIR)/lexer/utils/stock_functions.c									\
 				$(SRC_DIR)/lexer/utils/count_tokens.c										\
 				$(SRC_DIR)/lexer/syntax_check.c												\
 				$(SRC_DIR)/lexer/tokenize_input.c											\
-				$(SRC_DIR)/parsing/build_ast.c												\
 				$(SRC_DIR)/parsing/build_redir.c											\
 				$(SRC_DIR)/parsing/destroy_ast.c											\
 				$(SRC_DIR)/parsing/destroy_leaf.c											\
 				$(SRC_DIR)/parsing/destroy_redir.c											\
 				$(SRC_DIR)/parsing/build_cmd.c												\
+				$(SRC_DIR)/parsing/create_cntl_op.c											\
 				$(SRC_DIR)/parsing/parse_tokens.c											\
 				$(SRC_DIR)/parsing/parse_cntl_and_or.c										\
 				$(SRC_DIR)/parsing/parse_cntl_pipe.c										\
@@ -72,6 +78,7 @@ SRC         = \
 				$(SRC_DIR)/parsing/input_heredoc.c											\
 				$(SRC_DIR)/parsing/expander/expand_leaf.c									\
 				$(SRC_DIR)/parsing/expander/expand_old_cmd.c								\
+				$(SRC_DIR)/parsing/utils/set_ends.c											\
 				$(SRC_DIR)/wildcards/utils/isasterisk.c										\
 				$(SRC_DIR)/wildcards/utils/iswildcard.c										\
 				$(SRC_DIR)/wildcards/utils/catpath.c										\
@@ -154,17 +161,3 @@ cpu: $(NAME)
 re: fc all
 
 .PHONY: all clean c fclean fc re
-
-#               $(SRC_DIR)/init/init_data.c \
-              $(SRC_DIR)/init/init_philos.c \
-              $(SRC_DIR)/parsing/parsing.c \
-              $(SRC_DIR)/routine/routine.c \
-              $(SRC_DIR)/routine/routine2.c	\
-              $(SRC_DIR)/routine/alone.c	\
-              $(SRC_DIR)/routine/time.c \
-              $(SRC_DIR)/monitoring/monitoring.c \
-              $(SRC_DIR)/simulation/simulation.c \
-              $(SRC_DIR)/exit/exit.c \
-              $(SRC_DIR)/exit/error.c \
-              $(SRC_DIR)/utils/utils.c \
-			  $(SRC_DIR)/utils/color.c

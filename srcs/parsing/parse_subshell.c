@@ -3,49 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   parse_subshell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 20:09:51 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/29 20:06:25 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_subshell(t_minishell_p shell, t_ast_p *op, t_tok_container_p tok_container, int start, int end)
+static void	get_subshell_limit(t_minishell_p shell, int start, int *end)
 {
-	int	n;
-	int	subshell_end;
-
-	subshell_end = 0;
-	n = 0;
-	if (tok_container->tokens[start] && (tok_container->tokens[start])->type == T_LPARENT)
+	while (*end >= 0 && *end > start)
 	{
-		subshell_end = end;
-		while (subshell_end >= 0 && subshell_end > start)
-        {
-			if ((!tok_container->tokens[subshell_end]))
-				subshell_end--;
-			else if ((tok_container->tokens[subshell_end]->type != T_RPARENT))
-				subshell_end--;
-			else
-				break ;
-		}
-		*op = ft_calloc(1, sizeof(t_ast));
-		if (*op)
+		if ((!shell->tokens->tokens[*end]))
+			(*end)--;
+		else if ((shell->tokens->tokens[*end]->type != T_RPARENT))
+			(*end)--;
+		else
+			break ;
+	}
+}
+
+static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
+{
+	if (create_cntl_op(shell, op, T_LPARENT))
+	{
+		discard_token(shell, vars.start);
+		discard_token(shell, vars.end);
+		(*op)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
+		if ((*op)->cntl_op)
 		{
-			(*op)->type = OP_SUBSHELL;
-			free(tok_container->tokens[start]);
-			tok_container->tokens[start] = NULL;
-			free(tok_container->tokens[subshell_end]);
-			tok_container->tokens[subshell_end] = NULL;
-			(*op)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
-			if ((*op)->cntl_op)
-			{
-				build_ast(shell, &(*op)->cntl_op->left, tok_container, ++start, subshell_end - 1, LEFT_BRANCH, 0);
-				return (RETURN_OK);
-			}			
+			++vars.start;
+			--vars.end;
+			build_ast(shell, &(*op)->cntl_op->left, vars);
+		}
+		else
+		{
+			set_abort(shell, MEM_ERRMSG);
+			free(*op);
 		}
 	}
-	return (RETURN_FAIL);	
+	else
+		set_abort(shell, MEM_ERRMSG);
+}
+
+int	parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
+{
+	if (shell->tokens->tokens[vars.start] 
+		&& (shell->tokens->tokens[vars.start])->type == T_LPARENT)
+	{
+		get_subshell_limit(shell, vars.start, &vars.end);
+		_parse_subshell(shell, op, vars);
+		return (shell->abort == false);
+	}
+	else
+		return (RETURN_FAIL);
 }

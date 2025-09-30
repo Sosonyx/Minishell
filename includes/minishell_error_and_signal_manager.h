@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_error_and_signal_manager.h               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:37:01 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/25 14:28:56 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/29 16:31:04 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	print_cmd_error(t_minishell_p shell, char *cmd_name, int err_num);
 void	print_cmd_error2(t_minishell_p shell, char *cmd_name, char *errmsg);
 void	print_generic_error(t_minishell_p shell, char *errmsg);
 void	print_hd_error(t_minishell_p shell, char *limiter);
+void	set_abort(t_minishell_p shell, char *errmsg);
+
 
 /********************************************************************************/
 /*			Signals																*/
