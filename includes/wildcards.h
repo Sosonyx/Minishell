@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:25:25 by fox               #+#    #+#             */
-/*   Updated: 2025/09/24 13:35:39 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/30 18:37:05 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ char 	*catpath(char *pathopen, char *added);
 int 	strncmprev(const char *s1, const char *s2, int size);
 bool	islastsequence(char *field);
 
-void	wildcard_expand(char ***cmd_args);
-
+void	wildcard_expand(t_minishell_p shell, t_ast_p ast);
 
 int		pathmatch(char *ptested, char *pref);
 void	recdir(t_wildcard_p wc, char *pathopen, int depth);

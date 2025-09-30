@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/26 11:08:38 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/30 18:23:48 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ void	execute_nofork(t_minishell_p shell, t_ast_p ast)
 	{
 		shell->last_status = execute_command(shell, ast);
 	}
-
 	else
+	{
 		shell->last_status = EXIT_FAILURE;
+	}
 	restore_std_fileno(shell, ast);
 }
 
@@ -86,29 +87,6 @@ void	execute_wfork(t_minishell_p shell, t_ast_p ast)
 		print_generic_error(shell, FORK_ERRMSG);
 	}
 }
-
-// void	execute_wfork(t_minishell_p shell, t_ast_p ast)
-// {
-// 	pid_t	pid;
-
-// 	pid = fork();
-// 	if (pid == 0)
-// 	{
-// 		execute_nofork(shell, ast);
-// 		exit(shell->last_status);
-
-// 	}
-// 	else if (pid > 0)
-// 	{
-// 		// waitpid(pid, &shell->last_status, 0);
-// 		;
-// 	}
-// 	else
-// 	{
-// 		print_generic_error(shell, FORK_ERRMSG);
-// 	}
-// }
-
 void	execute_builtin(t_minishell_p shell, t_ast_p ast)
 {
 	if (ast->write_fd || ast->read_fd)

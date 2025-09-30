@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   savepath.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:22:28 by fox               #+#    #+#             */
-/*   Updated: 2025/09/26 16:39:04 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/30 19:21:35 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	savepath(t_wildcard_p wc, struct dirent *sdir, char *path, int depth)
 		path = getfullpath(wc, sdir, path);
 		if (!ishidden(path))
 			addmatch(wc, path);
-		else
-			free(path);
+		free(path);
 	}
 }

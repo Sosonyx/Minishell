@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/30 17:44:28 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:23:16 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int	    	ft_env(t_minishell_p shell, char **args);
 /*		Execute                        											*/
 /********************************************************************************/
 
-int		execute_ast(t_minishell_p shell, t_ast_p *ast);
-int		_execute_ast(t_minishell_p shell, t_ast_p ast);
+void	execute_ast(t_minishell_p shell, t_ast_p *ast);
+void	_execute_ast(t_minishell_p shell, t_ast_p ast);
 
-int 	execute_subshell(t_minishell_p shell, t_ast_p ast);
-int 	execute_pipe(t_minishell_p shell, t_ast_p ast);
-int 	execute_and(t_minishell_p shell, t_ast_p ast);
-int 	execute_or(t_minishell_p shell, t_ast_p ast);
-int 	execute_leaf(t_minishell_p shell, t_ast_p ast);
+void 	execute_subshell(t_minishell_p shell, t_ast_p ast);
+void 	execute_pipe(t_minishell_p shell, t_ast_p ast);
+void 	execute_and(t_minishell_p shell, t_ast_p ast);
+void 	execute_or(t_minishell_p shell, t_ast_p ast);
+void 	execute_leaf(t_minishell_p shell, t_ast_p ast);
 void	execute_builtin(t_minishell_p shell, t_ast_p ast);
 
 	///

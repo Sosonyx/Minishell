@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathmatch.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:34:09 by fox               #+#    #+#             */
-/*   Updated: 2025/09/26 16:48:00 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/30 19:24:44 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ int pathmatch(char *ptested, char *pref)
 					ptr++;
 				wref.start_sequence = ft_substr(pref, 0, ptr - pref);
 				if (ft_strncmp(ptested, wref.start_sequence, ft_strlen(wref.start_sequence)))
-					return (0);
+					return (free(wref.start_sequence), 0);
+				else
+					free(wref.start_sequence);
 			}
 			while (*ptr)
 				ptr++;
@@ -103,7 +105,9 @@ int pathmatch(char *ptested, char *pref)
 					ptr--;
 				wref.end_sequence = ft_substr(pref, ptr - pref + 1, wref.end_sequence - ptr + 1);
 				if (strncmprev(ptested, wref.end_sequence, ft_strlen(wref.end_sequence)))
-					return (0);	
+					return (free(wref.end_sequence), 0);
+				else
+					free(wref.end_sequence);
 			}
 		}
 		else

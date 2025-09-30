@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 17:47:33 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 19:28:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ static void	_execve(t_minishell_p shell, t_ast_p ast)
 		print_cmd_error(shell, *ast->leaf->cmds, errnum);
 		exit(convert_errno(errnum)); // clean exit surement ici
 	}
-	execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
-	print_cmd_error(shell, *ast->leaf->cmds, errno);
-	exit(convert_errno(errno));
+	else
+	{
+		execve(ast->leaf->full_path, ast->leaf->cmds, shell->environ);
+		print_cmd_error(shell, *ast->leaf->cmds, errno);
+		exit(convert_errno(errno));		
+	}
 }
 
 static void	_execute_command(t_minishell_p shell, t_ast_p ast)
@@ -68,17 +71,17 @@ static void	execute_command(t_minishell_p shell, t_ast_p ast)
 		close_fds(ast, PARENT);
 }
 
-int	execute_leaf(t_minishell_p shell, t_ast_p ast)
+void	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	variable_expand(shell, ast);
+	wildcard_expand(shell, ast);
 	ast->leaf->full_path = find_cmd(ast->leaf->cmds[0], shell->environ);
-	wildcard_expand(&ast->leaf->cmds);
-	if (is_builtin(ast->leaf))
+	if (NO_ABORT && is_builtin(ast->leaf))
 	{
 		execute_builtin(shell, ast);	
-		return (shell->last_status);
 	}
-	else
+	else if (NO_ABORT)
+	{
 		execute_command(shell, ast);
-	return (shell->abort == false);
+	}
 }

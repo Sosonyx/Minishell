@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 17:33:40 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:25:16 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,25 @@ static void	connect_nodes(t_ast_p ast)
 	ast->cntl_op->right->closed_fd = &ast->cur_pipe[1];	
 }
 
-int execute_pipe(t_minishell_p shell, t_ast_p ast)
+void	execute_pipe(t_minishell_p shell, t_ast_p ast)
 {	
 	if (create_pipe(shell, ast))
 	{
 		connect_nodes(ast);
-		shell->last_status = _execute_ast(shell, ast->cntl_op->left);
+		_execute_ast(shell, ast->cntl_op->left);
 		close_secure(&ast->cur_pipe[1]);
-		shell->last_status = _execute_ast(shell, ast->cntl_op->right);
-		close_secure(&ast->cur_pipe[0]);
+		if (NO_ABORT)
+		{
+			_execute_ast(shell, ast->cntl_op->right);
+			close_secure(&ast->cur_pipe[0]);			
+		}
 		wait_if_leaf(ast->cntl_op->left->leaf, NULL);
 		if (ast->cntl_op->right->type == OP_PIPE)
 			wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &shell->last_status);
 		else
 			wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
-		return (free(ast->cur_pipe), shell->last_status);
+		free(ast->cur_pipe);
 	}
 	else
-		return (shell->last_status = EXIT_FAILURE);
+		shell->last_status = EXIT_FAILURE;
 }

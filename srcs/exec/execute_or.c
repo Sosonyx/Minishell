@@ -6,26 +6,25 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 17:48:34 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:11:26 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int execute_or(t_minishell_p shell, t_ast_p ast)
+void	execute_or(t_minishell_p shell, t_ast_p ast)
 {
 	forward_fds(ast);
 	
-	shell->last_status = _execute_ast(shell, ast->cntl_op->left);
+	_execute_ast(shell, ast->cntl_op->left);
 	wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status);
 	if (NO_ABORT && shell->last_status)
 	{
-		shell->last_status = _execute_ast(shell, ast->cntl_op->right);
+		_execute_ast(shell, ast->cntl_op->right);
 	}
 	else if (NO_ABORT && !shell->last_status && (ast->cntl_op->right->type == OP_AND))
 	{
-		shell->last_status = _execute_ast(shell, ast->cntl_op->right->cntl_op->right);
+		_execute_ast(shell, ast->cntl_op->right->cntl_op->right);
 	}
 	wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
-	return (shell->last_status);
 }

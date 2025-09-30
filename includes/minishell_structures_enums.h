@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 10:38:42 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 19:45:34 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ struct s_minishell
 	int					last_status;
 	int					std_fds[3];
 	bool				abort;
-
+	
 	t_tok_container_p	tokens;
 };
 

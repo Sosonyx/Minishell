@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/26 18:27:12 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/30 19:41:17 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,10 @@
 
 static void	rebuild_cmd_args(t_wildcard_p wc, char ***cmd_args)
 {
-	char	**new_args;
-	int		n;
-	int		failed;
-	
-	new_args = ft_calloc((wc->totalmatches + 2), sizeof(char *));
-	if (new_args)
+	if (wc->matches)
 	{
-		*new_args = ft_strdup(**cmd_args);
-		n = 1;
-		failed = 0;
-		while (n <= wc->totalmatches)
-		{
-			new_args[n] = ft_strdup(wc->matches[n - 1]);
-			if (!new_args[n++])
-				failed = 1;
-		}
-		ft_split_free(wc->matches);
-		if (!failed)
-			*cmd_args = new_args;
-
-		else
-			ft_split_free(new_args);
+		ft_split_free(*cmd_args);
+		*cmd_args = wc->matches;
 	}
 }
 
@@ -74,14 +56,14 @@ void	aggregate_matches(t_wildcard_p wc, char *command)
 	}
 	else
 	{
-		matches[wc->totalmatches] = command;
+		matches[wc->totalmatches] = ft_strdup(command);
 		++wc->totalmatches;
 	}
 	free(wc->matches);
 	wc->matches = matches;	
 }
 
-void	_wildcard_expand(t_wildcard_p wc, char *command)
+void	_wildcard_expand(t_minishell_p shell, t_wildcard_p wc, char *command)
 {
 	if (iswildcard(command))
 	{
@@ -106,23 +88,29 @@ void	_wildcard_expand(t_wildcard_p wc, char *command)
 	aggregate_matches(wc, command);
 }
 
-void	wildcard_expand(char ***cmd_args)
+void	wildcard_expand(t_minishell_p shell, t_ast_p ast)
 {
 	t_wildcard_p	wc;
 	char			**commands;
 	char			**expanded_args;
 
-	if (*cmd_args && **cmd_args)
+	if (*ast->leaf->cmds && **ast->leaf->cmds)
 	{
-		commands = *cmd_args + 1;
+		commands = ast->leaf->cmds;
 		wc = ft_calloc(1, sizeof(struct s_wildcard));
 		if (wc)
 		{
 			while (*commands)
-				_wildcard_expand(wc, *commands++);
+			{
+				_wildcard_expand(shell, wc, *commands++);
+			}
 			if (wc->totalmatches)
-				rebuild_cmd_args(wc, cmd_args);
+			{
+				rebuild_cmd_args(wc, &ast->leaf->cmds);
+			}
 			free(wc);
 		}
+		else
+			set_abort(shell, MEM_ERRMSG);
 	}
 }

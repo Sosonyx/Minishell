@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:39 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 16:50:14 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:11:33 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int execute_subshell(t_minishell_p shell, t_ast_p ast)
+void	execute_subshell(t_minishell_p shell, t_ast_p ast)
 {
 	pid_t	pid;
 
@@ -21,7 +21,7 @@ int execute_subshell(t_minishell_p shell, t_ast_p ast)
 	pid = fork();
 	if (pid == 0)
 	{
-		shell->last_status = _execute_ast(shell, ast->cntl_op->left);
+		_execute_ast(shell, ast->cntl_op->left);
 		wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status);
 		exit(shell->last_status);
 	}
@@ -33,6 +33,6 @@ int execute_subshell(t_minishell_p shell, t_ast_p ast)
 	else
 	{
 		set_abort(shell, FORK_ERRMSG);
+		shell->last_status = EXIT_FAILURE;
 	}
-	return (shell->last_status);
 }
