@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:55 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 19:55:13 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 11:16:39 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static void	_create_cntl_and_or(t_minishell_p shell, t_ast_p *op, t_token_p cur_
 		shell->tokens->op_index = n;
 		discard_token(shell, n);
 	}
-	else
-		set_abort(shell, MEM_ERRMSG);
 }
 
 int	parse_cntl_and_or(t_minishell_p shell, t_ast_p *op, t_build_var vars)

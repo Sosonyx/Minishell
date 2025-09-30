@@ -42,7 +42,7 @@ static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 void	input_heredoc(t_minishell_p shell, t_leaf_p leaf)
 {
 	t_redir_p	redir;
-	
+
 	redir = leaf->redir;
 	while (redir)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:06:53 by fox               #+#    #+#             */
-/*   Updated: 2025/09/25 11:47:15 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/30 10:47:24 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,37 @@ static int	count_tok_word(t_tok_container_p tok_container, int i, int end)
 	return (words);
 }
 
-int	build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end)
+static void	_build_cmd(t_minishell_p shell, t_ast_p ast, t_token_p	*tok, t_build_var *vars)
+{
+	ast->leaf->cmds[vars->i] = ft_strdup((*tok)->val);
+	if (!ast->leaf->cmds[vars->i++])
+		set_abort(shell, MEM_ERRMSG);
+	free((*tok)->val);
+	free(*tok);
+	shell->tokens->tokens[vars->start] = NULL;
+}
+
+int	build_cmd(t_minishell_p shell, t_ast_p ast, t_build_var vars)
 {
 	int			words;
-	int			j;
-	int			i;
 	t_token_p	tok;
 
-	words = count_tok_word(tok_container, start, end);
-	*cmd = ft_calloc(words + 1, sizeof(char *));
-	if (!*cmd)
-		return (RETURN_FAIL);
-	j = 0;
-	i = start;
-	while (i <= end)
+	words = count_tok_word(shell->tokens, vars.start, vars.end);
+	ast->leaf->cmds = ft_calloc(words + 1, sizeof(char *));
+	if (ast->leaf->cmds)
 	{
-		tok = tok_container->tokens[i];
-		if (tok && tok->type == T_WORD)
+		vars.i = 0;
+		while (vars.start <= vars.end)
 		{
-			(*cmd)[j++] = ft_strdup(tok->val);
-			free(tok->val);
-			free(tok);
-			tok_container->tokens[i] = NULL;
+			tok = shell->tokens->tokens[vars.start];
+			if (tok && tok->type == T_WORD)
+				_build_cmd(shell, ast, &tok, &vars);
+			if (ABORT)
+				return (RETURN_FAIL);				
+			++vars.start;
 		}
-		i++;
+		return (RETURN_OK);		
 	}
-	return (RETURN_OK);
+	else
+		return (set_abort(shell, MEM_ERRMSG), RETURN_FAIL);
 }

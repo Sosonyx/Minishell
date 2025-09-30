@@ -17,6 +17,7 @@
                 "${workspaceFolder}/srcs/lexer/utils/*.c",
                 "${workspaceFolder}/srcs/parsing/*.c",
                 "${workspaceFolder}/srcs/parsing/expander/*.c",
+				"${workspaceFolder}/srcs/parsing/utils/*.c",
                 "${workspaceFolder}/srcs/shell/*.c",
                 "${workspaceFolder}/srcs/wildcards/*.c",
                 "${workspaceFolder}/srcs/wildcards/utils/*.c",

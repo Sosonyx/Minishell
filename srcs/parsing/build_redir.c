@@ -3,58 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   build_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:05:23 by fox               #+#    #+#             */
-/*   Updated: 2025/09/17 20:04:16 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/30 12:52:31 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_redir_p	build_redir(t_tok_container_p tok_container, int i, int end)
+static void	set_redir_ptrs(t_ast_p ast, t_redir_p new, t_redir_p *curr)
 {
-	t_redir_p	head;
+	if (!ast->leaf->redir)
+		ast->leaf->redir = new;
+	else
+		(*curr)->next = new;
+	*curr = new;	
+}
+
+static void	config_redir(t_minishell_p shell, t_redir_p redir, t_build_var vars)
+{
+	if (redir->type == R_HDOC)
+	{
+		redir->limiter = ft_strdup(shell->tokens->tokens[vars.start + 1]->val);
+		if (!redir->limiter)
+			set_abort(shell, MEM_ERRMSG);
+	}
+	else
+	{
+		redir->target = ft_strdup(shell->tokens->tokens[vars.start + 1]->val);
+		if (!redir->target)
+			set_abort(shell, MEM_ERRMSG);
+	}	
+}
+
+static void	set_redir_type(t_redir_p redir, t_token_p token)
+{
+	if (token->type == T_REDIR_IN)
+		redir->type = R_IN;
+	else if (token->type == T_REDIR_OUT)
+		redir->type = R_OUT;
+	else if (token->type == T_APPEND)
+		redir->type = R_APPEND;
+	else
+		redir->type = R_HDOC;	
+}
+
+static void	_build_redir(t_minishell_p shell, t_redir_p redir, t_token_p token, t_build_var *vars)
+{
+	set_redir_type(redir, token);
+	config_redir(shell, redir, *vars);
+	discard_token(shell, vars->start++);
+	discard_token(shell, vars->start++);	
+}
+
+int	build_redir(t_minishell_p shell, t_ast_p ast, t_build_var vars)
+{
 	t_redir_p	curr;
 	t_redir_p	new;
 	t_token_p	tok;
 
-	head = NULL;
-	curr = NULL;
-	while (i <= end && tok_container->tokens[i])
+	while (vars.start <= vars.end && shell->tokens->tokens[vars.start])
 	{
-		tok = tok_container->tokens[i];
-		if (tok->type == T_REDIR_IN || tok->type == T_REDIR_OUT
-			|| tok->type == T_APPEND || tok->type == T_HEREDOC)
+		tok = shell->tokens->tokens[vars.start];
+		if (tok->type & (T_REDIR_IN | T_REDIR_OUT | T_APPEND | T_HEREDOC))
 		{
 			new = ft_calloc(1, sizeof(t_redir));
-			if (!new)
-				return (head);
-			if (tok->type == T_REDIR_IN)
-				new->type = R_IN;
-			else if (tok->type == T_REDIR_OUT)
-				new->type = R_OUT;
-			else if (tok->type == T_APPEND)
-				new->type = R_APPEND;
+			if (new)
+			{
+				_build_redir(shell, new, tok, &vars);
+				set_redir_ptrs(ast, new, &curr);
+			}
 			else
-				new->type = R_HDOC;
-			if (new->type == R_HDOC)
-				new->limiter = ft_strdup(tok_container->tokens[i + 1]->val);
-			else
-				new->target = ft_strdup(tok_container->tokens[i + 1]->val);
-			free(tok_container->tokens[i]);
-			tok_container->tokens[i] = NULL;
-			free(tok_container->tokens[i + 1]);
-			tok_container->tokens[i + 1] = NULL;
-			if (!head)
-				head = new;
-			else
-				curr->next = new;
-			curr = new;
-			i += 2;
-			continue ;
+				return (set_abort(shell, MEM_ERRMSG), RETURN_FAIL);
 		}
-		i++;
+		else
+			++vars.start;
 	}
-	return (head);
+	return (shell->abort == false);
 }

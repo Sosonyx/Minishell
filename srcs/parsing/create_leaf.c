@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 19:56:36 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 12:55:06 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	_create_leaf(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 	new_leaf = (*ast)->leaf;
 	if (new_leaf)
 	{
-		new_leaf->redir = build_redir(shell->tokens, vars.start, vars.end);
-		build_cmd(&new_leaf->cmds, shell->tokens, vars.start, vars.end);
-		input_heredoc(shell, new_leaf);
+		build_redir(shell, *ast, vars);
+		if (NO_ABORT)
+			build_cmd(shell, *ast, vars);
+		if (NO_ABORT)
+			input_heredoc(shell, new_leaf);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 20:09:02 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 12:52:40 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int			stock_tokens(t_tok_container *a, char *line);
 int			parse_tokens(t_minishell_p shell, t_ast_p *ast);
 void		build_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars);
 
-t_redir_p   build_redir(t_tok_container_p tok_container, int i, int end);
-int		    build_cmd(char ***cmd, t_tok_container_p tok_container, int start, int end);
+// t_redir_p	build_redir(t_minishell_p shell, t_build_var vars);
+int			build_redir(t_minishell_p shell, t_ast_p ast, t_build_var vars);
+int			build_cmd(t_minishell_p shell, t_ast_p ast, t_build_var vars);
 
 int			parse_cntl_and_or(t_minishell_p shell, t_ast_p *op, t_build_var vars);
 int			parse_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_build_var vars);

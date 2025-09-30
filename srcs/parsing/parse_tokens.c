@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 20:06:51 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 11:12:48 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	_seek_cntl_op(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 {
-	if (parse_cntl_and_or(shell, ast, vars) && NO_ABORT)
+	if (NO_ABORT && parse_cntl_and_or(shell, ast, vars))
 		return (RETURN_OK);
-	else if (parse_cntl_pipe(shell, ast, vars) && NO_ABORT)
+	else if (NO_ABORT && parse_cntl_pipe(shell, ast, vars))
 		return (RETURN_OK);
-	else if (parse_subshell(shell, ast, vars) && NO_ABORT)
+	else if (NO_ABORT && parse_subshell(shell, ast, vars))
 		return (RETURN_OK);
 	else
 		return (RETURN_FAIL);
@@ -51,20 +51,14 @@ static void	_recbuild(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 
 void	build_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 {
-	if (NO_ABORT)
-	{
 		vars.end = set_global_end(vars, shell->tokens);
-		_recbuild(shell, ast, vars);		
-	}
+		_recbuild(shell, ast, vars);
 }
 
 static void	_init_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 {
-	if (NO_ABORT)
-	{
-		vars.end = init_global_end(vars, shell->tokens);
-		_recbuild(shell, ast, vars);
-	}
+	vars.end = init_global_end(vars, shell->tokens);
+	_recbuild(shell, ast, vars);
 }
 
 int	parse_tokens(t_minishell_p shell, t_ast_p *ast)
