@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/30 13:08:16 by ihadj            ###   ########.fr       */
-=======
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/30 13:09:53 by cgajean          ###   ########.fr       */
->>>>>>> origin/protect_facto_parse
+/*   Updated: 2025/09/30 14:19:59 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +28,7 @@ static void	_recbuild(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 {
 	if (_seek_cntl_op(shell, ast, vars))
 	{
-<<<<<<< HEAD
-		build_ast(shell, ast, tok_container, 0, 0, AST_INIT, 1);
-		free(tok_container);
-		if (*ast)
-=======
 		if (*ast && (*ast)->type != OP_SUBSHELL)
->>>>>>> origin/protect_facto_parse
 		{
 			(*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
 			if ((*ast)->cntl_op)
