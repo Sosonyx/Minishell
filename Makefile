@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/29 20:10:42 by cgajean          ###   ########.fr        #
+#    Updated: 2025/09/30 17:45:03 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,8 @@ SRC         = \
 				$(SRC_DIR)/exec/execute_pipe.c												\
 				$(SRC_DIR)/exec/execute_builtin.c											\
 				$(SRC_DIR)/exec/extract_return_code.c										\
+				$(SRC_DIR)/exec/convert_errno.c										\
 				$(SRC_DIR)/exec/redirections/close_secure.c									\
-				$(SRC_DIR)/exec/redirections/preconfig_leaf.c								\
 				$(SRC_DIR)/exec/redirections/redirect_leaf.c								\
 				$(SRC_DIR)/exec/redirections/forward_fds.c									\
 				$(SRC_DIR)/exec/redirections/close_fds.c									\
@@ -156,17 +156,3 @@ cpu: $(NAME)
 re: fc all
 
 .PHONY: all clean c fclean fc re
-
-#               $(SRC_DIR)/init/init_data.c \
-              $(SRC_DIR)/init/init_philos.c \
-              $(SRC_DIR)/parsing/parsing.c \
-              $(SRC_DIR)/routine/routine.c \
-              $(SRC_DIR)/routine/routine2.c	\
-              $(SRC_DIR)/routine/alone.c	\
-              $(SRC_DIR)/routine/time.c \
-              $(SRC_DIR)/monitoring/monitoring.c \
-              $(SRC_DIR)/simulation/simulation.c \
-              $(SRC_DIR)/exit/exit.c \
-              $(SRC_DIR)/exit/error.c \
-              $(SRC_DIR)/utils/utils.c \
-			  $(SRC_DIR)/utils/color.c

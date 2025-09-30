@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 20:13:08 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 17:49:51 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int	_execute_ast(t_minishell_p shell, t_ast_p ast)
 {
 	if (!ast)
 		return (EXIT_FAILURE);
-	if (ast->leaf)
+	if (NO_ABORT && ast->leaf)
 		shell->last_status = execute_leaf(shell, ast);
 	else
 	{
-		if (ast->type == OP_AND)
+		if (NO_ABORT && ast->type == OP_AND)
 			shell->last_status = execute_and(shell, ast);
-		else if (ast->type == OP_OR)
+		else if (NO_ABORT && ast->type == OP_OR)
 			shell->last_status = execute_or(shell, ast);
-		else if (ast->type == OP_PIPE)
+		else if (NO_ABORT && ast->type == OP_PIPE)
 			shell->last_status = execute_pipe(shell, ast);
-		else if (ast->type == OP_SUBSHELL)
+		else if (NO_ABORT && ast->type == OP_SUBSHELL)
 			shell->last_status = execute_subshell(shell, ast);
 	}
 	return (shell->last_status);

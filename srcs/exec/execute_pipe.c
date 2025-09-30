@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/26 16:09:24 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/30 17:33:40 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,16 @@
 
 static int	create_pipe(t_minishell_p shell, t_ast_p ast)
 {
-	int	pipe_return;
-
 	ast->cur_pipe = ft_calloc(2, sizeof(int));
 	if (ast->cur_pipe)
 	{
-		pipe_return = pipe(ast->cur_pipe);
-		if (pipe_return == -1)
-			return (print_generic_error(shell, PIP_ERRMSG), -1);
+		if (pipe(ast->cur_pipe) == -1)
+			return (set_abort(shell, PIP_ERRMSG), RETURN_FAIL);
+		else
+			return (shell->abort == false);
 	}
 	else
-	{
-		return (print_generic_error(shell, MEM_ERRMSG), -1);
-	}
-	return (0);
+		return (set_abort(shell, MEM_ERRMSG), RETURN_FAIL);
 }
 
 static void	connect_nodes(t_ast_p ast)
@@ -43,23 +39,20 @@ static void	connect_nodes(t_ast_p ast)
 
 int execute_pipe(t_minishell_p shell, t_ast_p ast)
 {	
-	if (create_pipe(shell, ast) == -1) 
-		return (-1);
-
-	connect_nodes(ast);
-	shell->last_status = _execute_ast(shell, ast->cntl_op->left);
-	close_secure(&ast->cur_pipe[1]);
-
-	shell->last_status = _execute_ast(shell, ast->cntl_op->right);
-	close_secure(&ast->cur_pipe[0]);
-
-	wait_if_leaf(ast->cntl_op->left->leaf, NULL);
-	if (ast->cntl_op->right->type == OP_PIPE)
-		wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &shell->last_status);
+	if (create_pipe(shell, ast))
+	{
+		connect_nodes(ast);
+		shell->last_status = _execute_ast(shell, ast->cntl_op->left);
+		close_secure(&ast->cur_pipe[1]);
+		shell->last_status = _execute_ast(shell, ast->cntl_op->right);
+		close_secure(&ast->cur_pipe[0]);
+		wait_if_leaf(ast->cntl_op->left->leaf, NULL);
+		if (ast->cntl_op->right->type == OP_PIPE)
+			wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &shell->last_status);
+		else
+			wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
+		return (free(ast->cur_pipe), shell->last_status);
+	}
 	else
-		wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
-	
-	free(ast->cur_pipe);
-	
-	return (shell->last_status);
+		return (shell->last_status = EXIT_FAILURE);
 }

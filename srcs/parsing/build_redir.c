@@ -6,19 +6,21 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:05:23 by fox               #+#    #+#             */
-/*   Updated: 2025/09/30 12:52:31 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 17:32:26 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	set_redir_ptrs(t_ast_p ast, t_redir_p new, t_redir_p *curr)
+static void	set_redir_ptrs(t_ast_p ast, t_redir_p redir, t_redir_p *curr)
 {
 	if (!ast->leaf->redir)
-		ast->leaf->redir = new;
+		ast->leaf->redir = redir;
 	else
-		(*curr)->next = new;
-	*curr = new;	
+		(*curr)->next = redir;
+	*curr = redir;
+	ast->leaf->r_in = redir->type & R_IN;
+	ast->leaf->r_out = redir->type & (R_OUT | R_APPEND);
 }
 
 static void	config_redir(t_minishell_p shell, t_redir_p redir, t_build_var vars)

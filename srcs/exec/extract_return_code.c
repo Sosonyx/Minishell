@@ -15,7 +15,7 @@
 int	extract_return_code(int status)
 {
 	int return_status;
-	
+
 	if (WIFEXITED(status))
 	{
 		return_status = WEXITSTATUS(status);
@@ -38,5 +38,5 @@ int	extract_return_code(int status)
 	{ 
 		return_status = EXIT_SUCCESS;
 	}
-	return (return_status);	
+	return (return_status);
 }
