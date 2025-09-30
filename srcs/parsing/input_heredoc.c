@@ -27,6 +27,7 @@ static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 		}
 		if (*hd)
 			shell->readlines++;
+		// rebuild_limiter()
 		if (ft_strcmp(hd, redir->limiter))
 		{
 			write(leaf->hd_fd[1], hd, ft_strlen(hd));

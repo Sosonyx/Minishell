@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/26 11:13:00 by fox              ###   ########.fr       */
+/*   Updated: 2025/09/30 13:07:22 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	mainloop(t_minishell_p shell, t_ast_p *ast, t_tok_container_p *tok_containe
 		else
 		{
 			ft_putstr_fd("exit\n", STDOUT_FILENO);
-		
 			break ;
 		}
 	}	
@@ -82,7 +81,6 @@ int	main(int ac, char **av, char **env)
 	rstatus = shell->last_status;
 
 	shell_destroy(shell);
-
 	rl_clear_history();
 	return (extract_return_code(rstatus));
 }
