@@ -6,7 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/30 14:19:28 by ihadj            ###   ########.fr        #
+#    Updated: 2025/09/30 14:35:19 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -146,14 +146,14 @@ fc fclean:
 	@if [ -d $(BUILD_DIR) ]; then rm -rf $(BUILD_DIR) && echo "   $(GREEN)⤷ $(END)Removed build dir"; fi
 	@make -s -C $(LIBFT_DIR) fclean
 
+vv: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --leak-check=full --trace-children=yes ./$(NAME)
 
-cpu: $(NAME)
-	@echo "$(GREEN)🔘 $(TITLE)make cpu tests$(END)"
-	@git clone https://github.com/Rz-Rz/thales_tester.git $(CPU) > /dev/null 2>&1; \
-	echo "   $(GREEN)⤷ $(END)git clone $(CPU)"; \
-	chmod +x $(CPU)/test.sh
-	@./$(CPU)/test.sh ../$(NAME) 1
-
+vq: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --quiet --leak-check=full ./$(NAME)
+	
 re: fc all
 
-.PHONY: all clean c fclean fc re
+.PHONY: all clean c fclean fc re vv vq

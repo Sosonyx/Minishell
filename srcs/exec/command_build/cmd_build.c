@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:30:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 13:05:42 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/30 14:36:17 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*find_cmd(t_minishell_p shell, t_ast_p ast)
 	paths = NULL;
 	if (!*ast->leaf->cmds)
 		return (NULL);
-	ast->leaf->exec_path = *ast->leaf->cmds;
+	ast->leaf->exec_path = ft_strdup(*ast->leaf->cmds);
 	if (ft_strchr(*ast->leaf->cmds, '/'))
 		return (ft_strdup(*ast->leaf->cmds));
 	paths_index = get_paths_index(shell->environ);
@@ -87,6 +87,7 @@ char	*find_cmd(t_minishell_p shell, t_ast_p ast)
 	paths = ft_split_path(shell->environ[paths_index] + 5, ':');
 	if (!paths)
 		return (ft_strdup(*ast->leaf->cmds));
+	free(ast->leaf->exec_path);
 	ast->leaf->exec_path = get_correct_path(paths, *ast->leaf->cmds);
 	free_array(paths);
 	return (ast->leaf->cmds[0]);
