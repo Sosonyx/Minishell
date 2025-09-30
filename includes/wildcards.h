@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:25:25 by fox               #+#    #+#             */
-/*   Updated: 2025/09/30 18:37:05 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 20:17:58 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ struct s_wildcard
 	int				max_depth;
 	bool			lastisdir;
 	bool			startbydot;
+	bool			isstartdir;
 };
 
 struct s_pathmatch

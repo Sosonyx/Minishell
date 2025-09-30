@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/09/30 19:41:17 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/09/30 20:50:28 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,26 @@ void	_wildcard_expand(t_minishell_p shell, t_wildcard_p wc, char *command)
 		{
 			if (iswildcard(*wc->spath))
 			{
-				wc->startbydot = true;
-				recdir(wc, ".", 0);
+				if (wc->isstartdir)
+				{
+					recdir(wc, "/", 0);
+					wc->isstartdir = false;					
+				}
+				else
+				{
+					wc->startbydot = true;
+					recdir(wc, ".", 0);
+				}
+			}
+			else if (wc->isstartdir)
+			{
+				recdir(wc, ft_strjoin("/", *wc->spath), 1);
+				wc->isstartdir = false;
 			}
 			else
+			{
 				recdir(wc, *wc->spath, 1);
+			}
 			ft_split_free(wc->spath);
 		}
 	}
@@ -102,6 +117,8 @@ void	wildcard_expand(t_minishell_p shell, t_ast_p ast)
 		{
 			while (*commands)
 			{
+				if (**commands == '/')
+					wc->isstartdir = true;
 				_wildcard_expand(shell, wc, *commands++);
 			}
 			if (wc->totalmatches)
