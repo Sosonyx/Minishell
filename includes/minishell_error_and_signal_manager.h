@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_error_and_signal_manager.h               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:37:01 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 16:31:04 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 15:35:24 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,20 @@
 # define INVALID_ID_ERRMSG	"not a valid identifier"
 # define DIRECTORY_ERRMSG   "Is a directory"
 # define PERMISSION_ERRMSG  "Permission denied"
+# define EOF_ERRMSG			"minishell: unexpected EOF while looking for matching quote\n"
 
 # define LEN_INTMAX		12
 
 # ifdef NEWLINE
 #  undef NEWLINE
-#   define NEWLINE "\n"
+#  define NEWLINE "\n"
 # endif
 
 # define SELF "Minishell"
 # define COLUMN ": "
 
-# define ERRVAL1 1 << 8
-# define ERRVAL2 2 << 8
+# define ERRVAL1 256
+# define ERRVAL2 512
 
 /********************************************************************************/
 /*			Errors																*/

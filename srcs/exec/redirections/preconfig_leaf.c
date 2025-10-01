@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:43:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 13:54:53 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:28:04 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ static void	get_command_path(t_minishell_p shell, t_ast_p ast)
 	ast->leaf->full_path = find_cmd(shell, ast);
 }
 
-
 static void	redir_in_conf(t_leaf_p leaf)
 {
-	char 		*target;
 	t_redir_p	cur_redir;
+	char		*target;
 
 	cur_redir = leaf->redir;
 	while (cur_redir)
@@ -40,9 +39,9 @@ static void	redir_in_conf(t_leaf_p leaf)
 
 static void	redir_out_conf(t_leaf_p leaf)
 {
-	char 		*target;
+	char		*target;
 	t_redir_p	cur_redir;
-	
+
 	cur_redir = leaf->redir;
 	while (cur_redir)
 	{

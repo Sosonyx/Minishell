@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sortmatches.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 17:28:41 by fox               #+#    #+#             */
-/*   Updated: 2025/09/30 21:04:43 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 15:37:48 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 static int	strcmp_nocase(const char *s1, const char *s2)
 {
 	int	diff;
-	
-    while (s1 && s2 && *s1 && *s2)
-    {
+
+	while (s1 && s2 && *s1 && *s2)
+	{
 		diff = ft_tolower(*s1) - (ft_tolower(*s2));
 		if (diff)
 			break ;
-        s1++;
-        s2++;
-    }
-    return (diff);
+		s1++;
+		s2++;
+	}
+	return (diff);
 }
 
 static int	_compare(const char *s1, const char *s2)
 {
 	int	diff_nocase;
-	
+
 	diff_nocase = strcmp_nocase(s1, s2);
 	if (diff_nocase)
 		return (diff_nocase);
@@ -41,7 +41,7 @@ static int	_compare(const char *s1, const char *s2)
 static void	_swap(char **s1, char **s2)
 {
 	char	*temp;
-	
+
 	temp = *s1;
 	*s1 = *s2;
 	*s2 = temp;

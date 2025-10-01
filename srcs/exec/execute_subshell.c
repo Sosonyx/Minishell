@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:39 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 12:54:29 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:29:29 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	execute_subshell(t_minishell_p shell, t_ast_p ast)
 	pid_t	pid;
 
 	forward_fds(ast);
-
 	pid = fork();
 	if (pid == 0)
 	{

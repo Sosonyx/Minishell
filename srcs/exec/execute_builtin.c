@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 12:54:29 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:29:06 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	is_builtin(t_leaf_p leaf)
 	return (false);
 }
 
-static int	 execute_command(t_minishell_p shell, t_ast_p ast)
+static int	execute_command(t_minishell_p shell, t_ast_p ast)
 {
 	char	*cmd;
 
@@ -53,7 +53,7 @@ static int	 execute_command(t_minishell_p shell, t_ast_p ast)
 		return (ft_unset(shell, ast->leaf->cmds));
 	if (ft_strcmp(cmd, "env") == 0)
 		return (ft_env(shell, ast->leaf->cmds));
-	if (ft_strcmp(cmd, "exit") == 0) // exit doit appeler CLEANEXIT
+	if (ft_strcmp(cmd, "exit") == 0)
 		return (ft_exit(shell, ast->leaf->cmds));
 	else
 		return (EXIT_FAILURE);
@@ -87,6 +87,7 @@ void	execute_wfork(t_minishell_p shell, t_ast_p ast)
 		print_generic_error(shell, FORK_ERRMSG);
 	}
 }
+
 void	execute_builtin(t_minishell_p shell, t_ast_p ast)
 {
 	if (ast->write_fd || ast->read_fd)

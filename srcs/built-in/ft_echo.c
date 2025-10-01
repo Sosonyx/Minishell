@@ -6,32 +6,45 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 14:57:26 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:21:29 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(t_minishell_p shell, char **args)
+static int is_echo_n_option(char *arg)
 {
-	int	i;
-	int	newline;
+	int i;
 
-	(void) shell;
+	if (!arg || arg[0] != '-')
+		return (0);
+	i = 1;
+	if (!arg[i])
+		return (0);
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int ft_echo(t_minishell_p shell, char **args)
+{
+	int i;
+	int newline;
+
+	(void)shell;
 	newline = 1;
 	i = 1;
-	if (args[1] && ft_strcmp(args[1], "-n") == 0)
+	while (args[i] && is_echo_n_option(args[i]))
 	{
 		newline = 0;
 		i++;
 	}
 	while (args[i])
 	{
-		if (ft_strcmp(args[i], "-n") == 0)
-		{
-			i++;
-			continue ;	
-		}
 		ft_putstr_fd(args[i], 1);
 		if (args[i + 1])
 			ft_putstr_fd(" ", 1);

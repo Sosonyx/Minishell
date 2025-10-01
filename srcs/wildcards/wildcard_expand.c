@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/01 12:18:22 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 15:38:14 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	wcconfig(t_wildcard_p wc, char *path)
 	--wc->max_depth;
 	while (*path)
 		path++;
-	wc->lastisdir = (*(path - 1) == '/');	
+	wc->lastisdir = (*(path - 1) == '/');
 }
 
 void	aggregate_matches(t_wildcard_p wc, char *command)
@@ -45,7 +45,6 @@ void	aggregate_matches(t_wildcard_p wc, char *command)
 	if (!matches)
 		return ;
 	ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
-
 	if (wc->tmp_matches)
 	{
 		ft_memcpy(matches + wc->totalmatches, wc->tmp_matches, wc->tmp_totalmatches * sizeof(char *));

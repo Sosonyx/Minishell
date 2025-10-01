@@ -6,19 +6,11 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 13:44:09 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:26:34 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* static void	print_cd_error(char *path)
-{
-	ft_putstr_fd("minishell: cd: ", 2);
-	ft_putstr_fd(path, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putendl_fd(strerror(errno), 2);
-} */
 
 static char	*ft_getenv(char **env, char *name)
 {
@@ -39,7 +31,7 @@ static char	*ft_getenv(char **env, char *name)
 static char	*get_target_dir(t_minishell *shell, char **args)
 {
 	if (!args[1])
-		return (ft_getenv(shell->environ, "HOME")); // si jai pas de destination je reviens au home
+		return (ft_getenv(shell->environ, "HOME"));
 	return (args[1]);
 }
 
@@ -53,8 +45,8 @@ static int	update_pwd(t_minishell *shell, char *oldpwd, char *newpwd)
 	new_var = ft_strjoin("PWD=", newpwd);
 	if (!old_var || !new_var)
 		return (free(old_var), free(new_var), 1);
-	i = 0;
-	while (shell->environ[i])
+	i = -1;
+	while (shell->environ[++i])
 	{
 		if (!ft_strncmp(shell->environ[i], "OLDPWD=", 7))
 		{
@@ -66,7 +58,6 @@ static int	update_pwd(t_minishell *shell, char *oldpwd, char *newpwd)
 			free(shell->environ[i]);
 			shell->environ[i] = ft_strdup(new_var);
 		}
-		i++;
 	}
 	free(old_var);
 	free(new_var);

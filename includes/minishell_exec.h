@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 12:16:32 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 15:40:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,47 +33,40 @@ int	    	ft_env(t_minishell_p shell, char **args);
 /*		Execute                        											*/
 /********************************************************************************/
 
-void	execute_ast(t_minishell_p shell, t_ast_p *ast);
-void	_execute_ast(t_minishell_p shell, t_ast_p ast);
-
-void 	execute_subshell(t_minishell_p shell, t_ast_p ast);
-void 	execute_pipe(t_minishell_p shell, t_ast_p ast);
-void 	execute_and(t_minishell_p shell, t_ast_p ast);
-void 	execute_or(t_minishell_p shell, t_ast_p ast);
-void 	execute_leaf(t_minishell_p shell, t_ast_p ast);
-void	execute_builtin(t_minishell_p shell, t_ast_p ast);
+void		execute_ast(t_minishell_p shell, t_ast_p *ast);
+void		_execute_ast(t_minishell_p shell, t_ast_p ast);
+void		execute_subshell(t_minishell_p shell, t_ast_p ast);
+void		execute_pipe(t_minishell_p shell, t_ast_p ast);
+void		execute_and(t_minishell_p shell, t_ast_p ast);
+void		execute_or(t_minishell_p shell, t_ast_p ast);
+void		execute_leaf(t_minishell_p shell, t_ast_p ast);
+void		execute_builtin(t_minishell_p shell, t_ast_p ast);
 
 	///
 	///	misc exec
 	///
-		
-void	wait_if_leaf(t_leaf_p leaf, int *rstatus);
-int		extract_return_code(int status);
-int		convert_errno(int err);
+void		wait_if_leaf(t_leaf_p leaf, int *rstatus);
+int			extract_return_code(int status);
+int			convert_errno(int err);
 
 // char	*find_cmd(char *cmd, char **env);
-char	*find_cmd(t_minishell_p shell, t_ast_p ast);
+char		*find_cmd(t_minishell_p shell, t_ast_p ast);
 
-bool	is_builtin(t_leaf_p leaf);
+bool		is_builtin(t_leaf_p leaf);
 
-void	preconfig_leaf(t_minishell_p shell, t_ast_p ast);
-char	**ft_split_path(char const *s, char c);
-
+void		preconfig_leaf(t_minishell_p shell, t_ast_p ast);
+char		**ft_split_path(char const *s, char c);
 
 /********************************************************************************/
 /*		Files & redirections              										*/
 /********************************************************************************/
 
-void	input_heredoc(t_minishell_p shell, t_leaf_p leaf);
-
-void	forward_fds(t_ast_p ast);
-
-void    save_std_fileno(t_minishell_p shell);
-void    restore_std_fileno(t_minishell_p shell, t_ast_p ast);
-
-int		redirect_leaf(t_minishell_p shell, t_ast_p ast);
-
-void	close_fds(t_ast_p ast, int mode);
-void	close_secure(int *fd);
+void		input_heredoc(t_minishell_p shell, t_leaf_p leaf);
+void		forward_fds(t_ast_p ast);
+void		save_std_fileno(t_minishell_p shell);
+void		restore_std_fileno(t_minishell_p shell, t_ast_p ast);
+int			redirect_leaf(t_minishell_p shell, t_ast_p ast);
+void		close_fds(t_ast_p ast, int mode);
+void		close_secure(int *fd);
 
 #endif

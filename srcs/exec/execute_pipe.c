@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 12:54:29 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:29:25 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ static void	connect_nodes(t_ast_p ast)
 {
 	ast->cntl_op->left->write_fd = &ast->cur_pipe[1];
 	ast->cntl_op->left->read_fd = ast->read_fd;
-	ast->cntl_op->left->closed_fd = &ast->cur_pipe[0];	
-
+	ast->cntl_op->left->closed_fd = &ast->cur_pipe[0];
 	ast->cntl_op->right->read_fd = &ast->cur_pipe[0];
 	ast->cntl_op->right->write_fd = ast->write_fd;
-	ast->cntl_op->right->closed_fd = &ast->cur_pipe[1];	
+	ast->cntl_op->right->closed_fd = &ast->cur_pipe[1];
 }
 
 void	execute_pipe(t_minishell_p shell, t_ast_p ast)

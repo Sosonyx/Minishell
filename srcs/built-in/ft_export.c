@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:15:33 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 13:30:16 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:26:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_valid_var_name(char *str)
 {
-	int i;
+	int	i;
 
 	if (!str || !str[0])
 		return (0);
@@ -32,8 +32,8 @@ static int	is_valid_var_name(char *str)
 
 static int	find_var_index(char **env, char *arg)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	if (!env || !arg)
 		return (-1);
@@ -52,7 +52,7 @@ static int	find_var_index(char **env, char *arg)
 
 static void	copy_old_env(char **new_env, char **old_env, int size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < size)
@@ -70,7 +70,6 @@ static int	add_or_replace_vars(t_minishell_p shell, char **env, char **args, int
 
 	i = 0;
 	j = start_index;
-
 	while (args[i])
 	{
 		if (is_valid_var_name(args[i]))
@@ -93,7 +92,6 @@ static int	add_or_replace_vars(t_minishell_p shell, char **env, char **args, int
 			return (-1);
 		}
 			// print_cmd_error2(shell, "export", INVALID_ID_ERRMSG);
-
 		i++;
 	}
 	env[j] = NULL;

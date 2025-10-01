@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recdir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 18:16:52 by fox               #+#    #+#             */
-/*   Updated: 2025/09/26 16:34:40 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/01 15:37:15 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	_recdir(t_wildcard_p wc, struct dirent *sdir, char *pathopen, int depth)
 {
 	char	*path = NULL;
-		
+
 	if (!skipdotdotdot(sdir->d_name, wc->spath[depth]) && !ishidden(sdir->d_name) && pathmatch(sdir->d_name, wc->spath[depth]))
 	{
 		path = catpath(pathopen, sdir->d_name);
@@ -28,7 +28,7 @@ void	recdir(t_wildcard_p wc, char *pathopen, int depth)
 {
 	DIR				*dirp;
 	struct dirent	*sdir;
-	
+
 	if (pathopen)
 		dirp = opendir(pathopen);
 	if (dirp)

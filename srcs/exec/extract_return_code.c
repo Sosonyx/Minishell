@@ -35,7 +35,7 @@ int	extract_return_code(int status)
 		return_status = EXIT_FAILURE;
 	}
 	else
-	{ 
+	{
 		return_status = EXIT_SUCCESS;
 	}
 	return (return_status);

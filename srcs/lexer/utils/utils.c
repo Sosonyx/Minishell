@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:08:22 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/05 13:20:58 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:45:48 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ int	is_pipe(t_toktype t)
 
 int	is_redir(t_toktype t)
 {
-	return (t == T_REDIR_IN || t == T_REDIR_OUT || t == T_APPEND || t == T_HEREDOC);
+	if (t == T_REDIR_IN || t == T_REDIR_OUT)
+		return (1);
+	else if (t == T_APPEND || t == T_HEREDOC)
+		return (1);
+	return (0);
 }
 
 int	is_parenth(t_toktype t)

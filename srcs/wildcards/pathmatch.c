@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathmatch.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:34:09 by fox               #+#    #+#             */
-/*   Updated: 2025/09/30 19:24:44 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 15:37:05 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,13 @@ static char *next_sample(char **path)
 
 	while (*path && isasterisk(**path))
 		(*path)++;
-
 	ptr = *path;
-
 	while (*ptr && !isasterisk(*ptr))
 		ptr++;
-
 	return (ft_substr(*path, 0, ptr - *path));
 }
 
-static char *find_match(char *ptested, char *psample)
+static char	*find_match(char *ptested, char *psample)
 {
 	if (psample && *psample)
 		return (ft_strstr(ptested, psample));
@@ -35,22 +32,20 @@ static char *find_match(char *ptested, char *psample)
 		return (ptested);
 }
 
-static char *align_segment(char *segment, char *psample)
+static char	*align_segment(char *segment, char *psample)
 {
-	int n;
+	int	n;
 
 	if (!segment || !psample)
 		return (segment);
-
 	n = ft_strlen(psample);
 	return (segment + n);
 }
 
-
-static int _pathmatch(char *ptested, char *pref)
+static int	_pathmatch(char *ptested, char *pref)
 {
 	char	*psample;
-	
+
 	while (1)
 	{
 		if (!*ptested && !*pref)
@@ -76,7 +71,7 @@ static int _pathmatch(char *ptested, char *pref)
 	}
 }
 
-int pathmatch(char *ptested, char *pref)
+int	pathmatch(char *ptested, char *pref)
 {
 	struct s_pathmatch	wref;
 	char				*ptr;

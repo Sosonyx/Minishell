@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:24:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/24 16:41:53 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/01 15:24:41 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,14 @@ void	print_file_error(t_minishell_p shell, char *filename, int errnum)
 
 void	print_cmd_error(t_minishell_p shell, char *cmd_name, int errnum)
 {
-	if (errnum == ENOENT)
+	if (errnum == ENOENT && !ft_strchr(cmd_name, '/'))
 	{
-		if (ft_strchr(cmd_name, '/'))
-			speak(shell, STDERR_FILENO, cmd_name, COLUMN),
-			speak(NULL, STDERR_FILENO, FILE_ERRMSG, NEWLINE);
-		else
-			speak(shell, STDERR_FILENO, cmd_name, COLUMN),
-			speak(NULL, STDERR_FILENO, CMD_ERRMSG, NEWLINE);
-	}
-	else if (errnum == EISDIR)
-	{
-		speak(shell, STDERR_FILENO, cmd_name, COLUMN);
-		speak(NULL, STDERR_FILENO, DIRECTORY_ERRMSG, NEWLINE);
-	}
-	else if (errnum == EACCES)
-	{
-		speak(shell, STDERR_FILENO, cmd_name, COLUMN);
-		speak(NULL, STDERR_FILENO, PERMISSION_ERRMSG, NEWLINE);
+		speak(shell, STDERR_FILENO, cmd_name, COLUMN),
+		speak(NULL, STDERR_FILENO, CMD_ERRMSG, NEWLINE);
 	}
 	else
 		print_err(shell, cmd_name, errnum);
 }
-
 
 void	print_cmd_error2(t_minishell_p shell, char *cmd_name, char *errmsg)
 {

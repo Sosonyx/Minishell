@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   addmatch.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:32:58 by fox               #+#    #+#             */
-/*   Updated: 2025/09/30 21:02:06 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 15:36:43 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	matchlist_resize(t_wildcard_p wc)
 {
 	char	**ptr;
-	
+
 	if (!wc->tmp_matches)
 	{
 		wc->tmp_matches = ft_calloc(++wc->tmp_totalmatches + 1, sizeof(char *));

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   catpath.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:27:15 by fox               #+#    #+#             */
-/*   Updated: 2025/09/30 20:52:14 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 15:36:26 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
-char *catpath(char *pathopen, char *added)
+char	*catpath(char *pathopen, char *added)
 {
 	char	*new_path;
 	char	*temp;

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/30 16:07:28 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:33:36 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,41 +57,42 @@ static void	skip_spaces(char *line, int *i)
 		(*i)++;
 }
 
-static int fill_tokens(t_token **tokens, char *line)
+static int	fill_tokens(t_token **tokens, char *line)
 {
-    int i = 0;
-    int j = 0;
-    int ret;
+	int	i;
+	int	j;
+	int	ret;
 
-    while (line[i])
-    {
-        skip_spaces(line, &i);
-        if (!line[i])
-            break ;
-        if (is_special(line[i]))
-            j = stock_special(tokens, j, line, &i);
-        else
-        {
-            ret = stock_word(tokens, j, line, &i);
-            if (ret == -1)
-            {
-                ft_putstr_fd("minishell: unexpected EOF while looking for matching quote\n", 2);
-                return (0);
-            }
-            j = ret;
-        }
-    }
-    tokens[j] = NULL;
-    return (j);
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+		skip_spaces(line, &i);
+		if (!line[i])
+			break ;
+		if (is_special(line[i]))
+			j = stock_special(tokens, j, line, &i);
+		else
+		{
+			ret = stock_word(tokens, j, line, &i);
+			if (ret == -1)
+			{
+				ft_putstr_fd(EOF_ERRMSG, 2);
+				return (0);
+			}
+			j = ret;
+		}
+	}
+	return (tokens[j] = NULL, j);
 }
 
 int stock_tokens(t_tok_container *t, char *line)
 {
-    int words;
+	int words;
 
-    words = count_tokens(line);
-    t->tokens = ft_calloc(words + 1, sizeof(t_token *));
-    if (!t->tokens)
-        return (0);
-    return (fill_tokens(t->tokens, line));
+	words = count_tokens(line);
+	t->tokens = ft_calloc(words + 1, sizeof(t_token *));
+	if (!t->tokens)
+		return (0);
+	return (fill_tokens(t->tokens, line));
 }

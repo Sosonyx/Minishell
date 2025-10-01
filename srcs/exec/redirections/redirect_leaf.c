@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 14:57:52 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:28:38 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ static int	open_files(t_minishell_p shell, t_leaf_p leaf, t_redir_p cur_redir)
 		leaf->abort = true;
 	}
 	else
-	{
 		*r_flag = true;
-	}
 	return (*target_fd);
 }
 
@@ -67,7 +65,7 @@ static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
 	t_redir_p	cur_redir;
 	int			prev_in;
 	int			prev_out;
-	
+
 	prev_in = 0;
 	prev_out = 0;
 	cur_redir = leaf->redir;
@@ -92,8 +90,7 @@ static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
 				{
 					close_prev(prev_out);
 					prev_out = leaf->fds[1];
-				}
-					
+				}		
 			}
 		}
 		cur_redir = cur_redir->next;
@@ -116,14 +113,12 @@ int	redirect_leaf(t_minishell_p shell, t_ast_p ast)
 	{
 		dup2(*ast->write_fd, STDOUT_FILENO);
 	}		
-	if (ast->leaf->r_in || ast->leaf->r_out)	
+	if (ast->leaf->r_in || ast->leaf->r_out)
 	{
 		if (set_redir(shell, ast->leaf) == -1)
 			return (-1);
-
 		if (ast->leaf->fds[0] IS_VALID_FD)
 			dup2(ast->leaf->fds[0], STDIN_FILENO);
-
 		if (ast->leaf->fds[1] IS_VALID_FD)
 			dup2(ast->leaf->fds[1], STDOUT_FILENO);
 	}

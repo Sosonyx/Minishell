@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   strncmprev.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:09:26 by fox               #+#    #+#             */
-/*   Updated: 2025/09/23 14:09:41 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/01 15:36:40 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
-int strncmprev(const char *s1, const char *s2, int size)
+int	strncmprev(const char *s1, const char *s2, int size)
 {
-	int pos_s1;
-	int pos_s2;
+	int	pos_s1;
+	int	pos_s2;
 
 	if (size <= 0)
 		return (0);
