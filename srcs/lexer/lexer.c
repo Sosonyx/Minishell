@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/05 12:59:40 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/09/30 16:07:28 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int fill_tokens(t_token **tokens, char *line)
     {
         skip_spaces(line, &i);
         if (!line[i])
-            break;
+            break ;
         if (is_special(line[i]))
             j = stock_special(tokens, j, line, &i);
         else

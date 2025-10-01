@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/30 19:48:47 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:18:27 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	main(int ac, char **av, char **env)
 	rstatus = shell->last_status;
 
 	shell_destroy(shell);
-
 	rl_clear_history();
 	return (extract_return_code(rstatus));
 }

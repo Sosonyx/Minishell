@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:30:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 18:32:01 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:38:27 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,41 +50,45 @@ static char	*get_correct_path(char **array, char *cmd)
 	char	*path;
 
 	i = 0;
-	path = NULL;
 	tmp = ft_strjoin("/", cmd);
 	if (!tmp)
 		return (NULL);
 	while (array[i])
 	{
-		path = ft_strjoin(array[i], tmp);
+		if (array[i][0] == '\0')
+			path = ft_strjoin("./", tmp + 1);
+		else
+			path = ft_strjoin(array[i], tmp);
 		if (!path)
 			return (free(tmp), NULL);
-		if (access(path, X_OK) == 0)
+		if (access(path, F_OK | X_OK) == 0)
 			return (free(tmp), path);
 		free(path);
 		i++;
 	}
 	free(tmp);
-	return (ft_strdup(cmd));
+	return (NULL);
 }
 
-char	*find_cmd(char *cmd, char **env)
+char	*find_cmd(t_minishell_p shell, t_ast_p ast)
 {
 	int		paths_index;
 	char	**paths;
-	char	*correct_path;
 
-	if (!cmd)
+	paths = NULL;
+	if (!*ast->leaf->cmds)
 		return (NULL);
-	if (ft_strchr(cmd, '/'))
-		return (ft_strdup(cmd));
-	paths_index = get_paths_index(env);
+	ast->leaf->exec_path = ft_strdup(*ast->leaf->cmds);
+	if (ft_strchr(*ast->leaf->cmds, '/'))
+		return (ft_strdup(*ast->leaf->cmds));
+	paths_index = get_paths_index(shell->environ);
 	if (paths_index == -1)
-		return (ft_strdup(cmd));
-	paths = ft_split(env[paths_index] + 5, ':');
+		return (ft_strdup(*ast->leaf->cmds));
+	paths = ft_split_path(shell->environ[paths_index] + 5, ':');
 	if (!paths)
-		return (ft_strdup(cmd));
-	correct_path = get_correct_path(paths, cmd);
+		return (ft_strdup(*ast->leaf->cmds));
+	free(ast->leaf->exec_path);
+	ast->leaf->exec_path = get_correct_path(paths, *ast->leaf->cmds);
 	free_array(paths);
-	return (correct_path);
+	return (ast->leaf->cmds[0]);
 }
