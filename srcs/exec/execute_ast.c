@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 19:47:09 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:54:29 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	execute_ast(t_minishell_p shell, t_ast_p *ast)
 	if (!*ast)
 	{
 		print_generic_error(shell, AST_ERRMSG);
-		shell->last_status = EXIT_FAILURE;
+		g_status = EXIT_FAILURE;
 	}
 	if (NO_ABORT && (*ast)->leaf)
 	{
 		execute_leaf(shell, *ast);
-		waitpid((*ast)->leaf->pid, &shell->last_status, 0);
+		waitpid((*ast)->leaf->pid, &g_status, 0);
 	}
 	else if (NO_ABORT)
 	{

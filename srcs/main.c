@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 12:18:27 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:55:27 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_status;
+int	g_status = 0;
 /*
 	Gere le CTRL C, reaffiche un prompt clean
 	A utiliser que dans le PARENT
@@ -40,7 +40,7 @@ static void	mainloop(t_minishell_p shell, t_ast_p *ast)
 		if (shell->input)
 		{
 			if (!*(shell->input))
-				shell->last_status = EXIT_SUCCESS;
+				g_status = EXIT_SUCCESS;
 			else if (tokenize_input(shell, &g_status))
 			{
 				if (parse_tokens(shell, ast))
@@ -50,7 +50,7 @@ static void	mainloop(t_minishell_p shell, t_ast_p *ast)
 			}
 			else
 			{
-				shell->last_status = ERRVAL2;
+				g_status = ERRVAL2;
 			}
 		}
 		else
@@ -65,17 +65,12 @@ int	main(int ac, char **av, char **env)
 {
 	t_ast_p				ast = NULL;
 	t_minishell_p		shell;
-	int					rstatus;
 	
 	shell = shell_init(ac, av, environ);
-	
 	mainloop(shell, &ast);
-
-	rstatus = shell->last_status;
-
 	shell_destroy(shell);
 	rl_clear_history();
-	return (extract_return_code(rstatus));
+	return (extract_return_code(g_status));
 }
 
 

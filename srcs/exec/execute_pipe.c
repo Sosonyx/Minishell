@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 18:25:16 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:54:29 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	execute_pipe(t_minishell_p shell, t_ast_p ast)
 		}
 		wait_if_leaf(ast->cntl_op->left->leaf, NULL);
 		if (ast->cntl_op->right->type == OP_PIPE)
-			wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &shell->last_status);
+			wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &g_status);
 		else
-			wait_if_leaf(ast->cntl_op->right->leaf, &shell->last_status);
+			wait_if_leaf(ast->cntl_op->right->leaf, &g_status);
 		free(ast->cur_pipe);
 	}
 	else
-		shell->last_status = EXIT_FAILURE;
+		g_status = EXIT_FAILURE;
 }

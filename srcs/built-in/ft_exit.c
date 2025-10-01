@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:06 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 14:04:13 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 12:54:29 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_exit(t_minishell_p shell, char **args)
 	if (!args[1])
 	{
 		print_generic_error(NULL, "exit");
-		exit(shell->last_status);
+		exit(g_status);
 	}
 	else if (args[1] && is_valid_number(args[1]))
 	{
@@ -44,7 +44,7 @@ int	ft_exit(t_minishell_p shell, char **args)
 // 	if (!args[1])
 // 	{
 // 		print_generic_error(NULL, "exit");
-// 		exit(shell->last_status);
+// 		exit(g_status);
 // 	}
 // 	if (args[1] && args[2] && is_valid_number(args[1]))
 // 	{

@@ -24,7 +24,7 @@ static char	*expand_exit_status(t_minishell *shell, char *result)
 	char	*status;
 	char	*tmp;
 
-	status = ft_itoa(extract_return_code(shell->last_status));
+	status = ft_itoa(extract_return_code(g_status));
 	if (!status)
 		return (NULL);
 	tmp = ft_strjoin(result, status);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_subshell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:39 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 18:11:33 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:54:29 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ void	execute_subshell(t_minishell_p shell, t_ast_p ast)
 	if (pid == 0)
 	{
 		_execute_ast(shell, ast->cntl_op->left);
-		wait_if_leaf(ast->cntl_op->left->leaf, &shell->last_status);
-		exit(shell->last_status);
+		wait_if_leaf(ast->cntl_op->left->leaf, &g_status);
+		exit(g_status);
 	}
 	else if (pid > 0)
 	{
 		close_fds(ast, PARENT);
-		waitpid(pid, &shell->last_status, 0);
+		waitpid(pid, &g_status, 0);
 	}
 	else
 	{
 		set_abort(shell, FORK_ERRMSG);
-		shell->last_status = EXIT_FAILURE;
+		g_status = EXIT_FAILURE;
 	}
 }
