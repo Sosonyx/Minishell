@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/25 14:13:19 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 14:57:26 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int	ft_echo(t_minishell_p shell, char **args)
 	}
 	while (args[i])
 	{
+		if (ft_strcmp(args[i], "-n") == 0)
+		{
+			i++;
+			continue ;	
+		}
 		ft_putstr_fd(args[i], 1);
 		if (args[i + 1])
 			ft_putstr_fd(" ", 1);
