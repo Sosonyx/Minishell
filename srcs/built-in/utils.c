@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:57:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/23 19:14:24 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/01 15:50:14 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,36 @@ long long	ft_atol(const char *nptr)
 		i++;
 	}
 	return ((sign * nb));
+}
+
+static void	dup_small_env(char **envp, char **new_env)
+{
+	char	*pwd;
+	char	*tmp;
+
+	pwd = getcwd(NULL, 0);
+	new_env[0] = ft_strjoin("PWD=", pwd);
+	new_env[1] = ft_strdup("SHLVL=1");
+	new_env[2] = ft_strdup("_=/usr/bin/env");
+	new_env[3] = NULL;
+}
+
+char	**dup_env(char **envp)
+{
+	char	**small_env;
+
+	if (!envp || !envp[0])
+	{
+		small_env = malloc(sizeof(char *) * 5);
+		if (!small_env)
+		{
+			print_generic_error(NULL, MEM_ERRMSG);
+			return (NULL);
+		}
+		dup_small_env(envp, small_env);
+		return (small_env);
+	}
+	return (ft_split_clone(envp));
 }
 
 char	**dup_env(char **envp)
