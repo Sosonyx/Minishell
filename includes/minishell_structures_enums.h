@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 19:45:34 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 12:19:17 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ struct s_leaf
 	pid_t				pid;
 
 	char				**cmds;
-	// char				*name;
 	char				*full_path;
+	char				*exec_path;
 	t_redir_p			redir;
 	
 	int					fds[2];

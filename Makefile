@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/30 17:45:03 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/01 12:19:02 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRC         = \
 				$(SRC_DIR)/exec/execute_pipe.c												\
 				$(SRC_DIR)/exec/execute_builtin.c											\
 				$(SRC_DIR)/exec/extract_return_code.c										\
-				$(SRC_DIR)/exec/convert_errno.c										\
+				$(SRC_DIR)/exec/convert_errno.c												\
 				$(SRC_DIR)/exec/redirections/close_secure.c									\
 				$(SRC_DIR)/exec/redirections/redirect_leaf.c								\
 				$(SRC_DIR)/exec/redirections/forward_fds.c									\
@@ -52,6 +52,7 @@ SRC         = \
 				$(SRC_DIR)/exec/redirections/restore_std_fileno.c							\
 				$(SRC_DIR)/exec/wait_if_leaf.c												\
 				$(SRC_DIR)/exec/command_build/cmd_build.c									\
+				$(SRC_DIR)/exec/command_build/utils.c										\
 				$(SRC_DIR)/lexer/lexer.c													\
 				$(SRC_DIR)/lexer/discard_token.c											\
 				$(SRC_DIR)/lexer/utils/utils.c												\
@@ -145,14 +146,14 @@ fc fclean:
 	@if [ -d $(BUILD_DIR) ]; then rm -rf $(BUILD_DIR) && echo "   $(GREEN)⤷ $(END)Removed build dir"; fi
 	@make -s -C $(LIBFT_DIR) fclean
 
+vv: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --leak-check=full --trace-children=yes ./$(NAME)
 
-cpu: $(NAME)
-	@echo "$(GREEN)🔘 $(TITLE)make cpu tests$(END)"
-	@git clone https://github.com/Rz-Rz/thales_tester.git $(CPU) > /dev/null 2>&1; \
-	echo "   $(GREEN)⤷ $(END)git clone $(CPU)"; \
-	chmod +x $(CPU)/test.sh
-	@./$(CPU)/test.sh ../$(NAME) 1
-
+vq: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --quiet --leak-check=full ./$(NAME)
+	
 re: fc all
 
-.PHONY: all clean c fclean fc re
+.PHONY: all clean c fclean fc re vv vq

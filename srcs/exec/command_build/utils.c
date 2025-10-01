@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 16:43:43 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/29 18:25:51 by ihadj            ###   ########.fr       */
+/*   Created: 2025/09/29 18:25:30 by ihadj             #+#    #+#             */
+/*   Updated: 2025/09/30 12:55:48 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 static int	count_word(const char *str, char c)
 {
@@ -19,18 +19,10 @@ static int	count_word(const char *str, char c)
 
 	i = 0;
 	count = 0;
-	while (str[i] && str[i] == c)
-		i++;
 	while (str[i])
 	{
-		if (str[i] != c)
-		{
+		if (str[i++] != c)
 			count++;
-			while (str[i] && str[i] != c)
-				i++;
-		}
-		while (str[i] && str[i] == c)
-			i++;
 	}
 	return (count);
 }
@@ -63,31 +55,37 @@ static void	free_tab(char **tab, int index)
 	free(tab);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_path(char const *s, char c)
 {
 	char	**tab;
 	int		i;
 	int		j;
+	int		start;
 
-	i = 0;
-	j = 0;
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (count_word(s, c) + 1));
+	tab = malloc(sizeof(char *) * (ft_strlen(s) + 2));
 	if (!tab)
 		return (NULL);
-	while (s[i])
+	i = 0;
+	j = 0;
+	start = 0;
+	while (1)
 	{
-		if (s[i] != c)
+		if (s[i] == c || s[i] == '\0')
 		{
-			tab[j++] = malloc_word(&s[i], c);
+			if (i == start)
+				tab[j++] = ft_strdup("./");
+			else
+				tab[j++] = malloc_word(&s[start], c);
 			if (!tab[j - 1])
 				return (free_tab(tab, j), NULL);
-			while (s[i] && s[i] != c)
-				i++;
+			if (s[i] == '\0')
+				break ;
+			start = i + 1;
 		}
-		else
-			i++;
+		i++;
 	}
-	return (tab[j] = NULL, tab);
+	tab[j] = NULL;
+	return (tab);
 }
