@@ -6,15 +6,15 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:19 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 15:21:29 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 17:07:26 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int is_echo_n_option(char *arg)
+static int	is_echo_n_option(char *arg)
 {
-	int i;
+	int	i;
 
 	if (!arg || arg[0] != '-')
 		return (0);
@@ -30,10 +30,10 @@ static int is_echo_n_option(char *arg)
 	return (1);
 }
 
-int ft_echo(t_minishell_p shell, char **args)
+int	ft_echo(t_minishell_p shell, char **args)
 {
-	int i;
-	int newline;
+	int	i;
+	int	newline;
 
 	(void)shell;
 	newline = 1;

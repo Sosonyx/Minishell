@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messager.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:04:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/24 17:39:03 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/01 17:07:58 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static void	print_annouce(int fd, char *announce, char *separator)
 	write(fd, separator, ft_strlen(separator));
 }
 
-static void self_announce(t_minishell_p shell, int fd)
+static void	self_announce(t_minishell_p shell, int fd)
 {
 	print_annouce(fd, shell->name, COLUMN);
 }
 
-void speak(t_minishell_p shell, int fd, char *announce, char *separator)
+void	speak(t_minishell_p shell, int fd, char *announce, char *separator)
 {
 	if (shell)
 		self_announce(shell, fd);

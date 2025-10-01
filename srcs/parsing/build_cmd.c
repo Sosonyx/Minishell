@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:06:53 by fox               #+#    #+#             */
-/*   Updated: 2025/09/30 10:47:24 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 17:15:30 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static int	count_tok_word(t_tok_container_p tok_container, int i, int end)
 	t_token_p	tok;
 
 	words = 0;
-	tok = tok_container->tokens[i];	
+	tok = tok_container->tokens[i];
 	while (i <= end)
 	{
 		tok = tok_container->tokens[i];			
 		if (tok_container->tokens[i] && tok->type == T_WORD)
 			words++;
-		i++;			
+		i++;
 	}
 	return (words);
 }
@@ -55,10 +55,10 @@ int	build_cmd(t_minishell_p shell, t_ast_p ast, t_build_var vars)
 			if (tok && tok->type == T_WORD)
 				_build_cmd(shell, ast, &tok, &vars);
 			if (ABORT)
-				return (RETURN_FAIL);				
+				return (RETURN_FAIL);
 			++vars.start;
 		}
-		return (RETURN_OK);		
+		return (RETURN_OK);
 	}
 	else
 		return (set_abort(shell, MEM_ERRMSG), RETURN_FAIL);

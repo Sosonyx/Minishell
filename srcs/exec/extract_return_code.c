@@ -14,7 +14,7 @@
 
 int	extract_return_code(int status)
 {
-	int return_status;
+	int	return_status;
 
 	if (WIFEXITED(status))
 	{

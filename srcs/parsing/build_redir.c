@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:05:23 by fox               #+#    #+#             */
-/*   Updated: 2025/09/30 17:32:26 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 17:15:40 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	set_redir_type(t_redir_p redir, t_token_p token)
 	else if (token->type == T_APPEND)
 		redir->type = R_APPEND;
 	else
-		redir->type = R_HDOC;	
+		redir->type = R_HDOC;
 }
 
 static void	_build_redir(t_minishell_p shell, t_redir_p redir, t_token_p token, t_build_var *vars)
@@ -56,7 +56,7 @@ static void	_build_redir(t_minishell_p shell, t_redir_p redir, t_token_p token, 
 	set_redir_type(redir, token);
 	config_redir(shell, redir, *vars);
 	discard_token(shell, vars->start++);
-	discard_token(shell, vars->start++);	
+	discard_token(shell, vars->start++);
 }
 
 int	build_redir(t_minishell_p shell, t_ast_p ast, t_build_var vars)

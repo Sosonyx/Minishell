@@ -15,7 +15,7 @@
 static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
 	char		*hd;
-	
+
 	pipe(leaf->hd_fd);
 	while (1)
 	{
@@ -35,7 +35,7 @@ static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 			free(hd);
 		}
 		else
-			break;
+			break ;
 	}
 	close_secure(&leaf->hd_fd[1]);
 }

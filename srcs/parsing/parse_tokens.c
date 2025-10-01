@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 12:18:15 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 17:19:39 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static void	_recbuild(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 
 void	build_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 {
-		vars.end = set_global_end(vars, shell->tokens);
-		_recbuild(shell, ast, vars);
+	vars.end = set_global_end(vars, shell->tokens);
+	_recbuild(shell, ast, vars);
 }
 
 static void	_init_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
@@ -65,6 +65,6 @@ static void	_init_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 
 int	parse_tokens(t_minishell_p shell, t_ast_p *ast)
 {
-	_init_ast(shell, ast, (t_build_var) {0});
+	_init_ast(shell, ast, (t_build_var){0});
 	return (shell->abort == false);
 }

@@ -6,13 +6,13 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:45:36 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 15:45:37 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 17:15:04 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int update_state(int state, char c, t_expanded *exp)
+static int	update_state(int state, char c, t_expanded *exp)
 {
 	if (c == '\'' && state == 0)
 	{
@@ -31,10 +31,10 @@ static int update_state(int state, char c, t_expanded *exp)
 	return (state);
 }
 
-static char *expand_exit_status(t_minishell *shell, char *result)
+static char	*expand_exit_status(t_minishell *shell, char *result)
 {
-	char *status;
-	char *tmp;
+	char	*status;
+	char	*tmp;
 
 	status = ft_itoa(extract_return_code(g_status));
 	if (!status)
@@ -45,12 +45,12 @@ static char *expand_exit_status(t_minishell *shell, char *result)
 	return (tmp);
 }
 
-static char *expand_variable(t_minishell *shell, char *str, int *i, char *result)
+static char	*expand_variable(t_minishell *shell, char *str, int *i, char *result)
 {
-	int j;
-	char *var_name;
-	char *var_value;
-	char *tmp;
+	int		j;
+	char	*var_name;
+	char	*var_value;
+	char	*tmp;
 
 	j = *i + 1;
 	while ((ft_isalnum(str[j]) || str[j] == '_') && str[j] != '"' && str[j] != '\'')
@@ -71,11 +71,11 @@ static char *expand_variable(t_minishell *shell, char *str, int *i, char *result
 	return (tmp);
 }
 
-static char *append_char(char *str, char c)
+static char	*append_char(char *str, char c)
 {
-	size_t len;
-	char *res;
-	size_t i;
+	size_t	len;
+	char	*res;
+	size_t	i;
 
 	if (!str)
 		return (NULL);
@@ -95,12 +95,12 @@ static char *append_char(char *str, char c)
 	return (res);
 }
 
-t_expanded expand_old_cmd(t_minishell *shell, char *str)
+t_expanded	expand_old_cmd(t_minishell *shell, char *str)
 {
-	int i;
-	int state;
-	int new_state;
-	t_expanded result;
+	int			i;
+	int			state;
+	int			new_state;
+	t_expanded	result;
 
 	result.value = ft_strdup("");
 	result.split_allowed = 1;

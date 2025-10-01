@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:57:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 15:50:14 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 16:30:43 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,6 @@ char	**dup_env(char **envp)
 		dup_small_env(envp, small_env);
 		return (small_env);
 	}
-	return (ft_split_clone(envp));
-}
-
-char	**dup_env(char **envp)
-{
 	return (ft_split_clone(envp));
 }
 

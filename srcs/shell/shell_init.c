@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:51:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 15:36:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:52:36 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,78 @@ static void	_minishell_help(int ac, char **av)
 {
 	if (ac == 2 && !ft_strcmp(av[1], "--help"))
 		minishell_help();
+}
+
+static void	set_env_value(char ***envp, char *name, char *value)
+{
+	int		i;
+	size_t	name_len;
+	char	*new_var;
+	char	**new_env;
+
+	name_len = ft_strlen(name);
+	i = 0;
+	while ((*envp)[i])
+	{
+		if (!ft_strncmp((*envp)[i], name, name_len)
+			&& (*envp)[i][name_len] == '=')
+		{
+			new_var = ft_strjoin(name, "=");
+			if (!new_var)
+				return ;
+			free((*envp)[i]);
+			(*envp)[i] = ft_strjoin(new_var, value);
+			free(new_var);
+			return ;
+		}
+		i++;
+	}
+	new_env = malloc(sizeof(char *) * (i + 2));
+	if (!new_env)
+		return ;
+	i = 0;
+	while ((*envp)[i])
+	{
+		new_env[i] = (*envp)[i];
+		i++;
+	}
+	new_var = ft_strjoin(name, "=");
+	if (!new_var)
+	{
+		free(new_env);
+		return ;
+	}
+	new_env[i] = ft_strjoin(new_var, value);
+	free(new_var);
+	new_env[i + 1] = NULL;
+	free(*envp);
+	*envp = new_env;
+}
+
+static void	set_shell_lvl(t_minishell_p shell)
+{
+	char	*lvl_str;
+	int		lvl;
+
+	lvl_str = get_env_value(shell, "SHLVL");
+	if (lvl_str)
+	{
+		lvl = ft_atoi(lvl_str);
+		free(lvl_str);
+	}
+	else
+		lvl = 1;
+	lvl_str = ft_itoa(lvl);
+	if (!lvl_str)
+	{
+		print_generic_error(NULL, MEM_ERRMSG);
+		g_status = EXIT_FAILURE;
+	}
+	else
+	{
+		set_env_value(&shell->environ, "SHLVL", lvl_str);
+		free(lvl_str);
+	}
 }
 
 t_minishell_p	_shell_init(int ac, char **av, char **envp)
@@ -33,6 +105,12 @@ t_minishell_p	_shell_init(int ac, char **av, char **envp)
 		new_shell->ac = ac;
 		new_shell->av = av;
 		new_shell->environ = dup_env(envp);
+		if (!new_shell->environ)
+		{
+			print_generic_error(NULL, MEM_ERRMSG);
+			(free(new_shell), exit(EXIT_FAILURE));
+		}
+		set_shell_lvl(new_shell);
 		if (ft_strncmp(*av, "./", 2) == 0)
 			new_shell->name = *av + 2;
 		else

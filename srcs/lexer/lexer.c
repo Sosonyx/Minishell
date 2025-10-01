@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 15:33:36 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 17:11:16 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ static int	fill_tokens(t_token **tokens, char *line)
 	return (tokens[j] = NULL, j);
 }
 
-int stock_tokens(t_tok_container *t, char *line)
+int	stock_tokens(t_tok_container *t, char *line)
 {
-	int words;
+	int	words;
 
 	words = count_tokens(line);
 	t->tokens = ft_calloc(words + 1, sizeof(t_token *));

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:27:15 by fox               #+#    #+#             */
-/*   Updated: 2025/10/01 15:36:26 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 17:20:03 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*catpath(char *pathopen, char *added)
 {
 	char	*new_path;
 	char	*temp;
-	
 /* 	if (*pathopen == '/')
 		new_path = ft_strdup(pathopen);
 	else */

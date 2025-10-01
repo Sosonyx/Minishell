@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forward_fds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 14:49:17 by fox               #+#    #+#             */
-/*   Updated: 2025/09/26 19:03:45 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/01 17:08:25 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	forward_fds(t_ast_p ast)
 {
 	t_ast_p	branch;
-	
+
 	branch = ast->cntl_op->left;
 	if (branch)
 	{
@@ -29,4 +29,3 @@ void	forward_fds(t_ast_p ast)
 		branch->write_fd = ast->write_fd;
 	}
 }
-

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/01 15:38:14 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 17:25:07 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	aggregate_matches(t_wildcard_p wc, char *command)
 		++wc->totalmatches;
 	}
 	free(wc->matches);
-	wc->matches = matches;	
+	wc->matches = matches;
 }
 
 void	_wildcard_expand(t_minishell_p shell, t_wildcard_p wc, char *command)
 {
 	if (iswildcard(command))
 	{
-		wcconfig(wc, command);	
+		wcconfig(wc, command);
 		if (wc->spath)
 		{
 			if (iswildcard(*wc->spath))
@@ -74,7 +74,7 @@ void	_wildcard_expand(t_minishell_p shell, t_wildcard_p wc, char *command)
 				if (wc->isstartdir)
 				{
 					recdir(wc, "/", 0);
-					wc->isstartdir = false;					
+					wc->isstartdir = false;
 				}
 				else
 				{

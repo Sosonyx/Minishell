@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_subshell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 20:06:25 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/01 17:06:50 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 
 int	parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 {
-	if (shell->tokens->tokens[vars.start] 
+	if (shell->tokens->tokens[vars.start]
 		&& (shell->tokens->tokens[vars.start])->type == T_LPARENT)
 	{
 		get_subshell_limit(shell, vars.start, &vars.end);

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/17 13:17:56 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 17:13:20 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	syntax_err(const char *near)
 	ft_putstr_fd("'\n", 2);
 }
 
-static int parenth_checker(t_token **toks, int i)
+static int	parenth_checker(t_token **toks, int i)
 {
 	int	lp;
 	int	rp;
@@ -45,7 +45,6 @@ static int parenth_checker(t_token **toks, int i)
 		while (i-- && !is_parenth(toks[i]->type))
 			;
 		return (syntax_err(toks[i]->val), -1);
-
 	}
 	return (1);
 }
@@ -77,11 +76,11 @@ int	check_syntax(t_token **toks)
 	{
 		cur = toks[i]->type;
 		if ((is_pipe(cur) || cur == T_AND || cur == T_OR) &&
-            toks[i + 1] && (is_pipe(toks[i + 1]->type) || toks[i + 1]->type == T_AND || toks[i + 1]->type == T_OR))
-        {
-            syntax_err(toks[i + 1]->val);
-            return (0);
-        }
+			toks[i + 1] && (is_pipe(toks[i + 1]->type) || toks[i + 1]->type == T_AND || toks[i + 1]->type == T_OR))
+		{
+			syntax_err(toks[i + 1]->val);
+			return (0);
+		}
 		if (is_pipe(cur))
 		{
 			if (!toks[i + 1])

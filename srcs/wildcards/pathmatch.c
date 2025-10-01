@@ -6,15 +6,15 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:34:09 by fox               #+#    #+#             */
-/*   Updated: 2025/10/01 15:37:05 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/01 17:23:32 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
-static char *next_sample(char **path)
+static char	*next_sample(char **path)
 {
-	char *ptr;
+	char	*ptr;
 
 	while (*path && isasterisk(**path))
 		(*path)++;
