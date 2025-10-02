@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 12:55:45 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 10:30:01 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@
 # include "libft.h"
 
 # define PROMPT_MESSAGE "\001\033[48;5;77m\002minishell>\001\033[0m\002 "
+# define HEREDOC_SIGN	">"
 
 # define LOAD_FAIL_MSG "Minishell failed at loading!\n"
+
+
 
 # define OPEN_PERM 0644
 
