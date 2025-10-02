@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/06 15:05:34 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/02 16:25:19 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,16 @@ void	signals_setter(void)
 {
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	signals_ign(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	signals_dfl(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }
