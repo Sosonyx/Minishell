@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 12:54:29 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 18:17:22 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,20 @@ void	execute_ast(t_minishell_p shell, t_ast_p *ast)
 	if (!*ast)
 	{
 		print_generic_error(shell, AST_ERRMSG);
-		g_status = EXIT_FAILURE;
+		shell->exit_code = EXIT_FAILURE;
 	}
 	if (NO_ABORT && (*ast)->leaf)
 	{
 		execute_leaf(shell, *ast);
-		waitpid((*ast)->leaf->pid, &g_status, 0);
+		if ((*ast)->leaf->pid)
+		{
+			waitpid((*ast)->leaf->pid, &shell->exit_code, 0);
+			if (shell->exit_code == SIGINT)
+				printf("\n");
+			else if (shell->exit_code == SIGQUIT + 128)
+				printf("Quit (core dumped)\n");
+		}
+		signals_setter();
 	}
 	else if (NO_ABORT)
 	{

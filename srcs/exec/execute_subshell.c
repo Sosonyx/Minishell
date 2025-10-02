@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:39 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 15:29:29 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 16:31:18 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ void	execute_subshell(t_minishell_p shell, t_ast_p ast)
 	if (pid == 0)
 	{
 		_execute_ast(shell, ast->cntl_op->left);
-		wait_if_leaf(ast->cntl_op->left->leaf, &g_status);
-		exit(g_status);
+		wait_if_leaf(ast->cntl_op->left->leaf, &shell->exit_code);
+		exit(shell->exit_code);
 	}
 	else if (pid > 0)
 	{
 		close_fds(ast, PARENT);
-		waitpid(pid, &g_status, 0);
+		waitpid(pid, &shell->exit_code, 0);
 	}
 	else
 	{
 		set_abort(shell, FORK_ERRMSG);
-		g_status = EXIT_FAILURE;
+		shell->exit_code = EXIT_FAILURE;
 	}
 }

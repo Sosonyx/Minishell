@@ -6,13 +6,13 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 15:38:38 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:02:00 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_status = 0;
+int	g_sigstatus = 0;
 
 static void	prompt_input(t_minishell_p shell)
 {
@@ -34,8 +34,8 @@ static void	mainloop(t_minishell_p shell, t_ast_p *ast)
 		if (shell->input)
 		{
 			if (!*(shell->input))
-				g_status = EXIT_SUCCESS;
-			else if (tokenize_input(shell, &g_status))
+				g_sigstatus = EXIT_SUCCESS;
+			else if (tokenize_input(shell, &shell->exit_code))
 			{
 				if (parse_tokens(shell, ast))
 				{
@@ -44,7 +44,7 @@ static void	mainloop(t_minishell_p shell, t_ast_p *ast)
 			}
 			else
 			{
-				g_status = ERRVAL2;
+				shell->exit_code = ERRVAL2;
 			}
 		}
 		else
@@ -64,5 +64,5 @@ int	main(int ac, char **av, char **env)
 	mainloop(shell, &ast);
 	shell_destroy(shell);
 	rl_clear_history();
-	return (extract_return_code(g_status));
+	return (extract_return_code(shell->exit_code));
 }

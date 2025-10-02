@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/30 12:52:40 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/02 16:32:58 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			stock_word(t_token **arr, int j, char *line, int *i);
 int			stock_quoted(t_token **arr, int j, char *line, int *i);
 int			stock_special(t_token **arr, int j, char *line, int *i);
 int			stock_tokens(t_tok_container *a, char *line);
- int		tokenize_input(t_minishell_p shell, int *g_status);
+ int		tokenize_input(t_minishell_p shell, int *g_sigstatus);
 // void		destroy_tok_container(t_tok_container_p tok_container);
 
 /********************************************************************************/

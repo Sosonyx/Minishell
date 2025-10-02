@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:45:36 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 17:15:04 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 16:31:18 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*expand_exit_status(t_minishell *shell, char *result)
 	char	*status;
 	char	*tmp;
 
-	status = ft_itoa(extract_return_code(g_status));
+	status = ft_itoa(extract_return_code(shell->exit_code));
 	if (!status)
 		return (NULL);
 	tmp = ft_strjoin(result, status);

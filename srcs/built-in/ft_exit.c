@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:06 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 17:07:33 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 16:31:18 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_exit(t_minishell_p shell, char **args)
 	if (!args[1])
 	{
 		print_generic_error(NULL, "exit");
-		exit(g_status);
+		exit(shell->exit_code);
 	}
 	else if (args[1] && is_valid_number(args[1]))
 	{

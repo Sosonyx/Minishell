@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 15:29:25 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 16:31:18 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	execute_pipe(t_minishell_p shell, t_ast_p ast)
 		}
 		wait_if_leaf(ast->cntl_op->left->leaf, NULL);
 		if (ast->cntl_op->right->type == OP_PIPE)
-			wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &g_status);
+			wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &shell->exit_code);
 		else
-			wait_if_leaf(ast->cntl_op->right->leaf, &g_status);
+			wait_if_leaf(ast->cntl_op->right->leaf, &shell->exit_code);
 		free(ast->cur_pipe);
 	}
 	else
-		g_status = EXIT_FAILURE;
+		shell->exit_code = EXIT_FAILURE;
 }

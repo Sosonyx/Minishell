@@ -16,15 +16,15 @@ int	extract_return_code(int status)
 {
 	int	return_status;
 
+	if (status == -1)
+		return (return_status = 1);
 	if (WIFEXITED(status))
 	{
 		return_status = WEXITSTATUS(status);
 	}
 	else if (WIFSIGNALED(status))
 	{
-		return_status = WCOREDUMP(status);
-		if (!return_status)
-			return_status = WTERMSIG(status);
+		return_status = 128 + WTERMSIG(status);
 	}
 	else if (WIFSTOPPED(status))
 	{

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:37:01 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 15:35:24 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 16:34:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ void	set_abort(t_minishell_p shell, char *errmsg);
 
 void	sigint_handler(int sig);
 void	signals_setter(void);
+void	signals_ign(void);
+void	signals_dfl(void);
 
 #endif

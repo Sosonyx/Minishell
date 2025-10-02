@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 12:55:13 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 16:32:23 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ struct s_build_var
 
 typedef struct s_expanded
 {
-    char    *value;
-    bool     split_allowed;
-}   t_expanded;
+	char	*value;
+	bool	split_allowed;
+}	t_expanded;
 
 
 struct s_redir
@@ -125,10 +125,10 @@ struct s_leaf
 	char				*full_path;
 	char				*exec_path;
 	t_redir_p			redir;
-	
+
 	int					fds[2];
 	int					hd_fd[2];
-	
+
 	bool				r_in;
 	char				*r_in_path;
 	bool				r_out;
@@ -154,7 +154,7 @@ struct	s_ast
 	t_cntl_op_p			cntl_op;
 
 	int					*cur_pipe;
-	
+
 	int					*read_fd;
 	int					*write_fd;
 	int					*closed_fd;
@@ -170,7 +170,8 @@ struct s_minishell
 	char				*input;
 	int					std_fds[3];
 	bool				abort;
-	
+	int					exit_code;
+
 	t_tok_container_p	tokens;
 };
 

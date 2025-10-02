@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 15:29:14 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:17:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ static void	_execve(t_minishell_p shell, t_ast_p ast)
 
 static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 {
-	redirect_leaf(shell, ast);
-	close_fds(ast, CHILD);
-	if (ast->leaf->abort == true)
+	if (redirect_leaf(shell, ast) == -1 || ast->leaf->abort == true)
 		exit(EXIT_FAILURE);
+	close_fds(ast, CHILD);
 	if (!*ast->leaf->cmds)
 		exit(EXIT_SUCCESS);
 	_execve(shell, ast);
@@ -66,9 +65,15 @@ static void	execute_command(t_minishell_p shell, t_ast_p ast)
 	if (ast->leaf->pid == -1)
 		set_abort(shell, FORK_ERRMSG);
 	else if (ast->leaf->pid == 0)
+	{
+		signals_dfl();
 		_execute_command(shell, ast);
+	}
 	else
+	{
+		signals_ign();
 		close_fds(ast, PARENT);
+	}
 }
 
 void	execute_leaf(t_minishell_p shell, t_ast_p ast)
@@ -78,7 +83,7 @@ void	execute_leaf(t_minishell_p shell, t_ast_p ast)
 	ast->leaf->full_path = find_cmd(shell, ast);
 	if (NO_ABORT && is_builtin(ast->leaf))
 	{
-		execute_builtin(shell, ast);	
+		execute_builtin(shell, ast);
 	}
 	else if (NO_ABORT)
 	{

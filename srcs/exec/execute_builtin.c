@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 15:29:06 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:56:43 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,19 @@ static int	execute_command(t_minishell_p shell, t_ast_p ast)
 void	execute_nofork(t_minishell_p shell, t_ast_p ast)
 {
 	save_std_fileno(shell);
-	redirect_leaf(shell, ast);
+	if (redirect_leaf(shell, ast) == -1)
+	{
+		shell->exit_code = -1;
+		restore_std_fileno(shell, ast);
+		return ;
+	}
 	if (ast->leaf->abort == false)
 	{
-		g_status = execute_command(shell, ast);
+		shell->exit_code = execute_command(shell, ast);
 	}
 	else
 	{
-		g_status = EXIT_FAILURE;
+		shell->exit_code = EXIT_FAILURE;
 	}
 	restore_std_fileno(shell, ast);
 }
@@ -80,7 +85,7 @@ void	execute_wfork(t_minishell_p shell, t_ast_p ast)
 	if (ast->leaf->pid == 0)
 	{
 		execute_nofork(shell, ast);
-		exit(g_status);
+		exit(shell->exit_code == -1);
 	}
 	else if (ast->leaf->pid < 0)
 	{
