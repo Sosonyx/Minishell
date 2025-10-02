@@ -42,6 +42,7 @@ static ssize_t	_writeline(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir, c
 		{
 			wbytes = write(leaf->hd_fd[1], exp_hd, ft_strlen(exp_hd));
 			wbytes += write(leaf->hd_fd[1], "\n", 1);
+			free(exp_hd);
 		}
 		if (hd)
 			free(hd);
