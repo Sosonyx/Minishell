@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 17:42:00 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 17:52:07 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	is_valid_start(t_token **toks)
 
 static int	_control_op(t_toktype cur, t_token **toks, int i)
 {
-	if (is_control_op(cur) && toks[i + 1] && is_control_op(toks[i + 1]->type))
+	if (is_control_op(cur) && toks[i + 1] && (is_control_op(toks[i + 1]->type) || is_parenth(toks[i + 1]->type) == 2))
 	{
 		syntax_err(toks[i + 1]->val);
 		return (0);
@@ -107,6 +107,18 @@ static int	_lparenth(t_toktype cur, t_token **toks, int i)
 	}
 	return (1);
 }
+static int	_is_word(t_toktype cur, t_token **toks, int i)
+{
+	if (is_word(cur))
+	{
+		if (toks[i + 1] && is_parenth(toks[i + 1]->type) == 1)
+		{
+			syntax_err(toks[i + 1]->val);
+			return (0);
+		}
+	}
+	return (1);
+}
 
 int	check_syntax(t_token **toks)
 {
@@ -124,6 +136,8 @@ int	check_syntax(t_token **toks)
 		if (! _redir(cur, toks, i))
 			return (0);
 		if (!_lparenth(cur, toks, i))
+			return (0);
+		if (!_is_word(cur, toks, i))
 			return (0);
 	}
 	return (1);
