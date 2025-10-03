@@ -52,15 +52,32 @@ static ssize_t	_writeline(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir, c
 
 static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
+	pid_t	pid;
+
 	if (pipe(leaf->hd_fd) == -1)
 	{
 		return (set_abort(shell, MEM_ERRMSG));
 	}
-	while (NO_ABORT)
+	pid = fork();
+	if (pid == 0)
 	{
-		if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
-			break;
+		close_secure(&leaf->hd_fd[0]);		
+		while (NO_ABORT)
+		{
+			if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
+					break;
+		}
+		close_secure(&leaf->hd_fd[1]);
+		exit(shell->abort);
 	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &g_status, 0);
+		if (g_status)
+			set_abort(shell, PIP_ERRMSG);
+	}
+	else
+		set_abort(shell, FORK_ERRMSG);
 	close_secure(&leaf->hd_fd[1]);
 }
 
