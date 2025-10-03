@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/02 17:02:00 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 13:03:15 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,12 @@ int	main(int ac, char **av, char **env)
 {
 	t_ast_p				ast = NULL;
 	t_minishell_p		shell;
+	int					return_status;
 
 	shell = shell_init(ac, av, environ);
 	mainloop(shell, &ast);
+	return_status = shell->exit_code;
 	shell_destroy(shell);
 	rl_clear_history();
-	return (extract_return_code(shell->exit_code));
+	return (extract_return_code(return_status));
 }

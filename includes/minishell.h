@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 12:12:20 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 12:52:42 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 
 # define OPEN_PERM 0644
 
-# define NO_ABORT	shell->abort == false
+# define NO_ABORT	(shell->abort == false && !g_sigstatus)
 # define ABORT		shell->abort == true
 
 extern int	g_sigstatus;

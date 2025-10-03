@@ -17,8 +17,8 @@ int	extract_return_code(int status)
 	int	return_status;
 
 	if (status == -1)
-		return (return_status = 1);
-	if (WIFEXITED(status))
+		return_status = 1;
+	else if (WIFEXITED(status))
 		return_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		return_status = 128 + WTERMSIG(status);

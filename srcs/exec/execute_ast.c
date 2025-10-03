@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 12:05:10 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 12:55:20 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	handle_signal_error(t_minishell_p shell)
 
 void	execute_ast(t_minishell_p shell, t_ast_p *ast)
 {
+	signals_setter_exec();
 	if (!*ast)
 	{
 		print_generic_error(shell, AST_ERRMSG);
@@ -48,15 +49,13 @@ void	execute_ast(t_minishell_p shell, t_ast_p *ast)
 	{
 		execute_leaf(shell, *ast);
 		if ((*ast)->leaf->pid)
-		{
 			waitpid((*ast)->leaf->pid, &shell->exit_code, 0);
-			handle_signal_error(shell);
-		}
-		signals_setter();
 	}
 	else if (NO_ABORT)
 	{
 		_execute_ast(shell, *ast);
 	}
+	handle_signal_error(shell);
 	destroy_ast(ast);
+	signals_setter();
 }
