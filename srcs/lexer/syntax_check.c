@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 17:16:29 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 17:17:48 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,15 @@ int	check_syntax(t_token **toks)
 {
 	int			i;
 	t_toktype	cur;
-	t_toktype	cur_next;
 
 	i = -1;
 	if (!is_valid_start(toks))
 		return (0);
 	while (toks[++i])
 	{
-
 		cur = toks[i]->type;
-		cur_next = toks[i + 1]->type;
-		if (is_control_op(cur) && toks[i + 1] && is_control_op(cur_next))
+		if ((is_pipe(cur) || cur == T_AND || cur == T_OR) &&
+			toks[i + 1] && (is_pipe(toks[i + 1]->type) || toks[i + 1]->type == T_AND || toks[i + 1]->type == T_OR))
 		{
 			syntax_err(toks[i + 1]->val);
 			return (0);
