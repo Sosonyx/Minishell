@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:05:23 by fox               #+#    #+#             */
-/*   Updated: 2025/10/01 17:15:40 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 13:26:46 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	set_redir_ptrs(t_ast_p ast, t_redir_p redir, t_redir_p *curr)
 	else
 		(*curr)->next = redir;
 	*curr = redir;
-	ast->leaf->r_in = redir->type & R_IN;
+	ast->leaf->r_in = redir->type & (R_IN | R_HDOC);
 	ast->leaf->r_out = redir->type & (R_OUT | R_APPEND);
 }
 

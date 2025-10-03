@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 12:52:42 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 13:24:32 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@
 # include "libft.h"
 
 # define PROMPT_MESSAGE "\001\033[48;5;77m\002minishell>\001\033[0m\002 "
+# define HEREDOC_SIGN	">"
 
 # define LOAD_FAIL_MSG "Minishell failed at loading!\n"
+
+
 
 # define OPEN_PERM 0644
 

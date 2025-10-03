@@ -12,31 +12,72 @@
 
 #include "minishell.h"
 
+static char	*_expand_input_line(t_minishell_p shell, char *input_line)
+{
+	return (expand_old_cmd(shell, input_line).value);
+}
+
+static char	*_readline(t_minishell_p shell, t_redir_p redir)
+{
+	char	*line;
+
+	line = readline(HEREDOC_SIGN);
+	if (!line)
+		print_hd_error(shell, redir->limiter);
+	else
+		shell->readlines++;
+	return (line);
+}
+
+static ssize_t	_writeline(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir, char *hd)
+{
+	char	*exp_hd;
+	ssize_t	wbytes;
+
+	wbytes = 0;
+	if (hd && ft_strcmp(hd, redir->limiter))
+	{
+		exp_hd = _expand_input_line(shell, hd);
+		if (exp_hd)
+		{
+			wbytes = write(leaf->hd_fd[1], exp_hd, ft_strlen(exp_hd));
+			wbytes += write(leaf->hd_fd[1], "\n", 1);
+			free(exp_hd);
+		}
+		if (hd)
+			free(hd);
+	}
+	return (wbytes);
+}
+
 static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
-	char		*hd;
+	pid_t	pid;
 
-	pipe(leaf->hd_fd);
-	while (1)
+	if (pipe(leaf->hd_fd) == -1)
 	{
-		hd = readline(">");
-		if (!hd)
-		{
-			print_hd_error(shell, redir->limiter);
-			break ;
-		}
-		if (*hd)
-			shell->readlines++;
-		// rebuild_limiter()
-		if (ft_strcmp(hd, redir->limiter))
-		{
-			write(leaf->hd_fd[1], hd, ft_strlen(hd));
-			write(leaf->hd_fd[1], "\n", 1);
-			free(hd);
-		}
-		else
-			break ;
+		return (set_abort(shell, MEM_ERRMSG));
 	}
+	pid = fork();
+	if (pid == 0)
+	{
+		close_secure(&leaf->hd_fd[0]);
+		while (NO_ABORT)
+		{
+			if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
+				break ;
+		}
+		close_secure(&leaf->hd_fd[1]);
+		exit(shell->abort);
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &shell->exit_code, 0);
+		if (shell->exit_code)
+			set_abort(shell, PIP_ERRMSG);
+	}
+	else
+		set_abort(shell, FORK_ERRMSG);
 	close_secure(&leaf->hd_fd[1]);
 }
 
@@ -45,7 +86,7 @@ void	input_heredoc(t_minishell_p shell, t_leaf_p leaf)
 	t_redir_p	redir;
 
 	redir = leaf->redir;
-	while (redir)
+	while (NO_ABORT && redir)
 	{
 		if (redir->type & (R_IN | R_HDOC))
 			close_secure(&leaf->hd_fd[0]);
