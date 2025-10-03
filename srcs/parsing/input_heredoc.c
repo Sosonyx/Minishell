@@ -14,7 +14,7 @@
 
 static char	*_expand_input_line(t_minishell_p shell, char *input_line)
 {
-	return (expand_old_cmd(shell, input_line).value);
+	return (expand_command(shell, input_line).value);
 }
 
 static char	*_readline(t_minishell_p shell, t_redir_p redir)
@@ -55,9 +55,7 @@ static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 	pid_t	pid;
 
 	if (pipe(leaf->hd_fd) == -1)
-	{
 		return (set_abort(shell, MEM_ERRMSG));
-	}
 	pid = fork();
 	if (pid == 0)
 	{

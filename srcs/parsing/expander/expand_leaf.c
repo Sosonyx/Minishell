@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:50:56 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 16:34:00 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 15:17:41 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	**ft_join_array(char **tab1, char **tab2)
 	return (res);
 }
 
-char	**_variable_expand(t_minishell *shell, char **cmds)
+char	**commands_expand(t_minishell *shell, char **cmds)
 {
 	char		**new_cmds;
 	char		**tmp;
@@ -73,7 +73,7 @@ char	**_variable_expand(t_minishell *shell, char **cmds)
 	i = 0;
 	while (cmds[i])
 	{
-		exp = expand_old_cmd(shell, cmds[i]);
+		exp = expand_command(shell, cmds[i]);
 		if (!exp.value)
 			return (ft_split_free(new_cmds), NULL);
 		if (exp.split_allowed == true)
@@ -132,7 +132,7 @@ t_redir_p _redirs_expand(t_minishell *shell, t_redir_p redirs)
 	curr = NULL;
 	while (redirs)
 	{
-		exp = expand_old_cmd(shell, redirs->target);
+		exp = expand_command(shell, redirs->target);
 		if (!exp.value)
 			return (free_redirs(head), NULL);
 		if (exp.split_allowed == true)
@@ -168,12 +168,12 @@ t_redir_p _redirs_expand(t_minishell *shell, t_redir_p redirs)
 	return (head);
 }
 
-void	variable_expand(t_minishell *shell, t_ast_p ast)
+void	pipeline_expand(t_minishell *shell, t_ast_p ast)
 {
 	char		**new_cmds;
 	t_redir_p	new_redirs;
 
-	new_cmds = _variable_expand(shell, ast->leaf->cmds);
+	new_cmds = commands_expand(shell, ast->leaf->cmds);
 	ft_split_free(ast->leaf->cmds);
 	ast->leaf->cmds = new_cmds;
 	new_redirs = _redirs_expand(shell, ast->leaf->redir);
