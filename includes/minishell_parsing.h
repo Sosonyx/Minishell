@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 16:15:44 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 17:37:37 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		    special_len(const char *line, int i);
 int		    is_pipe(t_toktype t);
 int		    is_redir(t_toktype t);
 int		    is_parenth(t_toktype t);
+int			is_word(t_toktype t);
 int		    is_control_op(t_toktype t);
 
 /********************************************************************************/
