@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:37:01 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/02 16:34:56 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 12:51:40 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,8 @@ void	sigint_handler(int sig);
 void	signals_setter(void);
 void	signals_ign(void);
 void	signals_dfl(void);
+void	sigint_handler_exec(int sig);
+void	signals_setter_exec(void);
+
 
 #endif

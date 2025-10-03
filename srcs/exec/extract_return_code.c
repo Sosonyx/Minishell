@@ -19,24 +19,14 @@ int	extract_return_code(int status)
 	if (status == -1)
 		return (return_status = 1);
 	if (WIFEXITED(status))
-	{
 		return_status = WEXITSTATUS(status);
-	}
 	else if (WIFSIGNALED(status))
-	{
 		return_status = 128 + WTERMSIG(status);
-	}
 	else if (WIFSTOPPED(status))
-	{
 		return_status = WSTOPSIG(status);
-	}
 	else if (WIFCONTINUED(status))
-	{
 		return_status = EXIT_FAILURE;
-	}
 	else
-	{
 		return_status = EXIT_SUCCESS;
-	}
 	return (return_status);
 }

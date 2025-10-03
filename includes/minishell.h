@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/02 16:32:58 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 12:12:20 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ void			shell_kill(t_minishell_p shell, t_ast_p ast, char *errmsg);
 
 void			shell_restart(t_minishell_p shell, t_ast_p ast);
 
-void     		minishell_help(void);
+void			minishell_help(void);
 
 #endif

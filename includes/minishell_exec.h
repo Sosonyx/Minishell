@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 15:40:56 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 12:20:12 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ void		restore_std_fileno(t_minishell_p shell, t_ast_p ast);
 int			redirect_leaf(t_minishell_p shell, t_ast_p ast);
 void		close_fds(t_ast_p ast, int mode);
 void		close_secure(int *fd);
+void		safe_dup2(int oldfd, int newfd);
 
 #endif

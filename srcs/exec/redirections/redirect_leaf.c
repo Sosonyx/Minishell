@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/02 17:39:41 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 12:21:33 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,30 +103,26 @@ static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
 	return (0);
 }
 
-// static void safe_dup2(int oldfd, int newfd)
-// {
-//     if (dup2(oldfd, newfd) == -1)
-//         exit(EXIT_FAILURE);
-// }
+void	safe_dup2(int oldfd, int newfd)
+{
+	if (dup2(oldfd, newfd) == -1)
+		exit(EXIT_FAILURE);
+}
 
 int	redirect_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	if (!ast->leaf->r_in && ast->read_fd && *ast->read_fd IS_VALID_FD)
-		if (dup2(*ast->read_fd, STDIN_FILENO) == -1)
-			exit(EXIT_FAILURE);
+		safe_dup2(*ast->read_fd, STDIN_FILENO);
 	if (!ast->leaf->r_out && ast->write_fd && *ast->write_fd IS_VALID_FD)
-		if (dup2(*ast->write_fd, STDOUT_FILENO) == -1)
-			exit(EXIT_FAILURE);
+		safe_dup2(*ast->write_fd, STDOUT_FILENO);
 	if (ast->leaf->r_in || ast->leaf->r_out)
 	{
 		if (set_redir(shell, ast->leaf) == -1)
 			return (-1);
 		if (ast->leaf->fds[0] IS_VALID_FD)
-			if (dup2(ast->leaf->fds[0], STDIN_FILENO) == -1)
-				exit(EXIT_FAILURE);
+			safe_dup2(ast->leaf->fds[0], STDIN_FILENO);
 		if (ast->leaf->fds[1] IS_VALID_FD)
-			if (dup2(ast->leaf->fds[1], STDOUT_FILENO) == -1)
-				exit(EXIT_FAILURE);
+			safe_dup2(ast->leaf->fds[1], STDOUT_FILENO);
 	}
 	return (0);
 }

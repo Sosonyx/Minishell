@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/02 18:02:10 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 12:51:01 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,32 @@
 
 void	sigint_handler(int sig)
 {
-	(void)sig;
+	sig = 0;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
 
+void	sigint_handler_exec(int sig)
+{
+	g_sigstatus = sig;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+
+}
+
 void	signals_setter(void)
 {
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	signals_setter_exec(void)
+{
+	signal(SIGINT, sigint_handler_exec);
 	signal(SIGQUIT, SIG_IGN);
 }
 
