@@ -21,6 +21,7 @@
                 "${workspaceFolder}/srcs/shell/*.c",
                 "${workspaceFolder}/srcs/wildcards/*.c",
                 "${workspaceFolder}/srcs/wildcards/utils/*.c",
+				"${workspaceFolder}/srcs/syscalls/*.c",
                 "${workspaceFolder}/libft/libft.a",
                 "-I",
                 "${workspaceFolder}/includes",

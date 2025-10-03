@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_and.c                                      :+:      :+:    :+:   */
+/*   dup.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 14:21:34 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 16:50:50 by cgajean          ###   ########.fr       */
+/*   Created: 2025/10/03 15:19:41 by cgajean           #+#    #+#             */
+/*   Updated: 2025/10/03 15:21:39 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_and(t_minishell_p shell, t_ast_p ast)
+int	_dup(t_minishell_p shell, int fd)
 {
-	forward_fds(ast);
-	_execute_ast(shell, ast->cntl_op->left);
-	wait_if_leaf(ast->cntl_op->left->leaf, &shell->exit_code);
-	if (is_no_abort(shell) && !shell->exit_code && ast->cntl_op->right)
-	{		
-		_execute_ast(shell, ast->cntl_op->right);
-		wait_if_leaf(ast->cntl_op->right->leaf, &shell->exit_code);
+	int	dup_fd;
+
+	dup_fd = dup(fd);
+	if (dup_fd == -1)
+	{
+		set_abort(shell, DUP_ERRMSG);
+		shell->exit_code = ERRVAL1;
 	}
+	return (dup_fd);
 }

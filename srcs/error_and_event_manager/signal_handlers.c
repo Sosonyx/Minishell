@@ -1,35 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_manager.c                                   :+:      :+:    :+:   */
+/*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/06 15:02:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 12:51:01 by ihadj            ###   ########.fr       */
+/*   Created: 2025/10/03 16:30:13 by cgajean           #+#    #+#             */
+/*   Updated: 2025/10/03 16:34:08 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	sigint_handler(int sig)
-{
-	sig = 0;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-void	sigint_handler_exec(int sig)
-{
-	g_sigstatus = sig;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-
-}
 
 void	signals_setter(void)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_leaf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 13:25:04 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 16:50:50 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int	open_files(t_minishell_p shell, t_leaf_p leaf, t_redir_p cur_redir)
 	int		open_flag;
 	int		*target_fd;
 	bool	*r_flag;
-	int		errnum;
 
 	if (cur_redir->type == R_IN)
 	{
@@ -49,10 +48,9 @@ static int	open_files(t_minishell_p shell, t_leaf_p leaf, t_redir_p cur_redir)
 	}
 	open_flag = get_open_flag(cur_redir->type);
 	*target_fd = open(cur_redir->target, open_flag, OPEN_PERM);
-	errnum = errno;
 	if (*target_fd == -1)
 	{
-		print_file_error(shell, cur_redir->target, errnum);
+		print_file_error(shell, cur_redir->target, errno);
 		leaf->abort = true;
 	}
 	else
@@ -103,26 +101,30 @@ static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
 	return (0);
 }
 
-void	safe_dup2(int oldfd, int newfd)
-{
-	if (dup2(oldfd, newfd) == -1)
-		exit(EXIT_FAILURE);
-}
-
 int	redirect_leaf(t_minishell_p shell, t_ast_p ast)
 {
-	if (!ast->leaf->r_in && ast->read_fd && *ast->read_fd IS_VALID_FD)
-		safe_dup2(*ast->read_fd, STDIN_FILENO);
-	if (!ast->leaf->r_out && ast->write_fd && *ast->write_fd IS_VALID_FD)
-		safe_dup2(*ast->write_fd, STDOUT_FILENO);
-	if (ast->leaf->r_in || ast->leaf->r_out)
+	int	retval;
+	
+	retval = 0;
+	if (is_no_abort(shell) && !ast->leaf->r_in && ast->read_fd && *ast->read_fd IS_VALID_FD)
 	{
-		if (set_redir(shell, ast->leaf) == -1)
-			return (-1);
-		if (ast->leaf->fds[0] IS_VALID_FD)
-			safe_dup2(ast->leaf->fds[0], STDIN_FILENO);
-		if (ast->leaf->fds[1] IS_VALID_FD)
-			safe_dup2(ast->leaf->fds[1], STDOUT_FILENO);
+		retval = _dup2(shell, *ast->read_fd, STDIN_FILENO);
 	}
-	return (0);
+	if (is_no_abort(shell) && !ast->leaf->r_out && ast->write_fd && *ast->write_fd IS_VALID_FD)
+	{
+		retval = _dup2(shell, *ast->write_fd, STDOUT_FILENO);	
+	}
+	if (is_no_abort(shell) && ast->leaf->r_in || ast->leaf->r_out)
+	{
+		retval = set_redir(shell, ast->leaf);
+		if (is_no_abort(shell) && ast->leaf->fds[0] IS_VALID_FD)
+		{
+			retval = _dup2(shell, ast->leaf->fds[0], STDIN_FILENO);
+		}
+		if (is_no_abort(shell) && ast->leaf->fds[1] IS_VALID_FD)
+		{
+			retval = _dup2(shell, ast->leaf->fds[1], STDOUT_FILENO);
+		}
+	}
+	return (retval);
 }

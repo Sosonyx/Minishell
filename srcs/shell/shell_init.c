@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:51:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/02 16:31:18 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 17:24:02 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	set_shell_lvl(t_minishell_p shell)
 	if (!lvl_str)
 	{
 		print_generic_error(NULL, MEM_ERRMSG);
-		shell->exit_code = EXIT_FAILURE;
+		shell->exit_code = ERRVAL1;
 	}
 	else
 	{

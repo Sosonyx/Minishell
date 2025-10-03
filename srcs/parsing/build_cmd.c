@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:06:53 by fox               #+#    #+#             */
-/*   Updated: 2025/10/01 17:15:30 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 17:03:21 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	build_cmd(t_minishell_p shell, t_ast_p ast, t_build_var vars)
 			tok = shell->tokens->tokens[vars.start];
 			if (tok && tok->type == T_WORD)
 				_build_cmd(shell, ast, &tok, &vars);
-			if (ABORT)
+			if (!is_no_abort(shell))
 				return (RETURN_FAIL);
 			++vars.start;
 		}

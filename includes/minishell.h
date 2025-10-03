@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 13:24:32 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 16:21:07 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define _GNU_SOURCE
-/* # define __USE_MISC */
+# ifndef _GNU_SOURCE
+#  define _GNU_SOURCE
+# endif
 
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -39,12 +40,7 @@
 
 # define LOAD_FAIL_MSG "Minishell failed at loading!\n"
 
-
-
 # define OPEN_PERM 0644
-
-# define NO_ABORT	(shell->abort == false && !g_sigstatus)
-# define ABORT		shell->abort == true
 
 extern int	g_sigstatus;
 
@@ -58,8 +54,15 @@ void			shell_destroy(t_minishell_p shell);
 
 void			shell_kill(t_minishell_p shell, t_ast_p ast, char *errmsg);
 
-void			shell_restart(t_minishell_p shell, t_ast_p ast);
-
 void			minishell_help(void);
+
+/********************************************************************************/
+/*			Custom syscalls														*/
+/********************************************************************************/
+
+int				_pipe(t_minishell_p shell, int *pipedes);
+int				_dup(t_minishell_p shell, int fd);
+int				_dup2(t_minishell_p shell, int fd, int fd2);
+pid_t			_fork(t_minishell_p shell);
 
 #endif

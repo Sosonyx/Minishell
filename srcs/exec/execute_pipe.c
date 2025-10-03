@@ -3,24 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/02 16:31:18 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 17:37:58 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	create_pipe(t_minishell_p shell, t_ast_p ast)
+static int	open_pipe(t_minishell_p shell, t_ast_p ast)
 {
 	ast->cur_pipe = ft_calloc(2, sizeof(int));
 	if (ast->cur_pipe)
 	{
-		if (pipe(ast->cur_pipe) == -1)
-			return (set_abort(shell, PIP_ERRMSG), RETURN_FAIL);
-		else
-			return (shell->abort == false);
+		return (_pipe(shell, ast->cur_pipe));
 	}
 	else
 		return (set_abort(shell, MEM_ERRMSG), RETURN_FAIL);
@@ -37,16 +34,16 @@ static void	connect_nodes(t_ast_p ast)
 }
 
 void	execute_pipe(t_minishell_p shell, t_ast_p ast)
-{	
-	if (create_pipe(shell, ast))
+{
+	if (open_pipe(shell, ast) == 0)
 	{
 		connect_nodes(ast);
 		_execute_ast(shell, ast->cntl_op->left);
 		close_secure(&ast->cur_pipe[1]);
-		if (NO_ABORT)
+		if (is_no_abort(shell))
 		{
 			_execute_ast(shell, ast->cntl_op->right);
-			close_secure(&ast->cur_pipe[0]);			
+			close_secure(&ast->cur_pipe[0]);
 		}
 		wait_if_leaf(ast->cntl_op->left->leaf, NULL);
 		if (ast->cntl_op->right->type == OP_PIPE)
@@ -56,5 +53,5 @@ void	execute_pipe(t_minishell_p shell, t_ast_p ast)
 		free(ast->cur_pipe);
 	}
 	else
-		shell->exit_code = EXIT_FAILURE;
+		shell->exit_code = ERRVAL1;
 }

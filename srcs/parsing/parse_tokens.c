@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 17:19:39 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 18:11:00 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	_seek_cntl_op(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 {
-	if (NO_ABORT && parse_cntl_and_or(shell, ast, vars))
+	if (is_no_abort(shell) && parse_cntl_and_or(shell, ast, vars))
 		return (RETURN_OK);
-	else if (NO_ABORT && parse_cntl_pipe(shell, ast, vars))
+	else if (is_no_abort(shell) && parse_cntl_pipe(shell, ast, vars))
 		return (RETURN_OK);
-	else if (NO_ABORT && parse_subshell(shell, ast, vars))
+	else if (is_no_abort(shell) && parse_subshell(shell, ast, vars))
 		return (RETURN_OK);
 	else
 		return (RETURN_FAIL);
@@ -45,7 +45,7 @@ static void	_recbuild(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 				set_abort(shell, MEM_ERRMSG);
 		}
 	}
-	else if (NO_ABORT)
+	else if (is_no_abort(shell))
 		create_leaf(shell, ast, vars);
 }
 
@@ -66,5 +66,6 @@ static void	_init_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 int	parse_tokens(t_minishell_p shell, t_ast_p *ast)
 {
 	_init_ast(shell, ast, (t_build_var){0});
+	shell->origin = *ast;
 	return (shell->abort == false);
 }

@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/01 12:19:02 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/03 16:50:50 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,10 @@ SRC         = \
 				$(SRC_DIR)/main.c															\
 				$(SRC_DIR)/error_and_event_manager/print_error.c							\
 				$(SRC_DIR)/error_and_event_manager/print_hd_error.c							\
-				$(SRC_DIR)/error_and_event_manager/signal_manager.c							\
+				$(SRC_DIR)/error_and_event_manager/signal_handlers.c						\
+				$(SRC_DIR)/error_and_event_manager/signal_setters.c							\
 				$(SRC_DIR)/error_and_event_manager/messager.c								\
+				$(SRC_DIR)/error_and_event_manager/is_no_abort.c								\
 				$(SRC_DIR)/error_and_event_manager/set_abort.c								\
 				$(SRC_DIR)/exec/execute_ast.c												\
 				$(SRC_DIR)/exec/execute_leaf.c												\
@@ -91,6 +93,10 @@ SRC         = \
 				$(SRC_DIR)/shell/shell_init.c												\
 				$(SRC_DIR)/shell/shell_destroy.c											\
 				$(SRC_DIR)/shell/shell_kill.c												\
+				$(SRC_DIR)/syscalls/dup.c													\
+				$(SRC_DIR)/syscalls/dup2.c													\
+				$(SRC_DIR)/syscalls/fork.c													\
+				$(SRC_DIR)/syscalls/pipe.c													\
 				$(SRC_DIR)/built-in/ft_exit.c												\
 				$(SRC_DIR)/built-in/ft_cd.c													\
 				$(SRC_DIR)/built-in/ft_echo.c												\
@@ -157,3 +163,4 @@ vq: all
 re: fc all
 
 .PHONY: all clean c fclean fc re vv vq
+

@@ -54,15 +54,15 @@ static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
 	pid_t	pid;
 
-	if (pipe(leaf->hd_fd) == -1)
+	if (_pipe(shell, leaf->hd_fd))
 	{
-		return (set_abort(shell, MEM_ERRMSG));
+		return ;
 	}
-	pid = fork();
+	pid = _fork(shell);
 	if (pid == 0)
 	{
 		close_secure(&leaf->hd_fd[0]);
-		while (NO_ABORT)
+		while (is_no_abort(shell))
 		{
 			if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
 				break ;
@@ -76,8 +76,6 @@ static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 		if (shell->exit_code)
 			set_abort(shell, PIP_ERRMSG);
 	}
-	else
-		set_abort(shell, FORK_ERRMSG);
 	close_secure(&leaf->hd_fd[1]);
 }
 
@@ -86,7 +84,7 @@ void	input_heredoc(t_minishell_p shell, t_leaf_p leaf)
 	t_redir_p	redir;
 
 	redir = leaf->redir;
-	while (NO_ABORT && redir)
+	while (is_no_abort(shell) && redir)
 	{
 		if (redir->type & (R_IN | R_HDOC))
 			close_secure(&leaf->hd_fd[0]);

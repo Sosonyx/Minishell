@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 13:03:15 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 17:42:41 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	prompt_input(t_minishell_p shell)
 
 static void	mainloop(t_minishell_p shell, t_ast_p *ast)
 {
-	while (1)
+	while (is_no_abort(shell))
 	{
 		prompt_input(shell);
 		if (shell->input)
