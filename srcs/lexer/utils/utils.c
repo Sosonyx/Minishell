@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:08:22 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 15:45:48 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 17:37:27 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	is_pipe(t_toktype t)
 	return (t == T_PIPE);
 }
 
+int	is_word(t_toktype t)
+{
+	return (t == T_WORD);
+}
+
 int	is_redir(t_toktype t)
 {
 	if (t == T_REDIR_IN || t == T_REDIR_OUT)
@@ -34,10 +39,14 @@ int	is_redir(t_toktype t)
 
 int	is_parenth(t_toktype t)
 {
-	return (t == T_LPARENT || t == T_RPARENT);
+	if (t == T_LPARENT)
+		return (1);
+	if (t == T_RPARENT)
+		return (2);
+	return (0);
 }
 
 int	is_control_op(t_toktype t)
 {
-	return ((is_redir(t) || is_pipe(t) || is_parenth(t)));
+	return (((t == T_AND) || is_pipe(t) || (t == T_OR)));
 }

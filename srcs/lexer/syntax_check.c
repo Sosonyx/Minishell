@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 17:13:20 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 17:52:07 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,62 @@ static int	is_valid_start(t_token **toks)
 	return (1);
 }
 
+static int	_control_op(t_toktype cur, t_token **toks, int i)
+{
+	if (is_control_op(cur) && toks[i + 1] && (is_control_op(toks[i + 1]->type) || is_parenth(toks[i + 1]->type) == 2))
+	{
+		syntax_err(toks[i + 1]->val);
+		return (0);
+	}
+	if (is_control_op(cur) && !toks[i + 1])
+	{
+		syntax_err(NULL);
+		return (0);
+	}
+	return (1);
+}
+
+static int	_redir(t_toktype cur, t_token **toks, int i)
+{
+	if (is_redir(cur))
+	{
+		if (!toks[i + 1] || toks[i + 1]->type != T_WORD)
+		{
+			if (toks[i + 1])
+				syntax_err(toks[i + 1]->val);
+			else
+				syntax_err(NULL);
+			return (0);
+		}
+	}
+	return (1);
+}
+
+static int	_lparenth(t_toktype cur, t_token **toks, int i)
+{
+	if (is_parenth(cur) == 1)
+	{
+		if (!toks[i + 1] || is_parenth(toks[i + 1]->type) == 2 || is_control_op(toks[i + 1]->type) || is_redir(toks[i + 1]->type))
+		{
+			syntax_err(toks[i + 1]->val);
+			return (0);
+		}
+	}
+	return (1);
+}
+static int	_is_word(t_toktype cur, t_token **toks, int i)
+{
+	if (is_word(cur))
+	{
+		if (toks[i + 1] && is_parenth(toks[i + 1]->type) == 1)
+		{
+			syntax_err(toks[i + 1]->val);
+			return (0);
+		}
+	}
+	return (1);
+}
+
 int	check_syntax(t_token **toks)
 {
 	int			i;
@@ -75,31 +131,14 @@ int	check_syntax(t_token **toks)
 	while (toks[++i])
 	{
 		cur = toks[i]->type;
-		if ((is_pipe(cur) || cur == T_AND || cur == T_OR) &&
-			toks[i + 1] && (is_pipe(toks[i + 1]->type) || toks[i + 1]->type == T_AND || toks[i + 1]->type == T_OR))
-		{
-			syntax_err(toks[i + 1]->val);
+		if (!_control_op(cur, toks, i))
 			return (0);
-		}
-		if (is_pipe(cur))
-		{
-			if (!toks[i + 1])
-			{
-				syntax_err(NULL);
-				return (0);
-			}
-		}
-		else if (is_redir(cur))
-		{
-			if (!toks[i + 1] || toks[i + 1]->type != T_WORD)
-			{
-				if (toks[i + 1])
-					syntax_err(toks[i + 1]->val);
-				else
-					syntax_err(NULL);
-				return (0);
-			}
-		}
+		if (! _redir(cur, toks, i))
+			return (0);
+		if (!_lparenth(cur, toks, i))
+			return (0);
+		if (!_is_word(cur, toks, i))
+			return (0);
 	}
 	return (1);
 }

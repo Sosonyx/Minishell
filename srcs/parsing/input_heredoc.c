@@ -14,7 +14,7 @@
 
 static char	*_expand_input_line(t_minishell_p shell, char *input_line)
 {
-	return (expand_old_cmd(shell, input_line).value);
+	return (expand_command(shell, input_line).value);
 }
 
 static char	*_readline(t_minishell_p shell, t_redir_p redir)

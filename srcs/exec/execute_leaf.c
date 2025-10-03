@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 16:50:50 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/03 18:17:24 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	execute_command(t_minishell_p shell, t_ast_p ast)
 
 void	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
-	variable_expand(shell, ast);
+	pipeline_expand(shell, ast);
 	wildcard_expand(shell, ast);
 	ast->leaf->full_path = find_cmd(shell, ast);
 	if (is_no_abort(shell) && is_builtin(ast->leaf))

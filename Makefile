@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/03 16:50:50 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/03 18:17:39 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC         = \
 				$(SRC_DIR)/error_and_event_manager/signal_handlers.c						\
 				$(SRC_DIR)/error_and_event_manager/signal_setters.c							\
 				$(SRC_DIR)/error_and_event_manager/messager.c								\
-				$(SRC_DIR)/error_and_event_manager/is_no_abort.c								\
+				$(SRC_DIR)/error_and_event_manager/is_no_abort.c							\
 				$(SRC_DIR)/error_and_event_manager/set_abort.c								\
 				$(SRC_DIR)/exec/execute_ast.c												\
 				$(SRC_DIR)/exec/execute_leaf.c												\
@@ -75,6 +75,7 @@ SRC         = \
 				$(SRC_DIR)/parsing/create_leaf.c											\
 				$(SRC_DIR)/parsing/input_heredoc.c											\
 				$(SRC_DIR)/parsing/expander/expand_leaf.c									\
+				$(SRC_DIR)/parsing/expander/expand_limiter.c								\
 				$(SRC_DIR)/parsing/expander/expand_old_cmd.c								\
 				$(SRC_DIR)/parsing/utils/set_ends.c											\
 				$(SRC_DIR)/wildcards/utils/isasterisk.c										\

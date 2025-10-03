@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:45:36 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/02 16:31:18 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 15:28:35 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	*expand_variable(t_minishell *shell, char *str, int *i, char *result
 	return (tmp);
 }
 
-static char	*append_char(char *str, char c)
+char	*append_char(char *str, char c)
 {
 	size_t	len;
 	char	*res;
@@ -95,7 +95,20 @@ static char	*append_char(char *str, char c)
 	return (res);
 }
 
-t_expanded	expand_old_cmd(t_minishell *shell, char *str)
+static void	exp_case(t_minishell_p shell, char *str, t_expanded *result, int *i)
+{
+	if (str[*i + 1] == '?')
+	{
+		(*result).value = expand_exit_status(shell, (*result).value);
+		(*i)++;
+	}
+	else if (ft_isalpha(str[*i + 1]) || str[*i + 1] == '_')
+		(*result).value = expand_variable(shell, str, i, (*result).value);
+	else
+		(*result).value = append_char((*result).value, str[*i]);
+}
+
+t_expanded	expand_command(t_minishell *shell, char *str)
 {
 	int			i;
 	int			state;
@@ -114,17 +127,7 @@ t_expanded	expand_old_cmd(t_minishell *shell, char *str)
 		if (new_state != state)
 			state = new_state;
 		else if (str[i] == '$' && state != 1)
-		{
-			if (str[i + 1] == '?')
-			{
-				result.value = expand_exit_status(shell, result.value);
-				i++;
-			}
-			else if (ft_isalpha(str[i + 1]) || str[i + 1] == '_')
-				result.value = expand_variable(shell, str, &i, result.value);
-			else
-				result.value = append_char(result.value, str[i]);
-		}
+			exp_case(shell, str, &result, &i);
 		else
 			result.value = append_char(result.value, str[i]);
 		if (!result.value)
