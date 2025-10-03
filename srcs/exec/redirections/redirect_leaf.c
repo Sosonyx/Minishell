@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_leaf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/30 14:57:52 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 11:02:41 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
 			}
 			else
 			{
-				if (cur_redir->type & R_IN)
+				if (cur_redir->type & (R_IN))
 				{
 					close_prev(prev_in);
 					prev_in = leaf->fds[0];
@@ -123,9 +123,11 @@ int	redirect_leaf(t_minishell_p shell, t_ast_p ast)
 
 		if (ast->leaf->fds[0] IS_VALID_FD)
 			dup2(ast->leaf->fds[0], STDIN_FILENO);
-
+		close_secure(&ast->leaf->fds[0]);
+			
 		if (ast->leaf->fds[1] IS_VALID_FD)
 			dup2(ast->leaf->fds[1], STDOUT_FILENO);
+		close_secure(&ast->leaf->fds[1]);
 	}
 	return (0);
 }
