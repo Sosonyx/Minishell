@@ -60,6 +60,5 @@ char	*expand_limiter(t_redir_p redirs, char *str)
 	new_limiter = remove_quotes(redirs, str);
 	if (!new_limiter)
 		return (NULL);
-	printf("Expanded limiter: %s\n", new_limiter);
 	return (new_limiter);
 }

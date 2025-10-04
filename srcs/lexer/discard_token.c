@@ -14,6 +14,10 @@
 
 void	discard_token(t_minishell_p shell, int token_index)
 {
-	free(shell->tokens->tokens[token_index]);
-	shell->tokens->tokens[token_index] = NULL;
+	if (shell->tokens->tokens[token_index])
+	{
+		free(shell->tokens->tokens[token_index]->val);
+		free(shell->tokens->tokens[token_index]);
+		shell->tokens->tokens[token_index] = NULL;
+	}
 }
