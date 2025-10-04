@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 15:14:53 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 18:17:24 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,13 @@ static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 
 static void	execute_command(t_minishell_p shell, t_ast_p ast)
 {
-	ast->leaf->pid = fork();
-	if (ast->leaf->pid == -1)
-		set_abort(shell, FORK_ERRMSG);
-	else if (ast->leaf->pid == 0)
+	ast->leaf->pid = _fork(shell);
+	if (ast->leaf->pid == 0)
 	{
 		signals_dfl();
 		_execute_command(shell, ast);
 	}
-	else
+	else if (ast->leaf->pid > 0)
 	{
 		signals_ign();
 		close_fds(ast, PARENT);
@@ -81,11 +79,11 @@ void	execute_leaf(t_minishell_p shell, t_ast_p ast)
 	pipeline_expand(shell, ast);
 	wildcard_expand(shell, ast);
 	ast->leaf->full_path = find_cmd(shell, ast);
-	if (NO_ABORT && is_builtin(ast->leaf))
+	if (is_no_abort(shell) && is_builtin(ast->leaf))
 	{
 		execute_builtin(shell, ast);
 	}
-	else if (NO_ABORT)
+	else if (is_no_abort(shell))
 	{
 		execute_command(shell, ast);
 	}

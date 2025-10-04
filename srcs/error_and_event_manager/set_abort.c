@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 16:30:50 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 16:39:33 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/03 15:55:03 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	set_abort(t_minishell_p shell, char *errmsg)
 {
-	print_generic_error(shell, errmsg);
+	if (errmsg)
+		print_generic_error(shell, errmsg);
 	shell->abort = true;
 }

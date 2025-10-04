@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_leaf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 17:17:35 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/03 16:50:50 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	_create_leaf(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 	if (new_leaf)
 	{
 		build_redir(shell, *ast, vars);
-		if (NO_ABORT)
+		if (is_no_abort(shell))
 			build_cmd(shell, *ast, vars);
-		if (NO_ABORT)
+		if (is_no_abort(shell))
 			input_heredoc(shell, new_leaf);
 	}
 	else
