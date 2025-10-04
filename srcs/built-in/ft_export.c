@@ -64,13 +64,13 @@ static void	copy_old_env(char **new_env, char **old_env, int size)
 
 static int	add_or_replace_vars(t_minishell_p shell, char **env, char **args, int start_index)
 {
-	int i;
-	int j;
-	int env_index;
+	int	i;
+	int	j;
+	int	env_index;
 
-	i = 0;
+	i = -1;
 	j = start_index;
-	while (args[i])
+	while (args[++i])
 	{
 		if (is_valid_var_name(args[i]))
 		{
@@ -88,11 +88,10 @@ static int	add_or_replace_vars(t_minishell_p shell, char **env, char **args, int
 		}
 		else
 		{
-			printf("minishell: export: `%s': not a valid identifier\n", args[i]);
+			printf("minishell: export: `%s': not a valid identifier\n", \
+				args[i]);
 			return (-1);
 		}
-			// print_cmd_error2(shell, "export", INVALID_ID_ERRMSG);
-		i++;
 	}
 	env[j] = NULL;
 	return (1);

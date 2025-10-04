@@ -37,7 +37,7 @@ static void	connect_nodes(t_ast_p ast)
 }
 
 void	execute_pipe(t_minishell_p shell, t_ast_p ast)
-{	
+{
 	if (create_pipe(shell, ast))
 	{
 		connect_nodes(ast);
@@ -50,7 +50,8 @@ void	execute_pipe(t_minishell_p shell, t_ast_p ast)
 		}
 		wait_if_leaf(ast->cntl_op->left->leaf, NULL);
 		if (ast->cntl_op->right->type == OP_PIPE)
-			wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &shell->exit_code);
+			wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, \
+				&shell->exit_code);
 		else
 			wait_if_leaf(ast->cntl_op->right->leaf, &shell->exit_code);
 		free(ast->cur_pipe);

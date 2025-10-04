@@ -55,7 +55,7 @@ char		*find_cmd(t_minishell_p shell, t_ast_p ast);
 bool		is_builtin(t_leaf_p leaf);
 
 void		preconfig_leaf(t_minishell_p shell, t_ast_p ast);
-char		**ft_split_path(char const *s, char c);
+char		**ft_split_path(char *str, char c);
 
 /********************************************************************************/
 /*		Files & redirections              										*/

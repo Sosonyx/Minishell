@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_leaf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 13:25:04 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/04 16:40:14 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int	open_files(t_minishell_p shell, t_leaf_p leaf, t_redir_p cur_redir)
 	int		open_flag;
 	int		*target_fd;
 	bool	*r_flag;
-	int		errnum;
 
 	if (cur_redir->type == R_IN)
 	{
@@ -49,10 +48,9 @@ static int	open_files(t_minishell_p shell, t_leaf_p leaf, t_redir_p cur_redir)
 	}
 	open_flag = get_open_flag(cur_redir->type);
 	*target_fd = open(cur_redir->target, open_flag, OPEN_PERM);
-	errnum = errno;
 	if (*target_fd == -1)
 	{
-		print_file_error(shell, cur_redir->target, errnum);
+		print_file_error(shell, cur_redir->target, errno);
 		leaf->abort = true;
 	}
 	else
@@ -90,7 +88,7 @@ static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
 				{
 					close_prev(prev_out);
 					prev_out = leaf->fds[1];
-				}		
+				}
 			}
 		}
 		cur_redir = cur_redir->next;
@@ -101,12 +99,6 @@ static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
 		leaf->fds[0] = leaf->hd_fd[0];
 	}
 	return (0);
-}
-
-void	safe_dup2(int oldfd, int newfd)
-{
-	if (dup2(oldfd, newfd) == -1)
-		exit(EXIT_FAILURE);
 }
 
 int	redirect_leaf(t_minishell_p shell, t_ast_p ast)

@@ -18,7 +18,7 @@ void	execute_and(t_minishell_p shell, t_ast_p ast)
 	_execute_ast(shell, ast->cntl_op->left);
 	wait_if_leaf(ast->cntl_op->left->leaf, &shell->exit_code);
 	if (NO_ABORT && !shell->exit_code && ast->cntl_op->right)
-	{		
+	{
 		_execute_ast(shell, ast->cntl_op->right);
 		wait_if_leaf(ast->cntl_op->right->leaf, &shell->exit_code);
 	}

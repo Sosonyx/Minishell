@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 17:52:07 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/04 16:35:38 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	syntax_err(const char *near)
+void	syntax_err(const char *near)
 {
 	if (!near)
 		near = "newline";
@@ -61,62 +61,6 @@ static int	is_valid_start(t_token **toks)
 		return (syntax_err(toks[0]->val), 0);
 	if (parenth_checker(toks, 0) == -1)
 		return (0);
-	return (1);
-}
-
-static int	_control_op(t_toktype cur, t_token **toks, int i)
-{
-	if (is_control_op(cur) && toks[i + 1] && (is_control_op(toks[i + 1]->type) || is_parenth(toks[i + 1]->type) == 2))
-	{
-		syntax_err(toks[i + 1]->val);
-		return (0);
-	}
-	if (is_control_op(cur) && !toks[i + 1])
-	{
-		syntax_err(NULL);
-		return (0);
-	}
-	return (1);
-}
-
-static int	_redir(t_toktype cur, t_token **toks, int i)
-{
-	if (is_redir(cur))
-	{
-		if (!toks[i + 1] || toks[i + 1]->type != T_WORD)
-		{
-			if (toks[i + 1])
-				syntax_err(toks[i + 1]->val);
-			else
-				syntax_err(NULL);
-			return (0);
-		}
-	}
-	return (1);
-}
-
-static int	_lparenth(t_toktype cur, t_token **toks, int i)
-{
-	if (is_parenth(cur) == 1)
-	{
-		if (!toks[i + 1] || is_parenth(toks[i + 1]->type) == 2 || is_control_op(toks[i + 1]->type) || is_redir(toks[i + 1]->type))
-		{
-			syntax_err(toks[i + 1]->val);
-			return (0);
-		}
-	}
-	return (1);
-}
-static int	_is_word(t_toktype cur, t_token **toks, int i)
-{
-	if (is_word(cur))
-	{
-		if (toks[i + 1] && is_parenth(toks[i + 1]->type) == 1)
-		{
-			syntax_err(toks[i + 1]->val);
-			return (0);
-		}
-	}
 	return (1);
 }
 

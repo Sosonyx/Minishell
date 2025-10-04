@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
+#    By: sosony <sosony@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/03 15:33:22 by ihadj            ###   ########.fr        #
+#    Updated: 2025/10/04 16:35:19 by sosony           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,12 @@ SRC         = \
 				$(SRC_DIR)/exec/command_build/utils.c										\
 				$(SRC_DIR)/lexer/lexer.c													\
 				$(SRC_DIR)/lexer/discard_token.c											\
-				$(SRC_DIR)/lexer/utils/utils.c												\
+				$(SRC_DIR)/lexer/utils/tokens_type1.c										\
+				$(SRC_DIR)/lexer/utils/tokens_type2.c										\
 				$(SRC_DIR)/lexer/utils/stock_functions.c									\
 				$(SRC_DIR)/lexer/utils/count_tokens.c										\
 				$(SRC_DIR)/lexer/syntax_check.c												\
+				$(SRC_DIR)/lexer/syntax_token.c												\
 				$(SRC_DIR)/lexer/tokenize_input.c											\
 				$(SRC_DIR)/parsing/build_redir.c											\
 				$(SRC_DIR)/parsing/destroy_ast.c											\

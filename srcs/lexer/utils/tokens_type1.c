@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:08:22 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 17:37:27 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/04 16:27:12 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ int	is_special(char c)
 {
 	return (c == '|' || c == '<' || c == '>' \
 		|| c == '(' || c == ')' || c == '&');
-}
-
-int	is_pipe(t_toktype t)
-{
-	return (t == T_PIPE);
 }
 
 int	is_word(t_toktype t)
@@ -44,9 +39,4 @@ int	is_parenth(t_toktype t)
 	if (t == T_RPARENT)
 		return (2);
 	return (0);
-}
-
-int	is_control_op(t_toktype t)
-{
-	return (((t == T_AND) || is_pipe(t) || (t == T_OR)));
 }
