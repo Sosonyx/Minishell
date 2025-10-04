@@ -31,18 +31,22 @@ static char	*_readline(t_minishell_p shell, t_redir_p redir)
 
 static ssize_t	_writeline(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir, char *hd)
 {
-	char	*exp_hd;
+	char	*expd_hd;
 	ssize_t	wbytes;
 
 	wbytes = 0;
 	if (hd && ft_strcmp(hd, redir->limiter))
 	{
-		exp_hd = _expand_input_line(shell, hd);
-		if (exp_hd)
+		if (redir->expand_hd)
+			expd_hd = hd;
+		else
+			expd_hd = _expand_input_line(shell, hd);
+		if (expd_hd)
 		{
-			wbytes = write(leaf->hd_fd[1], exp_hd, ft_strlen(exp_hd));
+			wbytes = write(leaf->hd_fd[1], expd_hd, ft_strlen(expd_hd));
 			wbytes += write(leaf->hd_fd[1], "\n", 1);
-			free(exp_hd);
+			if (expd_hd != hd)
+				free(expd_hd);
 		}
 		if (hd)
 			free(hd);

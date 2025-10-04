@@ -92,7 +92,7 @@ int		    is_control_op(t_toktype t);
 void		pipeline_expand(t_minishell *shell, t_ast_p ast);
 t_expanded	expand_command(t_minishell *shell, char *str);
 char		*get_env_value(t_minishell *shell, char *name);
-char		*expand_limiter(char *str);
+char		*expand_limiter(t_redir_p redir, char *str);
 char		*append_char(char *str, char c);
 
 #endif

@@ -27,7 +27,7 @@ static void	config_redir(t_minishell_p shell, t_redir_p redir, t_build_var vars)
 {
 	if (redir->type == R_HDOC)
 	{
-		redir->limiter = expand_limiter(shell->tokens->tokens[vars.start + 1]->val);
+		redir->limiter = expand_limiter(redir, shell->tokens->tokens[vars.start + 1]->val);
 		if (!redir->limiter)
 			set_abort(shell, MEM_ERRMSG);
 	}

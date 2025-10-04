@@ -12,20 +12,20 @@
 
 #include "minishell.h"
 
-static int	update_state(int state, char c)
+static int	update_state(t_redir_p redirs, int state, char c)
 {
 	if (c == '\'' && state == 0)
-		return (1);
+		return (redirs->expand_hd = 1, 1);
 	else if (c == '\'' && state == 1)
 		return (0);
 	else if (c == '"' && state == 0)
-		return (2);
+		return (redirs->expand_hd = 1, 2);
 	else if (c == '"' && state == 2)
 		return (0);
 	return (state);
 }
 
-static char	*remove_quotes(char *str)
+static char	*remove_quotes(t_redir_p redirs, char *str)
 {
 	char	*res;
 	int		i;
@@ -44,7 +44,7 @@ static char	*remove_quotes(char *str)
 	while (str[i])
 	{
 		if ((str[i] == '\'' && state != 2) || (str[i] == '"' && state != 1))
-			state = update_state(state, str[i]);
+			state = update_state(redirs, state, str[i]);
 		else
 			res[j++] = str[i];
 		i++;
@@ -53,13 +53,13 @@ static char	*remove_quotes(char *str)
 	return (res);
 }
 
-char	*expand_limiter(char *str)
+char	*expand_limiter(t_redir_p redirs, char *str)
 {
 	char	*new_limiter;
 
-	new_limiter = remove_quotes(str);
+	new_limiter = remove_quotes(redirs, str);
 	if (!new_limiter)
 		return (NULL);
-	printf("limiter == %s\n", new_limiter);
+	printf("Expanded limiter: %s\n", new_limiter);
 	return (new_limiter);
 }
