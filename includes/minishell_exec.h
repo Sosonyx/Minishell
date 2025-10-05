@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 12:20:12 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/05 14:01:41 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@
 /*  	Builtins                       											*/
 /********************************************************************************/
 
-int	    	ft_echo(t_minishell_p shell, char **args);
+char		*ft_getcwd(char **env);
+
+int			ft_echo(t_minishell_p shell, char **args);
 int			ft_pwd(t_minishell_p shell, char **args);
-int	    	ft_cd(t_minishell_p shell, char **args);
+int			ft_cd(t_minishell_p shell, char **args);
 int			ft_exit(t_minishell_p shell, char **args);
-int	    	ft_export(t_minishell_p shell, char **args_to_add);
-int	    	ft_unset(t_minishell_p shell, char **args);
-int	    	ft_env(t_minishell_p shell, char **args);
+int			ft_export(t_minishell_p shell, char **args_to_add);
+int			ft_unset(t_minishell_p shell, char **args);
+int			ft_env(t_minishell_p shell, char **args);
 
 /********************************************************************************/
 /*		Execute                        											*/
