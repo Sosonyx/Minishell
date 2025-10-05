@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:15:33 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 15:26:56 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/05 16:43:13 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	ft_export(t_minishell_p shell, char **args_to_add)
 		return (EXIT_SUCCESS);
 	env_count = get_array_size(shell->environ);
 	add_count = get_array_size(args_to_add);
-	new_env = malloc(sizeof(char *) * (env_count + add_count + 1));
+	new_env = ft_calloc((env_count + add_count + 1), sizeof(char *));
 	if (!new_env)
 		return (ERRVAL1);
 	copy_old_env(new_env, shell->environ, env_count);

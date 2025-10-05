@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sosony <sosony@student.42.fr>              +#+  +:+       +#+         #
+#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/04 16:44:35 by sosony           ###   ########.fr        #
+#    Updated: 2025/10/05 16:55:54 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -163,7 +163,15 @@ vq: all
 	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
 	valgrind --quiet --leak-check=full ./$(NAME)
 	
+vignore: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --leak-check=full --gen-suppressions=all ./$(NAME)
+
+vsuppress: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./$(NAME)
+
 re: fc all
 
-.PHONY: all clean c fclean fc re vv vq
+.PHONY: all clean c fclean fc re vv vq vignore vsuppress
 
