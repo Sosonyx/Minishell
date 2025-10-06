@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 17:23:43 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 16:25:54 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ void	execute_wfork(t_minishell_p shell, t_ast_p ast)
 	if (ast->leaf->pid == 0)
 	{
 		execute_nofork(shell, ast);
-		exit(shell->exit_code == -1);
+		if (shell->exit_code == -1)
+			exit(1);
+		else
+			exit(shell->exit_code >> 8);
 	}
 }
 
