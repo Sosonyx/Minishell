@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/06 14:12:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 18:18:17 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@
 /*  	Builtins                       											*/
 /********************************************************************************/
 
-int	    	ft_echo(t_minishell_p shell, char **args);
+char		*ft_getcwd(char **env);
+
+int			ft_echo(t_minishell_p shell, char **args);
 int			ft_pwd(t_minishell_p shell, char **args);
-int	    	ft_cd(t_minishell_p shell, char **args);
+int			ft_cd(t_minishell_p shell, char **args);
 int			ft_exit(t_minishell_p shell, char **args);
-int	    	ft_export(t_minishell_p shell, char **args_to_add);
-int	    	ft_unset(t_minishell_p shell, char **args);
-int	    	ft_env(t_minishell_p shell, char **args);
+int			ft_export(t_minishell_p shell, char **args_to_add);
+int			ft_unset(t_minishell_p shell, char **args);
+int			ft_env(t_minishell_p shell, char **args);
 
 /********************************************************************************/
 /*		Execute                        											*/
@@ -55,7 +57,7 @@ char		*find_cmd(t_minishell_p shell, t_ast_p ast);
 bool		is_builtin(t_leaf_p leaf);
 
 void		preconfig_leaf(t_minishell_p shell, t_ast_p ast);
-char		**ft_split_path(char const *s, char c);
+char		**ft_split_path(char *str, char c);
 
 /********************************************************************************/
 /*		Files & redirections              										*/

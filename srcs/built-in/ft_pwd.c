@@ -6,13 +6,13 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:20:18 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/02 18:00:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/05 13:59:15 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_getcwd(char **env)
+char	*ft_getcwd(char **env)
 {
 	int	i;
 	int	j;
@@ -34,7 +34,12 @@ int	ft_pwd(t_minishell_p shell, char **args)
 	(void)args;
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		return (ERRVAL2);
+	{
+		cwd = ft_getcwd(shell->environ);
+		ft_putstr_fd(cwd, 1);
+		ft_putstr_fd("\n", 1);
+		return (EXIT_SUCCESS);
+	}
 	ft_putstr_fd(cwd, 1);
 	ft_putstr_fd("\n", 1);
 	free(cwd);

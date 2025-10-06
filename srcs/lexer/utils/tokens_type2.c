@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   discard_token.c                                    :+:      :+:    :+:   */
+/*   tokens_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 12:34:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 12:35:05 by cgajean          ###   ########.fr       */
+/*   Created: 2025/10/04 16:27:02 by sosony            #+#    #+#             */
+/*   Updated: 2025/10/04 16:27:03 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	discard_token(t_minishell_p shell, int token_index)
+int	is_pipe(t_toktype t)
 {
-	if (shell->tokens->tokens[token_index])
-	{
-		free(shell->tokens->tokens[token_index]->val);
-		free(shell->tokens->tokens[token_index]);
-		shell->tokens->tokens[token_index] = NULL;
-	}
+	return (t == T_PIPE);
+}
+
+int	is_control_op(t_toktype t)
+{
+	return (((t == T_AND) || is_pipe(t) || (t == T_OR)));
 }

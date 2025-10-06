@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/06 17:59:11 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/06 18:18:03 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,10 +62,12 @@ SRC         = \
 				$(SRC_DIR)/exec/command_build/utils.c										\
 				$(SRC_DIR)/lexer/lexer.c													\
 				$(SRC_DIR)/lexer/discard_token.c											\
-				$(SRC_DIR)/lexer/utils/utils.c												\
+				$(SRC_DIR)/lexer/utils/tokens_type1.c										\
+				$(SRC_DIR)/lexer/utils/tokens_type2.c										\
 				$(SRC_DIR)/lexer/utils/stock_functions.c									\
 				$(SRC_DIR)/lexer/utils/count_tokens.c										\
 				$(SRC_DIR)/lexer/syntax_check.c												\
+				$(SRC_DIR)/lexer/syntax_token.c												\
 				$(SRC_DIR)/lexer/tokenize_input.c											\
 				$(SRC_DIR)/parsing/build_redir.c											\
 				$(SRC_DIR)/parsing/build_cmd.c												\
@@ -166,7 +168,15 @@ vq: all
 	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
 	valgrind --quiet --leak-check=full ./$(NAME)
 	
+vignore: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --leak-check=full --gen-suppressions=all ./$(NAME)
+
+vsuppress: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./$(NAME)
+
 re: fc all
 
-.PHONY: all clean c fclean fc re vv vq
+.PHONY: all clean c fclean fc re vv vq vignore vsuppress
 

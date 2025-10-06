@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:34:09 by fox               #+#    #+#             */
-/*   Updated: 2025/10/06 11:37:38 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 20:47:16 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,52 +17,27 @@ static int	_compare(char c1, char c2)
 	return (c1 - c2);
 }
 
-static int	_pathmatch(char *ptested, char *pref, bool any)
-{
-	if (*pref && isasterisk(*pref))
-	{
-		return (_pathmatch(ptested, pref + 1, true));
-	}
-	else if (*pref)
-	{
-		if (any)
-		{
-			if (*(pref + 1))
-			{
-				while (*ptested && _compare(*ptested, *pref))
-					++ptested;
-				if (*ptested)
-					return (_pathmatch(ptested + 1, pref + 1, false));
-				else
-					return (0);
-			}
-			else
-			{
-				while (*(ptested + 1))
-					++ptested;
-				return (!_compare(*ptested, *pref));
-			}
-		}
-		else
-		{
-			if (_compare(*ptested, *pref))
-				return (0);
-			else
-				return (_pathmatch(ptested + 1, pref + 1, false));
-		}
-	}
-	else
-	{
-		if (*ptested)
-			return (any);
-		else
-			return (1);
-	}
-}
-
 int	pathmatch(char *ptested, char *pref)
 {
-	return (_pathmatch(ptested, pref, isasterisk(*pref)));
+	if (!*ptested && !*pref)
+		return (1);
+	if (!isasterisk(*pref))
+	{
+		if (_compare(*ptested, *pref))
+			return (0);
+		else
+			return (pathmatch(ptested + 1, pref + 1));
+	}
+	while (isasterisk(*pref))
+	{
+		pref++;
+		if (!*pref)
+			return (1);
+	}
+	while (*ptested)
+		if (pathmatch(ptested++, pref))
+			return (1);	
+	return (0);
 }
 
 // int	main(int argc, char **argv)

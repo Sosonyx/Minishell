@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:05:23 by fox               #+#    #+#             */
-/*   Updated: 2025/10/06 17:57:43 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 18:43:54 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 static void	config_redir(t_minishell_p shell, t_redir_p redir, t_build_var vars)
 {
 	if (redir->type == R_HDOC)
-		redir->limiter = expand_limiter(shell, shell->tokens->tokens[vars.start + 1]->val);
+	{
+		redir->limiter = expand_limiter(shell, redir, shell->tokens->tokens[vars.start + 1]->val);
+		printf("%s\n", redir->limiter);
+	}
 	else
 		redir->target = _strdup(shell, shell->tokens->tokens[vars.start + 1]->val);
 }

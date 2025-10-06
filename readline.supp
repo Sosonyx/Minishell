@@ -1,0 +1,13 @@
+{
+   Readline
+   Memcheck:Leak
+   fun:readline*
+   fun:rl_* 
+}
+
+{
+   ncurses / tinfo
+   Memcheck:Leak
+   fun:*_ncurses*
+   fun:*_tinfo*
+}

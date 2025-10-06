@@ -30,10 +30,76 @@ int	stock_special(t_token **tokens, int j, char *line, int *i)
 	return (j);
 }
 
+// int	stock_word(t_token **tokens, int j, char *line, int *i)
+// {
+// 	int		start;
+// 	char	c;	
+// 	char	quote;
+// 	int		sq;
+// 	int		dq;
+
+// 	start = *i;
+// 	quote = 0;
+// 	sq = 0;
+// 	dq = 0;
+// 	while (line[*i])
+// 	{
+// 		c = line[*i];
+// 		if (c == '\'' || c == '"')
+// 		{
+// 			if (!quote)
+// 			{
+// 				quote = c;
+// 				if (c == '\'')
+// 					sq = 1;
+// 				else
+// 					dq = 1;
+// 				(*i)++;
+// 				continue ;
+// 			}
+// 			if (quote == c)
+// 			{
+// 				quote = 0;
+// 				(*i)++;
+// 				continue ;
+// 			}
+// 		}
+// 		if (!quote && (ft_isspace(c) || is_special(c)))
+// 			break ;
+// 		(*i)++;
+// 	}
+// 	if (quote)
+// 		return (-1);
+// 	if (*i > start)
+// 		tokens[j++] = create_token(ft_strndup(&line[start], (*i - start)),
+// 				T_WORD, sq, dq);
+// 	return (j);
+// }
+
+static void	handle_quote(char c, char *quote, int *sq, int *dq)
+{
+	if (!*quote)
+	{
+		*quote = c;
+		if (c == '\'')
+			*sq += 1;
+		else
+			*dq += 1;
+	}
+	else if (*quote == c)
+		*quote = 0;
+}
+
+static int	should_stop(char c, char quote)
+{
+	if (!quote && (ft_isspace(c) || is_special(c)))
+		return (1);
+	return (0);
+}
+
 int	stock_word(t_token **tokens, int j, char *line, int *i)
 {
 	int		start;
-	char	c;	
 	char	quote;
 	int		sq;
 	int		dq;
@@ -44,27 +110,13 @@ int	stock_word(t_token **tokens, int j, char *line, int *i)
 	dq = 0;
 	while (line[*i])
 	{
-		c = line[*i];
-		if (c == '\'' || c == '"')
+		if (line[*i] == '\'' || line[*i] == '"')
 		{
-			if (!quote)
-			{
-				quote = c;
-				if (c == '\'')
-					sq = 1;
-				else
-					dq = 1;
-				(*i)++;
-				continue ;
-			}
-			if (quote == c)
-			{
-				quote = 0;
-				(*i)++;
-				continue ;
-			}
+			handle_quote(line[*i], &quote, &sq, &dq);
+			(*i)++;
+			continue ;
 		}
-		if (!quote && (ft_isspace(c) || is_special(c)))
+		if (should_stop(line[*i], quote))
 			break ;
 		(*i)++;
 	}
@@ -75,6 +127,7 @@ int	stock_word(t_token **tokens, int j, char *line, int *i)
 				T_WORD, sq, dq);
 	return (j);
 }
+
 
 int	stock_quoted(t_token **tokens, int j, char *line, int *i)
 {

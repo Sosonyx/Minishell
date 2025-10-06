@@ -55,16 +55,16 @@ static void	free_tab(char **tab, int index)
 	free(tab);
 }
 
-char	**ft_split_path(char const *s, char c)
+char	**ft_split_path(char *str, char c)
 {
 	char	**tab;
 	int		i;
 	int		j;
 	int		start;
 
-	if (!s)
+	if (!str)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (ft_strlen(s) + 2));
+	tab = malloc(sizeof(char *) * (ft_strlen(str) + 2));
 	if (!tab)
 		return (NULL);
 	i = 0;
@@ -72,15 +72,15 @@ char	**ft_split_path(char const *s, char c)
 	start = 0;
 	while (1)
 	{
-		if (s[i] == c || s[i] == '\0')
+		if (str[i] == c || str[i] == '\0')
 		{
 			if (i == start)
 				tab[j++] = ft_strdup("./");
 			else
-				tab[j++] = malloc_word(&s[start], c);
+				tab[j++] = malloc_word(&str[start], c);
 			if (!tab[j - 1])
 				return (free_tab(tab, j), NULL);
-			if (s[i] == '\0')
+			if (str[i] == '\0')
 				break ;
 			start = i + 1;
 		}

@@ -6,26 +6,34 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:21:38 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/06 17:55:51 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 18:51:45 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	update_state(int state, char c)
+static int	update_state(t_redir_p redirs, int state, char c)
 {
 	if (c == '\'' && state == 0)
+	{
+		if (redirs)
+			redirs->expand_hd = 1;
 		return (1);
+	}
 	else if (c == '\'' && state == 1)
 		return (0);
 	else if (c == '"' && state == 0)
+	{
+		if (redirs)
+			redirs->expand_hd = 1;
 		return (2);
+	}
 	else if (c == '"' && state == 2)
 		return (0);
 	return (state);
 }
 
-static char	*remove_quotes(t_minishell_p shell, char *str)
+char	*remove_quotes(t_minishell_p shell, t_redir_p redirs, char *str)
 {
 	char	*res;
 	int		i;
@@ -44,7 +52,7 @@ static char	*remove_quotes(t_minishell_p shell, char *str)
 	while (str[i])
 	{
 		if ((str[i] == '\'' && state != 2) || (str[i] == '"' && state != 1))
-			state = update_state(state, str[i]);
+			state = update_state(redirs, state, str[i]);
 		else
 			res[j++] = str[i];
 		i++;
@@ -53,7 +61,13 @@ static char	*remove_quotes(t_minishell_p shell, char *str)
 	return (res);
 }
 
-char	*expand_limiter(t_minishell_p shell, char *str)
+char	*expand_limiter(t_minishell_p shell, t_redir_p redirs, char *str)
 {
-	return (remove_quotes(shell, str));
+	if (ft_strchr(str, '"') || ft_strchr(str, '\''))
+	{
+		redirs->expand_hd = 1;
+		return (remove_quotes(shell, redirs, str));
+	}
+	else
+		return (_strdup(shell, str));
 }

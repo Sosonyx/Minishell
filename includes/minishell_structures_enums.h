@@ -113,6 +113,7 @@ struct s_redir
 	enum e_redirtype	type;
 	char				*target;
 	char				*limiter;
+	bool				expand_hd;
 	int					fd;
 	struct s_redir		*next;
 };

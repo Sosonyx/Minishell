@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:45:36 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 15:28:35 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/06 13:26:48 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,34 @@ static void	exp_case(t_minishell_p shell, char *str, t_expanded *result, int *i)
 		(*result).value = append_char((*result).value, str[*i]);
 }
 
+static int	has_a_star(int state, char *str, int i)
+{
+	if (state == 0)
+	{
+		if (i > 0)
+			i--;
+		while (i > 0 && str[i] != '\'' && str[i] != '"')
+		{
+			if (str[i] == '*')
+				return (1);
+			i--;
+		}
+	}
+	else
+	{
+		i++;
+		while (str[i])
+		{
+			if ((state == 1 && str[i] == '\'') || (state == 2 && str[i] == '"'))
+				break ;
+			if (str[i] == '*')
+				return (1);
+			i++;
+		}
+	}
+	return (0);
+}
+
 t_expanded	expand_command(t_minishell *shell, char *str)
 {
 	int			i;
@@ -123,16 +151,23 @@ t_expanded	expand_command(t_minishell *shell, char *str)
 	i = 0;
 	while (str && str[i])
 	{
-		new_state = update_state(state, str[i], &result);
-		if (new_state != state)
-			state = new_state;
-		else if (str[i] == '$' && state != 1)
-			exp_case(shell, str, &result, &i);
-		else
-			result.value = append_char(result.value, str[i]);
-		if (!result.value)
-			return (result);
-		i++;
+		while (str && str[i])
+		{
+			new_state = update_state(state, str[i], &result);
+			if (new_state != state)
+			{
+				state = new_state;
+				if (has_a_star(state, str, i))
+					result.value = append_char(result.value, str[i]);
+			}
+			else if (str[i] == '$' && state != 1)
+				exp_case(shell, str, &result, &i);
+			else
+				result.value = append_char(result.value, str[i]);
+			if (!result.value)
+				return (result);
+			i++;
+		}
 	}
 	return (result);
 }

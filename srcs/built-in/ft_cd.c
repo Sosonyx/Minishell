@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 15:26:34 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/05 15:14:04 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_cd(t_minishell_p shell, char **args)
 
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
-		return (ERRVAL1);
+		oldpwd = ft_strdup(ft_getenv(shell->environ, "PWD"));
 	if (args[1] && args[2])
 	{
 		print_cmd_error2(shell, "cd", ARG_EXCESS_ERRMSG);
@@ -86,9 +86,15 @@ int	ft_cd(t_minishell_p shell, char **args)
 	}
 	newpwd = getcwd(NULL, 0);
 	if (!newpwd)
-		return (free(oldpwd), ERRVAL1);
-	update_pwd(shell, oldpwd, newpwd);
+	{
+		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", 2);
+		update_pwd(shell, oldpwd, path);
+	}
+	else
+	{
+		update_pwd(shell, oldpwd, newpwd);
+		free(newpwd);
+	}
 	free(oldpwd);
-	free(newpwd);
 	return (EXIT_SUCCESS);
 }

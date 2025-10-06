@@ -9,6 +9,7 @@
                 "-g3",
                 "${workspaceFolder}/srcs/*.c",
                 "${workspaceFolder}/srcs/built-in/*.c",
+				"${workspaceFolder}/srcs/destroy/*.c",
                 "${workspaceFolder}/srcs/error_and_event_manager/*.c",
                 "${workspaceFolder}/srcs/exec/*.c",
                 "${workspaceFolder}/srcs/exec/command_build/*.c",
