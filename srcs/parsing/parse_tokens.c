@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 18:18:04 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 17:53:05 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	_seek_cntl_op(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 {
-	if (is_no_abort(shell) && parse_cntl_and_or(shell, ast, vars))
+	if (parse_cntl_and_or(shell, ast, vars))
 		return (RETURN_OK);
-	else if (is_no_abort(shell) && parse_cntl_pipe(shell, ast, vars))
+	else if (parse_cntl_pipe(shell, ast, vars))
 		return (RETURN_OK);
-	else if (is_no_abort(shell) && parse_subshell(shell, ast, vars))
+	else if (parse_subshell(shell, ast, vars))
 		return (RETURN_OK);
 	else
 		return (RETURN_FAIL);
@@ -30,7 +30,7 @@ static void	_recbuild(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 	{
 		if (*ast && (*ast)->type != OP_SUBSHELL)
 		{
-			(*ast)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
+			(*ast)->cntl_op = _calloc(shell, 1, sizeof(struct s_cntl_op));
 			if ((*ast)->cntl_op)
 			{
 				vars.op_pos = shell->tokens->op_index;
@@ -41,11 +41,9 @@ static void	_recbuild(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 				if (vars.right_start <= vars.right_end)
 					build_ast(shell, &(*ast)->cntl_op->right, (t_build_var) {vars.right_start, vars.right_end});
 			}
-			else
-				set_abort(shell, MEM_ERRMSG);
 		}
 	}
-	else if (is_no_abort(shell))
+	else
 		create_leaf(shell, ast, vars);
 }
 
@@ -59,6 +57,8 @@ static void	_init_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 {
 	vars.end = init_global_end(vars, shell->tokens);
 	_recbuild(shell, ast, vars);
+	
+	// cette partie ne fonctionne que lorsque tout s'est bien passe
 	free(shell->tokens->tokens);
 	free(shell->tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 12:34:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 17:38:02 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 17:36:41 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	create_cntl_op(t_minishell_p shell, t_ast_p *op, t_toktype type)
 {
-	*op = ft_calloc(1, sizeof(t_ast));
+	*op = _calloc(shell, 1, sizeof(t_ast));
 	if (*op)
 	{
 		if (type == T_AND)
@@ -28,8 +28,5 @@ int	create_cntl_op(t_minishell_p shell, t_ast_p *op, t_toktype type)
 		return (RETURN_OK);
 	}
 	else
-	{
-		set_abort(shell, MEM_ERRMSG);
 		return (RETURN_FAIL);
-	}
 }

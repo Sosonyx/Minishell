@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cntl_and_or.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:55 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 17:18:05 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/06 17:35:03 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parse_cntl_and_or(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 	tok_copy = shell->tokens;
 	in_parenthesis = 0;
 	cur_token = shell->tokens->tokens[vars.start];
-	while (cur_token && vars.start <= vars.end)
+	while (is_no_abort(shell) && cur_token && vars.start <= vars.end)
 	{
 		if ((cur_token->type & (T_AND | T_OR)) && !in_parenthesis)
 		{

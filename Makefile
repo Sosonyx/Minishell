@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/06 15:54:01 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/06 17:59:11 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,10 @@ LIBFT_A     = $(LIBFT_DIR)/libft.a
 
 SRC         = \
 				$(SRC_DIR)/main.c															\
+				$(SRC_DIR)/destroy/destroy_ast.c											\
+				$(SRC_DIR)/destroy/destroy_leaf.c											\
+				$(SRC_DIR)/destroy/destroy_redir.c											\
+				$(SRC_DIR)/destroy/shell_destroy.c											\
 				$(SRC_DIR)/error_and_event_manager/print_error.c							\
 				$(SRC_DIR)/error_and_event_manager/print_hd_error.c							\
 				$(SRC_DIR)/error_and_event_manager/signal_handlers.c						\
@@ -64,9 +68,6 @@ SRC         = \
 				$(SRC_DIR)/lexer/syntax_check.c												\
 				$(SRC_DIR)/lexer/tokenize_input.c											\
 				$(SRC_DIR)/parsing/build_redir.c											\
-				$(SRC_DIR)/parsing/destroy_ast.c											\
-				$(SRC_DIR)/parsing/destroy_leaf.c											\
-				$(SRC_DIR)/parsing/destroy_redir.c											\
 				$(SRC_DIR)/parsing/build_cmd.c												\
 				$(SRC_DIR)/parsing/create_cntl_op.c											\
 				$(SRC_DIR)/parsing/parse_tokens.c											\
@@ -93,7 +94,6 @@ SRC         = \
 				$(SRC_DIR)/wildcards/sortmatches.c											\
 				$(SRC_DIR)/wildcards/wildcard_expand.c										\
 				$(SRC_DIR)/shell/shell_init.c												\
-				$(SRC_DIR)/shell/shell_destroy.c											\
 				$(SRC_DIR)/shell/shell_kill.c												\
 				$(SRC_DIR)/wrappers/alloc.c													\
 				$(SRC_DIR)/wrappers/dup.c													\

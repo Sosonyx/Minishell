@@ -6,37 +6,18 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:05:23 by fox               #+#    #+#             */
-/*   Updated: 2025/10/03 18:25:34 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 17:57:43 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	set_redir_ptrs(t_ast_p ast, t_redir_p redir, t_redir_p *curr)
-{
-	if (!ast->leaf->redir)
-		ast->leaf->redir = redir;
-	else
-		(*curr)->next = redir;
-	*curr = redir;
-	ast->leaf->r_in = redir->type & (R_IN | R_HDOC);
-	ast->leaf->r_out = redir->type & (R_OUT | R_APPEND);
-}
-
 static void	config_redir(t_minishell_p shell, t_redir_p redir, t_build_var vars)
 {
 	if (redir->type == R_HDOC)
-	{
-		redir->limiter = expand_limiter(shell->tokens->tokens[vars.start + 1]->val);
-		if (!redir->limiter)
-			set_abort(shell, MEM_ERRMSG);
-	}
+		redir->limiter = expand_limiter(shell, shell->tokens->tokens[vars.start + 1]->val);
 	else
-	{
-		redir->target = ft_strdup(shell->tokens->tokens[vars.start + 1]->val);
-		if (!redir->target)
-			set_abort(shell, MEM_ERRMSG);
-	}	
+		redir->target = _strdup(shell, shell->tokens->tokens[vars.start + 1]->val);
 }
 
 static void	set_redir_type(t_redir_p redir, t_token_p token)
@@ -59,6 +40,17 @@ static void	_build_redir(t_minishell_p shell, t_redir_p redir, t_token_p token, 
 	discard_token(shell, vars->start++);
 }
 
+static void	set_redir_ptrs(t_ast_p ast, t_redir_p redir, t_redir_p *curr)
+{
+	if (!ast->leaf->redir)
+		ast->leaf->redir = redir;
+	else
+		(*curr)->next = redir;
+	*curr = redir;
+	ast->leaf->r_in = redir->type & (R_IN | R_HDOC);
+	ast->leaf->r_out = redir->type & (R_OUT | R_APPEND);
+}
+
 int	build_redir(t_minishell_p shell, t_ast_p ast, t_build_var vars)
 {
 	t_redir_p	curr;
@@ -70,14 +62,14 @@ int	build_redir(t_minishell_p shell, t_ast_p ast, t_build_var vars)
 		tok = shell->tokens->tokens[vars.start];
 		if (tok->type & (T_REDIR_IN | T_REDIR_OUT | T_APPEND | T_HEREDOC))
 		{
-			new = ft_calloc(1, sizeof(t_redir));
+			new = _calloc(shell, 1, sizeof(t_redir));
 			if (new)
 			{
 				_build_redir(shell, new, tok, &vars);
 				set_redir_ptrs(ast, new, &curr);
 			}
 			else
-				return (set_abort(shell, MEM_ERRMSG), RETURN_FAIL);
+				return (RETURN_FAIL);
 		}
 		else
 			++vars.start;

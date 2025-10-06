@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:21:38 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 18:20:50 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 17:55:51 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	update_state(int state, char c)
 	return (state);
 }
 
-static char	*remove_quotes(char *str)
+static char	*remove_quotes(t_minishell_p shell, char *str)
 {
 	char	*res;
 	int		i;
@@ -35,7 +35,7 @@ static char	*remove_quotes(char *str)
 
 	if (!str)
 		return (NULL);
-	res = malloc(ft_strlen(str) + 1);
+	res = _malloc(shell, ft_strlen(str) + 1);
 	if (!res)
 		return (NULL);
 	i = 0;
@@ -53,7 +53,7 @@ static char	*remove_quotes(char *str)
 	return (res);
 }
 
-char	*expand_limiter(char *str)
+char	*expand_limiter(t_minishell_p shell, char *str)
 {
-	return (remove_quotes(str));
+	return (remove_quotes(shell, str));
 }

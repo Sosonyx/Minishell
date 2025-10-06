@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cntl_pipe.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 17:19:28 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/06 17:36:20 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static void	_create_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_token_p cur_to
 		shell->tokens->op_index = n;
 		discard_token(shell, n);
 	}
-	else
-		set_abort(shell, MEM_ERRMSG);
 }
 
 int	parse_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_build_var vars)
@@ -32,7 +30,7 @@ int	parse_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 
 	in_parenthesis = 0;
 	cur_token = shell->tokens->tokens[vars.start];
-	while (cur_token && vars.start <= vars.end)
+	while (is_no_abort(shell) && cur_token && vars.start <= vars.end)
 	{
 		if (cur_token->type == T_PIPE && !in_parenthesis)
 		{

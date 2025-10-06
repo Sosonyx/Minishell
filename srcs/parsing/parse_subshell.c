@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_subshell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 17:06:50 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/06 17:52:11 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 	{
 		discard_token(shell, vars.start);
 		discard_token(shell, vars.end);
-		(*op)->cntl_op = ft_calloc(1, sizeof(struct s_cntl_op));
+		(*op)->cntl_op = _calloc(shell, 1, sizeof(struct s_cntl_op));
 		if ((*op)->cntl_op)
 		{
 			++vars.start;
@@ -39,19 +39,13 @@ static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 			build_ast(shell, &(*op)->cntl_op->left, vars);
 		}
 		else
-		{
-			set_abort(shell, MEM_ERRMSG);
 			free(*op);
-		}
 	}
-	else
-		set_abort(shell, MEM_ERRMSG);
 }
 
 int	parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 {
-	if (shell->tokens->tokens[vars.start]
-		&& (shell->tokens->tokens[vars.start])->type == T_LPARENT)
+	if (is_no_abort(shell) && shell->tokens->tokens[vars.start] && (shell->tokens->tokens[vars.start])->type == T_LPARENT)
 	{
 		get_subshell_limit(shell, vars.start, &vars.end);
 		_parse_subshell(shell, op, vars);

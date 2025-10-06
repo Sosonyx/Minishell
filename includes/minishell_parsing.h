@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 17:37:37 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/06 17:59:48 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int			stock_tokens(t_tok_container *a, char *line);
 int			parse_tokens(t_minishell_p shell, t_ast_p *ast);
 void		build_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars);
 
-// t_redir_p	build_redir(t_minishell_p shell, t_build_var vars);
 int			build_redir(t_minishell_p shell, t_ast_p ast, t_build_var vars);
 int			build_cmd(t_minishell_p shell, t_ast_p ast, t_build_var vars);
 
@@ -58,7 +57,7 @@ int			parse_cntl_and_or(t_minishell_p shell, t_ast_p *op, t_build_var vars);
 int			parse_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_build_var vars);
 int			parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars);
 int			create_cntl_op(t_minishell_p shell, t_ast_p *op, t_toktype type);
-int			create_leaf(t_minishell_p shell, t_ast_p *ast, t_build_var vars);
+void		create_leaf(t_minishell_p shell, t_ast_p *ast, t_build_var vars);
 
 void		discard_token(t_minishell_p shell, int token_index);
 
@@ -92,7 +91,7 @@ int		    is_control_op(t_toktype t);
 void		pipeline_expand(t_minishell *shell, t_ast_p ast);
 t_expanded	expand_command(t_minishell *shell, char *str);
 char		*get_env_value(t_minishell *shell, char *name);
-char		*expand_limiter(char *str);
+char		*expand_limiter(t_minishell_p shell, char *str);
 char		*append_char(char *str, char c);
 
 #endif
