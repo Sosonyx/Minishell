@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 16:21:07 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 15:53:28 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,16 @@ void			shell_kill(t_minishell_p shell, t_ast_p ast, char *errmsg);
 void			minishell_help(void);
 
 /********************************************************************************/
-/*			Custom syscalls														*/
+/*			Wrappers															*/
 /********************************************************************************/
+
+void			*_malloc(t_minishell_p shell, size_t size);
+void			*_calloc(t_minishell_p shell, size_t nmemb, size_t size);
+void			*_realloc(t_minishell_p shell, void *ptr, size_t old_size, size_t new_size);
+
+char			*_strdup(t_minishell_p shell, const char *s);
+char			*_strjoin(t_minishell_p shell, char const *s1, char const *s2);
+char			**_split(t_minishell_p shell, const char *s, const char c);
 
 int				_pipe(t_minishell_p shell, int *pipedes);
 int				_dup(t_minishell_p shell, int fd);

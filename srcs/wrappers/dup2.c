@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_abort.c                                        :+:      :+:    :+:   */
+/*   dup2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 16:30:50 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 12:56:05 by cgajean          ###   ########.fr       */
+/*   Created: 2025/10/03 15:11:03 by cgajean           #+#    #+#             */
+/*   Updated: 2025/10/06 12:45:59 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_abort(t_minishell_p shell, char *errmsg)
+int	_dup2(t_minishell_p shell, int fd, int fd2)
 {
-	if (errmsg)
-		print_generic_error(shell, errmsg);
-	shell->abort = true;
-	shell->exit_code = ERRVAL1;
+	if (is_no_abort(shell))
+	{
+		if (fd IS_VALID_FD && dup2(fd, fd2) == -1)
+		{
+			set_abort(shell, DUP2_ERRMSG);
+			shell->exit_code = ERRVAL1;
+			return (-1);
+		}
+		else
+			return (0);
+	}
+	else
+		return (-1);
 }

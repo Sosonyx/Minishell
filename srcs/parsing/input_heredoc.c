@@ -55,9 +55,7 @@ static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 	pid_t	pid;
 
 	if (_pipe(shell, leaf->hd_fd))
-	{
 		return ;
-	}
 	pid = _fork(shell);
 	if (pid == 0)
 	{

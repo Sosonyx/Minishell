@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup.c                                              :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 15:19:41 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 15:21:39 by cgajean          ###   ########.fr       */
+/*   Created: 2025/10/03 15:01:29 by cgajean           #+#    #+#             */
+/*   Updated: 2025/10/06 12:46:23 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	_dup(t_minishell_p shell, int fd)
+int	_pipe(t_minishell_p shell, int *pipedes)
 {
-	int	dup_fd;
-
-	dup_fd = dup(fd);
-	if (dup_fd == -1)
+	if (is_no_abort(shell))
 	{
-		set_abort(shell, DUP_ERRMSG);
-		shell->exit_code = ERRVAL1;
+		if (!pipedes || pipe(pipedes) == -1)
+		{
+			set_abort(shell, PIP_ERRMSG);
+			shell->exit_code = ERRVAL1;
+			return (-1);
+		}
+		else
+			return (0);
 	}
-	return (dup_fd);
+	else
+		return (-1);
 }

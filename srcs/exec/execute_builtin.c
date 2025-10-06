@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 17:23:43 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 16:25:49 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,15 @@ static int	execute_command(t_minishell_p shell, t_ast_p ast)
 
 void	execute_nofork(t_minishell_p shell, t_ast_p ast)
 {
-	save_std_fileno(shell);
-	if (redirect_leaf(shell, ast) == -1)
+	if (is_no_abort(shell))
 	{
-		shell->exit_code = -1;
+		save_std_fileno(shell);
+		if (redirect_leaf(shell, ast) == -1)
+			shell->exit_code = -1;
+		else
+			shell->exit_code = execute_command(shell, ast);
 		restore_std_fileno(shell, ast);
-		return ;
 	}
-	if (ast->leaf->abort == false)
-	{
-		shell->exit_code = execute_command(shell, ast);
-	}
-	else
-	{
-		shell->exit_code = ERRVAL1;
-	}
-	restore_std_fileno(shell, ast);
 }
 
 void	execute_wfork(t_minishell_p shell, t_ast_p ast)
@@ -85,18 +78,24 @@ void	execute_wfork(t_minishell_p shell, t_ast_p ast)
 	if (ast->leaf->pid == 0)
 	{
 		execute_nofork(shell, ast);
-		exit(shell->exit_code == -1);
+		if (shell->exit_code == -1)
+			exit(EXIT_FAILURE);
+		else
+			exit(shell->exit_code >> 8);
 	}
 }
 
 void	execute_builtin(t_minishell_p shell, t_ast_p ast)
 {
-	if (ast->write_fd || ast->read_fd)
+	if (is_no_abort(shell))
 	{
-		execute_wfork(shell, ast);
-	}
-	else
-	{
-		execute_nofork(shell, ast);
+		if (ast->write_fd || ast->read_fd)
+		{
+			execute_wfork(shell, ast);
+		}
+		else
+		{
+			execute_nofork(shell, ast);
+		}
 	}
 }

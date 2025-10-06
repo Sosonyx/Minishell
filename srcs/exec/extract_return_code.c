@@ -17,11 +17,11 @@ int	extract_return_code(int status)
 	int	return_status;
 
 	if (status == -1)
-		return_status = 1;
+		return_status = EXIT_FAILURE;
 	else if (WIFEXITED(status))
 		return_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		return_status = 128 + WTERMSIG(status);
+		return_status = WTERMSIG(status) << 7;
 	else if (WIFSTOPPED(status))
 		return_status = WSTOPSIG(status);
 	else if (WIFCONTINUED(status))

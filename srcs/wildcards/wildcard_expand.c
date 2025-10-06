@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/01 17:25:07 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/06 15:52:39 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static void	rebuild_cmd_args(t_wildcard_p wc, char ***cmd_args)
 	}
 }
 
-static void	wcconfig(t_wildcard_p wc, char *path)
+static void	wcconfig(t_minishell_p shell, t_wildcard_p wc, char *path)
 {
 	char	**dir;
 
 	wc->startbydot = false;
-	wc->spath = ft_split(path, '/');
+	wc->spath = _split(shell, path, '/');
 	dir = wc->spath;
 	wc->max_depth = 0;
 	while (*dir++)
@@ -37,14 +37,13 @@ static void	wcconfig(t_wildcard_p wc, char *path)
 	wc->lastisdir = (*(path - 1) == '/');
 }
 
-void	aggregate_matches(t_wildcard_p wc, char *command)
+void	aggregate_matches(t_minishell_p shell, t_wildcard_p wc, char *command)
 {
 	char	**matches;
 
-	matches = ft_calloc(wc->totalmatches + wc->tmp_totalmatches + 2, sizeof(char *));
-	if (!matches)
-		return ;
-	ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
+	matches = _calloc(shell, wc->totalmatches + wc->tmp_totalmatches + 2, sizeof(char *));
+	if (matches)
+		ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
 	if (wc->tmp_matches)
 	{
 		ft_memcpy(matches + wc->totalmatches, wc->tmp_matches, wc->tmp_totalmatches * sizeof(char *));
@@ -55,51 +54,53 @@ void	aggregate_matches(t_wildcard_p wc, char *command)
 	}
 	else
 	{
-		matches[wc->totalmatches] = ft_strdup(command);
+		matches[wc->totalmatches] = _strdup(shell, command);
 		++wc->totalmatches;
 	}
 	free(wc->matches);
 	wc->matches = matches;
 }
 
-void	_wildcard_expand(t_minishell_p shell, t_wildcard_p wc, char *command)
+void	_wildcard_expand(t_minishell_p shell, t_wildcard_p wc, char *arg)
 {
-	if (iswildcard(command))
+	if (iswildcard(arg))
 	{
-		wcconfig(wc, command);
-		if (wc->spath)
+		wcconfig(shell, wc, arg);
+		if (is_no_abort(shell) && wc->spath)
 		{
 			if (iswildcard(*wc->spath))
 			{
 				if (wc->isstartdir)
 				{
-					recdir(wc, "/", 0);
+					recdir(shell, wc, "/", 0);
 					wc->isstartdir = false;
 				}
 				else
 				{
 					wc->startbydot = true;
-					recdir(wc, ".", 0);
+					recdir(shell, wc, ".", 0);
 				}
 			}
 			else if (wc->isstartdir)
 			{
-				recdir(wc, ft_strjoin("/", *wc->spath), 1);
+				recdir(shell, wc, _strjoin(shell, "/", *wc->spath), 1);
 				wc->isstartdir = false;
 			}
 			else
 			{
-				recdir(wc, *wc->spath, 1);
+				recdir(shell, wc, *wc->spath, 1);
 			}
 			ft_split_free(wc->spath);
 		}
 	}
 	else
+		addmatch(shell, wc, arg);
+	if (is_no_abort(shell))
 	{
-		addmatch(wc, command);
+		sortmatches(wc);
+		aggregate_matches(shell, wc, arg);		
 	}
-	sortmatches(wc);
-	aggregate_matches(wc, command);
+	
 }
 
 void	wildcard_expand(t_minishell_p shell, t_ast_p ast)
@@ -111,7 +112,7 @@ void	wildcard_expand(t_minishell_p shell, t_ast_p ast)
 	if (*ast->leaf->cmds && **ast->leaf->cmds)
 	{
 		commands = ast->leaf->cmds;
-		wc = ft_calloc(1, sizeof(struct s_wildcard));
+		wc = _calloc(shell, 1, sizeof(struct s_wildcard));
 		if (wc)
 		{
 			while (*commands)
@@ -126,7 +127,5 @@ void	wildcard_expand(t_minishell_p shell, t_ast_p ast)
 			}
 			free(wc);
 		}
-		else
-			set_abort(shell, MEM_ERRMSG);
 	}
 }

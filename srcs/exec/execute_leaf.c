@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 18:17:24 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 15:58:33 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,32 @@ static void	_execve(t_minishell_p shell, t_ast_p ast)
 {
 	int	errnum;
 
-	errnum = check_path(ast->leaf->exec_path);
-	if (errnum)
+	if (is_no_abort(shell))
 	{
-		print_cmd_error(shell, *ast->leaf->cmds, errnum);
-		exit(convert_errno(errnum));
-	}
-	else
-	{
-		execve(ast->leaf->exec_path, ast->leaf->cmds, shell->environ);
-		print_cmd_error(shell, *ast->leaf->cmds, errno);
-		exit(convert_errno(errno));
+		errnum = check_path(ast->leaf->exec_path);
+		if (errnum)
+		{
+			print_cmd_error(shell, *ast->leaf->cmds, errnum);
+			exit(convert_errno(errnum));
+		}
+		else
+		{
+			execve(ast->leaf->exec_path, ast->leaf->cmds, shell->environ);
+			print_cmd_error(shell, *ast->leaf->cmds, errno);
+			exit(convert_errno(errno));
+		}		
 	}
 }
 
 static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 {
-	if (redirect_leaf(shell, ast) == -1 || ast->leaf->abort == true)
+	if (redirect_leaf(shell, ast) == -1)
 		exit(EXIT_FAILURE);
 	close_fds(ast, CHILD);
 	if (!*ast->leaf->cmds)
 		exit(EXIT_SUCCESS);
-	_execve(shell, ast);
+	else
+		_execve(shell, ast);
 }
 
 static void	execute_command(t_minishell_p shell, t_ast_p ast)
@@ -76,15 +80,17 @@ static void	execute_command(t_minishell_p shell, t_ast_p ast)
 
 void	execute_leaf(t_minishell_p shell, t_ast_p ast)
 {
-	pipeline_expand(shell, ast);
-	wildcard_expand(shell, ast);
-	ast->leaf->full_path = find_cmd(shell, ast);
-	if (is_no_abort(shell) && is_builtin(ast->leaf))
+	if (is_no_abort(shell))
 	{
-		execute_builtin(shell, ast);
-	}
-	else if (is_no_abort(shell))
-	{
-		execute_command(shell, ast);
+		pipeline_expand(shell, ast);
+		wildcard_expand(shell, ast);
+		ast->leaf->full_path = find_cmd(shell, ast);
+		if (is_no_abort(shell))
+		{
+			if (is_builtin(ast->leaf))
+				execute_builtin(shell, ast);
+			else
+				execute_command(shell, ast);			
+		}
 	}
 }

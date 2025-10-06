@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   savepath.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:22:28 by fox               #+#    #+#             */
-/*   Updated: 2025/10/01 15:37:57 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/06 15:10:38 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
-static char	*getfullpath(t_wildcard_p wc, struct dirent *sdir, char *path)
+static char	*getfullpath(t_minishell_p shell, t_wildcard_p wc, struct dirent *sdir, char *path)
 {
 	char	*tmp;
 
-	if (wc && sdir && path)
+	if (path)
 	{
-		path = catpath(path, sdir->d_name);
-		if (wc->lastisdir)
+		path = catpath(shell, path, sdir->d_name);
+		if (path && wc->lastisdir)
 		{
 			tmp = path;
-			path = catpath(path, NULL);
+			path = catpath(shell, path, NULL);
 			free(tmp);
 		}
 	}
 	return (path);
 }
 
-void	savepath(t_wildcard_p wc, struct dirent *sdir, char *path, int depth)
+void	savepath(t_minishell_p shell, t_wildcard_p wc, struct dirent *sdir, char *path, int depth)
 {
 	char	**ptr;
 	char	*tmp;
@@ -38,9 +38,9 @@ void	savepath(t_wildcard_p wc, struct dirent *sdir, char *path, int depth)
 		return ;
 	if (pathmatch(sdir->d_name, wc->spath[depth]))
 	{
-		path = getfullpath(wc, sdir, path);
-		if (!ishidden(path))
-			addmatch(wc, path);
+		path = getfullpath(shell, wc, sdir, path);
+		if (path && !ishidden(path))
+			addmatch(shell, wc, path);
 		free(path);
 	}
 }

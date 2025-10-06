@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 17:23:13 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 12:25:24 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	_execute_ast(t_minishell_p shell, t_ast_p ast)
 {
-	if (is_no_abort(shell) && ast->leaf)
+	if (ast->leaf)
 		execute_leaf(shell, ast);
 	else
 	{
-		if (is_no_abort(shell) && ast->type == OP_AND)
+		if (ast->type == OP_AND)
 			execute_and(shell, ast);
-		else if (is_no_abort(shell) && ast->type == OP_OR)
+		else if (ast->type == OP_OR)
 			execute_or(shell, ast);
-		else if (is_no_abort(shell) && ast->type == OP_PIPE)
+		else if (ast->type == OP_PIPE)
 			execute_pipe(shell, ast);
-		else if (is_no_abort(shell) && ast->type == OP_SUBSHELL)
+		else if (ast->type == OP_SUBSHELL)
 			execute_subshell(shell, ast);
 	}
 }
@@ -48,6 +48,6 @@ void	execute_ast(t_minishell_p shell, t_ast_p *ast)
 		_execute_ast(shell, *ast);
 	}
 	handle_signal_error(shell);
-	destroy_ast(ast);
 	signals_setter();
+	destroy_ast(ast);
 }

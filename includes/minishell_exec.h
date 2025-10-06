@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 12:20:12 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/06 14:12:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void		forward_fds(t_ast_p ast);
 void		save_std_fileno(t_minishell_p shell);
 void		restore_std_fileno(t_minishell_p shell, t_ast_p ast);
 int			redirect_leaf(t_minishell_p shell, t_ast_p ast);
+int			open_files(t_minishell_p shell, t_leaf_p leaf, t_redir_p cur_redir);
 void		close_fds(t_ast_p ast, int mode);
 void		close_secure(int *fd);
 void		safe_dup2(int oldfd, int newfd);

@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_abort.c                                        :+:      :+:    :+:   */
+/*   strjoin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 16:30:50 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 12:56:05 by cgajean          ###   ########.fr       */
+/*   Created: 2025/10/06 14:44:56 by cgajean           #+#    #+#             */
+/*   Updated: 2025/10/06 14:54:12 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_abort(t_minishell_p shell, char *errmsg)
+
+char	*_strjoin(t_minishell_p shell, char const *s1, char const *s2)
 {
-	if (errmsg)
-		print_generic_error(shell, errmsg);
-	shell->abort = true;
-	shell->exit_code = ERRVAL1;
+	char	*ptr;
+
+	ptr = ft_strjoin(s1, s2);
+	if (!ptr)
+		set_abort(shell, MEM_ERRMSG);
+	return (ptr);
 }

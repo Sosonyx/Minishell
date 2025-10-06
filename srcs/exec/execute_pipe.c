@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 17:37:58 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 16:03:17 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 static int	open_pipe(t_minishell_p shell, t_ast_p ast)
 {
-	ast->cur_pipe = ft_calloc(2, sizeof(int));
+	ast->cur_pipe = _calloc(shell, 2, sizeof(int));
 	if (ast->cur_pipe)
-	{
 		return (_pipe(shell, ast->cur_pipe));
-	}
 	else
-		return (set_abort(shell, MEM_ERRMSG), RETURN_FAIL);
+		return (-1);
+}
+
+static t_leaf_p	select_right_leaf(t_minishell_p shell, t_ast_p ast)
+{
+	if (ast->cntl_op->right->type == OP_PIPE)
+		return (ast->cntl_op->right->cntl_op->right->leaf);
+	else
+		return (ast->cntl_op->right->leaf);	
 }
 
 static void	connect_nodes(t_ast_p ast)
@@ -35,23 +41,26 @@ static void	connect_nodes(t_ast_p ast)
 
 void	execute_pipe(t_minishell_p shell, t_ast_p ast)
 {
-	if (open_pipe(shell, ast) == 0)
+	if (is_no_abort(shell))
 	{
-		connect_nodes(ast);
-		_execute_ast(shell, ast->cntl_op->left);
-		close_secure(&ast->cur_pipe[1]);
-		if (is_no_abort(shell))
+		if (open_pipe(shell, ast) == 0)
 		{
-			_execute_ast(shell, ast->cntl_op->right);
+			if (is_no_abort(shell))
+			{
+				connect_nodes(ast);
+				_execute_ast(shell, ast->cntl_op->left);
+			}
+			close_secure(&ast->cur_pipe[1]);
+			if (is_no_abort(shell))
+			{
+				_execute_ast(shell, ast->cntl_op->right);
+			}
 			close_secure(&ast->cur_pipe[0]);
+			wait_if_leaf(ast->cntl_op->left->leaf, NULL);
+			wait_if_leaf(select_right_leaf(shell, ast), &shell->exit_code);
+			free(ast->cur_pipe);
 		}
-		wait_if_leaf(ast->cntl_op->left->leaf, NULL);
-		if (ast->cntl_op->right->type == OP_PIPE)
-			wait_if_leaf(ast->cntl_op->right->cntl_op->right->leaf, &shell->exit_code);
 		else
-			wait_if_leaf(ast->cntl_op->right->leaf, &shell->exit_code);
-		free(ast->cur_pipe);
+			shell->exit_code = ERRVAL1;
 	}
-	else
-		shell->exit_code = ERRVAL1;
 }

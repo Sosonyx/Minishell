@@ -3,29 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   catpath.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:27:15 by fox               #+#    #+#             */
-/*   Updated: 2025/10/01 17:20:03 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/06 15:12:26 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
-char	*catpath(char *pathopen, char *added)
+char	*catpath(t_minishell_p shell, char *pathopen, char *added)
 {
 	char	*new_path;
 	char	*temp;
-/* 	if (*pathopen == '/')
-		new_path = ft_strdup(pathopen);
-	else */
-		new_path = ft_strjoin(pathopen, "/");
-	if (new_path)
-		temp = new_path;
-	if (new_path && added)
+
+	new_path = _strjoin(shell, pathopen, "/");
+	if (is_no_abort(shell))
 	{
-		new_path = ft_strjoin(new_path, added);
-		free(temp);
+		temp = new_path;
+		new_path = _strjoin(shell, new_path, added);
 	}
 	return (new_path);
 }

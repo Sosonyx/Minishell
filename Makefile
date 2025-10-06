@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/03 18:17:39 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/06 15:54:01 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC         = \
 				$(SRC_DIR)/exec/extract_return_code.c										\
 				$(SRC_DIR)/exec/convert_errno.c												\
 				$(SRC_DIR)/exec/redirections/close_secure.c									\
+				$(SRC_DIR)/exec/redirections/open_files.c									\
 				$(SRC_DIR)/exec/redirections/redirect_leaf.c								\
 				$(SRC_DIR)/exec/redirections/forward_fds.c									\
 				$(SRC_DIR)/exec/redirections/close_fds.c									\
@@ -94,10 +95,14 @@ SRC         = \
 				$(SRC_DIR)/shell/shell_init.c												\
 				$(SRC_DIR)/shell/shell_destroy.c											\
 				$(SRC_DIR)/shell/shell_kill.c												\
-				$(SRC_DIR)/syscalls/dup.c													\
-				$(SRC_DIR)/syscalls/dup2.c													\
-				$(SRC_DIR)/syscalls/fork.c													\
-				$(SRC_DIR)/syscalls/pipe.c													\
+				$(SRC_DIR)/wrappers/alloc.c													\
+				$(SRC_DIR)/wrappers/dup.c													\
+				$(SRC_DIR)/wrappers/dup2.c													\
+				$(SRC_DIR)/wrappers/fork.c													\
+				$(SRC_DIR)/wrappers/pipe.c													\
+				$(SRC_DIR)/wrappers/split.c													\
+				$(SRC_DIR)/wrappers/strdup.c												\
+				$(SRC_DIR)/wrappers/strjoin.c												\
 				$(SRC_DIR)/built-in/ft_exit.c												\
 				$(SRC_DIR)/built-in/ft_cd.c													\
 				$(SRC_DIR)/built-in/ft_echo.c												\

@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_abort.c                                        :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 16:30:50 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 12:56:05 by cgajean          ###   ########.fr       */
+/*   Created: 2025/10/06 14:50:22 by cgajean           #+#    #+#             */
+/*   Updated: 2025/10/06 14:55:41 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_abort(t_minishell_p shell, char *errmsg)
+char	**_split(t_minishell_p shell, const char *s, const char c)
 {
-	if (errmsg)
-		print_generic_error(shell, errmsg);
-	shell->abort = true;
-	shell->exit_code = ERRVAL1;
+	char	**str;
+
+	str = ft_split(s, c);
+	if (!str)
+		set_abort(shell, MEM_ERRMSG);
+	return (str);
 }

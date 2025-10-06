@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup2.c                                             :+:      :+:    :+:   */
+/*   strdup.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 15:11:03 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 15:57:19 by cgajean          ###   ########.fr       */
+/*   Created: 2025/10/06 14:34:46 by cgajean           #+#    #+#             */
+/*   Updated: 2025/10/06 14:53:33 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	_dup2(t_minishell_p shell, int fd, int fd2)
+char	*_strdup(t_minishell_p shell, const char *s)
 {
-	if (dup2(fd, fd2) == -1)
-	{
-		set_abort(shell, DUP2_ERRMSG);
-		shell->exit_code = ERRVAL1;
-		return (-1);
-	}
-	else
-		return (0);
+	size_t	size;
+	char	*ptr;
+
+	size = ft_strlen(s);
+	ptr = ft_strdup(s);
+	if (!ptr)
+		set_abort(shell, MEM_ERRMSG);
+	return (ptr);
 }

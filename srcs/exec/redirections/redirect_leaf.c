@@ -6,66 +6,41 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 16:50:50 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/06 14:14:49 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	close_prev(int prev)
+static void	overwrite_if_hd(t_minishell_p shell, t_leaf_p leaf)
 {
-	if (prev IS_VALID_FD)
-		close(prev);
+	if (leaf->hd_fd[0] IS_VALID_FD)
+	{
+		close_secure(&leaf->fds[0]);
+		leaf->fds[0] = leaf->hd_fd[0];
+	}	
 }
 
-static int	get_open_flag(t_redirtype redirtype)
+static void	write_fd(t_leaf_p leaf, t_redir_p redir, int *prev_fds)
 {
-	if (redirtype == R_IN)
-		return (O_RDONLY);
-	else if (redirtype == R_OUT)
-		return (O_WRONLY | O_CREAT | O_TRUNC);
-	else if (redirtype == R_APPEND)
-		return (O_WRONLY | O_CREAT | O_APPEND);
-	else
-		return (-1);
-}
-
-static int	open_files(t_minishell_p shell, t_leaf_p leaf, t_redir_p cur_redir)
-{
-	int		open_flag;
-	int		*target_fd;
-	bool	*r_flag;
-
-	if (cur_redir->type == R_IN)
+	if (redir->type & (R_IN))
 	{
-		target_fd = &leaf->fds[0];
-		r_flag = &leaf->r_in;
+		close_secure(&prev_fds[0]);
+		prev_fds[0] = leaf->fds[0];
 	}
-	else
+	else if (redir->type & (R_OUT | R_APPEND))
 	{
-		target_fd = &leaf->fds[1];
-		r_flag = &leaf->r_out;
-	}
-	open_flag = get_open_flag(cur_redir->type);
-	*target_fd = open(cur_redir->target, open_flag, OPEN_PERM);
-	if (*target_fd == -1)
-	{
-		print_file_error(shell, cur_redir->target, errno);
-		leaf->abort = true;
-	}
-	else
-		*r_flag = true;
-	return (*target_fd);
+		close_secure(&prev_fds[1]);
+		prev_fds[1] = leaf->fds[1];
+	}	
 }
 
 static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
 {
 	t_redir_p	cur_redir;
-	int			prev_in;
-	int			prev_out;
+	int			prev_fds[2];
 
-	prev_in = 0;
-	prev_out = 0;
+	ft_memset(prev_fds, 0, 2 * sizeof(int));
 	cur_redir = leaf->redir;
 	while (cur_redir)
 	{
@@ -73,55 +48,40 @@ static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
 		{
 			if (open_files(shell, leaf, cur_redir) == -1)
 			{
-				close_prev(prev_in);
-				close_prev(prev_out);
+				close_secure(&prev_fds[0]);
+				close_secure(&prev_fds[1]);
 				return (-1);
 			}
 			else
-			{
-				if (cur_redir->type & (R_IN))
-				{
-					close_prev(prev_in);
-					prev_in = leaf->fds[0];
-				}
-				else if (cur_redir->type & (R_OUT | R_APPEND))
-				{
-					close_prev(prev_out);
-					prev_out = leaf->fds[1];
-				}		
-			}
+				write_fd(leaf, cur_redir, prev_fds);
 		}
 		cur_redir = cur_redir->next;
 	}
-	if (leaf->hd_fd[0] IS_VALID_FD)
-	{
-		close_secure(&leaf->fds[0]);
-		leaf->fds[0] = leaf->hd_fd[0];
-	}
+	overwrite_if_hd(shell, leaf);
 	return (0);
 }
 
 int	redirect_leaf(t_minishell_p shell, t_ast_p ast)
 {
 	int	retval;
-	
+
 	retval = 0;
-	if (is_no_abort(shell) && !ast->leaf->r_in && ast->read_fd && *ast->read_fd IS_VALID_FD)
+	if (!ast->leaf->r_in && ast->read_fd && *ast->read_fd IS_VALID_FD)
 	{
 		retval = _dup2(shell, *ast->read_fd, STDIN_FILENO);
 	}
-	if (is_no_abort(shell) && !ast->leaf->r_out && ast->write_fd && *ast->write_fd IS_VALID_FD)
+	if (!ast->leaf->r_out && ast->write_fd && *ast->write_fd IS_VALID_FD)
 	{
-		retval = _dup2(shell, *ast->write_fd, STDOUT_FILENO);	
+		retval = _dup2(shell, *ast->write_fd, STDOUT_FILENO);
 	}
-	if (is_no_abort(shell) && ast->leaf->r_in || ast->leaf->r_out)
+	if ((ast->leaf->r_in || ast->leaf->r_out))
 	{
 		retval = set_redir(shell, ast->leaf);
-		if (is_no_abort(shell) && ast->leaf->fds[0] IS_VALID_FD)
+		if (ast->leaf->fds[0] IS_VALID_FD)
 		{
 			retval = _dup2(shell, ast->leaf->fds[0], STDIN_FILENO);
 		}
-		if (is_no_abort(shell) && ast->leaf->fds[1] IS_VALID_FD)
+		if (ast->leaf->fds[1] IS_VALID_FD)
 		{
 			retval = _dup2(shell, ast->leaf->fds[1], STDOUT_FILENO);
 		}
