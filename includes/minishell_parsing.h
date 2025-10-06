@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/04 16:36:03 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/06 13:29:16 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int			set_right_end(int op_pos, int end, t_tok_container_p tok_container, int *r
 /********************************************************************************/
 /*  Expand                            										    */
 /********************************************************************************/
+
+char		*remove_quotes(t_redir_p redirs, char *str);
 
 void		pipeline_expand(t_minishell *shell, t_ast_p ast);
 t_expanded	expand_command(t_minishell *shell, char *str);

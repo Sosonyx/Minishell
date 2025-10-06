@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_limiter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:21:38 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/04 16:44:54 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/06 15:25:57 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,25 @@
 static int	update_state(t_redir_p redirs, int state, char c)
 {
 	if (c == '\'' && state == 0)
-		return (redirs->expand_hd = 1, 1);
+	{
+		if (redirs)
+			redirs->expand_hd = 1;
+		return (1);
+	}
 	else if (c == '\'' && state == 1)
 		return (0);
 	else if (c == '"' && state == 0)
-		return (redirs->expand_hd = 1, 2);
+	{
+		if (redirs)
+			redirs->expand_hd = 1;
+		return (2);
+	}
 	else if (c == '"' && state == 2)
 		return (0);
 	return (state);
 }
 
-static char	*remove_quotes(t_redir_p redirs, char *str)
+char	*remove_quotes(t_redir_p redirs, char *str)
 {
 	char	*res;
 	int		i;
@@ -57,8 +65,12 @@ char	*expand_limiter(t_redir_p redirs, char *str)
 {
 	char	*new_limiter;
 
-	new_limiter = remove_quotes(redirs, str);
-	if (!new_limiter)
-		return (NULL);
+	if (ft_strchr(str, '"') || ft_strchr(str, '\''))
+	{
+		redirs->expand_hd = 1;
+		new_limiter = remove_quotes(redirs, str);
+	}
+	else
+		return (str);
 	return (new_limiter);
 }
