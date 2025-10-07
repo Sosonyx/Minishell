@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 19:16:28 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,8 @@ void	execute_builtin(t_shell_p shell, t_ast_p ast)
 	if (is_no_abort(shell))
 	{
 		if (ast->write_fd || ast->read_fd)
-		{
 			execute_wfork(shell, ast);
-		}
 		else
-		{
 			execute_nofork(shell, ast);
-		}
 	}
 }

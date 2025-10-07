@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:43:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int ac, char **av, char **env)
 	shell = shell_init(ac, av, environ);
 	mainloop(shell, &ast);
 	return_status = shell->exit_code;
-	shell_destroy(shell);
+	destroy_shell(shell);
 	rl_clear_history();
 	return (extract_return_code(return_status));
 }

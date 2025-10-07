@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 14:31:06 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:44:34 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ void		discard_token(t_shell_p shell, int token_index);
 void		destroy_ast(t_ast_p *ast);
 void		destroy_leaf(t_ast_p ast);
 void		destroy_redir(t_ast_p ast);
+void		destroy_tokens(t_shell_p shell);
 
 int			init_global_end(t_build_var vars, t_tok_container_p tok_container);
 int			set_global_end(t_build_var vars, t_tok_container_p tok_container);
 int			set_left_end(int start, int op_pos, t_tok_container_p tok_container);
 int			set_right_end(int op_pos, int end, t_tok_container_p tok_container, int *right_start);
-
 
 /********************************************************************************/
 /*  Expand                            										    */

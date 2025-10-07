@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/07 14:45:14 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 19:23:32 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void	aggregate_matches(t_shell_p shell, t_wildcard_p wc, char *args)
 	char	**matches;
 
 	matches = _calloc(shell, wc->totalmatches + wc->tmp_totalmatches + 2, sizeof(char *));
-	if (matches)
-		ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
+	if (!matches)
+		return ;
+	ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
 	if (wc->tmp_matches)
 	{
 		ft_memcpy(matches + wc->totalmatches, wc->tmp_matches, wc->tmp_totalmatches * sizeof(char *));
@@ -109,7 +110,7 @@ void	wildcard_expand(t_shell_p shell, t_ast_p ast)
 	char			**args;
 	char			**expanded_args;
 
-	if (*ast->leaf->cmds && **ast->leaf->cmds)
+	if (ast->leaf->cmds && *ast->leaf->cmds)
 	{
 		args = ast->leaf->cmds;
 		wc = _calloc(shell, 1, sizeof(struct s_wildcard));

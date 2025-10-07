@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:11:59 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 19:03:55 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ struct s_tok_container
 	int			op_index;
 };
 
-///
-///	parsing
-///
 struct s_token
 {
 	t_toktype			type;

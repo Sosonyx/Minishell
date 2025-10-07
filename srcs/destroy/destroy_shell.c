@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cntl_op.c                                   :+:      :+:    :+:   */
+/*   shell_destroy.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 12:34:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 19:06:38 by cgajean          ###   ########.fr       */
+/*   Created: 2025/09/09 10:04:56 by cgajean           #+#    #+#             */
+/*   Updated: 2025/10/07 18:43:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	create_cntl_op(t_shell_p shell, t_ast_p *op, t_toktype type)
+void	destroy_shell(t_shell_p shell)
 {
-	if (is_no_abort(shell))
+	if (shell)
 	{
-		*op = _calloc(shell, 1, sizeof(t_ast));
-		if (*op)
-		{
-			if (type == T_AND)
-				(*op)->type = OP_AND;
-			if (type == T_OR)
-				(*op)->type = OP_OR;
-			if (type == T_PIPE)
-				(*op)->type = OP_PIPE;
-			if (type == T_LPARENT)
-				(*op)->type = OP_SUBSHELL;
-			return (RETURN_OK);
-		}
+		ft_split_free(shell->environ);
+		free(shell);
 	}
-	return (RETURN_FAIL);
-		
 }

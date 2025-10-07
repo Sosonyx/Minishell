@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 19:15:00 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,17 @@ static void	get_subshell_limit(t_shell_p shell, int start, int *end)
 
 static void	_parse_subshell(t_shell_p shell, t_ast_p *op, t_build_var vars)
 {
+	discard_token(shell, vars.start);
+	discard_token(shell, vars.end);
 	if (create_cntl_op(shell, op, T_LPARENT))
 	{
-		discard_token(shell, vars.start);
-		discard_token(shell, vars.end);
 		(*op)->cntl_op = _calloc(shell, 1, sizeof(struct s_cntl_op));
-		if ((*op)->cntl_op)
-		{
-			++vars.start;
-			--vars.end;
-			build_ast(shell, &(*op)->cntl_op->left, vars);
-		}
-		else
+		if (!is_no_abort(shell))
 			free(*op);
 	}
+	++vars.start;
+	--vars.end;
+	build_ast(shell, &(*op)->cntl_op->left, vars);
 }
 
 int	parse_subshell(t_shell_p shell, t_ast_p *op, t_build_var vars)

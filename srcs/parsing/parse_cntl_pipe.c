@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 19:09:14 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 static void	_create_cntl_pipe(t_shell_p shell, t_ast_p *op, t_token_p cur_token, int n)
 {
-	if (create_cntl_op(shell, op, cur_token->type))
-	{
-		free(shell->tokens->tokens[n]);
-		shell->tokens->tokens[n] = NULL;
-		shell->tokens->op_index = n;
-		discard_token(shell, n);
-	}
+	create_cntl_op(shell, op, cur_token->type);
+	free(shell->tokens->tokens[n]);
+	shell->tokens->tokens[n] = NULL;
+	shell->tokens->op_index = n;
+	discard_token(shell, n);
 }
 
 int	parse_cntl_pipe(t_shell_p shell, t_ast_p *op, t_build_var vars)
@@ -30,7 +28,7 @@ int	parse_cntl_pipe(t_shell_p shell, t_ast_p *op, t_build_var vars)
 
 	in_parenthesis = 0;
 	cur_token = shell->tokens->tokens[vars.start];
-	while (is_no_abort(shell) && cur_token && vars.start <= vars.end)
+	while (cur_token && vars.start <= vars.end)
 	{
 		if (cur_token->type == T_PIPE && !in_parenthesis)
 		{

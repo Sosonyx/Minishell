@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 19:02:14 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ static void	_init_ast(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 	vars.end = init_global_end(vars, shell->tokens);
 	_recbuild(shell, ast, vars);
 	
-	// cette partie ne fonctionne que lorsque tout s'est bien passe
-	free(shell->tokens->tokens);
-	free(shell->tokens);
 }
 
 int	parse_tokens(t_shell_p shell, t_ast_p *ast)

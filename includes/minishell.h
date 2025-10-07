@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:43:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ extern int	g_sigstatus;
 
 t_shell_p	shell_init(int ac, char **av, char **envp);
 
-void			shell_destroy(t_shell_p shell);
+void			destroy_shell(t_shell_p shell);
 
 void			shell_kill(t_shell_p shell, t_ast_p ast, char *errmsg);
 

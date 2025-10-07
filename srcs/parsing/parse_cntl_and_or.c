@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:55 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 19:09:01 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 static void	_create_cntl_and_or(t_shell_p shell, t_ast_p *op, t_token_p cur_token, int n)
 {
-	if (create_cntl_op(shell, op, cur_token->type))
-	{
-		free(shell->tokens->tokens[n]);
-		shell->tokens->tokens[n] = NULL;
-		shell->tokens->op_index = n;
-		discard_token(shell, n);
-	}
+	create_cntl_op(shell, op, cur_token->type);
+	free(shell->tokens->tokens[n]);
+	shell->tokens->tokens[n] = NULL;
+	shell->tokens->op_index = n;
+	discard_token(shell, n);
 }
 
 int	parse_cntl_and_or(t_shell_p shell, t_ast_p *op, t_build_var vars)

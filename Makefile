@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/07 14:32:48 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/07 18:54:58 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC         = \
 				$(SRC_DIR)/destroy/destroy_ast.c											\
 				$(SRC_DIR)/destroy/destroy_leaf.c											\
 				$(SRC_DIR)/destroy/destroy_redir.c											\
-				$(SRC_DIR)/destroy/shell_destroy.c											\
+				$(SRC_DIR)/destroy/destroy_shell.c											\
+				$(SRC_DIR)/destroy/destroy_tokens.c											\
 				$(SRC_DIR)/error_and_event_manager/print_error.c							\
 				$(SRC_DIR)/error_and_event_manager/print_hd_error.c							\
 				$(SRC_DIR)/error_and_event_manager/signal_handlers.c						\
