@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:45:36 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 15:24:40 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 17:59:29 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,6 @@ t_expanded	expand_command(t_shell *shell, char *str)
 			i++;
 		}
 	}
+	printf("result == %s\n", result.value);
 	return (result);
 }
