@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:25:01 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static int	set_redir(t_shell_p shell, t_leaf_p leaf)
 		{
 			if (open_files(shell, leaf, cur_redir) == -1)
 			{
-				close_secure(&prev_fds[0]);
-				close_secure(&prev_fds[1]);
+				close_secure(&leaf->fds[0]);
+				close_secure(&leaf->fds[1]);
 				return (-1);
 			}
 			else

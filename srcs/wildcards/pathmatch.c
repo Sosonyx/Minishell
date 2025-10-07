@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:34:09 by fox               #+#    #+#             */
-/*   Updated: 2025/10/07 17:57:21 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:16:12 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,8 @@ int	pathmatch(char *ptested, char *pref, int state)
 	if (!*ptested && !*pref)
 		return (1);
 
-	printf("pref> %s\n", pref);
-	
 	if ((*pref == '\'' && state != 2) || (*pref == '"' && state != 1))
 		state = quote_state(state, *pref++);
-	printf("state == %d\n", state);
-	// if ((*pref == '\'' || *pref == '"' ))
-	// {
-	// 	if (has_a_star(state, pref))
-	// 		state = quote_state(state, *pref++);
-	// }
 
 	if (!isasterisk(*pref) || state)
 	{
