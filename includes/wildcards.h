@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:25:25 by fox               #+#    #+#             */
-/*   Updated: 2025/10/07 14:07:42 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 16:46:17 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ struct s_wildcard
 	bool			lastisdir;
 	bool			startbydot;
 	bool			isstartdir;
+	struct dirent 	*sdir;
 };
 
 struct s_pathmatch
@@ -56,7 +57,7 @@ void	wildcard_expand(t_shell_p shell, t_ast_p ast);
 
 int		pathmatch(char *ptested, char *pref, int state);
 void	recdir(t_shell_p shell, t_wildcard_p wc, char *pathopen, int depth);
-void	savepath(t_shell_p shell, t_wildcard_p wc, struct dirent *sdir, char *path, int depth);
+void	savepath(t_shell_p shell, t_wildcard_p wc, char *path, int depth);
 void	addmatch(t_shell_p shell, t_wildcard_p wc, char *path);
 void	sortmatches(t_wildcard_p wc);
 

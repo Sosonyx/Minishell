@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iswildcard.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:29:03 by fox               #+#    #+#             */
-/*   Updated: 2025/09/22 10:34:32 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/07 16:17:03 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 int	iswildcard(char *field)
 {
-	while (field && *field)
+	if (field)
 	{
-		if (isasterisk(*field++))
-			return (1);
+		while (*field)
+		{
+			if (isasterisk(*field++))
+				return (1);
+		}
 	}
 	return (0);
 }
