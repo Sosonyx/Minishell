@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:06:53 by fox               #+#    #+#             */
-/*   Updated: 2025/10/03 17:03:21 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,22 @@ static int	count_tok_word(t_tok_container_p tok_container, int i, int end)
 	return (words);
 }
 
-static void	_build_cmd(t_minishell_p shell, t_ast_p ast, t_token_p	*tok, t_build_var *vars)
+static void	_build_cmd(t_shell_p shell, t_ast_p ast, t_token_p	*tok, t_build_var *vars)
 {
-	ast->leaf->cmds[vars->i] = ft_strdup((*tok)->val);
-	if (!ast->leaf->cmds[vars->i++])
-		set_abort(shell, MEM_ERRMSG);
+	ast->leaf->cmds[vars->i] = _strdup(shell, (*tok)->val);
+	vars->i++;
 	free((*tok)->val);
 	free(*tok);
 	shell->tokens->tokens[vars->start] = NULL;
 }
 
-int	build_cmd(t_minishell_p shell, t_ast_p ast, t_build_var vars)
+int	build_cmd(t_shell_p shell, t_ast_p ast, t_build_var vars)
 {
 	int			words;
 	t_token_p	tok;
 
 	words = count_tok_word(shell->tokens, vars.start, vars.end);
-	ast->leaf->cmds = ft_calloc(words + 1, sizeof(char *));
+	ast->leaf->cmds = _calloc(shell, words + 1, sizeof(char *));
 	if (ast->leaf->cmds)
 	{
 		vars.i = 0;
@@ -61,5 +60,5 @@ int	build_cmd(t_minishell_p shell, t_ast_p ast, t_build_var vars)
 		return (RETURN_OK);
 	}
 	else
-		return (set_abort(shell, MEM_ERRMSG), RETURN_FAIL);
+		return (RETURN_FAIL);
 }

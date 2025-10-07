@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:06 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/02 16:31:18 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit(t_minishell_p shell, char **args)
+int	ft_exit(t_shell_p shell, char **args)
 {
 	if (!args[1])
 	{

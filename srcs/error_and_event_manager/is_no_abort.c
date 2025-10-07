@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-bool	is_no_abort(t_minishell_p shell)
+bool	is_no_abort(t_shell_p shell)
 {
 	return (!(shell->abort || g_sigstatus));
 }

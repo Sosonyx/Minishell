@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/06 18:00:03 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	_create_leaf(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
+void	_create_leaf(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 {
 	t_leaf_p	new_leaf;
 
@@ -30,7 +30,7 @@ void	_create_leaf(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 		free(*ast);
 }
 
-void	create_leaf(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
+void	create_leaf(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 {
 	if (is_no_abort(shell))
 	{

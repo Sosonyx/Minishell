@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 17:52:11 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	get_subshell_limit(t_minishell_p shell, int start, int *end)
+static void	get_subshell_limit(t_shell_p shell, int start, int *end)
 {
 	while (*end >= 0 && *end > start)
 	{
@@ -25,7 +25,7 @@ static void	get_subshell_limit(t_minishell_p shell, int start, int *end)
 	}
 }
 
-static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
+static void	_parse_subshell(t_shell_p shell, t_ast_p *op, t_build_var vars)
 {
 	if (create_cntl_op(shell, op, T_LPARENT))
 	{
@@ -43,7 +43,7 @@ static void	_parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
 	}
 }
 
-int	parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars)
+int	parse_subshell(t_shell_p shell, t_ast_p *op, t_build_var vars)
 {
 	if (is_no_abort(shell) && shell->tokens->tokens[vars.start] && (shell->tokens->tokens[vars.start])->type == T_LPARENT)
 	{

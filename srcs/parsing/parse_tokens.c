@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/06 17:53:05 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	_seek_cntl_op(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
+static int	_seek_cntl_op(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 {
 	if (parse_cntl_and_or(shell, ast, vars))
 		return (RETURN_OK);
@@ -24,7 +24,7 @@ static int	_seek_cntl_op(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 		return (RETURN_FAIL);
 }
 
-static void	_recbuild(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
+static void	_recbuild(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 {
 	if (_seek_cntl_op(shell, ast, vars))
 	{
@@ -47,13 +47,13 @@ static void	_recbuild(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 		create_leaf(shell, ast, vars);
 }
 
-void	build_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
+void	build_ast(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 {
 	vars.end = set_global_end(vars, shell->tokens);
 	_recbuild(shell, ast, vars);
 }
 
-static void	_init_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
+static void	_init_ast(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 {
 	vars.end = init_global_end(vars, shell->tokens);
 	_recbuild(shell, ast, vars);
@@ -63,7 +63,7 @@ static void	_init_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars)
 	free(shell->tokens);
 }
 
-int	parse_tokens(t_minishell_p shell, t_ast_p *ast)
+int	parse_tokens(t_shell_p shell, t_ast_p *ast)
 {
 	_init_ast(shell, ast, (t_build_var){0});
 	return (shell->abort == false);

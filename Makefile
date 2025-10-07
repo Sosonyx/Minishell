@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/06 18:18:03 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/07 14:32:48 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,8 @@ SRC         = \
 				$(SRC_DIR)/parsing/expander/expand_leaf.c									\
 				$(SRC_DIR)/parsing/expander/expand_limiter.c								\
 				$(SRC_DIR)/parsing/expander/expand_old_cmd.c								\
+				$(SRC_DIR)/parsing/expander/remove_quotes.c									\
+				$(SRC_DIR)/parsing/expander/quote_state.c									\
 				$(SRC_DIR)/parsing/utils/set_ends.c											\
 				$(SRC_DIR)/wildcards/utils/isasterisk.c										\
 				$(SRC_DIR)/wildcards/utils/iswildcard.c										\

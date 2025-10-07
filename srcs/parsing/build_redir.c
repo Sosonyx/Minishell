@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:05:23 by fox               #+#    #+#             */
-/*   Updated: 2025/10/06 18:43:54 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	config_redir(t_minishell_p shell, t_redir_p redir, t_build_var vars)
+static void	config_redir(t_shell_p shell, t_redir_p redir, t_build_var vars)
 {
 	if (redir->type == R_HDOC)
 	{
@@ -35,7 +35,7 @@ static void	set_redir_type(t_redir_p redir, t_token_p token)
 		redir->type = R_HDOC;
 }
 
-static void	_build_redir(t_minishell_p shell, t_redir_p redir, t_token_p token, t_build_var *vars)
+static void	_build_redir(t_shell_p shell, t_redir_p redir, t_token_p token, t_build_var *vars)
 {
 	set_redir_type(redir, token);
 	config_redir(shell, redir, *vars);
@@ -54,7 +54,7 @@ static void	set_redir_ptrs(t_ast_p ast, t_redir_p redir, t_redir_p *curr)
 	ast->leaf->r_out = redir->type & (R_OUT | R_APPEND);
 }
 
-int	build_redir(t_minishell_p shell, t_ast_p ast, t_build_var vars)
+int	build_redir(t_shell_p shell, t_ast_p ast, t_build_var vars)
 {
 	t_redir_p	curr;
 	t_redir_p	new;

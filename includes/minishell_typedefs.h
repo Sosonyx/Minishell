@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:22:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 19:32:31 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef enum	e_ast_branch	t_ast_branch;
 /*			Structures															*/
 /********************************************************************************/
 
-typedef struct	s_minishell		t_minishell;
-typedef			t_minishell		*t_minishell_p;
+typedef struct	s_minishell		t_shell;
+typedef			t_shell		*t_shell_p;
 
 typedef struct	s_tok_container	t_tok_container;
 typedef 		t_tok_container	*t_tok_container_p;

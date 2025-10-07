@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/06 18:20:56 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 14:31:06 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,25 @@ int			stock_word(t_token **arr, int j, char *line, int *i);
 int			stock_quoted(t_token **arr, int j, char *line, int *i);
 int			stock_special(t_token **arr, int j, char *line, int *i);
 int			stock_tokens(t_tok_container *a, char *line);
-int			tokenize_input(t_minishell_p shell, int *g_sigstatus);
+int			tokenize_input(t_shell_p shell, int *g_sigstatus);
 
 /********************************************************************************/
 /*  Parsing / AST                      										    */
 /********************************************************************************/
 
-int			parse_tokens(t_minishell_p shell, t_ast_p *ast);
-void		build_ast(t_minishell_p shell, t_ast_p *ast, t_build_var vars);
+int			parse_tokens(t_shell_p shell, t_ast_p *ast);
+void		build_ast(t_shell_p shell, t_ast_p *ast, t_build_var vars);
 
-int			build_redir(t_minishell_p shell, t_ast_p ast, t_build_var vars);
-int			build_cmd(t_minishell_p shell, t_ast_p ast, t_build_var vars);
+int			build_redir(t_shell_p shell, t_ast_p ast, t_build_var vars);
+int			build_cmd(t_shell_p shell, t_ast_p ast, t_build_var vars);
 
-int			parse_cntl_and_or(t_minishell_p shell, t_ast_p *op, t_build_var vars);
-int			parse_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_build_var vars);
-int			parse_subshell(t_minishell_p shell, t_ast_p *op, t_build_var vars);
-int			create_cntl_op(t_minishell_p shell, t_ast_p *op, t_toktype type);
-void		create_leaf(t_minishell_p shell, t_ast_p *ast, t_build_var vars);
+int			parse_cntl_and_or(t_shell_p shell, t_ast_p *op, t_build_var vars);
+int			parse_cntl_pipe(t_shell_p shell, t_ast_p *op, t_build_var vars);
+int			parse_subshell(t_shell_p shell, t_ast_p *op, t_build_var vars);
+int			create_cntl_op(t_shell_p shell, t_ast_p *op, t_toktype type);
+void		create_leaf(t_shell_p shell, t_ast_p *ast, t_build_var vars);
 
-void		discard_token(t_minishell_p shell, int token_index);
+void		discard_token(t_shell_p shell, int token_index);
 
 void		destroy_ast(t_ast_p *ast);
 void		destroy_leaf(t_ast_p ast);
@@ -89,12 +89,14 @@ int			set_right_end(int op_pos, int end, t_tok_container_p tok_container, int *r
 /*  Expand                            										    */
 /********************************************************************************/
 
-char		*remove_quotes(t_minishell_p shell, t_redir_p redirs, char *str);
+char		*remove_quotes(t_shell_p shell, t_redir_p redirs, char *str);
+int			quote_state(int state, char c);
 
-void		pipeline_expand(t_minishell *shell, t_ast_p ast);
-t_expanded	expand_command(t_minishell *shell, char *str);
-char		*get_env_value(t_minishell *shell, char *name);
-char		*expand_limiter(t_minishell_p shell, t_redir_p redir, char *str);
+
+void		pipeline_expand(t_shell *shell, t_ast_p ast);
+t_expanded	expand_command(t_shell *shell, char *str);
+char		*get_env_value(t_shell *shell, char *name);
+char		*expand_limiter(t_shell_p shell, t_redir_p redir, char *str);
 char		*append_char(char *str, char c);
 
 #endif

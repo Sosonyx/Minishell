@@ -6,24 +6,24 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:24:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 11:27:46 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_err(t_minishell_p shell, char *name, int errnum)
+static void	print_err(t_shell_p shell, char *name, int errnum)
 {
 	speak(shell, STDERR_FILENO, name, COLUMN);
 	speak(NULL, STDERR_FILENO, strerror(errnum), NEWLINE);
 }
 
-void	print_file_error(t_minishell_p shell, char *filename, int errnum)
+void	print_file_error(t_shell_p shell, char *filename, int errnum)
 {
 	print_err(shell, filename, errnum);
 }
 
-void	print_cmd_error(t_minishell_p shell, char *cmd_name, int errnum)
+void	print_cmd_error(t_shell_p shell, char *cmd_name, int errnum)
 {
 	if (errnum == ENOENT && !ft_strchr(cmd_name, '/'))
 	{
@@ -34,13 +34,13 @@ void	print_cmd_error(t_minishell_p shell, char *cmd_name, int errnum)
 		print_err(shell, cmd_name, errnum);
 }
 
-void	print_cmd_error2(t_minishell_p shell, char *cmd_name, char *errmsg)
+void	print_cmd_error2(t_shell_p shell, char *cmd_name, char *errmsg)
 {
 	speak(shell, STDERR_FILENO, cmd_name, COLUMN);
 	speak(NULL, STDERR_FILENO, errmsg, NEWLINE);
 }
 
-void	print_generic_error(t_minishell_p shell, char *errmsg)
+void	print_generic_error(t_shell_p shell, char *errmsg)
 {
 	speak(shell, STDERR_FILENO, errmsg, NEWLINE);
 }

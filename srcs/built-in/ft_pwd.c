@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:20:18 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/05 13:59:15 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_getcwd(char **env)
 	return (NULL);
 }
 
-int	ft_pwd(t_minishell_p shell, char **args)
+int	ft_pwd(t_shell_p shell, char **args)
 {
 	char	*cwd;
 

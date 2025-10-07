@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:15:33 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/05 16:43:13 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	copy_old_env(char **new_env, char **old_env, int size)
 	}
 }
 
-static int	add_or_replace_vars(t_minishell_p shell, char **env, char **args, int start_index)
+static int	add_or_replace_vars(t_shell_p shell, char **env, char **args, int start_index)
 {
 	int	i;
 	int	j;
@@ -97,7 +97,7 @@ static int	add_or_replace_vars(t_minishell_p shell, char **env, char **args, int
 	return (1);
 }
 
-int	ft_export(t_minishell_p shell, char **args_to_add)
+int	ft_export(t_shell_p shell, char **args_to_add)
 {
 	char	**new_env;
 	int		env_count;

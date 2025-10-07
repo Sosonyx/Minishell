@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 18:22:02 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	check_path(char *path)
 	return (ENOENT);
 }
 
-static void	_execve(t_minishell_p shell, t_ast_p ast)
+static void	_execve(t_shell_p shell, t_ast_p ast)
 {
 	int	errnum;
 
@@ -52,7 +52,7 @@ static void	_execve(t_minishell_p shell, t_ast_p ast)
 	}
 }
 
-static void	_execute_command(t_minishell_p shell, t_ast_p ast)
+static void	_execute_command(t_shell_p shell, t_ast_p ast)
 {
 	if (redirect_leaf(shell, ast) == -1)
 		exit(EXIT_FAILURE);
@@ -63,7 +63,7 @@ static void	_execute_command(t_minishell_p shell, t_ast_p ast)
 		_execve(shell, ast);
 }
 
-static void	execute_command(t_minishell_p shell, t_ast_p ast)
+static void	execute_command(t_shell_p shell, t_ast_p ast)
 {
 	ast->leaf->pid = _fork(shell);
 	if (ast->leaf->pid == 0)
@@ -78,7 +78,7 @@ static void	execute_command(t_minishell_p shell, t_ast_p ast)
 	}
 }
 
-void	execute_leaf(t_minishell_p shell, t_ast_p ast)
+void	execute_leaf(t_shell_p shell, t_ast_p ast)
 {
 	if (is_no_abort(shell))
 	{

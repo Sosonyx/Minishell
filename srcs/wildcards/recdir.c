@@ -6,17 +6,17 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 18:16:52 by fox               #+#    #+#             */
-/*   Updated: 2025/10/06 17:27:50 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 14:08:12 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
-static void	_recdir(t_minishell_p shell, t_wildcard_p wc, struct dirent *sdir, char *pathopen, int depth)
+static void	_recdir(t_shell_p shell, t_wildcard_p wc, struct dirent *sdir, char *pathopen, int depth)
 {
 	char	*path = NULL;
 
-	if (!skipdotdotdot(sdir->d_name, wc->spath[depth]) && !ishidden(sdir->d_name) && pathmatch(sdir->d_name, wc->spath[depth]))
+	if (!skipdotdotdot(sdir->d_name, wc->spath[depth]) && !ishidden(sdir->d_name) && pathmatch(sdir->d_name, wc->spath[depth], 0))
 	{
 		path = catpath(shell, pathopen, sdir->d_name);
 		recdir(shell, wc, path, depth + 1);
@@ -24,7 +24,7 @@ static void	_recdir(t_minishell_p shell, t_wildcard_p wc, struct dirent *sdir, c
 	}
 }
 
-void	recdir(t_minishell_p shell, t_wildcard_p wc, char *pathopen, int depth)
+void	recdir(t_shell_p shell, t_wildcard_p wc, char *pathopen, int depth)
 {
 	DIR				*dirp;
 	struct dirent	*sdir;

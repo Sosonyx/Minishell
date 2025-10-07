@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_hd_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:20:38 by fox               #+#    #+#             */
-/*   Updated: 2025/09/17 18:17:51 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	get_msglen(t_minishell_p shell, char *limiter)
+size_t	get_msglen(t_shell_p shell, char *limiter)
 {
 	size_t	msglen;
 
@@ -24,7 +24,7 @@ size_t	get_msglen(t_minishell_p shell, char *limiter)
 	return (msglen);
 }
 
-static char *get_errmsg(t_minishell_p shell, char *limiter, size_t msglen)
+static char *get_errmsg(t_shell_p shell, char *limiter, size_t msglen)
 {
 	char	*errmsg;
 	char	*line_nb;
@@ -48,7 +48,7 @@ static char *get_errmsg(t_minishell_p shell, char *limiter, size_t msglen)
 	return (errmsg);
 }
 
-void	print_hd_error(t_minishell_p shell, char *limiter)
+void	print_hd_error(t_shell_p shell, char *limiter)
 {
 	char	*errmsg;
 	size_t	msglen;

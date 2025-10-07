@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:51:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 17:24:02 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	set_env_value(char ***envp, char *name, char *value)
 	*envp = new_env;
 }
 
-static void	set_shell_lvl(t_minishell_p shell)
+static void	set_shell_lvl(t_shell_p shell)
 {
 	char	*lvl_str;
 	int		lvl;
@@ -90,9 +90,9 @@ static void	set_shell_lvl(t_minishell_p shell)
 	}
 }
 
-t_minishell_p	_shell_init(int ac, char **av, char **envp)
+t_shell_p	_shell_init(int ac, char **av, char **envp)
 {
-	t_minishell_p	new_shell;
+	t_shell_p	new_shell;
 
 	new_shell = ft_calloc(1, sizeof(struct s_minishell));
 	if (!new_shell)
@@ -119,7 +119,7 @@ t_minishell_p	_shell_init(int ac, char **av, char **envp)
 	return (new_shell);
 }
 
-t_minishell_p	shell_init(int ac, char **av, char **envp)
+t_shell_p	shell_init(int ac, char **av, char **envp)
 {
 	_minishell_help(ac, av);
 	signals_setter();

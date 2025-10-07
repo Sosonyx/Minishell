@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 12:25:24 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	_execute_ast(t_minishell_p shell, t_ast_p ast)
+void	_execute_ast(t_shell_p shell, t_ast_p ast)
 {
 	if (ast->leaf)
 		execute_leaf(shell, ast);
@@ -29,7 +29,7 @@ void	_execute_ast(t_minishell_p shell, t_ast_p ast)
 	}
 }
 
-void	execute_ast(t_minishell_p shell, t_ast_p *ast)
+void	execute_ast(t_shell_p shell, t_ast_p *ast)
 {
 	signals_setter_exec();
 	if (!*ast)

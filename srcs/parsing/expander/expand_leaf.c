@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:50:56 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/06 18:34:46 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_value(t_minishell *shell, char *name)
+char	*get_env_value(t_shell *shell, char *name)
 {
 	int		i;
 	size_t	len;
@@ -59,7 +59,7 @@ static char	**ft_join_array(char **tab1, char **tab2)
 	return (res);
 }
 
-char	**commands_expand(t_minishell *shell, char **cmds)
+char	**commands_expand(t_shell *shell, char **cmds)
 {
 	char		**new_cmds;
 	char		**tmp;
@@ -119,7 +119,7 @@ static void	free_redirs(t_redir_p list)
 	}
 }
 
-t_redir_p _redirs_expand(t_minishell *shell, t_redir_p redirs)
+t_redir_p _redirs_expand(t_shell *shell, t_redir_p redirs)
 {
 	t_redir_p	head;
 	t_redir_p	curr;
@@ -168,7 +168,7 @@ t_redir_p _redirs_expand(t_minishell *shell, t_redir_p redirs)
 	return (head);
 }
 
-void	pipeline_expand(t_minishell *shell, t_ast_p ast)
+void	pipeline_expand(t_shell *shell, t_ast_p ast)
 {
 	char		**new_cmds;
 	t_redir_p	new_redirs;

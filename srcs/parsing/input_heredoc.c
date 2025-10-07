@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-static char	*_expand_input_line(t_minishell_p shell, char *input_line)
+static char	*_expand_input_line(t_shell_p shell, char *input_line)
 {
 	return (expand_command(shell, input_line).value);
 }
 
-static char	*_readline(t_minishell_p shell, t_redir_p redir)
+static char	*_readline(t_shell_p shell, t_redir_p redir)
 {
 	char	*line;
 
@@ -29,7 +29,7 @@ static char	*_readline(t_minishell_p shell, t_redir_p redir)
 	return (line);
 }
 
-static ssize_t	_writeline(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir, char *hd)
+static ssize_t	_writeline(t_shell_p shell, t_leaf_p leaf, t_redir_p redir, char *hd)
 {
 	char	*expd_hd;
 	ssize_t	wbytes;
@@ -54,7 +54,7 @@ static ssize_t	_writeline(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir, c
 	return (wbytes);
 }
 
-static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
+static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
 	pid_t	pid;
 
@@ -81,7 +81,7 @@ static void	_input_heredoc(t_minishell_p shell, t_leaf_p leaf, t_redir_p redir)
 	close_secure(&leaf->hd_fd[1]);
 }
 
-void	input_heredoc(t_minishell_p shell, t_leaf_p leaf)
+void	input_heredoc(t_shell_p shell, t_leaf_p leaf)
 {
 	t_redir_p	redir;
 

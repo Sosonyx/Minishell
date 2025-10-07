@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 14:12:03 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 14:12:19 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	get_open_flag(t_redirtype redirtype)
 		return (-1);
 }
 
-int	open_files(t_minishell_p shell, t_leaf_p leaf, t_redir_p cur_redir)
+int	open_files(t_shell_p shell, t_leaf_p leaf, t_redir_p cur_redir)
 {
 	int		open_flag;
 	int		*target_fd;

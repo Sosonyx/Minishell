@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:00:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/04 16:39:44 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	tokenize_input(t_minishell_p shell, int *g_sigstatus)
+int	tokenize_input(t_shell_p shell, int *g_sigstatus)
 {
 	shell->tokens = ft_calloc(1, sizeof(struct s_tok_container));
 	if (shell->tokens)

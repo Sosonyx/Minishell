@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 12:34:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 17:36:41 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	create_cntl_op(t_minishell_p shell, t_ast_p *op, t_toktype type)
+int	create_cntl_op(t_shell_p shell, t_ast_p *op, t_toktype type)
 {
 	*op = _calloc(shell, 1, sizeof(t_ast));
 	if (*op)

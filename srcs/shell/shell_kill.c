@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shell_kill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:54:50 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/17 18:18:19 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	shell_kill(t_minishell_p shell, t_ast_p ast, char *errmsg)
+void	shell_kill(t_shell_p shell, t_ast_p ast, char *errmsg)
 {
 	print_generic_error(shell, "Fatal error. Exit now...\n");
 	if (shell)

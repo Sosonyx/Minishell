@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:03:59 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/09 11:05:19 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	shell_restart(t_minishell_p shell, t_ast_p ast)
+void	shell_restart(t_shell_p shell, t_ast_p ast)
 {
 	;
 }

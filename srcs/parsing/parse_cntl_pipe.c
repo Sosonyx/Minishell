@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 17:36:20 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	_create_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_token_p cur_token, int n)
+static void	_create_cntl_pipe(t_shell_p shell, t_ast_p *op, t_token_p cur_token, int n)
 {
 	if (create_cntl_op(shell, op, cur_token->type))
 	{
@@ -23,7 +23,7 @@ static void	_create_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_token_p cur_to
 	}
 }
 
-int	parse_cntl_pipe(t_minishell_p shell, t_ast_p *op, t_build_var vars)
+int	parse_cntl_pipe(t_shell_p shell, t_ast_p *op, t_build_var vars)
 {
 	t_token_p	cur_token;
 	int			in_parenthesis;

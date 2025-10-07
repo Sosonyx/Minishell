@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 14:22:06 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 14:57:20 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*_malloc(t_minishell_p shell, size_t size)
+void	*_malloc(t_shell_p shell, size_t size)
 {
 	void	*ptr;
 	
@@ -22,7 +22,7 @@ void	*_malloc(t_minishell_p shell, size_t size)
 	return (ptr)	;
 }
 
-void	*_calloc(t_minishell_p shell, size_t nmemb, size_t size)
+void	*_calloc(t_shell_p shell, size_t nmemb, size_t size)
 {
 	void	*ptr;
 
@@ -32,7 +32,7 @@ void	*_calloc(t_minishell_p shell, size_t nmemb, size_t size)
 	return (ptr);
 }
 
-void	*_realloc(t_minishell_p shell, void *ptr, size_t old_size, size_t new_size)
+void	*_realloc(t_shell_p shell, void *ptr, size_t old_size, size_t new_size)
 {
 	void	*new_ptr;
 

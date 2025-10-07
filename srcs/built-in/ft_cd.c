@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/05 15:14:04 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ static char	*ft_getenv(char **env, char *name)
 	return (NULL);
 }
 
-static char	*get_target_dir(t_minishell *shell, char **args)
+static char	*get_target_dir(t_shell *shell, char **args)
 {
 	if (!args[1])
 		return (ft_getenv(shell->environ, "HOME"));
 	return (args[1]);
 }
 
-static int	update_pwd(t_minishell *shell, char *oldpwd, char *newpwd)
+static int	update_pwd(t_shell *shell, char *oldpwd, char *newpwd)
 {
 	int		i;
 	char	*old_var;
@@ -64,7 +64,7 @@ static int	update_pwd(t_minishell *shell, char *oldpwd, char *newpwd)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_cd(t_minishell_p shell, char **args)
+int	ft_cd(t_shell_p shell, char **args)
 {
 	char	*path;
 	char	*oldpwd;

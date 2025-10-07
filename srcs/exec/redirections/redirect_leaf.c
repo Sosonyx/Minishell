@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 18:27:45 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	overwrite_if_hd(t_minishell_p shell, t_leaf_p leaf)
+static void	overwrite_if_hd(t_shell_p shell, t_leaf_p leaf)
 {
 	if (leaf->hd_fd[0] IS_VALID_FD)
 	{
@@ -35,7 +35,7 @@ static void	write_fd(t_leaf_p leaf, t_redir_p redir, int *prev_fds)
 	}	
 }
 
-static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
+static int	set_redir(t_shell_p shell, t_leaf_p leaf)
 {
 	t_redir_p	cur_redir;
 	int			prev_fds[2];
@@ -61,7 +61,7 @@ static int	set_redir(t_minishell_p shell, t_leaf_p leaf)
 	return (0);
 }
 
-int	redirect_leaf(t_minishell_p shell, t_ast_p ast)
+int	redirect_leaf(t_shell_p shell, t_ast_p ast)
 {
 	int	retval;
 

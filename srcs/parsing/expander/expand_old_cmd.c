@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_old_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:45:36 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/06 13:26:48 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/07 15:24:40 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,14 @@
 
 static int	update_state(int state, char c, t_expanded *exp)
 {
-	if (c == '\'' && state == 0)
-	{
-		exp->split_allowed = 0;
-		return (1);
-	}
-	else if (c == '\'' && state == 1)
-		return (0);
-	else if (c == '"' && state == 0)
-	{
-		exp->split_allowed = 0;
-		return (2);
-	}
-	else if (c == '"' && state == 2)
-		return (0);
+	state = quote_state(state, c);
+	
+	if (exp && state)
+			exp->split_allowed = 0;
 	return (state);
 }
 
-static char	*expand_exit_status(t_minishell *shell, char *result)
+static char	*expand_exit_status(t_shell *shell, char *result)
 {
 	char	*status;
 	char	*tmp;
@@ -45,7 +35,7 @@ static char	*expand_exit_status(t_minishell *shell, char *result)
 	return (tmp);
 }
 
-static char	*expand_variable(t_minishell *shell, char *str, int *i, char *result)
+static char	*expand_variable(t_shell *shell, char *str, int *i, char *result)
 {
 	int		j;
 	char	*var_name;
@@ -95,7 +85,7 @@ char	*append_char(char *str, char c)
 	return (res);
 }
 
-static void	exp_case(t_minishell_p shell, char *str, t_expanded *result, int *i)
+static void	exp_case(t_shell_p shell, char *str, t_expanded *result, int *i)
 {
 	if (str[*i + 1] == '?')
 	{
@@ -136,7 +126,7 @@ static int	has_a_star(int state, char *str, int i)
 	return (0);
 }
 
-t_expanded	expand_command(t_minishell *shell, char *str)
+t_expanded	expand_command(t_shell *shell, char *str)
 {
 	int			i;
 	int			state;

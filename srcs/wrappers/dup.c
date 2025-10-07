@@ -6,13 +6,13 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:19:41 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 12:45:12 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	_dup(t_minishell_p shell, int fd)
+int	_dup(t_shell_p shell, int fd)
 {
 	int	dup_fd;
 

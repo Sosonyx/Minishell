@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/03 18:17:17 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_sigstatus = 0;
 
-static void	prompt_input(t_minishell_p shell)
+static void	prompt_input(t_shell_p shell)
 {
 	if (shell->input)
 		free(shell->input);
@@ -26,7 +26,7 @@ static void	prompt_input(t_minishell_p shell)
 	}
 }
 
-static void	mainloop(t_minishell_p shell, t_ast_p *ast)
+static void	mainloop(t_shell_p shell, t_ast_p *ast)
 {
 	while (is_no_abort(shell))
 	{
@@ -58,7 +58,7 @@ static void	mainloop(t_minishell_p shell, t_ast_p *ast)
 int	main(int ac, char **av, char **env)
 {
 	t_ast_p				ast = NULL;
-	t_minishell_p		shell;
+	t_shell_p		shell;
 	int					return_status;
 
 	shell = shell_init(ac, av, environ);

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:30:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/01 12:38:27 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static char	*get_correct_path(char **array, char *cmd)
 	return (NULL);
 }
 
-char	*find_cmd(t_minishell_p shell, t_ast_p ast)
+char	*find_cmd(t_shell_p shell, t_ast_p ast)
 {
 	int		paths_index;
 	char	**paths;

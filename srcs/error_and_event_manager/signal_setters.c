@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal_setters.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/04 16:42:54 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_signal_error(t_minishell_p shell)
+void	handle_signal_error(t_shell_p shell)
 {
 	if (shell->exit_code == SIGINT)
 		printf("\n");

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/06 15:52:39 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/07 14:45:14 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	rebuild_cmd_args(t_wildcard_p wc, char ***cmd_args)
 	}
 }
 
-static void	wcconfig(t_minishell_p shell, t_wildcard_p wc, char *path)
+static void	wcconfig(t_shell_p shell, t_wildcard_p wc, char *path)
 {
 	char	**dir;
 
@@ -37,7 +37,7 @@ static void	wcconfig(t_minishell_p shell, t_wildcard_p wc, char *path)
 	wc->lastisdir = (*(path - 1) == '/');
 }
 
-void	aggregate_matches(t_minishell_p shell, t_wildcard_p wc, char *command)
+void	aggregate_matches(t_shell_p shell, t_wildcard_p wc, char *args)
 {
 	char	**matches;
 
@@ -54,14 +54,14 @@ void	aggregate_matches(t_minishell_p shell, t_wildcard_p wc, char *command)
 	}
 	else
 	{
-		matches[wc->totalmatches] = _strdup(shell, command);
+		matches[wc->totalmatches] = remove_quotes(shell, NULL, _strdup(shell, args));
 		++wc->totalmatches;
 	}
 	free(wc->matches);
 	wc->matches = matches;
 }
 
-void	_wildcard_expand(t_minishell_p shell, t_wildcard_p wc, char *arg)
+void	_wildcard_expand(t_shell_p shell, t_wildcard_p wc, char *arg)
 {
 	if (iswildcard(arg))
 	{
@@ -103,23 +103,23 @@ void	_wildcard_expand(t_minishell_p shell, t_wildcard_p wc, char *arg)
 	
 }
 
-void	wildcard_expand(t_minishell_p shell, t_ast_p ast)
+void	wildcard_expand(t_shell_p shell, t_ast_p ast)
 {
 	t_wildcard_p	wc;
-	char			**commands;
+	char			**args;
 	char			**expanded_args;
 
 	if (*ast->leaf->cmds && **ast->leaf->cmds)
 	{
-		commands = ast->leaf->cmds;
+		args = ast->leaf->cmds;
 		wc = _calloc(shell, 1, sizeof(struct s_wildcard));
 		if (wc)
 		{
-			while (*commands)
+			while (*args)
 			{
-				if (**commands == '/')
+				if (**args == '/')
 					wc->isstartdir = true;
-				_wildcard_expand(shell, wc, *commands++);
+				_wildcard_expand(shell, wc, *args++);
 			}
 			if (wc->totalmatches)
 			{
