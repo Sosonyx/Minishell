@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
+#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/08 16:03:48 by ihadj            ###   ########.fr        #
+#    Updated: 2025/10/08 20:01:15 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -167,10 +167,15 @@ fc fclean:
 	@if [ -d $(BUILD_DIR) ]; then rm -rf $(BUILD_DIR) && echo "   $(GREEN)⤷ $(END)Removed build dir"; fi
 	@make -s -C $(LIBFT_DIR) fclean
 
+
+va: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --leak-check=full --trace-children=yes --track-fds=yes ./$(NAME)
+	
 vv: all
 	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
 	valgrind --leak-check=full --trace-children=yes ./$(NAME)
-
+	
 vq: all
 	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
 	valgrind --quiet --leak-check=full ./$(NAME)

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 16:48:12 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 20:39:54 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int	parse_tokens(t_shell_p shell, t_ast_p *ast)
 {
 	_init_ast(shell, ast, (t_build_var){0});
 	destroy_tokens(shell);
+	shell->ast_root = *ast;
 	return (shell->abort == false);
 }

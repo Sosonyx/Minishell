@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:37:01 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 12:19:34 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 20:00:05 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define 	ARG_EXCESS_ERRMSG	"too many arguments"
 # define 	ARG_NON_NUM_ERRMSG	"numeric argument required"
 # define 	INVALID_ID_ERRMSG	"not a valid identifier"
+# define	AMBIG_REDIR_ERRMSG	"ambiguous redirect"
 # define 	EOF_ERRMSG			"minishell: unexpected EOF while looking for matching quote\n"
 
 /*	Separators		*/

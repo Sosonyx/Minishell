@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 13:09:59 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 20:40:20 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,45 @@ static void	_execve(t_shell_p shell, t_ast_p ast)
 		if (errnum)
 		{
 			print_cmd_error(shell, *ast->leaf->cmds, errnum);
+			destroy_ast(&shell->ast_root);
 			exit(convert_errno(errnum));
 		}
 		else
 		{
 			execve(ast->leaf->exec_path, ast->leaf->cmds, shell->environ);
 			print_cmd_error(shell, *ast->leaf->cmds, errno);
+			destroy_ast(&shell->ast_root);
 			exit(convert_errno(errno));
 		}		
+	}
+	else
+	{
+		destroy_ast(&shell->ast_root);
+		exit(EXIT_FAILURE);
 	}
 }
 
 static void	_execute_command(t_shell_p shell, t_ast_p ast)
 {
 	if (redirect_leaf(shell, ast) == -1)
+	{
+		close_fds(ast, CHILD);
+		destroy_ast(&shell->ast_root);
 		exit(EXIT_FAILURE);
-	close_fds(ast, CHILD);
-	if (!*ast->leaf->cmds)
-		exit(EXIT_SUCCESS);
+	}
 	else
+	{
+		close_fds(ast, CHILD);
+	}
+	if (!*ast->leaf->cmds)
+	{
+		destroy_ast(&shell->ast_root);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
 		_execve(shell, ast);
+	}
 }
 
 static void	execute_command(t_shell_p shell, t_ast_p ast)

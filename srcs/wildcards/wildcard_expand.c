@@ -6,18 +6,37 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/08 13:06:05 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 20:24:48 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
-static void	rebuild_cmd_args(t_wildcard_p wc, char ***cmd_args)
+static void	rebuild_args(t_shell_p shell, t_wildcard_p wc, t_ast_p ast, t_redir_p redir)
 {
 	if (wc->matches)
 	{
-		ft_split_free(*cmd_args);
-		*cmd_args = wc->matches;
+		if (!redir)
+		{
+			ft_split_free(ast->leaf->cmds);
+			ast->leaf->cmds = wc->matches;
+		}
+		else
+		{
+			if (wc->totalmatches > 1)
+			{
+				ast->leaf->abort = true;
+				print_cmd_error2(shell, redir->target, AMBIG_REDIR_ERRMSG);
+				ft_split_free(wc->matches);
+			}
+			else if (wc)
+			{
+				free(redir->target);
+				redir->target = *wc->matches;
+			}
+		}
+		wc->matches = NULL;
+		wc->totalmatches = 0;
 	}
 }
 
@@ -65,7 +84,7 @@ void	aggregate_matches(t_shell_p shell, t_wildcard_p wc, char *args)
 	wc->matches = matches;
 }
 
-void	_wildcard_expand(t_shell_p shell, t_wildcard_p wc, char *arg)
+void	_expand(t_shell_p shell, t_wildcard_p wc, char *arg)
 {
 	if (iswildcard(arg))
 	{
@@ -104,32 +123,49 @@ void	_wildcard_expand(t_shell_p shell, t_wildcard_p wc, char *arg)
 		sortmatches(wc);
 		aggregate_matches(shell, wc, arg);		
 	}
-	
+}
+
+static void	_wildcard_expand(t_shell_p shell, t_wildcard_p wc, void **args, int mode)
+{
+	if (mode == 1)
+	{
+		if (**((char **)args) == '/')
+			wc->isstartdir = true;
+		_expand(shell, wc, *((char **) args));
+	}
+	else if (mode == 2)
+	{
+		if (*((t_redir_p)*args)->target == '/')
+			wc->isstartdir = true;
+		_expand(shell, wc, ((t_redir_p)*args)->target);
+	}
 }
 
 void	wildcard_expand(t_shell_p shell, t_ast_p ast)
 {
 	t_wildcard_p	wc;
-	char			**args;
+	void			**args;
 	char			**expanded_args;
 
-	if (ast->leaf->cmds && *ast->leaf->cmds)
+	wc = _calloc(shell, 1, sizeof(struct s_wildcard));
+	if (wc)
 	{
-		args = ast->leaf->cmds;
-		wc = _calloc(shell, 1, sizeof(struct s_wildcard));
-		if (wc)
+		if (ast->leaf->cmds && *ast->leaf->cmds)
 		{
-			while (*args)
-			{
-				if (**args == '/')
-					wc->isstartdir = true;
-				_wildcard_expand(shell, wc, *args++);
-			}
+			args = (void **) ast->leaf->cmds;
+			while (*((char **) args))
+				_wildcard_expand(shell, wc, args++, 1);
 			if (wc->totalmatches)
-			{
-				rebuild_cmd_args(wc, &ast->leaf->cmds);
-			}
-			free(wc);
+				rebuild_args(shell, wc, ast, NULL);
 		}
+		args = (void **) &ast->leaf->redir;
+		while ((t_redir_p)*args && !ast->leaf->abort)
+		{
+			_wildcard_expand(shell, wc, args, 2);
+			if (wc->totalmatches)
+				rebuild_args(shell, wc, ast, (t_redir_p)*args);			
+			args = (void **) &(((t_redir_p)*args)->next);
+		}
+		free(wc);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 12:38:16 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/03 11:45:59 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 20:05:18 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	close_fds(t_ast_p ast, int mode)
 		close_secure(&ast->leaf->fds[0]);
 		close_secure(&ast->leaf->fds[1]);
 		close_secure(&ast->leaf->hd_fd[0]);
+		close_secure(&ast->leaf->hd_fd[1]);
 	}
 	if (mode == CHILD)
 	{

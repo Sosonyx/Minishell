@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 19:03:55 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 20:39:24 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,8 @@ struct s_minishell
 	bool				abort;
 	int					exit_code;
 
+	t_ast_p				ast_root;
+	
 	t_tok_container_p	tokens;
 };
 

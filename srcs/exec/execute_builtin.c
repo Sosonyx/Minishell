@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 19:16:28 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 20:42:35 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	execute_nofork(t_shell_p shell, t_ast_p ast)
 			shell->exit_code = -1;
 		else
 			shell->exit_code = execute_command(shell, ast);
+		close_fds(ast, CHILD);
 		restore_std_fileno(shell, ast);
 	}
 }
@@ -78,6 +79,7 @@ void	execute_wfork(t_shell_p shell, t_ast_p ast)
 	if (ast->leaf->pid == 0)
 	{
 		execute_nofork(shell, ast);
+		destroy_ast(&shell->ast_root);
 		if (shell->exit_code == -1)
 			exit(EXIT_FAILURE);
 		else
