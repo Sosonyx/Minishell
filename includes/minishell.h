@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 18:43:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 12:53:48 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,29 @@ extern int	g_sigstatus;
 /********************************************************************************/
 
 t_shell_p	shell_init(int ac, char **av, char **envp);
+void		destroy_shell(t_shell_p shell);
+void		shell_kill(t_shell_p shell, t_ast_p ast, char *errmsg);
 
-void			destroy_shell(t_shell_p shell);
-
-void			shell_kill(t_shell_p shell, t_ast_p ast, char *errmsg);
-
-void			minishell_help(void);
+void		minishell_help(void);
 
 /********************************************************************************/
 /*			Wrappers															*/
 /********************************************************************************/
 
-void			*_malloc(t_shell_p shell, size_t size);
-void			*_calloc(t_shell_p shell, size_t nmemb, size_t size);
-void			*_realloc(t_shell_p shell, void *ptr, size_t old_size, size_t new_size);
+void		*_malloc(t_shell_p shell, size_t size);
+void		*_calloc(t_shell_p shell, size_t nmemb, size_t size);
+void		*_realloc(t_shell_p shell, void *ptr, size_t old_size, size_t new_size);
+	
+char		*_strdup(t_shell_p shell, const char *s);
+char		*_strjoin(t_shell_p shell, char const *s1, char const *s2);
+char		**_split(t_shell_p shell, const char *s, const char c);
+char		**_split_clone(t_shell_p shell, char **strs);
 
-char			*_strdup(t_shell_p shell, const char *s);
-char			*_strjoin(t_shell_p shell, char const *s1, char const *s2);
-char			**_split(t_shell_p shell, const char *s, const char c);
+int			_pipe(t_shell_p shell, int *pipedes);
+int			_dup(t_shell_p shell, int fd);
+int			_dup2(t_shell_p shell, int fd, int fd2);
+pid_t		_fork(t_shell_p shell);
 
-int				_pipe(t_shell_p shell, int *pipedes);
-int				_dup(t_shell_p shell, int fd);
-int				_dup2(t_shell_p shell, int fd, int fd2);
-pid_t			_fork(t_shell_p shell);
+char		*_getcwd(t_shell_p shell, char **buf);
 
 #endif

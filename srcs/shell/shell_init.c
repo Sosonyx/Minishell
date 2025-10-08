@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:51:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 12:59:16 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_shell_p	_shell_init(int ac, char **av, char **envp)
 	{
 		new_shell->ac = ac;
 		new_shell->av = av;
-		new_shell->environ = dup_env(envp);
+		new_shell->environ = dup_env(new_shell, envp);
 		if (!new_shell->environ)
 		{
 			print_generic_error(NULL, MEM_ERRMSG);

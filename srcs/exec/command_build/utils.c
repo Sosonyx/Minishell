@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 18:25:30 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 15:27:11 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/08 13:20:36 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	count_word(const char *str, char c)
 	return (count);
 }
 
-static char	*malloc_word(const char *str, char c)
+static char	*malloc_word(t_shell_p shell, const char *str, char c)
 {
 	int		i;
 	char	*word;
@@ -35,7 +35,7 @@ static char	*malloc_word(const char *str, char c)
 	i = 0;
 	while (str[i] && str[i] != c)
 		i++;
-	word = malloc(sizeof(char) * (i + 1));
+	word = _calloc(shell, i + 1, sizeof(char));
 	if (!word)
 		return (NULL);
 	i = 0;
@@ -44,7 +44,6 @@ static char	*malloc_word(const char *str, char c)
 		word[i] = str[i];
 		i++;
 	}
-	word[i] = '\0';
 	return (word);
 }
 
@@ -55,7 +54,7 @@ static void	free_tab(char **tab, int index)
 	free(tab);
 }
 
-char	**ft_split_path(char *str, char c)
+char	**ft_split_path(t_shell_p shell, char *str, char c)
 {
 	char	**tab;
 	int		i;
@@ -64,7 +63,7 @@ char	**ft_split_path(char *str, char c)
 
 	if (!str)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (ft_strlen(str) + 2));
+	tab = _calloc(shell, ft_strlen(str) + 2, sizeof(char *));
 	if (!tab)
 		return (NULL);
 	i = 0;
@@ -75,9 +74,9 @@ char	**ft_split_path(char *str, char c)
 		if (str[i] == c || str[i] == '\0')
 		{
 			if (i == start)
-				tab[j++] = ft_strdup("./");
+				tab[j++] = _strdup(shell, "./");
 			else
-				tab[j++] = malloc_word(&str[start], c);
+				tab[j++] = malloc_word(shell, &str[start], c);
 			if (!tab[j - 1])
 				return (free_tab(tab, j), NULL);
 			if (str[i] == '\0')
@@ -86,6 +85,5 @@ char	**ft_split_path(char *str, char c)
 		}
 		i++;
 	}
-	tab[j] = NULL;
 	return (tab);
 }

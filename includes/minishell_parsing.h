@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 18:44:34 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 12:55:33 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 /********************************************************************************/
 
 void		free_array(char **array);
-char		**dup_env(char **envp);
+char		**dup_env(t_shell_p shell, char **envp);
 int			get_array_size(char **arr);
 
 int			is_valid_number(char *str);

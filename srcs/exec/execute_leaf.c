@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 13:09:59 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	execute_leaf(t_shell_p shell, t_ast_p ast)
 	{
 		pipeline_expand(shell, ast);
 		wildcard_expand(shell, ast);
-		ast->leaf->full_path = find_cmd(shell, ast);
+		ast->leaf->full_path = cmd_build(shell, ast);
 		if (is_no_abort(shell))
 		{
 			if (is_builtin(ast->leaf))

@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_restart.c                                    :+:      :+:    :+:   */
+/*   split_clone.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/09 11:03:59 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Created: 2025/10/06 14:50:22 by cgajean           #+#    #+#             */
+/*   Updated: 2025/10/08 12:53:32 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	shell_restart(t_shell_p shell, t_ast_p ast)
+char	**_split_clone(t_shell_p shell, char **strs)
 {
-	;
+	char	**new_strs;
+
+	if (is_no_abort(shell))
+	{
+		new_strs = ft_split_clone(strs);
+		if (!new_strs)
+			set_abort(shell, MEM_ERRMSG);
+		return (new_strs);
+	}
+	else
+		return (NULL);	
 }

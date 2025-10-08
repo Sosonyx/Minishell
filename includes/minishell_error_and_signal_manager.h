@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:37:01 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 12:19:34 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,44 @@
 #ifndef MINISHELL_ERROR_AND_SIGNAL_MANAGER_H
 # define MINISHELL_ERROR_AND_SIGNAL_MANAGER_H
 
-# define CMD_ERRMSG			"command not found"
-# define MEM_ERRMSG			"Memory error. Restart Minishell."
-# define PIP_ERRMSG			"Pipe error. Restart Minishell."
-# define FORK_ERRMSG		"Fork error. Restart Minishell."
-# define AST_ERRMSG			"Execution failed. Restart Minishell."
-# define DUP_ERRMSG			"Dup error. Restart Minishell."
-# define DUP2_ERRMSG		"Dup2 error. Restart Minishell."
-# define ARG_EXCESS_ERRMSG	"too many arguments"
-# define ARG_NON_NUM_ERRMSG	"numeric argument required"
-# define INVALID_ID_ERRMSG	"not a valid identifier"
-# define EOF_ERRMSG			"minishell: unexpected EOF while looking for matching quote\n"
+/*	Error messages	*/
+# define 	CMD_ERRMSG			"command not found"
+# define 	MEM_ERRMSG			"Memory error. Restart Minishell."
+# define 	PIP_ERRMSG			"Pipe error. Restart Minishell."
+# define 	FORK_ERRMSG			"Fork error. Restart Minishell."
+# define 	AST_ERRMSG			"Execution failed. Restart Minishell."
+# define 	DUP_ERRMSG			"Dup error. Restart Minishell."
+# define 	DUP2_ERRMSG			"Dup2 error. Restart Minishell."
+# define 	ARG_EXCESS_ERRMSG	"too many arguments"
+# define 	ARG_NON_NUM_ERRMSG	"numeric argument required"
+# define 	INVALID_ID_ERRMSG	"not a valid identifier"
+# define 	EOF_ERRMSG			"minishell: unexpected EOF while looking for matching quote\n"
 
-# define LEN_INTMAX		12
-
-# ifdef NEWLINE
-#  undef NEWLINE
-#  define NEWLINE "\n"
+/*	Separators		*/
+# ifdef 	NEWLINE
+#  undef 	NEWLINE
+#  define 	NEWLINE		"\n"
 # endif
 
-# define SELF "Minishell"
-# define COLUMN ": "
+# define 	COLUMN		": "
+# define	NOSEP		""
 
-# define ERRVAL1 256
-# define ERRVAL2 512
+/*	Return values	*/
+# define 	ERRVAL1		256
+# define 	ERRVAL2		512
+
 
 /********************************************************************************/
 /*			Errors																*/
 /********************************************************************************/
 
 void	speak(t_shell_p shell, int fd, char *announce, char *separator);
+void	speak2(t_shell_p shell, int fd, char **announces);
 void	print_file_error(t_shell_p shell, char *filename, int err_num);
 void	print_cmd_error(t_shell_p shell, char *cmd_name, int err_num);
 void	print_cmd_error2(t_shell_p shell, char *cmd_name, char *errmsg);
 void	print_generic_error(t_shell_p shell, char *errmsg);
+void	print_generic_error2(t_shell_p shell, char **errmsg);
 void	print_hd_error(t_shell_p shell, char *limiter);
 void	set_abort(t_shell_p shell, char *errmsg);
 bool	is_no_abort(t_shell_p shell);

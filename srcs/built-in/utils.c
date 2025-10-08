@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:57:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 16:30:43 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/08 12:58:03 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,34 +59,31 @@ long long	ft_atol(const char *nptr)
 	return ((sign * nb));
 }
 
-static void	dup_small_env(char **envp, char **new_env)
+static void	dup_small_env(t_shell_p shell, char **envp, char **new_env)
 {
 	char	*pwd;
 	char	*tmp;
 
 	pwd = getcwd(NULL, 0);
-	new_env[0] = ft_strjoin("PWD=", pwd);
-	new_env[1] = ft_strdup("SHLVL=1");
-	new_env[2] = ft_strdup("_=/usr/bin/env");
-	new_env[3] = NULL;
+	new_env[0] = _strjoin(shell, "PWD=", pwd);
+	new_env[1] = _strdup(shell, "SHLVL=1");
+	new_env[2] = _strdup(shell, "_=/usr/bin/env");
 }
 
-char	**dup_env(char **envp)
+char	**dup_env(t_shell_p shell, char **envp)
 {
 	char	**small_env;
 
 	if (!envp || !envp[0])
 	{
-		small_env = malloc(sizeof(char *) * 5);
+		small_env = _calloc(shell, 5, sizeof(char *));
 		if (!small_env)
-		{
-			print_generic_error(NULL, MEM_ERRMSG);
-			return (NULL);
-		}
-		dup_small_env(envp, small_env);
+			print_generic_error(shell, MEM_ERRMSG);
+		else
+			dup_small_env(shell, envp, small_env);
 		return (small_env);
 	}
-	return (ft_split_clone(envp));
+	return (_split_clone(shell, envp));
 }
 
 int	get_array_size(char **arr)

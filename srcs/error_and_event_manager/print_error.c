@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:24:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 10:19:44 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,9 @@ void	print_cmd_error2(t_shell_p shell, char *cmd_name, char *errmsg)
 void	print_generic_error(t_shell_p shell, char *errmsg)
 {
 	speak(shell, STDERR_FILENO, errmsg, NEWLINE);
+}
+
+void	print_generic_error2(t_shell_p shell, char **errmsg)
+{
+	speak2(NULL, STDERR_FILENO, errmsg);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 12:43:04 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/24 18:17:49 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/08 10:41:22 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_bzero(void *s, size_t n);
 
 char	*ft_strcat(char *dest, const char *src);
 size_t	ft_strlcat(char *dst, const char *src, size_t siz);
+char	*ft_strcpy(char *dest, const char *src);
 size_t	ft_strlcpy(char *dst, const char *src, size_t siz);
 size_t	ft_strlen(const char *s);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -75,6 +76,7 @@ char	**ft_split(char const *s, char c);
 void	ft_split_free(char **strs);
 char	**ft_split_clone(char **strs);
 char	*ft_itoa(int n);
+char	*ft_itoa_static(char *buf, int n);
 
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);

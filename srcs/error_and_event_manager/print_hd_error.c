@@ -6,64 +6,35 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:20:38 by fox               #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 12:01:57 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	get_msglen(t_shell_p shell, char *limiter)
+static void get_errmsg(t_shell_p shell, char (*msg_parts)[36], char *limiter)
 {
-	size_t	msglen;
-
-	msglen = ft_strlen("here-document at line ");
-	msglen += LEN_INTMAX;
-	msglen += ft_strlen(" delimited by end-of-file (wanted `");
-	msglen += ft_strlen(limiter);
-	msglen += ft_strlen("')");
-	return (msglen);
+	(void) ft_strcpy(msg_parts[0], "warning: here-document at line");
+	(void) ft_itoa_static(msg_parts[1], shell->readlines);
+	(void) ft_strcpy(msg_parts[2], "delimited by end-of-file (wanted `");
+	(void) ft_strcpy(msg_parts[3], limiter);
+	(void) ft_strcpy(msg_parts[4], "')");
 }
 
-static char *get_errmsg(t_shell_p shell, char *limiter, size_t msglen)
+static void	print_errmsg(t_shell_p shell, char (*msg_parts)[36])
 {
-	char	*errmsg;
-	char	*line_nb;
-	
-	line_nb = ft_itoa(shell->readlines);
-	if (!line_nb)
-	{
-		print_generic_error(shell, MEM_ERRMSG);
-		;	// exit
-	}
-	errmsg = ft_calloc(msglen + 1, sizeof(char));
-	if (errmsg)
-	{
-		errmsg = ft_strcat(errmsg, "here-document at line ");
-		errmsg = ft_strcat(errmsg, line_nb);
-		errmsg = ft_strcat(errmsg, " delimited by end-of-file (wanted `");
-		errmsg = ft_strcat(errmsg, limiter);
-		errmsg = ft_strcat(errmsg, "')");
-	}
-	free(line_nb);
-	return (errmsg);
+	speak(shell, STDERR_FILENO, msg_parts[0], COLUMN);
+	speak(NULL, STDERR_FILENO, msg_parts[1], COLUMN);
+	speak(NULL, STDERR_FILENO, msg_parts[2], NOSEP);
+	speak(NULL, STDERR_FILENO, msg_parts[3], NOSEP);
+	speak(NULL, STDERR_FILENO, msg_parts[4], NEWLINE);	
 }
 
 void	print_hd_error(t_shell_p shell, char *limiter)
 {
-	char	*errmsg;
-	size_t	msglen;
+	char	errmsg[5][36];
 
-	msglen = get_msglen(shell, limiter);
-	errmsg = get_errmsg(shell, limiter, msglen);
-	if (errmsg)
-	{			
-		speak(shell, STDERR_FILENO, "warning", COLUMN);
-		speak(NULL, STDERR_FILENO, errmsg, NEWLINE);
-		free(errmsg);
-	}
-	else
-	{
-		print_generic_error(shell, MEM_ERRMSG);
-		;	//	sortir
-	}
+	ft_memset(errmsg, 0, 5 * 36 * sizeof(char));
+	get_errmsg(shell, errmsg, limiter);
+	print_errmsg(shell, errmsg);
 }

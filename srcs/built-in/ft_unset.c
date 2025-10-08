@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:17:05 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 12:42:16 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_unset(t_shell_p shell, char **args)
 	if (!args || !args[0])
 		return (EXIT_SUCCESS);
 	len = get_array_size(shell->environ);
-	new_env = malloc(sizeof(char *) * (len + 1));
+	new_env = _calloc(shell, (len + 1), sizeof(char *));
 	if (!new_env)
 		return (ERRVAL1);
 	i = 0;
@@ -58,10 +58,9 @@ int	ft_unset(t_shell_p shell, char **args)
 	while (i < len)
 	{
 		if (!should_remove(shell->environ[i], args))
-			new_env[j++] = ft_strdup(shell->environ[i]);
+			new_env[j++] = _strdup(shell, shell->environ[i]);
 		i++;
 	}
-	new_env[j] = NULL;
 	free_array(shell->environ);
 	shell->environ = new_env;
 	return (EXIT_SUCCESS);

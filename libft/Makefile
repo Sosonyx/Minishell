@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fox <fox@student.42.fr>                    +#+  +:+       +#+         #
+#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:48:39 by ihadj             #+#    #+#              #
-#    Updated: 2025/09/24 18:04:06 by fox              ###   ########.fr        #
+#    Updated: 2025/10/08 10:41:32 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,10 @@ CC = cc
 
 SRCS =  ft_strncmp.c ft_strlen.c ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memchr.c \
         ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_split.c ft_strchr.c ft_strdup.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c  \
-        ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c \
+        ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_itoa.c ft_itoa_static.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c \
         ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 		printf/ft_printf.c printf/ft_printf_checking.c  printf/ft_printf_printinghexa.c \
-		printf/ft_printf_printingint.c printf/ft_printf_printingchar.c ft_min.c ft_tolower_str.c ft_isupper.c ft_strstr.c\
+		printf/ft_printf_printingint.c printf/ft_printf_printingchar.c ft_min.c ft_tolower_str.c ft_isupper.c ft_strstr.c ft_strcpy.c\
 		GNL/get_next_line.c GNL/get_next_line_utils.c ft_split_free.c ft_strcmp.c ft_strcat.c ft_isspace.c ft_strndup.c ft_realloc.c ft_split_clone.c
 
 OBJS = $(SRCS:.c=.o)

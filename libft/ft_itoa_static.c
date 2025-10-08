@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_static.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 15:54:05 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 10:59:34 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 11:35:12 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_intlen(int nb)
+static int	_intlen(int nb)
 {
 	int		size;
 
@@ -27,29 +27,27 @@ static int	ft_intlen(int nb)
 	return (size);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa_static(char *buf, int n)
 {
-	int		size;
-	char	*str;
 	long	nb;
-
-	nb = n;
-	size = ft_intlen(n);
-	str = malloc(sizeof(char) * (size + 1));
-	if (!str)
-		return (NULL);
-	str[size] = '\0';
-	if (nb == 0)
-		str[0] = '0';
-	if (nb < 0)
+	int		size;
+	
+	if (buf)
 	{
-		nb = -nb;
-		str[0] = '-';
+		nb = n;
+		size = _intlen(n);
+		if (nb == 0)
+			*buf = '0';
+		else if (nb < 0)
+		{
+			nb = -nb;
+			*buf = '-';
+		}
+		while (nb)
+		{
+			buf[--size] = (nb % 10 + '0');
+			nb /= 10;
+		}
 	}
-	while (nb)
-	{
-		str[--size] = (nb % 10 + '0');
-		nb /= 10;
-	}
-	return (str);
+	return (buf);
 }

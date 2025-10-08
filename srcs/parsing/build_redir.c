@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:05:23 by fox               #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 10:02:22 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	config_redir(t_shell_p shell, t_redir_p redir, t_build_var vars)
 	if (redir->type == R_HDOC)
 	{
 		redir->limiter = expand_limiter(shell, redir, shell->tokens->tokens[vars.start + 1]->val);
-		printf("%s\n", redir->limiter);
 	}
 	else
 		redir->target = _strdup(shell, shell->tokens->tokens[vars.start + 1]->val);

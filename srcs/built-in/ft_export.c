@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:15:33 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 12:40:09 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static int	find_var_index(char **env, char *arg)
 	return (-1);
 }
 
-static void	copy_old_env(char **new_env, char **old_env, int size)
+static void	copy_old_env(t_shell_p shell, char **new_env, char **old_env, int size)
 {
 	int	i;
 
 	i = 0;
 	while (i < size)
 	{
-		new_env[i] = ft_strdup(old_env[i]);
+		new_env[i] = _strdup(shell, old_env[i]);
 		i++;
 	}
 }
@@ -78,18 +78,17 @@ static int	add_or_replace_vars(t_shell_p shell, char **env, char **args, int sta
 			if (env_index >= 0)
 			{
 				free(env[env_index]);
-				env[env_index] = ft_strdup(args[i]);
+				env[env_index] = _strdup(shell, args[i]);
 			}
 			else
 			{
-				env[j] = ft_strdup(args[i]);
+				env[j] = _strdup(shell, args[i]);
 				j++;
 			}
 		}
 		else
 		{
-			printf("minishell: export: `%s': not a valid identifier\n", \
-				args[i]);
+			printf("minishell: export: `%s': not a valid identifier\n", args[i]);	//	/!\ printf interdit
 			return (-1);
 		}
 	}
@@ -107,10 +106,10 @@ int	ft_export(t_shell_p shell, char **args_to_add)
 		return (EXIT_SUCCESS);
 	env_count = get_array_size(shell->environ);
 	add_count = get_array_size(args_to_add);
-	new_env = ft_calloc((env_count + add_count + 1), sizeof(char *));
+	new_env = _calloc(shell, (env_count + add_count + 1), sizeof(char *));
 	if (!new_env)
 		return (ERRVAL1);
-	copy_old_env(new_env, shell->environ, env_count);
+	copy_old_env(shell, new_env, shell->environ, env_count);
 	if ((add_or_replace_vars(shell, new_env, args_to_add, env_count)) == -1)
 		return (ERRVAL1);
 	free_array(shell->environ);

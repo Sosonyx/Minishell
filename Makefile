@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/07 18:54:58 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/08 12:54:38 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,8 +104,10 @@ SRC         = \
 				$(SRC_DIR)/wrappers/dup.c													\
 				$(SRC_DIR)/wrappers/dup2.c													\
 				$(SRC_DIR)/wrappers/fork.c													\
+				$(SRC_DIR)/wrappers/getcwd.c												\
 				$(SRC_DIR)/wrappers/pipe.c													\
 				$(SRC_DIR)/wrappers/split.c													\
+				$(SRC_DIR)/wrappers/split_clone.c											\
 				$(SRC_DIR)/wrappers/strdup.c												\
 				$(SRC_DIR)/wrappers/strjoin.c												\
 				$(SRC_DIR)/built-in/ft_exit.c												\

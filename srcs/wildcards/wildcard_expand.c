@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/07 19:23:32 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 13:06:05 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,17 @@ static void	wcconfig(t_shell_p shell, t_wildcard_p wc, char *path)
 
 	wc->startbydot = false;
 	wc->spath = _split(shell, path, '/');
-	dir = wc->spath;
-	wc->max_depth = 0;
-	while (*dir++)
-		++wc->max_depth;
-	--wc->max_depth;
-	while (*path)
-		path++;
-	wc->lastisdir = (*(path - 1) == '/');
+	if (wc->spath)
+	{
+		dir = wc->spath;
+		wc->max_depth = 0;
+		while (*dir++)
+			++wc->max_depth;
+		--wc->max_depth;
+		while (*path)
+			path++;
+		wc->lastisdir = (*(path - 1) == '/');
+	}
 }
 
 void	aggregate_matches(t_shell_p shell, t_wildcard_p wc, char *args)

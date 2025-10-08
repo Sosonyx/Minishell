@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 13:18:27 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,12 @@ void		wait_if_leaf(t_leaf_p leaf, int *rstatus);
 int			extract_return_code(int status);
 int			convert_errno(int err);
 
-// char	*find_cmd(char *cmd, char **env);
-char		*find_cmd(t_shell_p shell, t_ast_p ast);
+char		*cmd_build(t_shell_p shell, t_ast_p ast);
 
 bool		is_builtin(t_leaf_p leaf);
 
 void		preconfig_leaf(t_shell_p shell, t_ast_p ast);
-char		**ft_split_path(char *str, char c);
+char		**ft_split_path(t_shell_p shell, char *str, char c);
 
 /********************************************************************************/
 /*		Files & redirections              										*/

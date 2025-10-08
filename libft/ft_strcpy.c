@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork.c                                             :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 14:52:36 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 12:30:50 by cgajean          ###   ########.fr       */
+/*   Created: 2025/04/24 10:29:09 by cgajean           #+#    #+#             */
+/*   Updated: 2025/06/03 16:29:10 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-pid_t	_fork(t_shell_p shell)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	pid_t	pid;
+	char	*ptr;
 
-	if (is_no_abort(shell))
-	{
-		pid = fork();
-		if (pid < 0)
-		{
-			set_abort(shell, FORK_ERRMSG);
-			shell->exit_code = ERRVAL1;
-		}
-		return (pid);
-	}
-	return (-1);	
+	if (!dest || !src)
+		return (dest);
+	ptr = dest;
+	while (*src)
+		*ptr++ = *src++;
+	*ptr = '\0';
+	return (dest);
 }

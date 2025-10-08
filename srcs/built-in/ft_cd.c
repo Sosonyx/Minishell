@@ -6,11 +6,23 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 13:37:02 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+#define	DIR_ERRMSG		"error retrieving current directory"
+#define	PARDIR_ERRMSG	"cannot access parent directories"
+
+static void	print_errmsg(t_shell_p shell, char **msg_parts)
+{
+	speak(shell, STDERR_FILENO, msg_parts[0], COLUMN);
+	speak(NULL, STDERR_FILENO, msg_parts[1], COLUMN);
+	speak(NULL, STDERR_FILENO, msg_parts[2], NOSEP);
+	speak(NULL, STDERR_FILENO, msg_parts[3], NOSEP);
+	speak(NULL, STDERR_FILENO, msg_parts[4], NEWLINE);	
+}
 
 static char	*ft_getenv(char **env, char *name)
 {
@@ -41,8 +53,8 @@ static int	update_pwd(t_shell *shell, char *oldpwd, char *newpwd)
 	char	*old_var;
 	char	*new_var;
 
-	old_var = ft_strjoin("OLDPWD=", oldpwd);
-	new_var = ft_strjoin("PWD=", newpwd);
+	old_var = _strjoin(shell, "OLDPWD=", oldpwd);
+	new_var = _strjoin(shell, "PWD=", newpwd);
 	if (!old_var || !new_var)
 		return (free(old_var), free(new_var), 1);
 	i = -1;
@@ -51,12 +63,12 @@ static int	update_pwd(t_shell *shell, char *oldpwd, char *newpwd)
 		if (!ft_strncmp(shell->environ[i], "OLDPWD=", 7))
 		{
 			free(shell->environ[i]);
-			shell->environ[i] = ft_strdup(old_var);
+			shell->environ[i] = _strdup(shell, old_var);
 		}
 		else if (!ft_strncmp(shell->environ[i], "PWD=", 4))
 		{
 			free(shell->environ[i]);
-			shell->environ[i] = ft_strdup(new_var);
+			shell->environ[i] = _strdup(shell, new_var);
 		}
 	}
 	free(old_var);
@@ -70,9 +82,9 @@ int	ft_cd(t_shell_p shell, char **args)
 	char	*oldpwd;
 	char	*newpwd;
 
-	oldpwd = getcwd(NULL, 0);
+	oldpwd = _getcwd(shell, &oldpwd);
 	if (!oldpwd)
-		oldpwd = ft_strdup(ft_getenv(shell->environ, "PWD"));
+		oldpwd = _strdup(shell, ft_getenv(shell->environ, "PWD"));
 	if (args[1] && args[2])
 	{
 		print_cmd_error2(shell, "cd", ARG_EXCESS_ERRMSG);
@@ -84,10 +96,11 @@ int	ft_cd(t_shell_p shell, char **args)
 		print_cmd_error2(shell, "cd", strerror(ENOENT));
 		return (free(oldpwd), ERRVAL1);
 	}
-	newpwd = getcwd(NULL, 0);
+	newpwd = _getcwd(shell, &newpwd);
 	if (!newpwd)
 	{
-		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", 2);
+		print_errmsg(shell, (char *[]) {"cd", DIR_ERRMSG, "getcwd", PARDIR_ERRMSG, strerror(ENOENT)});
+		// ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", 2);
 		update_pwd(shell, oldpwd, path);
 	}
 	else
