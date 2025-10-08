@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_leaf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:50:56 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 16:00:24 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ char	*get_env_value(t_shell *shell, char *name)
 
 static char	**ft_join_array(char **tab1, char **tab2)
 {
-	int len1;
-	int len2;
-	char **res;
-	int i;
-	int j;
+	int		len1;
+	int		len2;
+	char	**res;
+	int		i;
+	int		j;
 
 	len1 = get_array_size(tab1);
 	len2 = get_array_size(tab2);
