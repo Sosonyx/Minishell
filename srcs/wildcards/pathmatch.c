@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathmatch.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:34:09 by fox               #+#    #+#             */
-/*   Updated: 2025/10/07 18:16:12 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 16:05:28 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	pathmatch(char *ptested, char *pref, int state)
 	while (*ptested)
 		if (pathmatch(ptested++, pref, state))
 			return (1);
-			
+
 	return (0);
 }
 

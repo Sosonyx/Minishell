@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 12:55:33 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 16:05:02 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int			set_right_end(int op_pos, int end, t_tok_container_p tok_container, int *r
 
 char		*remove_quotes(t_shell_p shell, t_redir_p redirs, char *str);
 int			quote_state(int state, char c);
+void		free_redirs(t_redir_p list);
 
 
 void		pipeline_expand(t_shell *shell, t_ast_p ast);
@@ -98,5 +99,7 @@ t_expanded	expand_command(t_shell *shell, char *str);
 char		*get_env_value(t_shell *shell, char *name);
 char		*expand_limiter(t_shell_p shell, t_redir_p redir, char *str);
 char		*append_char(char *str, char c);
+void		exp_case(t_shell_p shell, char *str, t_expanded *result, int *i);
+t_redir_p	_redirs_expand(t_shell *shell, t_redir_p redirs);
 
 #endif

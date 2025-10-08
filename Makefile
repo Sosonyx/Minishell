@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
+#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/08 12:54:38 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/08 16:03:48 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,9 +79,11 @@ SRC         = \
 				$(SRC_DIR)/parsing/parse_subshell.c											\
 				$(SRC_DIR)/parsing/create_leaf.c											\
 				$(SRC_DIR)/parsing/input_heredoc.c											\
-				$(SRC_DIR)/parsing/expander/expand_leaf.c									\
+				$(SRC_DIR)/parsing/expander/expand_cases.c									\
+				$(SRC_DIR)/parsing/expander/expand_command.c								\
 				$(SRC_DIR)/parsing/expander/expand_limiter.c								\
-				$(SRC_DIR)/parsing/expander/expand_old_cmd.c								\
+				$(SRC_DIR)/parsing/expander/expand_redirs.c									\
+				$(SRC_DIR)/parsing/expander/pipeline_expand.c								\
 				$(SRC_DIR)/parsing/expander/remove_quotes.c									\
 				$(SRC_DIR)/parsing/expander/quote_state.c									\
 				$(SRC_DIR)/parsing/utils/set_ends.c											\

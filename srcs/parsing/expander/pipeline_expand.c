@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:50:56 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 16:00:24 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/07 17:02:32 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*get_env_value(t_shell *shell, char *name)
 	i = 0;
 	while (shell->environ[i])
 	{
-		if (!ft_strncmp(shell->environ[i], name, len) && shell->environ[i][len] == '=')
+		if (!ft_strncmp(shell->environ[i], name, len) && \
+		shell->environ[i][len] == '=')
 			return (ft_strdup(shell->environ[i] + len + 1));
 		i++;
 	}
@@ -34,7 +35,6 @@ static char	**ft_join_array(char **tab1, char **tab2)
 	int		len2;
 	char	**res;
 	int		i;
-	int		j;
 
 	len1 = get_array_size(tab1);
 	len2 = get_array_size(tab2);
@@ -48,15 +48,14 @@ static char	**ft_join_array(char **tab1, char **tab2)
 		if (!res[i])
 			return (NULL);
 	}
-	j = -1;
-	while (++j < len2)
+	i = -1;
+	while (++i < len2)
 	{
-		res[len1 + j] = ft_strdup(tab2[j]);
-		if (!res[len1 + j])
+		res[len1 + i] = ft_strdup(tab2[i]);
+		if (!res[len1 + i])
 			return (NULL);
 	}
-	res[len1 + len2] = NULL;
-	return (res);
+	return (res[len1 + len2] = NULL, res);
 }
 
 char	**commands_expand(t_shell *shell, char **cmds)
@@ -103,69 +102,6 @@ char	**commands_expand(t_shell *shell, char **cmds)
 		i++;
 	}
 	return (new_cmds);
-}
-
-static void	free_redirs(t_redir_p list)
-{
-	t_redir_p	tmp;
-
-	while (list)
-	{
-		tmp = list->next;
-		free(list->target);
-		free(list->limiter);
-		free(list);
-		list = tmp;
-	}
-}
-
-t_redir_p _redirs_expand(t_shell *shell, t_redir_p redirs)
-{
-	t_redir_p	head;
-	t_redir_p	curr;
-	t_redir_p	new;
-	char		**splitted;
-	t_expanded	exp;
-	int			i;
-
-	head = NULL;
-	curr = NULL;
-	while (redirs)
-	{
-		exp = expand_command(shell, redirs->target);
-		if (!exp.value)
-			return (free_redirs(head), NULL);
-		if (exp.split_allowed == true)
-			splitted = ft_split(exp.value, ' ');
-		else
-			splitted = ft_split(exp.value, '\0');
-		free(exp.value);
-		i = 0;
-		while (splitted[i])
-		{
-			new = ft_calloc(1, sizeof(t_redir));
-			if (!new)
-			{
-				ft_split_free(splitted);
-				return (free_redirs(head), NULL);
-			}
-			new->type = redirs->type;
-			new->target = ft_strdup(splitted[i]);
-			if (redirs->limiter)
-				new->limiter = ft_strdup(redirs->limiter);
-			new->fd = redirs->fd;
-			new->next = NULL;
-			if (!head)
-				head = new;
-			else
-				curr->next = new;
-			curr = new;
-			i++;
-		}
-		ft_split_free(splitted);
-		redirs = redirs->next;
-	}
-	return (head);
 }
 
 void	pipeline_expand(t_shell *shell, t_ast_p ast)
