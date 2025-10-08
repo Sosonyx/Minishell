@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_subshell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 19:15:00 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 17:16:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	_parse_subshell(t_shell_p shell, t_ast_p *op, t_build_var vars)
 	}
 	++vars.start;
 	--vars.end;
+	if (*op && (*op)->cntl_op)
 	build_ast(shell, &(*op)->cntl_op->left, vars);
 }
 

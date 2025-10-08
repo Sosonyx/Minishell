@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cntl_op.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 12:34:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 19:06:38 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/08 17:06:44 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,4 @@ int	create_cntl_op(t_shell_p shell, t_ast_p *op, t_toktype type)
 		}
 	}
 	return (RETURN_FAIL);
-		
 }
