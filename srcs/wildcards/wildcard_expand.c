@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/08 20:24:48 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 14:40:03 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	rebuild_args(t_shell_p shell, t_wildcard_p wc, t_ast_p ast, t_redir_
 			{
 				free(redir->target);
 				redir->target = *wc->matches;
+				free(wc->matches);
 			}
 		}
 		wc->matches = NULL;

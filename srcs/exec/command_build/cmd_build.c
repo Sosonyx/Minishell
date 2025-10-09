@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:30:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 13:27:36 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 11:32:59 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,5 @@ char	*cmd_build(t_shell_p shell, t_ast_p ast)
 	free(ast->leaf->exec_path);
 	ast->leaf->exec_path = get_correct_path(shell, paths, *ast->leaf->cmds);
 	free_array(paths);
-	return (ast->leaf->cmds[0]);
+	return (_strdup(shell, ast->leaf->cmds[0]));
 }

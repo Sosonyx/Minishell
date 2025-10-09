@@ -6,7 +6,7 @@
 #    By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/08 20:01:15 by cgajean          ###   ########.fr        #
+#    Updated: 2025/10/09 14:59:30 by cgajean          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -168,9 +168,17 @@ fc fclean:
 	@make -s -C $(LIBFT_DIR) fclean
 
 
+vf: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --leak-check=full --trace-children=yes --track-fds=yes --show-leak-kinds=all ./$(NAME)
+
 va: all
 	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
 	valgrind --leak-check=full --trace-children=yes --track-fds=yes ./$(NAME)
+
+vaq: all
+	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
+	valgrind --leak-check=full --trace-children=yes --track-fds=yes --quiet ./$(NAME)
 	
 vv: all
 	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"

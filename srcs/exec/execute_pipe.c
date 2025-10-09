@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 15:12:47 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,21 @@ static t_leaf_p	select_right_leaf(t_shell_p shell, t_ast_p ast)
 
 static void	connect_nodes(t_ast_p ast)
 {
+/* 	close_secure(ast->cntl_op->left->write_fd);
+	close_secure(ast->cntl_op->left->read_fd);
+	close_secure(ast->cntl_op->left->closed_fd); */
+	
 	ast->cntl_op->left->write_fd = &ast->cur_pipe[1];
 	ast->cntl_op->left->read_fd = ast->read_fd;
 	ast->cntl_op->left->closed_fd = &ast->cur_pipe[0];
+
+/* 	close_secure(ast->cntl_op->right->write_fd);
+	close_secure(ast->cntl_op->right->read_fd);
+	close_secure(ast->cntl_op->right->closed_fd); */
+	
 	ast->cntl_op->right->read_fd = &ast->cur_pipe[0];
 	ast->cntl_op->right->write_fd = ast->write_fd;
+
 	ast->cntl_op->right->closed_fd = &ast->cur_pipe[1];
 }
 
@@ -58,7 +68,6 @@ void	execute_pipe(t_shell_p shell, t_ast_p ast)
 			close_secure(&ast->cur_pipe[0]);
 			wait_if_leaf(ast->cntl_op->left->leaf, NULL);
 			wait_if_leaf(select_right_leaf(shell, ast), &shell->exit_code);
-			free(ast->cur_pipe);
 		}
 		else
 			shell->exit_code = ERRVAL1;

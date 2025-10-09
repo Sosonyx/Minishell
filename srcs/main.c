@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 17:03:18 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/09 15:06:19 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,5 @@ int	main(int ac, char **av, char **env)
 	mainloop(shell, &ast);
 	return_status = shell->exit_code;
 	destroy_shell(shell);
-	rl_clear_history();
 	return (extract_return_code(return_status));
 }
