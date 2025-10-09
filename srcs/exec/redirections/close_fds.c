@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 12:38:16 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 14:47:22 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 18:53:01 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	close_fds(t_ast_p ast, int mode)
 	}
 	if (mode == CHILD)
 	{
-		if (ast->cur_pipe)
-		{
+/* 		if (ast->cur_pipe)
+		{ */
 			close_secure(&ast->cur_pipe[0]);
 			close_secure(&ast->cur_pipe[1]);
-		}
+		// }
 		close_secure(ast->write_fd);
 		close_secure(ast->read_fd);
 		close_secure(ast->closed_fd);

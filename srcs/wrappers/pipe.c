@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:01:29 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 19:11:22 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	_pipe(t_shell_p shell, int *pipedes)
 {
 	if (is_no_abort(shell))
 	{
-		if (!pipedes || pipe(pipedes) == -1)
+		if (pipe(pipedes) == -1)
 		{
 			set_abort(shell, PIP_ERRMSG);
 			shell->exit_code = ERRVAL1;

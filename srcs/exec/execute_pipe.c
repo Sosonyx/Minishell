@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 17:08:11 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/09 20:46:18 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 static int	open_pipe(t_shell_p shell, t_ast_p ast)
 {
-	ast->cur_pipe = _calloc(shell, 2, sizeof(int));
-	if (ast->cur_pipe)
-		return (_pipe(shell, ast->cur_pipe));
-	else
-		return (-1);
+	// ast->cur_pipe = _calloc(shell, 2, sizeof(int));
+	// if (ast->cur_pipe)
+	// 	return (_pipe(shell, ast->cur_pipe));
+	// else
+	// 	return (-1);
+
+	return (_pipe(shell, ast->cur_pipe));
 }
 
 static t_leaf_p	select_right_leaf(t_shell_p shell, t_ast_p ast)
@@ -31,21 +33,19 @@ static t_leaf_p	select_right_leaf(t_shell_p shell, t_ast_p ast)
 
 static void	connect_nodes(t_ast_p ast)
 {
-/* 	close_secure(ast->cntl_op->left->write_fd);
-	close_secure(ast->cntl_op->left->read_fd);
-	close_secure(ast->cntl_op->left->closed_fd); */
+	// close_secure(ast->cntl_op->left->write_fd);
+	// close_secure(ast->cntl_op->left->read_fd);
+	close_secure(ast->cntl_op->left->closed_fd);
 
 	ast->cntl_op->left->write_fd = &ast->cur_pipe[1];
 	ast->cntl_op->left->read_fd = ast->read_fd;
 	ast->cntl_op->left->closed_fd = &ast->cur_pipe[0];
 
-/* 	close_secure(ast->cntl_op->right->write_fd);
+	// close_secure(ast->cntl_op->right->write_fd);
 	close_secure(ast->cntl_op->right->read_fd);
-	close_secure(ast->cntl_op->right->closed_fd); */
-
+	// close_secure(ast->cntl_op->right->closed_fd);
 	ast->cntl_op->right->read_fd = &ast->cur_pipe[0];
 	ast->cntl_op->right->write_fd = ast->write_fd;
-
 	ast->cntl_op->right->closed_fd = &ast->cur_pipe[1];
 }
 
@@ -55,17 +55,20 @@ void	execute_pipe(t_shell_p shell, t_ast_p ast)
 	{
 		if (open_pipe(shell, ast) == 0)
 		{
+			connect_nodes(ast);
 			if (is_no_abort(shell))
 			{
-				connect_nodes(ast);
 				_execute_ast(shell, ast->cntl_op->left);
 			}
 			close_secure(&ast->cur_pipe[1]);
+			close_secure(ast->read_fd);
 			if (is_no_abort(shell))
 			{
 				_execute_ast(shell, ast->cntl_op->right);
 			}
 			close_secure(&ast->cur_pipe[0]);
+			// close_secure(ast->closed_fd);
+			
 			wait_if_leaf(ast->cntl_op->left->leaf, NULL);
 			wait_if_leaf(select_right_leaf(shell, ast), &shell->exit_code);
 		}

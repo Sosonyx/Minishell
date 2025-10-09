@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 19:55:17 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 17:32:39 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/09 18:46:08 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void	_destroy_ast(t_ast_p *ast)
 				_destroy_ast(&(*ast)->cntl_op->right);
 			free((*ast)->cntl_op);
 		}
-		if ((*ast)->cur_pipe)
-			free((*ast)->cur_pipe);
+/* 		if ((*ast)->cur_pipe)
+			free((*ast)->cur_pipe); */
 	}
 	free(*ast);
 	*ast = NULL;
@@ -58,7 +58,5 @@ void	destroy_ast(t_ast_p *ast)
 	if (!ast || !*ast)
 		return ;
 	_destroy_ast(ast);
-	*ast = NULL;
-
 }
 

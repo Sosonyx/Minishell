@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 20:39:24 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 18:44:52 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,8 @@ struct	s_ast
 	t_op_type			type;
 	t_cntl_op_p			cntl_op;
 
-	int					*cur_pipe;
+	// int					*cur_pipe;
+	int					cur_pipe[2];
 
 	int					*read_fd;
 	int					*write_fd;

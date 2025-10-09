@@ -6,7 +6,7 @@
 /*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 15:14:18 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 19:08:39 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,14 @@ static void	_execute_command(t_shell_p shell, t_ast_p ast)
 		destroy_shell(shell);
 		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		close_fds(ast, CHILD);
-	}
+	close_fds(ast, CHILD);
 	if (!*ast->leaf->cmds)
 	{
-		close_fds(ast, CHILD);
 		destroy_shell(shell);
 		exit(EXIT_SUCCESS);
 	}
 	else
-	{
+	{		
 		_execve(shell, ast);
 	}
 }

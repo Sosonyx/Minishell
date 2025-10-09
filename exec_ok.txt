@@ -18,6 +18,7 @@ ls | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
 (ls || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
 (las || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat
 (las || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cate
+las || ls && < Makefile cat | cat -e > out | cat -e | cat -e | cat -e | cadft -e || cat -e | cate
 
 (ls && ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || << eof cat -e) | cat
 

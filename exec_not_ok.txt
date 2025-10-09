@@ -51,3 +51,10 @@ clear && lsblk | (sort && wc | wc -l || echo test) | wc
 
 ls | echo test LEAKS child + parent 
 (las || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cate
+
+
+*** 
+
+(ls | sort )  | wc
+
+leak fds MEMBRES GAUCHE (subshell) a voir dans execute subshell coet connect pipes 
