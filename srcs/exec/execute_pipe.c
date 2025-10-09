@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 15:12:47 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 15:48:53 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_leaf_p	select_right_leaf(t_shell_p shell, t_ast_p ast)
 	if (ast->cntl_op->right->type == OP_PIPE)
 		return (ast->cntl_op->right->cntl_op->right->leaf);
 	else
-		return (ast->cntl_op->right->leaf);	
+		return (ast->cntl_op->right->leaf);
 }
 
 static void	connect_nodes(t_ast_p ast)
@@ -42,7 +42,7 @@ static void	connect_nodes(t_ast_p ast)
 /* 	close_secure(ast->cntl_op->right->write_fd);
 	close_secure(ast->cntl_op->right->read_fd);
 	close_secure(ast->cntl_op->right->closed_fd); */
-	
+
 	ast->cntl_op->right->read_fd = &ast->cur_pipe[0];
 	ast->cntl_op->right->write_fd = ast->write_fd;
 
