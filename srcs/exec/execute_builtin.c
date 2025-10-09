@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 15:05:15 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 16:11:09 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	execute_nofork(t_shell_p shell, t_ast_p ast)
 void	execute_wfork(t_shell_p shell, t_ast_p ast)
 {
 	int	retcode;
-	
+
 	ast->leaf->pid = _fork(shell);
 	if (ast->leaf->pid == 0)
 	{

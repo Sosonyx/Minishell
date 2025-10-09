@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 15:48:53 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/09 17:08:11 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	connect_nodes(t_ast_p ast)
 /* 	close_secure(ast->cntl_op->left->write_fd);
 	close_secure(ast->cntl_op->left->read_fd);
 	close_secure(ast->cntl_op->left->closed_fd); */
-	
+
 	ast->cntl_op->left->write_fd = &ast->cur_pipe[1];
 	ast->cntl_op->left->read_fd = ast->read_fd;
 	ast->cntl_op->left->closed_fd = &ast->cur_pipe[0];

@@ -46,3 +46,8 @@ clear && lsblk | (((sort && wc | wc -l || echo test))) | wc
 Nous, on fork() trois fois, techniquement on obtient le résultat de : 
 
 clear && lsblk | (sort && wc | wc -l || echo test) | wc
+
+*** 
+
+ls | echo test LEAKS child + parent 
+(las || ls && < Makefile cat | cat -e > out) | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cate

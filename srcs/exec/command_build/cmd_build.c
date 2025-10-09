@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_build.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:30:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 11:32:59 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 18:13:00 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,24 @@ static int	get_paths_index(char **env)
 	return (-1);
 }
 
-static char	*get_correct_path(t_shell_p shell, char **array, char *cmd)
+static char	*get_correct_path(t_shell_p shell, char **envp, char *cmd)
 {
 	int		i;
 	char	*tmp;
 	char	*path;
 
 	i = 0;
+	if (cmd && !*cmd)
+		return (NULL);
 	tmp = _strjoin(shell, "/", cmd);
 	if (!tmp)
 		return (NULL);
-	while (array[i])
+	while (envp[i])
 	{
-		if (array[i][0] == '\0')
+		if (envp[i][0] == '\0')
 			path = _strjoin(shell, "./", tmp + 1);
 		else
-			path = _strjoin(shell, array[i], tmp);
+			path = _strjoin(shell, envp[i], tmp);
 		if (!path)
 			return (free(tmp), NULL);
 		if (access(path, F_OK | X_OK) == 0)

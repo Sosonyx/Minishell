@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:06:53 by fox               #+#    #+#             */
-/*   Updated: 2025/10/08 10:01:28 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 18:08:27 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int	count_tok_word(t_tok_container_p tok_container, int i, int end)
 	return (words);
 }
 
-static void	_build_cmd(t_shell_p shell, t_ast_p ast, t_token_p	*tok, t_build_var *vars)
+static void	_build_cmd(t_shell_p shell, \
+	t_ast_p ast, t_token_p	*tok, t_build_var *vars)
 {
 	ast->leaf->cmds[vars->i] = _strdup(shell, (*tok)->val);
 	vars->i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/09 15:06:19 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 17:33:17 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ static void	mainloop(t_shell_p shell, t_ast_p *ast)
 				if (parse_tokens(shell, ast))
 				{
 					execute_ast(shell, ast);
+					destroy_ast(ast);
+					shell->ast_root = NULL;
 				}
 			}
 			else
-			{
 				shell->exit_code = ERRVAL2;
-			}
 		}
 		else
 		{
@@ -57,10 +57,11 @@ static void	mainloop(t_shell_p shell, t_ast_p *ast)
 
 int	main(int ac, char **av, char **env)
 {
-	t_ast_p				ast = NULL;
-	t_shell_p		shell;
+	t_ast_p				ast;
+	t_shell_p			shell;
 	int					return_status;
 
+	ast = NULL;
 	shell = shell_init(ac, av, environ);
 	mainloop(shell, &ast);
 	return_status = shell->exit_code;

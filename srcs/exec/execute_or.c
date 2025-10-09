@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_or.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/09 17:08:37 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	execute_or(t_shell_p shell, t_ast_p ast)
 		{
 			_execute_ast(shell, ast->cntl_op->right->cntl_op->right);
 		}
-		wait_if_leaf(ast->cntl_op->right->leaf, &shell->exit_code);		
+		wait_if_leaf(ast->cntl_op->right->leaf, &shell->exit_code);
 	}
 }
