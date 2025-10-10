@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/10 21:30:52 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/10 22:08:41 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,18 @@ static void	connect_nodes(t_ast_p ast)
 	close_secure(ast->cntl_op->left->write_fd);
 	close_secure(ast->cntl_op->left->closed_fd);
 	close_secure(ast->cntl_op->left->read_fd);
+
 	ast->cntl_op->left->write_fd = &ast->cur_pipe[1];
 	ast->cntl_op->left->closed_fd = &ast->cur_pipe[0];
 	ast->cntl_op->left->read_fd = ast->read_fd;
 
+
+
+
 	close_secure(ast->cntl_op->right->read_fd);
 	close_secure(ast->cntl_op->right->closed_fd);
 	close_secure(ast->cntl_op->right->write_fd);
+
 	ast->cntl_op->right->read_fd = &ast->cur_pipe[0];
 	ast->cntl_op->right->closed_fd = &ast->cur_pipe[1];
 	ast->cntl_op->right->write_fd = ast->write_fd;
@@ -49,11 +54,13 @@ void	execute_pipe(t_shell_p shell, t_ast_p ast)
 		if (open_pipe(shell, ast) == 0)
 		{
 			connect_nodes(ast);
+			// close_secure(&ast->cur_pipe[1]);
 			if (is_no_abort(shell))
 			{
 				_execute_ast(shell, ast->cntl_op->left);
 			}
 			close_secure(&ast->cur_pipe[1]);
+			close_secure(ast->cntl_op->left->read_fd);
 			if (is_no_abort(shell))
 			{
 				_execute_ast(shell, ast->cntl_op->right);

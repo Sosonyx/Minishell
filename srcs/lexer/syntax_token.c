@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:29:43 by sosony            #+#    #+#             */
-/*   Updated: 2025/10/04 16:31:13 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/10 22:15:52 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,20 @@ int	_lparenth(t_toktype cur, t_token **toks, int i)
 	{
 		if (!toks[i + 1] || is_parenth(toks[i + 1]->type) == 2 || \
 			is_control_op(toks[i + 1]->type) || is_redir(toks[i + 1]->type))
+		{
+			syntax_err(toks[i + 1]->val);
+			return (0);
+		}
+	}
+	return (1);
+}
+
+int	_rparenth(t_toktype cur, t_token **toks, int i)
+{
+	if (is_parenth(cur) == 2)
+	{
+		if (toks[i + 1] && (is_parenth(toks[i + 1]->type) == 1 || \
+			is_word(toks[i + 1]->type)))
 		{
 			syntax_err(toks[i + 1]->val);
 			return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:00:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/10 22:25:31 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	tokenize_input(t_shell_p shell, int *g_sigstatus)
 		if (!stock_tokens(shell->tokens, shell->input) || \
 			!check_syntax((shell->tokens)->tokens))
 		{
-			free(shell->tokens);
+			free_tokens_container(shell, shell->tokens);
 			shell->tokens = NULL;
 			return (RETURN_FAIL);
 		}

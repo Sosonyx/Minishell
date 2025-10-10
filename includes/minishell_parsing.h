@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 16:05:02 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/10 22:28:37 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include "minishell.h"
 
 
-/********************************************************************************/
-/*  Environment / arrays / utils											    */
-/********************************************************************************/
+/*****************************************************************************/
+/*  Environment / arrays / utils											 */
+/*****************************************************************************/
 
 void		free_array(char **array);
 char		**dup_env(t_shell_p shell, char **envp);
@@ -29,9 +29,9 @@ long long	ft_atol(const char *nptr);
 int			ft_strcmp(const char *s1, const char *s2);
 void		ft_split_free(char **arr);
 
-/********************************************************************************/
-/*  Lexer                       											    */
-/********************************************************************************/
+/*****************************************************************************/
+/*  Lexer                       											 */
+/*****************************************************************************/
 
 int			is_special(char c);
 int			special_len(const char *line, int i);
@@ -42,11 +42,13 @@ int			is_word(t_toktype t);
 int			is_control_op(t_toktype t);
 int			_is_word(t_toktype cur, t_token **toks, int i);
 int			_lparenth(t_toktype cur, t_token **toks, int i);
+int			_rparenth(t_toktype cur, t_token **toks, int i);
 int			_redir(t_toktype cur, t_token **toks, int i);
 int			_control_op(t_toktype cur, t_token **toks, int i);
 
 void		syntax_err(const char *near);
 int			check_syntax(t_token **toks);
+void		free_tokens_container(t_shell_p shell, t_tok_container *t);
 
 t_token		*create_token(char *val, t_toktype type, bool sq, bool dq);
 t_toktype	get_token_type(const char *line);
@@ -57,9 +59,9 @@ int			stock_special(t_token **arr, int j, char *line, int *i);
 int			stock_tokens(t_tok_container *a, char *line);
 int			tokenize_input(t_shell_p shell, int *g_sigstatus);
 
-/********************************************************************************/
-/*  Parsing / AST                      										    */
-/********************************************************************************/
+/*****************************************************************************/
+/*  Parsing / AST                      										 */
+/*****************************************************************************/
 
 int			parse_tokens(t_shell_p shell, t_ast_p *ast);
 void		build_ast(t_shell_p shell, t_ast_p *ast, t_build_var vars);
@@ -82,12 +84,14 @@ void		destroy_tokens(t_shell_p shell);
 
 int			init_global_end(t_build_var vars, t_tok_container_p tok_container);
 int			set_global_end(t_build_var vars, t_tok_container_p tok_container);
-int			set_left_end(int start, int op_pos, t_tok_container_p tok_container);
-int			set_right_end(int op_pos, int end, t_tok_container_p tok_container, int *right_start);
+int			set_left_end(int start, \
+	int op_pos, t_tok_container_p tok_container);
+int			set_right_end(int op_pos, \
+	int end, t_tok_container_p tok_container, int *right_start);
 
-/********************************************************************************/
-/*  Expand                            										    */
-/********************************************************************************/
+/*****************************************************************************/
+/*  Expand                            										 */
+/*****************************************************************************/
 
 char		*remove_quotes(t_shell_p shell, t_redir_p redirs, char *str);
 int			quote_state(int state, char c);
