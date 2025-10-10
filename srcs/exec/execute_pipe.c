@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/10 14:10:40 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/10 19:55:16 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ void	execute_pipe(t_shell_p shell, t_ast_p ast)
 				_execute_ast(shell, ast->cntl_op->left);
 			}
 			close_secure(&ast->cur_pipe[1]);
-			close_secure(ast->read_fd);
-			close_secure(ast->write_fd);
-			close_secure(ast->closed_fd);
 			if (is_no_abort(shell))
 			{
 				_execute_ast(shell, ast->cntl_op->right);
