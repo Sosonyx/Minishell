@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 16:11:09 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/10 19:48:46 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	execute_command(t_shell_p shell, t_ast_p ast)
 	if (ft_strcmp(cmd, "env") == 0)
 		return (ft_env(shell, ast->leaf->cmds));
 	if (ft_strcmp(cmd, "exit") == 0)
-		return (ft_exit(shell, ast->leaf->cmds));
+		return (ft_exit(ast, shell, ast->leaf->cmds));
 	else
 		return (EXIT_FAILURE);
 }

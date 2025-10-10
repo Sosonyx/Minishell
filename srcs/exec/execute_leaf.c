@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 19:08:39 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/10 17:17:24 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	_execve(t_shell_p shell, t_ast_p ast)
 			print_cmd_error(shell, *ast->leaf->cmds, errno);
 			destroy_shell(shell);
 			exit(convert_errno(errno));
-		}		
+		}
 	}
 	else
 	{
@@ -74,7 +74,7 @@ static void	_execute_command(t_shell_p shell, t_ast_p ast)
 		exit(EXIT_SUCCESS);
 	}
 	else
-	{		
+	{
 		_execve(shell, ast);
 	}
 }
@@ -106,7 +106,7 @@ void	execute_leaf(t_shell_p shell, t_ast_p ast)
 			if (is_builtin(ast->leaf))
 				execute_builtin(shell, ast);
 			else
-				execute_command(shell, ast);			
+				execute_command(shell, ast);
 		}
 	}
 }

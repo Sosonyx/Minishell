@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 15:08:28 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/10 19:49:02 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char		*ft_getcwd(char **env);
 int			ft_echo(t_shell_p shell, char **args);
 int			ft_pwd(t_shell_p shell, char **args);
 int			ft_cd(t_shell_p shell, char **args);
-int			ft_exit(t_shell_p shell, char **args);
+int			ft_exit(t_ast_p ast, t_shell_p shell, char **args);
 int			ft_export(t_shell_p shell, char **args_to_add);
 int			ft_unset(t_shell_p shell, char **args);
 int			ft_env(t_shell_p shell, char **args);
