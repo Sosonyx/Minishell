@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:39 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/10 21:32:11 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/10 23:18:28 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	execute_subshell(t_shell_p shell, t_ast_p ast)
 		}
 		else if (pid > 0)
 		{
+			close_secure(ast->write_fd);
 			close_fds(ast, PARENT);
 			if (ast->cntl_op->left)
 				close_secure(ast->cntl_op->left->closed_fd);
@@ -37,3 +38,4 @@ void	execute_subshell(t_shell_p shell, t_ast_p ast)
 		}
 	}
 }
+
