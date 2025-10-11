@@ -1,5 +1,0 @@
-==223280== FILE DESCRIPTORS: 1 open (0 std) at exit.
-==223280== Open file descriptor 3:
-==223280==    <inherited from parent>
-==223280== 
-==223280== 
