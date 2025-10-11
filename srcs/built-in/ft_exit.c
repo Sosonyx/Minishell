@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:06 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/11 23:14:49 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/11 23:32:26 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,38 @@ static void	_ft_exit(t_shell_p shell, int exit_code)
 	exit(exit_code);
 }
 
+static void	_print_cmd_error2(t_shell_p shell, char *errmsg)
+{
+	if (shell && shell->forked == false)
+		print_cmd_error2(shell, "exit", errmsg);
+}
+
+static void	print_non_num_error(t_shell_p shell, char *arg)
+{
+	if (shell && shell->forked == false)
+	{
+		ft_putstr_fd("exit\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+	}
+}
+
 int	ft_exit(t_ast_p ast, t_shell_p shell, char **args)
 {
 	close_fds(ast, CHILD);
 	restore_std_fileno(shell, ast);
 	if (!args[1])
 	{
-		print_generic_error(NULL, "exit");
+		if (shell->forked == false)
+			print_generic_error(NULL, "exit");
 		_ft_exit(shell, shell->exit_code);
 	}
 	else if (args[1] && is_valid_number(args[1]))
 	{
 		if (args[2])
 		{
-			print_cmd_error2(shell, "exit", ARG_EXCESS_ERRMSG);
+			_print_cmd_error2(shell, ARG_EXCESS_ERRMSG);
 			return (ERRVAL1);
 		}
 		print_generic_error(NULL, "exit");
@@ -39,8 +57,7 @@ int	ft_exit(t_ast_p ast, t_shell_p shell, char **args)
 	}
 	else
 	{
-		print_generic_error(NULL, "exit");
-		print_cmd_error2(shell, "exit", ARG_NON_NUM_ERRMSG);
+		print_non_num_error(shell, args[1]);
 		_ft_exit(shell, 2);
 	}
 }
