@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/09 15:52:00 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/11 16:54:48 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	_init_ast(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 {
 	vars.end = init_global_end(vars, shell->tokens);
 	_recbuild(shell, ast, vars);
-
 }
 
 int	parse_tokens(t_shell_p shell, t_ast_p *ast)

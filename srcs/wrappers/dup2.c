@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:11:03 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/07 13:50:37 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/11 16:42:04 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	_dup2(t_shell_p shell, int fd, int fd2)
 			return (-1);
 		}
 		else
-			return (0);
+			return (close_secure(&fd), 0);
 	}
 	else
 		return (-1);
