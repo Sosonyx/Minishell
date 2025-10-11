@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/11 19:29:03 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/11 23:05:23 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ static void	execute_command(t_shell_p shell, t_ast_p ast)
 	{
 		signals_dfl();
 		close_secure(ast->closed_fd);
-		close(ast->cur_pipe[1]);
 		_execute_command(shell, ast);
 	}
 	else if (ast->leaf->pid > 0)

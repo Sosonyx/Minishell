@@ -200,3 +200,24 @@ re: fc all$
 $
 .PHONY: all clean c fclean fc re vf va vaq vv vq vignore vsuppress$
 $
+()&
+1*
+1a
+build
+dir
+err
+exec_not_ok.txt
+exec_ok.txt
+includes
+leaks
+libft
+Makefile
+minishell
+minishell_tester
+out
+readline.supp
+README.md
+srcs
+tester
+y_testfiles
+z_sandbox
