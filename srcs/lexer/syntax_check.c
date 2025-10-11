@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/10 22:16:08 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/12 00:17:15 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ int	check_syntax(t_token **toks)
 	while (toks[++i])
 	{
 		cur = toks[i]->type;
-		if (!_control_op(cur, toks, i))
-			return (0);
-		if (! _redir(cur, toks, i))
-			return (0);
 		if (!_lparenth(cur, toks, i))
 			return (0);
 		if (!_rparenth(cur, toks, i))
+			return (0);		
+		if (!_control_op(cur, toks, i))
+			return (0);
+		if (! _redir(cur, toks, i))
 			return (0);
 		if (!_is_word(cur, toks, i))
 			return (0);

@@ -55,6 +55,6 @@ ls | echo test LEAKS child + parent
 
 *** 
 
-(ls | sort )  | wc
+(((((echo test)))))
 
-leak fds MEMBRES GAUCHE (subshell) a voir dans execute subshell coet connect pipes 
+a ne pas accepter

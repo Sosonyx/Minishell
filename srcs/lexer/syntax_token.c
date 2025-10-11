@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:29:43 by sosony            #+#    #+#             */
-/*   Updated: 2025/10/10 22:15:52 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/12 00:14:01 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	_is_word(t_toktype cur, t_token **toks, int i)
 	{
 		if (toks[i + 1] && is_parenth(toks[i + 1]->type) == 1)
 		{
-			syntax_err(toks[i + 1]->val);
+			syntax_err(toks[i + 2]->val);
 			return (0);
 		}
 	}
