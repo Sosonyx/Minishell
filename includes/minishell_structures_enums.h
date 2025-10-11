@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 18:44:52 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/11 23:22:54 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ struct s_leaf
 
 struct s_cntl_op
 {
-	t_op_type  		op;
+	t_op_type		op;
 	t_ast_p			left;
 	t_ast_p			right;
 };
@@ -170,9 +170,10 @@ struct s_minishell
 	int					std_fds[3];
 	bool				abort;
 	int					exit_code;
+	bool				forked;
 
 	t_ast_p				ast_root;
-	
+
 	t_tok_container_p	tokens;
 };
 
