@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/11 23:00:59 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/12 13:25:45 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	open_pipe(t_shell_p shell, t_ast_p ast)
 
 static t_leaf_p	select_right_leaf(t_shell_p shell, t_ast_p ast)
 {
+	(void)shell;
 	if (ast->cntl_op->right->type == OP_PIPE)
 		return (ast->cntl_op->right->cntl_op->right->leaf);
 	else

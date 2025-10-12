@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/12 00:17:15 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/12 13:26:33 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static int	parenth_checker(t_token **toks, int i)
 {
 	int	lp;
 	int	rp;
-	int	last;
 
-	last = 0;
 	lp = 0;
 	rp = 0;
 	while (toks[i])

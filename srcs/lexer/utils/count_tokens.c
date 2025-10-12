@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_count.c                                      :+:      :+:    :+:   */
+/*   count_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:11:56 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/05 13:12:29 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/12 13:26:27 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	skip_quotes(const char *line, int i)
-{
-	char	quote;
-
-	quote = line[i++];
-	while (line[i] && line[i] != quote)
-		i++;
-	if (line[i] == quote)
-		i++;
-	return (i);
-}
 
 int	special_len(const char *line, int i)
 {
@@ -92,11 +80,9 @@ static int	parse_line(char *line, int *i, int *words)
 int	count_tokens(char *line)
 {
 	int	i;
-	int	start;
 	int	words;
 
 	i = 0;
-	start = 0;
 	words = 0;
 	if (!line || !line[0])
 		return (0);

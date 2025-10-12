@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   addmatch.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:32:58 by fox               #+#    #+#             */
-/*   Updated: 2025/10/08 16:06:46 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/12 13:34:45 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,17 @@ static void	matchlist_resize(t_shell_p shell, t_wildcard_p wc)
 
 	if (!wc->tmp_matches)
 	{
-		wc->tmp_matches = _calloc(shell, ++wc->tmp_totalmatches + 1, sizeof(char *));
+		wc->tmp_matches = _calloc(shell, ++wc->tmp_totalmatches + 1, \
+			sizeof(char *));
 	}
 	else
 	{
-		ptr = _realloc(shell, wc->tmp_matches, (wc->tmp_totalmatches) * sizeof(char *), (++wc->tmp_totalmatches + 1) * sizeof(char *));
+		wc->tmp_totalmatches++;
+		ptr = _realloc(shell, wc->tmp_matches, (wc->tmp_totalmatches) * \
+			sizeof(char *), (wc->tmp_totalmatches + 1) * sizeof(char *));
 		if (ptr)
 			wc->tmp_matches = ptr;
-	}					
+	}
 }
 
 void	addmatch(t_shell_p shell, t_wildcard_p wc, char *path)

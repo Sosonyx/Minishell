@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_leaf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/11 16:42:28 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/12 13:25:56 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 static void	overwrite_if_hd(t_shell_p shell, t_leaf_p leaf)
 {
+	(void)shell;
 	if (leaf->hd_fd[0] IS_VALID_FD)
 	{
 		close_secure(&leaf->fds[0]);
 		leaf->fds[0] = leaf->hd_fd[0];
-	}	
+	}
 }
 
 static void	write_fd(t_leaf_p leaf, t_redir_p redir, int *prev_fds)
@@ -32,7 +33,7 @@ static void	write_fd(t_leaf_p leaf, t_redir_p redir, int *prev_fds)
 	{
 		close_secure(&prev_fds[1]);
 		prev_fds[1] = leaf->fds[1];
-	}	
+	}
 }
 
 static int	set_redir(t_shell_p shell, t_leaf_p leaf)

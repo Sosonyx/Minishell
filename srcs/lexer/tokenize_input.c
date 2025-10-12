@@ -6,13 +6,13 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:00:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/10 22:25:31 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/12 13:26:44 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	tokenize_input(t_shell_p shell, int *g_sigstatus)
+int	tokenize_input(t_shell_p shell)
 {
 	shell->tokens = ft_calloc(1, sizeof(struct s_tok_container));
 	if (shell->tokens)

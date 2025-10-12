@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:06 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/11 23:32:26 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/12 13:39:44 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,5 @@ int	ft_exit(t_ast_p ast, t_shell_p shell, char **args)
 		print_non_num_error(shell, args[1]);
 		_ft_exit(shell, 2);
 	}
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:24:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 19:27:36 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/12 13:25:37 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void	print_generic_error(t_shell_p shell, char *errmsg)
 
 void	print_generic_error2(t_shell_p shell, char **errmsg)
 {
+	(void)shell;
 	speak2(NULL, STDERR_FILENO, errmsg);
 }

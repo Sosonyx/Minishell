@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/11 16:54:48 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/12 13:30:33 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@ static void	_recbuild(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 			if ((*ast)->cntl_op)
 			{
 				vars.op_pos = shell->tokens->op_index;
-				vars.left_end = set_left_end(vars.start, vars.op_pos, shell->tokens);
+				vars.left_end = set_left_end(vars.start, \
+					vars.op_pos, shell->tokens);
 				if (vars.start <= vars.left_end)
-					build_ast(shell, &(*ast)->cntl_op->left, (t_build_var) {vars.start, vars.left_end});
-				vars.right_end = set_right_end(vars.op_pos, vars.end, shell->tokens, &vars.right_start);
+					build_ast(shell, &(*ast)->cntl_op->left, \
+					(t_build_var){vars.start, vars.left_end, 0, 0, 0, 0, 0});
+				vars.right_end = set_right_end(vars.op_pos, \
+					vars.end, shell->tokens, &vars.right_start);
 				if (vars.right_start <= vars.right_end)
-					build_ast(shell, &(*ast)->cntl_op->right, (t_build_var) {vars.right_start, vars.right_end});
+					build_ast(shell, &(*ast)->cntl_op->right, (t_build_var) \
+					{vars.right_start, vars.right_end, 0, 0, 0, 0, 0});
 			}
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:57:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 12:58:03 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/12 13:40:12 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,9 @@ long long	ft_atol(const char *nptr)
 	return ((sign * nb));
 }
 
-static void	dup_small_env(t_shell_p shell, char **envp, char **new_env)
+static void	dup_small_env(t_shell_p shell, char **new_env)
 {
 	char	*pwd;
-	char	*tmp;
 
 	pwd = getcwd(NULL, 0);
 	new_env[0] = _strjoin(shell, "PWD=", pwd);
@@ -80,7 +79,7 @@ char	**dup_env(t_shell_p shell, char **envp)
 		if (!small_env)
 			print_generic_error(shell, MEM_ERRMSG);
 		else
-			dup_small_env(shell, envp, small_env);
+			dup_small_env(shell, small_env);
 		return (small_env);
 	}
 	return (_split_clone(shell, envp));

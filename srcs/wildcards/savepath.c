@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   savepath.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:22:28 by fox               #+#    #+#             */
-/*   Updated: 2025/10/07 16:49:35 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/12 13:35:33 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ static char	*getfullpath(t_shell_p shell, t_wildcard_p wc, char *path)
 
 void	savepath(t_shell_p shell, t_wildcard_p wc, char *path, int depth)
 {
-	char	**ptr;
-	char	*tmp;
-
 	if (ishidden(wc->sdir->d_name) || onlydir(wc) || skipdotdotdot(wc->sdir->d_name, wc->spath[depth]))
 		return ;
 	if (pathmatch(wc->sdir->d_name, wc->spath[depth], 0))

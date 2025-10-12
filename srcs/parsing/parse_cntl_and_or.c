@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cntl_and_or.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:55 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 17:10:05 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/12 13:30:52 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	parse_cntl_and_or(t_shell_p shell, t_ast_p *op, t_build_var vars)
 {
 	t_token_p			cur_token;
 	int					in_parenthesis;
-	t_tok_container_p	tok_copy;
 
-	tok_copy = shell->tokens;
 	in_parenthesis = 0;
 	cur_token = shell->tokens->tokens[vars.start];
 	while (is_no_abort(shell) && cur_token && vars.start <= vars.end)

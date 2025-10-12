@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:25:25 by fox               #+#    #+#             */
-/*   Updated: 2025/10/07 16:46:17 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/12 13:33:04 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define DOT_ENTRY "."
 # define DOTDOT_ENTRY ".."
 
-typedef struct s_wildcard *t_wildcard_p;
+typedef struct s_wildcard	*t_wildcard_p;
 
 struct s_wildcard
 {
@@ -32,7 +32,7 @@ struct s_wildcard
 	bool			lastisdir;
 	bool			startbydot;
 	bool			isstartdir;
-	struct dirent 	*sdir;
+	struct dirent	*sdir;
 };
 
 struct s_pathmatch
@@ -41,16 +41,16 @@ struct s_pathmatch
 	char			*end_sequence;
 };
 
-typedef struct s_path t_path;
-typedef t_path *t_path_p;
+typedef struct s_path		t_path;
+typedef t_path				*t_path_p;
 
 int		iswildcard(char *field);
 int		isasterisk(char c);
 int		isdotdotdotentry(char *dir);
 int		skipdotdotdot(char *dir, char *field);
 bool	ishidden(char *dir);
-char 	*catpath(t_shell_p shell, char *pathopen, char *added);
-int 	strncmprev(const char *s1, const char *s2, int size);
+char	*catpath(t_shell_p shell, char *pathopen, char *added);
+int		strncmprev(const char *s1, const char *s2, int size);
 bool	islastsequence(char *field);
 
 void	wildcard_expand(t_shell_p shell, t_ast_p ast);

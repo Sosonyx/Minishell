@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/11 23:22:54 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/12 13:27:13 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ typedef struct s_expanded
 	char	*value;
 	bool	split_allowed;
 }	t_expanded;
-
 
 struct s_redir
 {

@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/12 00:11:52 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/12 13:26:51 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			stock_word(t_token **arr, int j, char *line, int *i);
 int			stock_quoted(t_token **arr, int j, char *line, int *i);
 int			stock_special(t_token **arr, int j, char *line, int *i);
 int			stock_tokens(t_tok_container *a, char *line);
-int			tokenize_input(t_shell_p shell, int *g_sigstatus);
+int			tokenize_input(t_shell_p shell);
 
 /*****************************************************************************/
 /*  Parsing / AST                      										 */

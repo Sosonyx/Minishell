@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 18:25:30 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 13:20:36 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/12 13:26:09 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	count_word(const char *str, char c)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i++] != c)
-			count++;
-	}
-	return (count);
-}
 
 static char	*malloc_word(t_shell_p shell, const char *str, char c)
 {

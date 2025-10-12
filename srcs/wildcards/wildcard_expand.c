@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/09 14:40:03 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/12 13:37:14 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
-static void	rebuild_args(t_shell_p shell, t_wildcard_p wc, t_ast_p ast, t_redir_p redir)
+static void	rebuild_args(t_shell_p shell, \
+	t_wildcard_p wc, t_ast_p ast, t_redir_p redir)
 {
 	if (wc->matches)
 	{
@@ -64,13 +65,15 @@ void	aggregate_matches(t_shell_p shell, t_wildcard_p wc, char *args)
 {
 	char	**matches;
 
-	matches = _calloc(shell, wc->totalmatches + wc->tmp_totalmatches + 2, sizeof(char *));
+	matches = _calloc(shell, wc->totalmatches + \
+		wc->tmp_totalmatches + 2, sizeof(char *));
 	if (!matches)
 		return ;
 	ft_memcpy(matches, wc->matches, wc->totalmatches * sizeof(char *));
 	if (wc->tmp_matches)
 	{
-		ft_memcpy(matches + wc->totalmatches, wc->tmp_matches, wc->tmp_totalmatches * sizeof(char *));
+		ft_memcpy(matches + wc->totalmatches, \
+			wc->tmp_matches, wc->tmp_totalmatches * sizeof(char *));
 		free(wc->tmp_matches);
 		wc->tmp_matches = NULL;
 		wc->totalmatches += wc->tmp_totalmatches;
@@ -78,7 +81,8 @@ void	aggregate_matches(t_shell_p shell, t_wildcard_p wc, char *args)
 	}
 	else
 	{
-		matches[wc->totalmatches] = remove_quotes(shell, NULL, _strdup(shell, args));
+		matches[wc->totalmatches] = remove_quotes(shell, \
+			NULL, _strdup(shell, args));
 		++wc->totalmatches;
 	}
 	free(wc->matches);
@@ -122,11 +126,12 @@ void	_expand(t_shell_p shell, t_wildcard_p wc, char *arg)
 	if (is_no_abort(shell))
 	{
 		sortmatches(wc);
-		aggregate_matches(shell, wc, arg);		
+		aggregate_matches(shell, wc, arg);
 	}
 }
 
-static void	_wildcard_expand(t_shell_p shell, t_wildcard_p wc, void **args, int mode)
+static void	_wildcard_expand(t_shell_p shell, t_wildcard_p wc, \
+	void **args, int mode)
 {
 	if (mode == 1)
 	{
@@ -146,7 +151,6 @@ void	wildcard_expand(t_shell_p shell, t_ast_p ast)
 {
 	t_wildcard_p	wc;
 	void			**args;
-	char			**expanded_args;
 
 	wc = _calloc(shell, 1, sizeof(struct s_wildcard));
 	if (wc)
