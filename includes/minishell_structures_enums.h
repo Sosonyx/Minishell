@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/13 17:04:34 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/13 18:35:24 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ struct s_tok_container
 	t_token		**tokens;
 	char		**args;
 
+	int			tokens_nb;
 	int			start_index;
 	int			end_index;
 	int			op_index;

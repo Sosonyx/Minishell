@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/12 13:37:14 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/13 19:17:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,10 @@ void	_expand(t_shell_p shell, t_wildcard_p wc, char *arg)
 		}
 	}
 	else
+	{
+		arg = remove_quotes(shell, NULL, _strdup(shell, arg));
 		addmatch(shell, wc, arg);
+	}
 	if (is_no_abort(shell))
 	{
 		sortmatches(wc);

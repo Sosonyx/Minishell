@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 18:03:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/13 18:03:50 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/13 18:05:03 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	set_left_end(int start, int op_pos, t_tok_container_p tok_container)
 	return (left_end);
 }
 
-int	set_right_end(int op_pos, int end, t_tok_container_p tok_container, int *right_start)
+int	set_right_end(int op_pos, int end, \
+	t_tok_container_p tok_container, int *right_start)
 {
 	int	right_end;
 

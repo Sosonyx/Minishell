@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/01 17:11:16 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/13 18:35:43 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	stock_tokens(t_tok_container *t, char *line)
 	int	words;
 
 	words = count_tokens(line);
+	t->tokens_nb = words;
 	t->tokens = ft_calloc(words + 1, sizeof(t_token *));
 	if (!t->tokens)
 		return (0);

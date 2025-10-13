@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   discard_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 12:34:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/10 22:25:07 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/13 18:36:22 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_tokens_container(t_shell_p shell, t_tok_container *t)
 	if (t->tokens)
 	{
 		i = 0;
-		while (t->tokens[i])
+		while (i < t->tokens_nb)
 		{
 			discard_token(shell, i);
 			i++;

@@ -74,7 +74,7 @@ static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 		close_secure(&leaf->hd_fd[1]);
 		if (shell->abort == 1)
 			ret_code = 1;
-		destroy_tokens(shell);
+		free_tokens_container(shell, shell->tokens);
 		destroy_shell(shell);
 		exit(ret_code);
 	}
