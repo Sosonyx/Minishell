@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:06:53 by fox               #+#    #+#             */
-/*   Updated: 2025/10/09 18:08:27 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/13 17:37:42 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	count_tok_word(t_tok_container_p tok_container, int i, int end)
 	tok = tok_container->tokens[i];
 	while (i <= end)
 	{
-		tok = tok_container->tokens[i];			
+		tok = tok_container->tokens[i];
 		if (tok_container->tokens[i] && tok->type == T_WORD)
 			words++;
 		i++;
