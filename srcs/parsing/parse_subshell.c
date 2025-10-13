@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:22:45 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 17:16:56 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/13 16:55:31 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ static void	_parse_subshell(t_shell_p shell, t_ast_p *op, t_build_var vars)
 	++vars.start;
 	--vars.end;
 	if (*op && (*op)->cntl_op)
-	build_ast(shell, &(*op)->cntl_op->left, vars);
+		build_ast(shell, &(*op)->cntl_op->left, vars);
 }
 
 int	parse_subshell(t_shell_p shell, t_ast_p *op, t_build_var vars)
 {
-	if (is_no_abort(shell) && shell->tokens->tokens[vars.start] && (shell->tokens->tokens[vars.start])->type == T_LPARENT)
+	if (is_no_abort(shell) && shell->tokens->tokens[vars.start] \
+		&& (shell->tokens->tokens[vars.start])->type == T_LPARENT)
 	{
 		get_subshell_limit(shell, vars.start, &vars.end);
 		_parse_subshell(shell, op, vars);

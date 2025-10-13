@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/12 13:27:13 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/13 17:04:34 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ struct	s_ast
 	t_op_type			type;
 	t_cntl_op_p			cntl_op;
 
-	// int					*cur_pipe;
 	int					cur_pipe[2];
 
 	int					*read_fd;
@@ -172,6 +171,7 @@ struct s_minishell
 	bool				forked;
 
 	t_ast_p				ast_root;
+	bool				is_root;
 
 	t_tok_container_p	tokens;
 };

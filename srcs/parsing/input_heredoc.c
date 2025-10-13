@@ -57,7 +57,9 @@ static ssize_t	_writeline(t_shell_p shell, t_leaf_p leaf, t_redir_p redir, char 
 static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
 	pid_t	pid;
+	int		ret_code;
 
+	ret_code = 0;
 	if (_pipe(shell, leaf->hd_fd))
 		return ;
 	pid = _fork(shell);
@@ -70,7 +72,11 @@ static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 				break ;
 		}
 		close_secure(&leaf->hd_fd[1]);
-		exit(shell->abort);
+		if (shell->abort == 1)
+			ret_code = 1;
+		destroy_tokens(shell);
+		destroy_shell(shell);
+		exit(ret_code);
 	}
 	else if (pid > 0)
 	{

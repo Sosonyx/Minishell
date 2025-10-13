@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recdir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 18:16:52 by fox               #+#    #+#             */
-/*   Updated: 2025/10/07 16:50:06 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/13 16:30:58 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 static void	_recdir(t_shell_p shell, t_wildcard_p wc, char *pathopen, int depth)
 {
-	char	*path = NULL;
+	char	*path;
 
-	if (!skipdotdotdot(wc->sdir->d_name, wc->spath[depth]) && !ishidden(wc->sdir->d_name) && pathmatch(wc->sdir->d_name, wc->spath[depth], 0))
+	path = NULL;
+	if (!skipdotdotdot(wc->sdir->d_name, wc->spath[depth]) \
+		&& !ishidden(wc->sdir->d_name) && pathmatch(wc->sdir->d_name, \
+		wc->spath[depth], 0))
 	{
 		path = catpath(shell, pathopen, wc->sdir->d_name);
 		recdir(shell, wc, path, depth + 1);
@@ -28,6 +31,7 @@ void	recdir(t_shell_p shell, t_wildcard_p wc, char *pathopen, int depth)
 {
 	DIR				*dirp;
 
+	dirp = NULL;
 	if (is_no_abort(shell))
 	{
 		if (pathopen)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 13:15:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/12 13:26:33 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/13 16:34:44 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	check_syntax(t_token **toks)
 		if (!_lparenth(cur, toks, i))
 			return (0);
 		if (!_rparenth(cur, toks, i))
-			return (0);		
+			return (0);
 		if (!_control_op(cur, toks, i))
 			return (0);
 		if (! _redir(cur, toks, i))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:29:43 by sosony            #+#    #+#             */
-/*   Updated: 2025/10/12 00:14:01 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/13 16:35:25 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	_lparenth(t_toktype cur, t_token **toks, int i)
 	if (is_parenth(cur) == 1)
 	{
 		if (!toks[i + 1] || is_parenth(toks[i + 1]->type) == 2 || \
-			is_control_op(toks[i + 1]->type) || is_redir(toks[i + 1]->type))
+			is_control_op(toks[i + 1]->type))
 		{
 			syntax_err(toks[i + 1]->val);
 			return (0);

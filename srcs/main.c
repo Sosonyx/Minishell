@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/12 13:33:41 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/13 17:07:38 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	mainloop(t_shell_p shell, t_ast_p *ast)
 					execute_ast(shell, ast);
 					destroy_ast(ast);
 					shell->ast_root = NULL;
+					shell->is_root = 0;
 				}
 			}
 			else
