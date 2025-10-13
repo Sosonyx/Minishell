@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_global_ends.c                                         :+:      :+:    :+:   */
+/*   set_ends.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 20:02:18 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/29 20:02:48 by cgajean          ###   ########.fr       */
+/*   Created: 2025/10/13 18:03:48 by ihadj             #+#    #+#             */
+/*   Updated: 2025/10/13 18:03:50 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	set_global_end(t_build_var vars, t_tok_container_p tok_container)
 
 int	set_left_end(int start, int op_pos, t_tok_container_p tok_container)
 {
-	int left_end;
+	int	left_end;
 
 	left_end = op_pos - 1;
 	while (left_end >= start && !tok_container->tokens[left_end])

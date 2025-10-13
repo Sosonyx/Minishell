@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/13 17:16:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/13 17:53:02 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ static void	_recbuild(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 		if (*ast && (*ast)->type != OP_SUBSHELL)
 		{
 			(*ast)->cntl_op = _calloc(shell, 1, sizeof(struct s_cntl_op));
+			if (!shell->is_root)
+			{
+				shell->ast_root = *ast;
+				shell->is_root++;
+			}
 			if ((*ast)->cntl_op)
 			{
 				vars.op_pos = shell->tokens->op_index;

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 12:34:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/11 18:14:51 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/13 18:01:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ int	create_cntl_op(t_shell_p shell, t_ast_p *op, t_toktype type)
 	if (is_no_abort(shell))
 	{
 		*op = _calloc(shell, 1, sizeof(t_ast));
+		if (!shell->is_root)
+		{
+			shell->ast_root = *op;
+			shell->is_root++;
+		}
 		if (*op)
 		{
 			if (type == T_AND)
