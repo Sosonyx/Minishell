@@ -6,7 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/14 17:45:07 by ihadj            ###   ########.fr        #
+#    Updated: 2025/10/14 17:50:41 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -171,7 +171,6 @@ fc fclean:
 	@if [ -d $(BUILD_DIR) ]; then rm -rf $(BUILD_DIR) && echo "   $(GREEN)⤷ $(END)Removed build dir"; fi
 	@make -s -C $(LIBFT_DIR) fclean
 
-
 vf: all
 	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
 	valgrind --leak-check=full --trace-children=yes --track-fds=yes --show-leak-kinds=all --suppressions=readline.supp ./$(NAME)
@@ -180,14 +179,6 @@ va: all
 	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
 	valgrind --leak-check=full --trace-children=yes --track-fds=yes --suppressions=readline.supp ./$(NAME)
 
-vaq: all
-	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
-	valgrind --leak-check=full --trace-children=yes --track-fds=yes --suppressions=readline.supp --quiet ./$(NAME)
-	
-vv: all
-	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
-	valgrind --leak-check=full --trace-children=yes ./$(NAME)
-	
 vq: all
 	@echo "$(GREEN)🔘 $(TITLE)make valgrind tests$(END)"
 	valgrind --quiet --leak-check=full ./$(NAME)
@@ -202,5 +193,5 @@ vsuppress: all
 
 re: fc all
 
-.PHONY: all clean c fclean fc re vf va vaq vv vq vignore vsuppress
+.PHONY: all clean c fclean fc re vf va vq vignore vsuppress
 
