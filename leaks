@@ -1,6 +1,0 @@
-#fds
-
-< Makefile cate | wc | wc
-
-
-< in cat && ls | ls | ls
