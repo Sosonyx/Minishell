@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getenv.c                                           :+:      :+:    :+:   */
+/*   print_error2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/04 14:01:31 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/04 14:01:32 by ihadj            ###   ########.fr       */
+/*   Created: 2025/10/14 14:14:23 by ihadj             #+#    #+#             */
+/*   Updated: 2025/10/14 14:14:36 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdlib.h"
+#include "minishell.h"
 
-int	main(void)
+void	print_generic_error2(t_shell_p shell, char **errmsg)
 {
-	char	*env;
-	env = getenv("PATH2");
-	return (0);
+	(void)shell;
+	speak2(NULL, STDERR_FILENO, errmsg);
 }

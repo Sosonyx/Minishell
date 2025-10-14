@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   strjoin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 14:44:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 12:33:39 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:13:10 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 char	*_strjoin(t_shell_p shell, char const *s1, char const *s2)
 {

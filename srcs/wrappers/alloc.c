@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 14:22:06 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 12:32:42 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:04:11 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*_malloc(t_shell_p shell, size_t size)
 {
 	void	*ptr;
-	
+
 	ptr = NULL;
 	if (is_no_abort(shell))
 	{
@@ -36,7 +36,7 @@ void	*_calloc(t_shell_p shell, size_t nmemb, size_t size)
 	{
 		ptr = ft_calloc(nmemb, size);
 		if (!ptr)
-		set_abort(shell, MEM_ERRMSG);
+			set_abort(shell, MEM_ERRMSG);
 		return (ptr);
 	}
 	else

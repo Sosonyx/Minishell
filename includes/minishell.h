@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/12 13:39:05 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/14 14:11:05 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ extern int	g_sigstatus;
 t_shell_p	shell_init(int ac, char **av, char **envp);
 void		destroy_shell(t_shell_p shell);
 void		shell_kill(t_shell_p shell);
-
-void		minishell_help(void);
 
 /*****************************************************************************/
 /*			Wrappers														 */

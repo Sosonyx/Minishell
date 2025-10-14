@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:33:35 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/13 18:35:43 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 14:51:34 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	fill_tokens(t_token **tokens, char *line)
 			ret = stock_word(tokens, j, line, &i);
 			if (ret == -1)
 			{
-				ft_putstr_fd(EOF_ERRMSG, 2);
+				ft_putstr_fd(ER, 2);
 				return (0);
 			}
 			j = ret;

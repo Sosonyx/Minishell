@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:15:33 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 12:40:09 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:07:07 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static int	find_var_index(char **env, char *arg)
 	return (-1);
 }
 
-static void	copy_old_env(t_shell_p shell, char **new_env, char **old_env, int size)
+static void	copy_old_env(t_shell_p shell, \
+	char **new_env, char **old_env, int size)
 {
 	int	i;
 
@@ -62,7 +63,8 @@ static void	copy_old_env(t_shell_p shell, char **new_env, char **old_env, int si
 	}
 }
 
-static int	add_or_replace_vars(t_shell_p shell, char **env, char **args, int start_index)
+static int	add_or_replace_vars(t_shell_p shell, \
+	char **env, char **args, int start_index)
 {
 	int	i;
 	int	j;
@@ -88,7 +90,7 @@ static int	add_or_replace_vars(t_shell_p shell, char **env, char **args, int sta
 		}
 		else
 		{
-			printf("minishell: export: `%s': not a valid identifier\n", args[i]);	//	/!\ printf interdit
+			printf("minishell: export: `%s': not a valid identifier\n", args[i]);
 			return (-1);
 		}
 	}

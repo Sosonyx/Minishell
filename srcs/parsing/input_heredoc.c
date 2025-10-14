@@ -29,7 +29,8 @@ static char	*_readline(t_shell_p shell, t_redir_p redir)
 	return (line);
 }
 
-static ssize_t	_writeline(t_shell_p shell, t_leaf_p leaf, t_redir_p redir, char *hd)
+static ssize_t	_writeline(t_shell_p shell, \
+	t_leaf_p leaf, t_redir_p redir, char *hd)
 {
 	char	*expd_hd;
 	ssize_t	wbytes;
@@ -54,7 +55,8 @@ static ssize_t	_writeline(t_shell_p shell, t_leaf_p leaf, t_redir_p redir, char 
 	return (wbytes);
 }
 
-static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
+static void	_input_heredoc(t_shell_p shell, \
+	t_leaf_p leaf, t_redir_p redir)
 {
 	pid_t	pid;
 	int		ret_code;

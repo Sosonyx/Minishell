@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:25:25 by fox               #+#    #+#             */
-/*   Updated: 2025/10/12 13:33:04 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/14 15:17:50 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,6 @@ void	savepath(t_shell_p shell, t_wildcard_p wc, char *path, int depth);
 void	addmatch(t_shell_p shell, t_wildcard_p wc, char *path);
 void	sortmatches(t_wildcard_p wc);
 
+void	_expand(t_shell_p shell, t_wildcard_p wc, char *arg);
+void	aggregate_matches(t_shell_p shell, t_wildcard_p wc, char *args);
 #endif

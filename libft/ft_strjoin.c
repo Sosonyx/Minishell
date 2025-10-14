@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 18:21:58 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/06 15:53:04 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:12:27 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static size_t	total_size(char const *s1, char const *s2)
 {
-	return (ft_strlen(s1) + ft_strlen(s2));		
+	return (ft_strlen(s1) + ft_strlen(s2));
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messager.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:04:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 10:18:57 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:06:50 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	speak2(t_shell_p shell, int fd, char **announces)
 			self_announce(shell, fd);
 		while (*announces && *(announces + 1))
 			print_annouce(fd, *announces++, COLUMN);
-		print_annouce(fd, *announces, NEWLINE);		
+		print_annouce(fd, *announces, NEWLINE);
 	}
 }

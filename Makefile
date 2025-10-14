@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sosony <sosony@student.42.fr>              +#+  +:+       +#+         #
+#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/12 13:24:44 by sosony           ###   ########.fr        #
+#    Updated: 2025/10/14 15:14:20 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC         = \
 				$(SRC_DIR)/destroy/destroy_shell.c											\
 				$(SRC_DIR)/destroy/destroy_tokens.c											\
 				$(SRC_DIR)/error_and_event_manager/print_error.c							\
+				$(SRC_DIR)/error_and_event_manager/print_error2.c							\
 				$(SRC_DIR)/error_and_event_manager/print_hd_error.c							\
 				$(SRC_DIR)/error_and_event_manager/signal_handlers.c						\
 				$(SRC_DIR)/error_and_event_manager/signal_setters.c							\
@@ -100,6 +101,8 @@ SRC         = \
 				$(SRC_DIR)/wildcards/savepath.c												\
 				$(SRC_DIR)/wildcards/sortmatches.c											\
 				$(SRC_DIR)/wildcards/wildcard_expand.c										\
+				$(SRC_DIR)/wildcards/_expand.c												\
+				$(SRC_DIR)/wildcards/aggregate_matches.c									\
 				$(SRC_DIR)/shell/shell_init.c												\
 				$(SRC_DIR)/shell/shell_kill.c												\
 				$(SRC_DIR)/wrappers/alloc.c													\
@@ -119,8 +122,7 @@ SRC         = \
 				$(SRC_DIR)/built-in/ft_export.c												\
 				$(SRC_DIR)/built-in/ft_unset.c												\
 				$(SRC_DIR)/built-in/ft_pwd.c												\
-				$(SRC_DIR)/built-in/utils.c													\
-				$(SRC_DIR)/minishell_help.c
+				$(SRC_DIR)/built-in/utils.c
 
 OBJ         = $(addprefix $(BUILD_DIR)/, $(subst $(SRC_DIR)/,,$(SRC:.c=.o)))
 

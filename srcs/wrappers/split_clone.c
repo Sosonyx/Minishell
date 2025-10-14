@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_clone.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 14:50:22 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 12:53:32 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:13:37 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ char	**_split_clone(t_shell_p shell, char **strs)
 		return (new_strs);
 	}
 	else
-		return (NULL);	
+		return (NULL);
 }

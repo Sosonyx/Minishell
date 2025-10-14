@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/10 22:28:16 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/14 15:17:39 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ void		execute_or(t_shell_p shell, t_ast_p ast);
 void		execute_leaf(t_shell_p shell, t_ast_p ast);
 void		execute_builtin(t_shell_p shell, t_ast_p ast);
 
-	///
-	///	misc exec
-	///
 void		wait_if_leaf(t_leaf_p leaf, int *rstatus);
 int			extract_return_code(int status);
 int			convert_errno(int err);

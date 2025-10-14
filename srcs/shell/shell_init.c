@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:51:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/08 12:59:16 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:11:01 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	_minishell_help(int ac, char **av)
-{
-	if (ac == 2 && !ft_strcmp(av[1], "--help"))
-		minishell_help();
-}
 
 static void	set_env_value(char ***envp, char *name, char *value)
 {
@@ -121,7 +115,6 @@ t_shell_p	_shell_init(int ac, char **av, char **envp)
 
 t_shell_p	shell_init(int ac, char **av, char **envp)
 {
-	_minishell_help(ac, av);
 	signals_setter();
 	return (_shell_init(ac, av, envp));
 }

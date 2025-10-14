@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 13:37:02 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:09:37 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#define	DIR_ERRMSG		"error retrieving current directory"
-#define	PARDIR_ERRMSG	"cannot access parent directories"
+#define DIR_ERRMSG		"error retrieving current directory"
+#define PARDIR_ERRMSG	"cannot access parent directories"
 
 static void	print_errmsg(t_shell_p shell, char **msg_parts)
 {
@@ -21,7 +21,7 @@ static void	print_errmsg(t_shell_p shell, char **msg_parts)
 	speak(NULL, STDERR_FILENO, msg_parts[1], COLUMN);
 	speak(NULL, STDERR_FILENO, msg_parts[2], NOSEP);
 	speak(NULL, STDERR_FILENO, msg_parts[3], NOSEP);
-	speak(NULL, STDERR_FILENO, msg_parts[4], NEWLINE);	
+	speak(NULL, STDERR_FILENO, msg_parts[4], NEWLINE);
 }
 
 static char	*ft_getenv(char **env, char *name)
@@ -100,7 +100,6 @@ int	ft_cd(t_shell_p shell, char **args)
 	if (!newpwd)
 	{
 		print_errmsg(shell, (char *[]) {"cd", DIR_ERRMSG, "getcwd", PARDIR_ERRMSG, strerror(ENOENT)});
-		// ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", 2);
 		update_pwd(shell, oldpwd, path);
 	}
 	else

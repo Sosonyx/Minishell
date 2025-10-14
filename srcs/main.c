@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/13 17:07:38 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 14:12:00 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static void	mainloop(t_shell_p shell, t_ast_p *ast)
 			{
 				if (parse_tokens(shell, ast))
 				{
-					execute_ast(shell, ast);
-					destroy_ast(ast);
+					(execute_ast(shell, ast), destroy_ast(ast));
 					shell->ast_root = NULL;
 					shell->is_root = 0;
 				}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cases_gestion.c                                    :+:      :+:    :+:   */
+/*   stock_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:07:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/04 14:03:48 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 14:08:38 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,52 +29,6 @@ int	stock_special(t_token **tokens, int j, char *line, int *i)
 	*i += len;
 	return (j);
 }
-
-// int	stock_word(t_token **tokens, int j, char *line, int *i)
-// {
-// 	int		start;
-// 	char	c;	
-// 	char	quote;
-// 	int		sq;
-// 	int		dq;
-
-// 	start = *i;
-// 	quote = 0;
-// 	sq = 0;
-// 	dq = 0;
-// 	while (line[*i])
-// 	{
-// 		c = line[*i];
-// 		if (c == '\'' || c == '"')
-// 		{
-// 			if (!quote)
-// 			{
-// 				quote = c;
-// 				if (c == '\'')
-// 					sq = 1;
-// 				else
-// 					dq = 1;
-// 				(*i)++;
-// 				continue ;
-// 			}
-// 			if (quote == c)
-// 			{
-// 				quote = 0;
-// 				(*i)++;
-// 				continue ;
-// 			}
-// 		}
-// 		if (!quote && (ft_isspace(c) || is_special(c)))
-// 			break ;
-// 		(*i)++;
-// 	}
-// 	if (quote)
-// 		return (-1);
-// 	if (*i > start)
-// 		tokens[j++] = create_token(ft_strndup(&line[start], (*i - start)),
-// 				T_WORD, sq, dq);
-// 	return (j);
-// }
 
 static void	handle_quote(char c, char *quote, int *sq, int *dq)
 {
@@ -111,12 +65,8 @@ int	stock_word(t_token **tokens, int j, char *line, int *i)
 	while (line[*i])
 	{
 		if (line[*i] == '\'' || line[*i] == '"')
-		{
 			handle_quote(line[*i], &quote, &sq, &dq);
-			(*i)++;
-			continue ;
-		}
-		if (should_stop(line[*i], quote))
+		else if (should_stop(line[*i], quote))
 			break ;
 		(*i)++;
 	}
@@ -127,7 +77,6 @@ int	stock_word(t_token **tokens, int j, char *line, int *i)
 				T_WORD, sq, dq);
 	return (j);
 }
-
 
 int	stock_quoted(t_token **tokens, int j, char *line, int *i)
 {

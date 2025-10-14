@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/12 13:26:51 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/14 15:17:28 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_PARSING_H
 
 # include "minishell.h"
-
 
 /*****************************************************************************/
 /*  Environment / arrays / utils											 */
@@ -96,7 +95,6 @@ int			set_right_end(int op_pos, \
 char		*remove_quotes(t_shell_p shell, t_redir_p redirs, char *str);
 int			quote_state(int state, char c);
 void		free_redirs(t_redir_p list);
-
 
 void		pipeline_expand(t_shell *shell, t_ast_p ast);
 t_expanded	expand_command(t_shell *shell, char *str);

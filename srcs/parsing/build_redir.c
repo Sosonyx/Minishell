@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:05:23 by fox               #+#    #+#             */
-/*   Updated: 2025/10/08 10:02:22 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:06:07 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ static void	config_redir(t_shell_p shell, t_redir_p redir, t_build_var vars)
 {
 	if (redir->type == R_HDOC)
 	{
-		redir->limiter = expand_limiter(shell, redir, shell->tokens->tokens[vars.start + 1]->val);
+		redir->limiter = expand_limiter(shell, \
+			redir, shell->tokens->tokens[vars.start + 1]->val);
 	}
 	else
-		redir->target = _strdup(shell, shell->tokens->tokens[vars.start + 1]->val);
+		redir->target = _strdup(shell, \
+			shell->tokens->tokens[vars.start + 1]->val);
 }
 
 static void	set_redir_type(t_redir_p redir, t_token_p token)
@@ -34,7 +36,8 @@ static void	set_redir_type(t_redir_p redir, t_token_p token)
 		redir->type = R_HDOC;
 }
 
-static void	_build_redir(t_shell_p shell, t_redir_p redir, t_token_p token, t_build_var *vars)
+static void	_build_redir(t_shell_p shell, \
+	t_redir_p redir, t_token_p token, t_build_var *vars)
 {
 	set_redir_type(redir, token);
 	config_redir(shell, redir, *vars);

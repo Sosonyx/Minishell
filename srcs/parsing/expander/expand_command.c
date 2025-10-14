@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:45:36 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 15:13:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 14:05:03 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	update_state(int state, char c, t_expanded *exp)
 {
 	state = quote_state(state, c);
-
 	if (exp && state)
 			exp->split_allowed = 0;
 	return (state);

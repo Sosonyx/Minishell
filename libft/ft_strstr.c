@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 14:52:31 by ihadj             #+#    #+#             */
-/*   Updated: 2025/09/24 18:17:29 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/14 14:12:35 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_strstr(const char *haystack, const char *needle)
 {
 	int	lneedle;
-	
+
 	if (!(*needle))
 		return ((char *) haystack);
 	lneedle = ft_strlen(needle);

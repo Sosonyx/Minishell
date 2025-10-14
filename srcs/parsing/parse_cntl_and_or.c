@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cntl_and_or.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:01:55 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/12 13:30:52 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/14 14:05:55 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	_create_cntl_and_or(t_shell_p shell, t_ast_p *op, t_token_p cur_token, int n)
+static void	_create_cntl_and_or(t_shell_p shell, \
+	t_ast_p *op, t_token_p cur_token, int n)
 {
 	create_cntl_op(shell, op, cur_token->type);
 	shell->tokens->op_index = n;

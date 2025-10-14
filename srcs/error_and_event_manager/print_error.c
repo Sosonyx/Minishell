@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:24:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/12 13:25:37 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/14 14:14:33 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,4 @@ void	print_cmd_error2(t_shell_p shell, char *cmd_name, char *errmsg)
 void	print_generic_error(t_shell_p shell, char *errmsg)
 {
 	speak(shell, STDERR_FILENO, errmsg, NEWLINE);
-}
-
-void	print_generic_error2(t_shell_p shell, char **errmsg)
-{
-	(void)shell;
-	speak2(NULL, STDERR_FILENO, errmsg);
 }

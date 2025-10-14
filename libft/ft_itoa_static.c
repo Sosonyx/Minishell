@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_static.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 15:54:05 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/08 11:35:12 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:12:32 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_itoa_static(char *buf, int n)
 {
 	long	nb;
 	int		size;
-	
+
 	if (buf)
 	{
 		nb = n;
