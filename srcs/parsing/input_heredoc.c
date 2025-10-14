@@ -55,6 +55,15 @@ static ssize_t	_writeline(t_shell_p shell, \
 	return (wbytes);
 }
 
+static void	heredoc_signal_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		exit(130);
+	}
+}
+
 static void	_input_heredoc(t_shell_p shell, \
 	t_leaf_p leaf, t_redir_p redir)
 {
@@ -63,10 +72,15 @@ static void	_input_heredoc(t_shell_p shell, \
 
 	ret_code = 0;
 	if (_pipe(shell, leaf->hd_fd))
-		return ;
+    {
+        close_secure(&leaf->hd_fd[0]);
+        close_secure(&leaf->hd_fd[1]);
+        return ;
+    }
 	pid = _fork(shell);
 	if (pid == 0)
 	{
+		signal(SIGINT, heredoc_signal_handler);
 		while (is_no_abort(shell))
 			if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
 				break ;
