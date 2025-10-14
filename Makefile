@@ -6,7 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/14 15:14:20 by ihadj            ###   ########.fr        #
+#    Updated: 2025/10/14 17:45:07 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRC         = \
 				$(SRC_DIR)/parsing/parse_subshell.c											\
 				$(SRC_DIR)/parsing/create_leaf.c											\
 				$(SRC_DIR)/parsing/input_heredoc.c											\
+				$(SRC_DIR)/parsing/set_is_root.c											\
 				$(SRC_DIR)/parsing/expander/expand_cases.c									\
 				$(SRC_DIR)/parsing/expander/expand_command.c								\
 				$(SRC_DIR)/parsing/expander/expand_limiter.c								\
@@ -122,7 +123,8 @@ SRC         = \
 				$(SRC_DIR)/built-in/ft_export.c												\
 				$(SRC_DIR)/built-in/ft_unset.c												\
 				$(SRC_DIR)/built-in/ft_pwd.c												\
-				$(SRC_DIR)/built-in/utils.c
+				$(SRC_DIR)/built-in/utils.c													\
+				$(SRC_DIR)/built-in/utils2.c				
 
 OBJ         = $(addprefix $(BUILD_DIR)/, $(subst $(SRC_DIR)/,,$(SRC:.c=.o)))
 

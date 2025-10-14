@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 18:25:30 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/12 13:26:09 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/14 17:34:46 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,36 +39,44 @@ static void	free_tab(char **tab, int index)
 	free(tab);
 }
 
-char	**ft_split_path(t_shell_p shell, char *str, char c)
+static void	_ft_split_path(t_shell_p shell, char **tab, char *str, char c)
 {
-	char	**tab;
 	int		i;
 	int		j;
 	int		start;
 
-	if (!str)
-		return (NULL);
-	tab = _calloc(shell, ft_strlen(str) + 2, sizeof(char *));
-	if (!tab)
-		return (NULL);
-	i = 0;
+	i = -1;
 	j = 0;
 	start = 0;
 	while (1)
 	{
-		if (str[i] == c || str[i] == '\0')
+		if (str[++i] == c || str[i] == '\0')
 		{
 			if (i == start)
 				tab[j++] = _strdup(shell, "./");
 			else
 				tab[j++] = malloc_word(shell, &str[start], c);
 			if (!tab[j - 1])
-				return (free_tab(tab, j), NULL);
+			{
+				free_tab(tab, j);
+				return ;
+			}
 			if (str[i] == '\0')
 				break ;
 			start = i + 1;
 		}
-		i++;
 	}
+}
+
+char	**ft_split_path(t_shell_p shell, char *str, char c)
+{
+	char	**tab;
+
+	if (!str)
+		return (NULL);
+	tab = _calloc(shell, ft_strlen(str) + 2, sizeof(char *));
+	if (!tab)
+		return (NULL);
+	_ft_split_path(shell, tab, str, c);
 	return (tab);
 }

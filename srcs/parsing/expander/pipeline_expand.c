@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_leaf.c                                      :+:      :+:    :+:   */
+/*   pipeline_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:50:56 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/07 17:02:32 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 16:23:55 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,28 @@ static char	**ft_join_array(char **tab1, char **tab2)
 	return (res[len1 + len2] = NULL, res);
 }
 
+static char	**split_expanded_value(t_expanded exp)
+{
+	char	**splitted;
+
+	if (exp.split_allowed)
+		splitted = ft_split(exp.value, ' ');
+	else
+	{
+		splitted = malloc(sizeof(char *) * 2);
+		if (!splitted)
+			return (NULL);
+		splitted[0] = ft_strdup(exp.value);
+		if (!splitted[0])
+		{
+			free(splitted);
+			return (NULL);
+		}
+		splitted[1] = NULL;
+	}
+	return (splitted);
+}
+
 char	**commands_expand(t_shell *shell, char **cmds)
 {
 	char		**new_cmds;
@@ -69,37 +91,20 @@ char	**commands_expand(t_shell *shell, char **cmds)
 	new_cmds = ft_calloc(1, sizeof(char *));
 	if (!new_cmds)
 		return (NULL);
-	i = 0;
-	while (cmds[i])
+	i = -1;
+	while (cmds[++i])
 	{
 		exp = expand_command(shell, cmds[i]);
 		if (!exp.value)
 			return (ft_split_free(new_cmds), NULL);
-		if (exp.split_allowed == true)
-			splitted = ft_split(exp.value, ' ');
-		else
-		{
-			splitted = malloc(sizeof(char *) * 2);
-			if (!splitted)
-			{
-				free(exp.value);
-				return (ft_split_free(new_cmds), NULL);
-			}
-			splitted[0] = ft_strdup(exp.value);
-			if (!splitted[0])
-			{
-				free(splitted);
-				free(exp.value);
-				return (ft_split_free(new_cmds), NULL);
-			}
-			splitted[1] = NULL;
-		}
+		splitted = split_expanded_value(exp);
 		free(exp.value);
+		if (!splitted)
+			return (ft_split_free(new_cmds), NULL);
 		tmp = ft_join_array(new_cmds, splitted);
 		ft_split_free(new_cmds);
 		ft_split_free(splitted);
 		new_cmds = tmp;
-		i++;
 	}
 	return (new_cmds);
 }

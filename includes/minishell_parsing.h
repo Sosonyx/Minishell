@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 15:17:28 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:44:41 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int			is_valid_number(char *str);
 long long	ft_atol(const char *nptr);
 int			ft_strcmp(const char *s1, const char *s2);
 void		ft_split_free(char **arr);
+void		set_is_root(t_shell_p shell, t_ast_p *ast);
 
 /*****************************************************************************/
 /*  Lexer                       											 */
@@ -99,6 +100,8 @@ void		free_redirs(t_redir_p list);
 void		pipeline_expand(t_shell *shell, t_ast_p ast);
 t_expanded	expand_command(t_shell *shell, char *str);
 char		*get_env_value(t_shell *shell, char *name);
+void		copy_old_env(t_shell_p shell, \
+	char **new_env, char **old_env, int size);
 char		*expand_limiter(t_shell_p shell, t_redir_p redir, char *str);
 char		*append_char(char *str, char c);
 void		exp_case(t_shell_p shell, char *str, t_expanded *result, int *i);

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:15:33 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 14:07:07 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:39:30 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,27 @@ static int	find_var_index(char **env, char *arg)
 	return (-1);
 }
 
-static void	copy_old_env(t_shell_p shell, \
-	char **new_env, char **old_env, int size)
+static int	process_export_arg(t_shell_p shell, char **env, char *arg, int *j)
 {
-	int	i;
+	int	env_index;
 
-	i = 0;
-	while (i < size)
+	if (!is_valid_var_name(arg))
 	{
-		new_env[i] = _strdup(shell, old_env[i]);
-		i++;
+		printf("minishell: export: `%s': not a valid identifier\n", arg);
+		return (-1);
 	}
+	env_index = find_var_index(env, arg);
+	if (env_index >= 0)
+	{
+		free(env[env_index]);
+		env[env_index] = _strdup(shell, arg);
+	}
+	else
+	{
+		env[*j] = _strdup(shell, arg);
+		(*j)++;
+	}
+	return (1);
 }
 
 static int	add_or_replace_vars(t_shell_p shell, \
@@ -68,31 +78,15 @@ static int	add_or_replace_vars(t_shell_p shell, \
 {
 	int	i;
 	int	j;
-	int	env_index;
+	int	ret;
 
 	i = -1;
 	j = start_index;
 	while (args[++i])
 	{
-		if (is_valid_var_name(args[i]))
-		{
-			env_index = find_var_index(env, args[i]);
-			if (env_index >= 0)
-			{
-				free(env[env_index]);
-				env[env_index] = _strdup(shell, args[i]);
-			}
-			else
-			{
-				env[j] = _strdup(shell, args[i]);
-				j++;
-			}
-		}
-		else
-		{
-			printf("minishell: export: `%s': not a valid identifier\n", args[i]);
+		ret = process_export_arg(shell, env, args[i], &j);
+		if (ret == -1)
 			return (-1);
-		}
 	}
 	env[j] = NULL;
 	return (1);

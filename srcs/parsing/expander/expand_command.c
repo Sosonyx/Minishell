@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:45:36 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 14:05:03 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 16:45:28 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_expanded	expand_command(t_shell *shell, char *str)
 	if (!result.value)
 		return (result);
 	state = 0;
-	i = 0;
-	while (str && str[i])
+	i = -1;
+	while (str && str[++i])
 	{
 		new_state = update_state(state, str[i], &result);
 		if (new_state != state)
@@ -45,9 +45,6 @@ t_expanded	expand_command(t_shell *shell, char *str)
 			exp_case(shell, str, &result, &i);
 		else
 			result.value = append_char(result.value, str[i]);
-		if (!result.value)
-			return (result);
-		i++;
 	}
 	return (result);
 }

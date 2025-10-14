@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:02:05 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 15:16:34 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:21:18 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static void	run_recdir(t_shell_p shell, t_wildcard_p wc)
 
 void	_expand(t_shell_p shell, t_wildcard_p wc, char *arg)
 {
+	char	*clean_arg;
+
 	if (iswildcard(arg))
 	{
 		wcconfig(shell, wc, arg);
@@ -68,8 +70,9 @@ void	_expand(t_shell_p shell, t_wildcard_p wc, char *arg)
 	}
 	else
 	{
-		arg = remove_quotes(shell, NULL, _strdup(shell, arg));
-		addmatch(shell, wc, arg);
+		clean_arg = remove_quotes(shell, NULL, _strdup(shell, arg));
+		addmatch(shell, wc, clean_arg);
+		free(clean_arg);
 	}
 	if (is_no_abort(shell))
 	{

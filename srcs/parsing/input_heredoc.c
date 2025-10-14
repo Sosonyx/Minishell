@@ -67,17 +67,13 @@ static void	_input_heredoc(t_shell_p shell, \
 	pid = _fork(shell);
 	if (pid == 0)
 	{
-		close_secure(&leaf->hd_fd[0]);
 		while (is_no_abort(shell))
-		{
 			if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
 				break ;
-		}
-		close_secure(&leaf->hd_fd[1]);
+		(close_secure(&leaf->hd_fd[0]), close_secure(&leaf->hd_fd[1]));
 		if (shell->abort == 1)
 			ret_code = 1;
-		free_tokens_container(shell, shell->tokens);
-		destroy_shell(shell);
+		(free_tokens_container(shell, shell->tokens), destroy_shell(shell));
 		exit(ret_code);
 	}
 	else if (pid > 0)

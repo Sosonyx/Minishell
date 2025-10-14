@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:06 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/12 13:39:44 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/14 17:47:25 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void	_ft_exit(t_shell_p shell, int exit_code)
 	exit(exit_code);
 }
 
-static void	_print_cmd_error2(t_shell_p shell, char *errmsg)
+static void	_prt_err(t_shell_p shell, char *errmsg)
 {
 	if (shell && shell->forked == false)
-		print_cmd_error2(shell, "exit", errmsg);
+		prt_err(shell, "exit", errmsg);
 }
 
 static void	print_non_num_error(t_shell_p shell, char *arg)
@@ -49,7 +49,7 @@ int	ft_exit(t_ast_p ast, t_shell_p shell, char **args)
 	{
 		if (args[2])
 		{
-			_print_cmd_error2(shell, ARG_EXCESS_ERRMSG);
+			_prt_err(shell, ARG_EXCESS_ERRMSG);
 			return (ERRVAL1);
 		}
 		print_generic_error(NULL, "exit");

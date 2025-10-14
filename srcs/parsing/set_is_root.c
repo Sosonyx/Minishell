@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   set_is_root.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/07 16:18:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 17:47:25 by ihadj            ###   ########.fr       */
+/*   Created: 2025/10/14 16:45:53 by ihadj             #+#    #+#             */
+/*   Updated: 2025/10/14 16:49:30 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_shell_p shell, char **args)
+void	set_is_root(t_shell_p shell, t_ast_p *ast)
 {
-	int	i;
-
-	if (args && args[1])
+	if (!shell->is_root)
 	{
-		prt_err(shell, "env", ARG_EXCESS_ERRMSG);
-		return (ERRVAL1);
+		shell->ast_root = *ast;
+		shell->is_root++;
 	}
-	i = -1;
-	while (shell->environ[++i])
-		ft_printf("%s\n", shell->environ[i]);
-	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 14:09:37 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:48:02 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,15 @@ int	ft_cd(t_shell_p shell, char **args)
 	if (!oldpwd)
 		oldpwd = _strdup(shell, ft_getenv(shell->environ, "PWD"));
 	if (args[1] && args[2])
-	{
-		print_cmd_error2(shell, "cd", ARG_EXCESS_ERRMSG);
-		return (free(oldpwd), ERRVAL1);
-	}
+		return (prt_err(shell, "cd", ARG_EXCESS_ERRMSG), free(oldpwd), ERRVAL1);
 	path = get_target_dir(shell, args);
 	if (!path || chdir(path) == -1)
-	{
-		print_cmd_error2(shell, "cd", strerror(ENOENT));
-		return (free(oldpwd), ERRVAL1);
-	}
+		return (prt_err(shell, "cd", strerror(ENOENT)), free(oldpwd), ERRVAL1);
 	newpwd = _getcwd(shell, &newpwd);
 	if (!newpwd)
 	{
-		print_errmsg(shell, (char *[]) {"cd", DIR_ERRMSG, "getcwd", PARDIR_ERRMSG, strerror(ENOENT)});
+		print_errmsg(shell, (char *[]) \
+		{"cd", DIR_ERRMSG, "getcwd", PARDIR_ERRMSG, strerror(ENOENT)});
 		update_pwd(shell, oldpwd, path);
 	}
 	else
@@ -107,6 +102,5 @@ int	ft_cd(t_shell_p shell, char **args)
 		update_pwd(shell, oldpwd, newpwd);
 		free(newpwd);
 	}
-	free(oldpwd);
-	return (EXIT_SUCCESS);
+	return (free(oldpwd), EXIT_SUCCESS);
 }

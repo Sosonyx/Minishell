@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/14 14:26:32 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 14:47:43 by ihadj            ###   ########.fr       */
+/*   Created: 2025/10/14 17:24:12 by ihadj             #+#    #+#             */
+/*   Updated: 2025/10/14 17:47:25 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
 #ifndef MINISHELL_ERROR_AND_SIGNAL_MANAGER_H
 # define MINISHELL_ERROR_AND_SIGNAL_MANAGER_H
+
+# include "minishell.h"
 
 /*	Error messages	*/
 # define CMD_ERRMSG			"command not found"
@@ -49,7 +49,7 @@ void	speak(t_shell_p shell, int fd, char *announce, char *separator);
 void	speak2(t_shell_p shell, int fd, char **announces);
 void	print_file_error(t_shell_p shell, char *filename, int err_num);
 void	print_cmd_error(t_shell_p shell, char *cmd_name, int err_num);
-void	print_cmd_error2(t_shell_p shell, char *cmd_name, char *errmsg);
+void	prt_err(t_shell_p shell, char *cmd_name, char *errmsg);
 void	print_generic_error(t_shell_p shell, char *errmsg);
 void	print_generic_error2(t_shell_p shell, char **errmsg);
 void	print_hd_error(t_shell_p shell, char *limiter);

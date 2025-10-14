@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:24:56 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/14 14:14:33 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:47:25 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_cmd_error(t_shell_p shell, char *cmd_name, int errnum)
 		print_err(shell, cmd_name, errnum);
 }
 
-void	print_cmd_error2(t_shell_p shell, char *cmd_name, char *errmsg)
+void	prt_err(t_shell_p shell, char *cmd_name, char *errmsg)
 {
 	speak(shell, STDERR_FILENO, cmd_name, COLUMN);
 	speak(NULL, STDERR_FILENO, errmsg, NEWLINE);

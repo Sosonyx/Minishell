@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/07 16:18:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 17:47:25 by ihadj            ###   ########.fr       */
+/*   Created: 2025/10/14 17:44:12 by ihadj             #+#    #+#             */
+/*   Updated: 2025/10/14 17:44:22 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_shell_p shell, char **args)
+void	copy_old_env(t_shell_p shell, \
+	char **new_env, char **old_env, int size)
 {
 	int	i;
 
-	if (args && args[1])
+	i = 0;
+	while (i < size)
 	{
-		prt_err(shell, "env", ARG_EXCESS_ERRMSG);
-		return (ERRVAL1);
+		new_env[i] = _strdup(shell, old_env[i]);
+		i++;
 	}
-	i = -1;
-	while (shell->environ[++i])
-		ft_printf("%s\n", shell->environ[i]);
-	return (EXIT_SUCCESS);
 }

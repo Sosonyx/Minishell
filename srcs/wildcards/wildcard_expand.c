@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:27:10 by fox               #+#    #+#             */
-/*   Updated: 2025/10/14 15:16:31 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:47:25 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	rebuild_args(t_shell_p shell, \
 			if (wc->totalmatches > 1)
 			{
 				ast->leaf->abort = true;
-				print_cmd_error2(shell, redir->target, AMBIG_REDIR_ERRMSG);
+				prt_err(shell, redir->target, AMBIG_REDIR_ERRMSG);
 				ft_split_free(wc->matches);
 			}
 			else if (wc)

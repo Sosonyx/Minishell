@@ -6,36 +6,17 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:51:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/14 14:11:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/14 15:27:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	set_env_value(char ***envp, char *name, char *value)
+static void	realloc_env(int i, char ***envp, char *value, char *name)
 {
-	int		i;
-	size_t	name_len;
-	char	*new_var;
 	char	**new_env;
+	char	*new_var;
 
-	name_len = ft_strlen(name);
-	i = 0;
-	while ((*envp)[i])
-	{
-		if (!ft_strncmp((*envp)[i], name, name_len)
-			&& (*envp)[i][name_len] == '=')
-		{
-			new_var = ft_strjoin(name, "=");
-			if (!new_var)
-				return ;
-			free((*envp)[i]);
-			(*envp)[i] = ft_strjoin(new_var, value);
-			free(new_var);
-			return ;
-		}
-		i++;
-	}
 	new_env = malloc(sizeof(char *) * (i + 2));
 	if (!new_env)
 		return ;
@@ -56,6 +37,32 @@ static void	set_env_value(char ***envp, char *name, char *value)
 	new_env[i + 1] = NULL;
 	free(*envp);
 	*envp = new_env;
+}
+
+static void	change_value(char ***envp, char *name, char *value)
+{
+	int		i;
+	size_t	name_len;
+	char	*new_var;
+
+	name_len = ft_strlen(name);
+	i = 0;
+	while ((*envp)[i])
+	{
+		if (!ft_strncmp((*envp)[i], name, name_len)
+			&& (*envp)[i][name_len] == '=')
+		{
+			new_var = ft_strjoin(name, "=");
+			if (!new_var)
+				return ;
+			free((*envp)[i]);
+			(*envp)[i] = ft_strjoin(new_var, value);
+			free(new_var);
+			return ;
+		}
+		i++;
+	}
+	realloc_env(i, envp, value, name);
 }
 
 static void	set_shell_lvl(t_shell_p shell)
@@ -79,7 +86,7 @@ static void	set_shell_lvl(t_shell_p shell)
 	}
 	else
 	{
-		set_env_value(&shell->environ, "SHLVL", lvl_str);
+		change_value(&shell->environ, "SHLVL", lvl_str);
 		free(lvl_str);
 	}
 }
