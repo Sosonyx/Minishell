@@ -55,14 +55,15 @@ static ssize_t	_writeline(t_shell_p shell, \
 	return (wbytes);
 }
 
-// static void	heredoc_signal_handler(int sig)
-// {
-// 	if (sig == SIGINT)
-// 	{
-// 		write(1, "\n", 1);
-// 		exit(130);
-// 	}
-// }
+static void	heredoc_signal_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		g_sigstatus = 130;
+		close(0);
+	}
+}
 
 static void	_input_heredoc(t_shell_p shell, \
 	t_leaf_p leaf, t_redir_p redir)
@@ -73,29 +74,35 @@ static void	_input_heredoc(t_shell_p shell, \
 	ret_code = 0;
 	pid = 0;
 	if (_pipe(shell, leaf->hd_fd))
-		pid = _fork(shell);
+		return ;
+	pid = _fork(shell);
 	if (pid == 0)
 	{
 		close_secure(&leaf->hd_fd[0]);
-		// signal(SIGINT, heredoc_signal_handler);
-		// signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, heredoc_signal_handler);
+		signal(SIGQUIT, SIG_IGN);
 		while (is_no_abort(shell))
+		{
 			if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
 				break ;
+		}
 		close_secure(&leaf->hd_fd[1]);
-		if (shell->abort == 1)
+		if (g_sigstatus == 130)
+			ret_code = 130;
+		else if (shell->abort == 1)
 			ret_code = 1;
 		(free_tokens_container(shell, shell->tokens), destroy_shell(shell));
 		exit(ret_code);
 	}
 	else if (pid > 0)
 	{
-		// signals_ign();
+		signals_ign();
 		waitpid(pid, &shell->exit_code, 0);
-		// signals_setter();
-		if (shell->exit_code)
-			set_abort(shell, PIP_ERRMSG);
+		signals_setter();
+		// if (shell->exit_code)
+		// 	set_abort(shell, PIP_ERRMSG);
 	}
+	close_secure(&leaf->hd_fd[0]);
 	close_secure(&leaf->hd_fd[1]);
 }
 
