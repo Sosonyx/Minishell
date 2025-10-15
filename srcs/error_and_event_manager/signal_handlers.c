@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:30:13 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/15 14:37:59 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 18:31:03 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ void	signals_dfl(void)
 
 void	heredoc_signal_handler(int sig)
 {
-	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
-		g_sigstatus = 130;
-		close(0);
-	}
+	(void)sig;
+	printf("%d\n",sig);
+	write(1, "\n", 1);
+	g_sigstatus = sig;
+	close(0);
 }

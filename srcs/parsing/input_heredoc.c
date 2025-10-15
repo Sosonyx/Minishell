@@ -23,7 +23,10 @@ static char	*_readline(t_shell_p shell, t_redir_p redir)
 
 	line = readline(HEREDOC_SIGN);
 	if (!line)
-		print_hd_error(shell, redir->limiter);
+	{
+		if (!g_sigstatus)
+			print_hd_error(shell, redir->limiter);
+	}
 	else
 		shell->readlines++;
 	return (line);
@@ -77,8 +80,8 @@ static void	_input_heredoc(t_shell_p shell, \
 				break ;
 		}
 		close_secure(&leaf->hd_fd[1]);
-		if (g_sigstatus == 130)
-			ret_code = 130;
+		if (g_sigstatus == 2)
+			ret_code = g_sigstatus + 128;
 		else if (shell->abort == 1)
 			ret_code = 1;
 		(free_tokens_container(shell, shell->tokens), destroy_shell(shell));

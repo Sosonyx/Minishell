@@ -16,6 +16,7 @@ int	extract_return_code(int status)
 {
 	int	return_status;
 
+	printf("exit status = %d\n", status);
 	if (status == -1)
 		return_status = EXIT_FAILURE;
 	else if (WIFEXITED(status))

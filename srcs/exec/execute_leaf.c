@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/13 18:21:34 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 17:53:47 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	execute_command(t_shell_p shell, t_ast_p ast)
 
 void	execute_leaf(t_shell_p shell, t_ast_p ast)
 {
-	if (is_no_abort(shell))
+	if (is_no_abort(shell) && shell->exit_code != _SIG_INT)
 	{
 		pipeline_expand(shell, ast);
 		wildcard_expand(shell, ast);
