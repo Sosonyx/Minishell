@@ -55,16 +55,6 @@ static ssize_t	_writeline(t_shell_p shell, \
 	return (wbytes);
 }
 
-static void	heredoc_signal_handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
-		g_sigstatus = 130;
-		close(0);
-	}
-}
-
 static void	_input_heredoc(t_shell_p shell, \
 	t_leaf_p leaf, t_redir_p redir)
 {
@@ -99,8 +89,6 @@ static void	_input_heredoc(t_shell_p shell, \
 		signals_ign();
 		waitpid(pid, &shell->exit_code, 0);
 		signals_setter();
-		// if (shell->exit_code)
-		// 	set_abort(shell, PIP_ERRMSG);
 	}
 	close_secure(&leaf->hd_fd[0]);
 	close_secure(&leaf->hd_fd[1]);
@@ -113,6 +101,8 @@ void	input_heredoc(t_shell_p shell, t_leaf_p leaf)
 	redir = leaf->redir;
 	while (is_no_abort(shell) && redir)
 	{
+		if (shell->exit_code == 33280)
+			break ;
 		if (redir->type & (R_IN | R_HDOC))
 			close_secure(&leaf->hd_fd[0]);
 		if (redir->type == R_HDOC)

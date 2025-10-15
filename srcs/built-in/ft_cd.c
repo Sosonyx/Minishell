@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 17:48:02 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 15:25:27 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_cd(t_shell_p shell, char **args)
 		return (prt_err(shell, "cd", ARG_EXCESS_ERRMSG), free(oldpwd), ERRVAL1);
 	path = get_target_dir(shell, args);
 	if (!path || chdir(path) == -1)
-		return (prt_err(shell, "cd", strerror(ENOENT)), free(oldpwd), ERRVAL1);
+		return (handle_cd_error(shell, errno, oldpwd));
 	newpwd = _getcwd(shell, &newpwd);
 	if (!newpwd)
 	{

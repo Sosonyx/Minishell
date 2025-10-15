@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 17:24:12 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 17:47:25 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 14:30:17 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void	signals_dfl(void);
 void	sigint_handler_exec(int sig);
 void	signals_setter_exec(void);
 void	handle_signal_error(t_shell_p shell);
+void	heredoc_signal_handler(int sig);
 
 #endif

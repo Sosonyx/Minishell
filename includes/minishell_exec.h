@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 15:17:39 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 15:25:59 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 /*****************************************************************************/
 
 char		*ft_getcwd(char **env);
+int			handle_cd_error(t_shell_p shell, int errnum, char *oldpwd);
 
 int			ft_echo(t_shell_p shell, char **args);
 int			ft_pwd(t_shell_p shell, char **args);
