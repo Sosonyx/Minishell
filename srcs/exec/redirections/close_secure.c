@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_secure.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:18:35 by cgajean           #+#    #+#             */
-/*   Updated: 2025/09/12 16:44:03 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/15 22:57:22 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	close_secure(int *fd)
 {
-	if (fd && *fd IS_VALID_FD)
+	if (fd && *fd > 2)
 	{
 		close(*fd);
 		*fd = -2;

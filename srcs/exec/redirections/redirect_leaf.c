@@ -6,7 +6,7 @@
 /*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:58:54 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/12 13:25:56 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/15 22:57:22 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	overwrite_if_hd(t_shell_p shell, t_leaf_p leaf)
 {
 	(void)shell;
-	if (leaf->hd_fd[0] IS_VALID_FD)
+	if (leaf->hd_fd[0] > 2)
 	{
 		close_secure(&leaf->fds[0]);
 		leaf->fds[0] = leaf->hd_fd[0];
@@ -71,18 +71,18 @@ int	redirect_leaf(t_shell_p shell, t_ast_p ast)
 	else
 	{
 		retval = 0;
-		if (!ast->leaf->r_in && ast->read_fd && *ast->read_fd IS_VALID_FD)
+		if (!ast->leaf->r_in && ast->read_fd && *ast->read_fd > 2)
 			retval = _dup2(shell, *ast->read_fd, STDIN_FILENO);
-		if (!ast->leaf->r_out && ast->write_fd && *ast->write_fd IS_VALID_FD)
+		if (!ast->leaf->r_out && ast->write_fd && *ast->write_fd > 2)
 			retval = _dup2(shell, *ast->write_fd, STDOUT_FILENO);
 		if ((ast->leaf->r_in || ast->leaf->r_out))
 		{
 			retval = set_redir(shell, ast->leaf);
-			if (ast->leaf->fds[0] IS_VALID_FD)
+			if (ast->leaf->fds[0] > 2)
 			{
 				retval = _dup2(shell, ast->leaf->fds[0], STDIN_FILENO);
 			}
-			if (ast->leaf->fds[1] IS_VALID_FD)
+			if (ast->leaf->fds[1] > 2)
 			{
 				retval = _dup2(shell, ast->leaf->fds[1], STDOUT_FILENO);
 			}
