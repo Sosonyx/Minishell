@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 16:28:39 by ihadj             #+#    #+#             */
-/*   Updated: 2025/06/23 19:11:48 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 22:44:06 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*read_buffer_and_create_tmp(int fd, char **tmp, char **tmp2)
 				return (free(buffer), free(*tmp), *tmp = NULL, NULL);
 			*tmp = (free(*tmp), *tmp2);
 		}
-	}	
+	}
 	if (count < 0)
 		return (free(buffer), free(*tmp), *tmp = NULL, NULL);
 	if ((!*tmp || !**tmp))

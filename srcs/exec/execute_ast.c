@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/13 17:09:32 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 22:38:59 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	execute_ast(t_shell_p shell, t_ast_p *ast)
 	if ((*ast)->leaf)
 	{
 		execute_leaf(shell, *ast);
-		if ((*ast)->leaf->pid)
+		if (!(*ast)->leaf->is_heredoc && (*ast)->leaf->pid > 0)
 			waitpid((*ast)->leaf->pid, &shell->exit_code, 0);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_leaf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/15 18:51:50 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 20:29:56 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	create_leaf(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 			if (!shell->is_root)
 			{
 				shell->ast_root = *ast;
-				shell->is_root++;
+				shell->is_root = true;
 			}
 			_create_leaf(shell, ast, vars);
 		}

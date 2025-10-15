@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/15 17:53:28 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 22:42:39 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void		execute_leaf(t_shell_p shell, t_ast_p ast);
 void		execute_builtin(t_shell_p shell, t_ast_p ast);
 
 void		wait_if_leaf(t_leaf_p leaf, int *rstatus);
+int			wait_heredoc(pid_t pid);
+
 int			extract_return_code(int status);
 int			convert_errno(int err);
 

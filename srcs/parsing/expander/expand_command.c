@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:45:36 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 16:45:28 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 22:45:02 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	update_state(int state, char c, t_expanded *exp)
 {
 	state = quote_state(state, c);
 	if (exp && state)
-			exp->split_allowed = 0;
+		exp->split_allowed = 0;
 	return (state);
 }
 

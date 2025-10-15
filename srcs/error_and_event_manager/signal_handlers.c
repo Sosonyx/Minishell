@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:30:13 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/15 18:31:03 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 21:35:34 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ void	signals_dfl(void)
 
 void	heredoc_signal_handler(int sig)
 {
-	(void)sig;
-	printf("%d\n",sig);
-	write(1, "\n", 1);
 	g_sigstatus = sig;
-	close(0);
+	write(1, "\n", 1);
+	close(STDIN_FILENO);
 }

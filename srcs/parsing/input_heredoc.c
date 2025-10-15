@@ -58,14 +58,14 @@ static ssize_t	_writeline(t_shell_p shell, \
 	return (wbytes);
 }
 
-static void	_input_heredoc(t_shell_p shell, \
-	t_leaf_p leaf, t_redir_p redir)
+static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
 	pid_t	pid;
+	int		status;
 	int		ret_code;
 
+	leaf->is_heredoc = 1;
 	ret_code = 0;
-	pid = 0;
 	if (_pipe(shell, leaf->hd_fd))
 		return ;
 	pid = _fork(shell);
@@ -80,21 +80,23 @@ static void	_input_heredoc(t_shell_p shell, \
 				break ;
 		}
 		close_secure(&leaf->hd_fd[1]);
-		if (g_sigstatus == 2)
-			ret_code = g_sigstatus + 128;
+		if (g_sigstatus == SIGINT)
+			ret_code = 128 + SIGINT;
 		else if (shell->abort == 1)
 			ret_code = 1;
-		(free_tokens_container(shell, shell->tokens), destroy_shell(shell));
+		free_tokens_container(shell, shell->tokens);
+		destroy_shell(shell);
 		exit(ret_code);
 	}
 	else if (pid > 0)
 	{
 		signals_ign();
-		waitpid(pid, &shell->exit_code, 0);
-		signals_setter();
+		close_secure(&leaf->hd_fd[1]);
+		shell->exit_code = wait_heredoc(pid);
+		if (shell->exit_code == 130)
+			close_secure(&leaf->hd_fd[0]);
+		signals_setter_exec();
 	}
-	close_secure(&leaf->hd_fd[0]);
-	close_secure(&leaf->hd_fd[1]);
 }
 
 void	input_heredoc(t_shell_p shell, t_leaf_p leaf)

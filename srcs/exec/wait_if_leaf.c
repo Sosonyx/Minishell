@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   wait_if_leaf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:59:42 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/06 12:22:55 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/15 22:42:03 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	wait_heredoc(pid_t pid)
+{
+	int	status;
+
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	return (1);
+}
 
 void	wait_if_leaf(t_leaf_p leaf, int *rstatus)
 {

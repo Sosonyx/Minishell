@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_error_and_signal_manager.h               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 17:24:12 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/15 14:30:17 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 22:44:15 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define ER		"minishell: unexpected EOF while looking for matching quote\n"
 
 /*	Separators		*/
-# ifdef 	NEWLINE
-#  undef 	NEWLINE
+# ifdef NEWLINE
+#  undef NEWLINE
 #  define NEWLINE		"\n"
 # endif
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_setters.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/14 14:06:36 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 21:35:47 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	handle_signal_error(t_shell_p shell)
 
 void	sigint_handler(int sig)
 {
-	(void) sig;
+	(void)sig;
 	g_sigstatus = 0;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
@@ -34,7 +34,4 @@ void	sigint_handler_exec(int sig)
 {
 	g_sigstatus = sig;
 	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
 }

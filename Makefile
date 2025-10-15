@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
+#    By: sosony <sosony@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/14 17:50:41 by ihadj            ###   ########.fr        #
+#    Updated: 2025/10/15 20:30:30 by sosony           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ BUILD_DIR   = build
 INC         = includes
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -g3 -I$(INC) -I$(LIBFT_DIR)
+CFLAGS      = -g3 -I$(INC) -I$(LIBFT_DIR)
 LDFLAGS 	= -lreadline -lncurses
 
 # -Wall -Wextra -Werror

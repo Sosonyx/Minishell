@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 13:49:31 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/14 14:14:08 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 22:44:58 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	update_state(t_redir_p redirs, int state, char c)
 {
 	state = quote_state(state, c);
 	if (redirs && state)
-			redirs->expand_hd = 1;
+		redirs->expand_hd = 1;
 	return (state);
 }
 

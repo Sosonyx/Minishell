@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dotdot.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fox <fox@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:25:18 by fox               #+#    #+#             */
-/*   Updated: 2025/09/26 12:36:52 by fox              ###   ########.fr       */
+/*   Updated: 2025/10/15 22:44:50 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	skipdotdotdot(char *dir, char *field)
 		else if (!ft_strcmp(dir, DOT_ENTRY) && !ft_strcmp(field, DOTDOT_ENTRY))
 		{
 			return (1);
-		}	
+		}
 		else
 			return (0);
 	}

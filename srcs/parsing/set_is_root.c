@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_is_root.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:45:53 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 16:49:30 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 20:30:05 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ void	set_is_root(t_shell_p shell, t_ast_p *ast)
 	if (!shell->is_root)
 	{
 		shell->ast_root = *ast;
-		shell->is_root++;
+		shell->is_root = true;
 	}
 }

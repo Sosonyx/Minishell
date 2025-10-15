@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/15 18:52:46 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/15 22:07:50 by sosony           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	mainloop(t_shell_p shell, t_ast_p *ast)
 		if (shell->input)
 		{
 			if (!*(shell->input))
-				g_sigstatus = EXIT_SUCCESS;
+				shell->exit_code = EXIT_SUCCESS;
 			else if (tokenize_input(shell))
 			{
 				if (parse_tokens(shell, ast))
