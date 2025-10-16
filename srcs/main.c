@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/15 22:07:50 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/16 18:03:07 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	prompt_input(t_shell_p shell)
 
 static void	mainloop(t_shell_p shell, t_ast_p *ast)
 {
-	while (is_no_abort(shell))
+	while (1)
 	{
 		prompt_input(shell);
 		if (shell->input)
@@ -37,12 +37,11 @@ static void	mainloop(t_shell_p shell, t_ast_p *ast)
 				shell->exit_code = EXIT_SUCCESS;
 			else if (tokenize_input(shell))
 			{
-				if (parse_tokens(shell, ast))
-				{
-					(execute_ast(shell, ast), destroy_ast(ast));
-					shell->ast_root = NULL;
-					shell->is_root = 0;
-				}
+				parse_tokens(shell, ast);
+				(execute_ast(shell, ast), destroy_ast(ast));
+				shell->ast_root = NULL;
+				shell->is_root = 0;
+				shell->abort = 0;
 			}
 			else
 				shell->exit_code = ERRVAL2;

@@ -84,7 +84,6 @@ static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 			ret_code = 128 + SIGINT;
 		else if (shell->abort == 1)
 			ret_code = 1;
-		free_tokens_container(shell, shell->tokens);
 		destroy_shell(shell);
 		exit(ret_code);
 	}
@@ -94,7 +93,10 @@ static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 		close_secure(&leaf->hd_fd[1]);
 		shell->exit_code = wait_heredoc(pid);
 		if (shell->exit_code == 130)
+		{
 			close_secure(&leaf->hd_fd[0]);
+			set_abort(shell, NULL);
+		}
 		signals_setter_exec();
 	}
 }

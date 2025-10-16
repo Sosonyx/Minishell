@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 14:10:20 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/15 17:52:03 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/16 18:06:46 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ static void	_init_ast(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 	_recbuild(shell, ast, vars);
 }
 
-int	parse_tokens(t_shell_p shell, t_ast_p *ast)
+void	parse_tokens(t_shell_p shell, t_ast_p *ast)
 {
 	_init_ast(shell, ast, (t_build_var){0});
-	destroy_tokens(shell);
 	shell->ast_root = *ast;
-	return (shell->abort == false);
 }

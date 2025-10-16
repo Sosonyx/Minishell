@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 17:44:41 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/16 17:55:08 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			tokenize_input(t_shell_p shell);
 /*  Parsing / AST                      										 */
 /*****************************************************************************/
 
-int			parse_tokens(t_shell_p shell, t_ast_p *ast);
+void		parse_tokens(t_shell_p shell, t_ast_p *ast);
 void		build_ast(t_shell_p shell, t_ast_p *ast, t_build_var vars);
 
 int			build_redir(t_shell_p shell, t_ast_p ast, t_build_var vars);
