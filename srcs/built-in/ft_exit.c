@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:06 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/17 14:52:23 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/17 15:01:30 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	ft_exit(t_ast_p ast, t_shell_p shell, char **args)
 			_prt_err(shell, ARG_EXCESS_ERRMSG);
 			return (ERRVAL1);
 		}
-		print_generic_error(NULL, "exit");
+		if (shell && shell->forked == false)
+			print_generic_error(NULL, "exit");
 		_ft_exit(shell, ft_atoi(args[1]));
 	}
 	else

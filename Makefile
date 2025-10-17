@@ -6,7 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/17 14:54:08 by ihadj            ###   ########.fr        #
+#    Updated: 2025/10/17 14:57:08 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ BUILD_DIR   = build
 
 INC         = includes
 
-CC          = gcc
+CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -g3 -I$(INC) -I$(LIBFT_DIR)
 LDFLAGS 	= -lreadline -lncurses
 
