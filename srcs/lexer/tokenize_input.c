@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:00:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/12 13:26:44 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/17 17:06:16 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	tokenize_input(t_shell_p shell)
 		if (!stock_tokens(shell->tokens, shell->input) || \
 			!check_syntax((shell->tokens)->tokens))
 		{
-			free_tokens_container(shell, shell->tokens);
+			free_tokens_container(shell);
 			shell->tokens = NULL;
 			return (RETURN_FAIL);
 		}

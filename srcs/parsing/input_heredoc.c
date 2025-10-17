@@ -79,11 +79,6 @@ static ssize_t	_writeline(t_shell_p shell, \
 // 	exit(ret_code);	
 // }
 
-
-
-
-
-
 static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
 	pid_t	pid;

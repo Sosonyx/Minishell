@@ -6,7 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/17 16:14:40 by ihadj            ###   ########.fr        #
+#    Updated: 2025/10/17 18:18:54 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,9 @@ BUILD_DIR   = build
 INC         = includes
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -g3 -I$(INC) -I$(LIBFT_DIR)
+CFLAGS      = -g3 -I$(INC) -I$(LIBFT_DIR)
 LDFLAGS 	= -lreadline -lncurses
-
+#-Wall -Wextra -Werror 
 LIBFT_A     = $(LIBFT_DIR)/libft.a
 
 SRC         = \

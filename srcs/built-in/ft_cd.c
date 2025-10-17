@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:41 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/15 15:25:27 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/17 19:31:20 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	print_errmsg(t_shell_p shell, char **msg_parts)
 	speak(shell, STDERR_FILENO, msg_parts[0], COLUMN);
 	speak(NULL, STDERR_FILENO, msg_parts[1], COLUMN);
 	speak(NULL, STDERR_FILENO, msg_parts[2], NOSEP);
-	speak(NULL, STDERR_FILENO, msg_parts[3], NOSEP);
+	speak(NULL, STDERR_FILENO, msg_parts[3], COLUMN);
 	speak(NULL, STDERR_FILENO, msg_parts[4], NEWLINE);
 }
 
@@ -94,7 +94,7 @@ int	ft_cd(t_shell_p shell, char **args)
 	if (!newpwd)
 	{
 		print_errmsg(shell, (char *[]) \
-		{"cd", DIR_ERRMSG, "getcwd", PARDIR_ERRMSG, strerror(ENOENT)});
+		{"cd", DIR_ERRMSG, "getcwd ", PARDIR_ERRMSG, strerror(ENOENT)});
 		update_pwd(shell, oldpwd, path);
 	}
 	else

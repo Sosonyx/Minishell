@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:29:43 by sosony            #+#    #+#             */
-/*   Updated: 2025/10/13 16:35:25 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/17 19:41:10 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int	_rparenth(t_toktype cur, t_token **toks, int i)
 	if (is_parenth(cur) == 2)
 	{
 		if (toks[i + 1] && (is_parenth(toks[i + 1]->type) == 1 || \
-			is_word(toks[i + 1]->type)))
+			is_word(toks[i + 1]->type) || toks[i + 1]->type == T_REDIR_OUT \
+		|| toks[i + 1]->type == T_REDIR_IN || toks[i + 1]->type == T_APPEND))
 		{
 			syntax_err(toks[i + 1]->val);
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:44:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 16:42:23 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/17 19:33:46 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ t_redir_p	_redirs_expand(t_shell *shell, t_redir_p redirs)
 	curr = NULL;
 	while (redirs)
 	{
-		exp = expand_command(shell, redirs->target);
+		if (redirs->target)
+			exp = expand_command(shell, redirs->target);
+		else if (redirs->limiter)
+			exp = expand_command(shell, redirs->limiter);
 		if (!exp.value)
 			return (free_redirs(head), NULL);
 		splitted = split_redir_target(exp);
