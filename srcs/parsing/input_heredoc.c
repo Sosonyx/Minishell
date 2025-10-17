@@ -23,10 +23,7 @@ static char	*_readline(t_shell_p shell, t_redir_p redir)
 
 	line = readline(HEREDOC_SIGN);
 	if (!line)
-	{
-		if (!g_sigstatus)
-			print_hd_error(shell, redir->limiter);
-	}
+		print_hd_error(shell, redir->limiter);
 	else
 		shell->readlines++;
 	return (line);
@@ -61,10 +58,8 @@ static ssize_t	_writeline(t_shell_p shell, \
 static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
 	pid_t	pid;
-	int		status;
 	int		ret_code;
 
-	leaf->is_heredoc = 1;
 	ret_code = 0;
 	if (_pipe(shell, leaf->hd_fd))
 		return ;
@@ -72,33 +67,21 @@ static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 	if (pid == 0)
 	{
 		close_secure(&leaf->hd_fd[0]);
-		signal(SIGINT, heredoc_signal_handler);
-		signal(SIGQUIT, SIG_IGN);
 		while (is_no_abort(shell))
-		{
 			if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
 				break ;
-		}
 		close_secure(&leaf->hd_fd[1]);
-		if (g_sigstatus == SIGINT)
-			ret_code = 128 + SIGINT;
-		else if (shell->abort == 1)
+		if (shell->abort == 1)
 			ret_code = 1;
-		destroy_shell(shell);
-		exit(ret_code);
+		(destroy_tokens(shell), destroy_shell(shell), exit(ret_code));
 	}
 	else if (pid > 0)
 	{
-		signals_ign();
-		close_secure(&leaf->hd_fd[1]);
-		shell->exit_code = wait_heredoc(pid);
-		if (shell->exit_code == 130)
-		{
-			close_secure(&leaf->hd_fd[0]);
-			set_abort(shell, NULL);
-		}
-		signals_setter_exec();
+		waitpid(pid, &shell->exit_code, 0);
+		if (shell->exit_code)
+			set_abort(shell, PIP_ERRMSG);
 	}
+	close_secure(&leaf->hd_fd[1]);
 }
 
 void	input_heredoc(t_shell_p shell, t_leaf_p leaf)
@@ -108,8 +91,6 @@ void	input_heredoc(t_shell_p shell, t_leaf_p leaf)
 	redir = leaf->redir;
 	while (is_no_abort(shell) && redir)
 	{
-		if (shell->exit_code == 33280)
-			break ;
 		if (redir->type & (R_IN | R_HDOC))
 			close_secure(&leaf->hd_fd[0]);
 		if (redir->type == R_HDOC)
