@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/16 17:55:08 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/17 16:50:28 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			_control_op(t_toktype cur, t_token **toks, int i);
 
 void		syntax_err(const char *near);
 int			check_syntax(t_token **toks);
-void		free_tokens_container(t_shell_p shell, t_tok_container *t);
+void		free_tokens_container(t_shell_p shell);
 
 t_token		*create_token(char *val, t_toktype type, bool sq, bool dq);
 t_toktype	get_token_type(const char *line);
@@ -94,6 +94,8 @@ int			set_right_end(int op_pos, \
 /*****************************************************************************/
 
 char		*remove_quotes(t_shell_p shell, t_redir_p redirs, char *str);
+char		*remove_quotes_limiter(t_shell_p shell, t_redir_p redirs, char *str);
+
 int			quote_state(int state, char c);
 void		free_redirs(t_redir_p list);
 
