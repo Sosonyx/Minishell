@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/20 17:18:26 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 19:04:16 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <dirent.h>
+# include <limits.h>
 
 # include "minishell_typedefs.h"
 # include "minishell_structures_enums.h"

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/20 18:38:25 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 20:15:33 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ void		save_std_fileno(t_shell_p shell);
 void		restore_std_fileno(t_shell_p shell, t_ast_p ast);
 int			redirect_leaf(t_shell_p shell, t_ast_p ast);
 int			open_files(t_shell_p shell, t_leaf_p leaf, t_redir_p cur_redir);
-void		close_fds(t_ast_p ast, int mode);
+void		close_fds(t_shell_p shell, t_ast_p ast, int mode);
 void		close_secure(int *fd);
 void		safe_dup2(int oldfd, int newfd);
 void		set_closed_hd_both_ways(t_ast_p ast);
 void		set_closed_hd(t_ast_p ast);
-void		close_hd_fds(t_ast_p ast);
+void		close_hd_fds(t_ast_p origin, t_ast_p cur_node);
 
 
 

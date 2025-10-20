@@ -41,6 +41,7 @@ Minishell: : Bad address
 
 << 1 << 2 < Makefile  cat | wc && << 3 << 4 wc
 << 1 << 2 < Makefile  cat | wc && << 3 << 4 wqc
+<< 1 << 2 < Makefile  cat | wc && << 3 << 4 wc | << 5 cat -e | << 6 cat -e
 
 (echo test | (cat -e && cat -e) && cat -e)
 

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:39 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/15 18:20:55 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 20:25:46 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	execute_subshell(t_shell_p shell, t_ast_p ast)
 			(close_secure(ast->closed_fd), forward_fds(ast));
 			change_stdout(ast);
 			_execute_ast(shell, ast->cntl_op->left);
-			close_fds(ast, CHILD);
+			close_fds(shell, ast, CHILD);
 			wait_if_leaf(ast->cntl_op->left->leaf, &shell->exit_code);
 			ret_code = shell->exit_code;
 			(destroy_shell(shell), exit(ret_code));
@@ -43,7 +43,7 @@ void	execute_subshell(t_shell_p shell, t_ast_p ast)
 		else if (pid > 0)
 		{
 			close_secure(ast->write_fd);
-			close_fds(ast, PARENT);
+			close_fds(shell, ast, PARENT);
 			if (ast->cntl_op->left)
 				close_secure(ast->cntl_op->left->closed_fd);
 			waitpid(pid, &shell->exit_code, 0);

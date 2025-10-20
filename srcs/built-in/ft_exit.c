@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:16:06 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/20 17:27:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 20:14:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	print_non_num_error(t_shell_p shell, char *arg, char *errmsg)
 
 int	ft_exit(t_ast_p ast, t_shell_p shell, char **args)
 {
-	close_fds(ast, CHILD);
+	close_fds(shell, ast, CHILD);
 	restore_std_fileno(shell, ast);
 	if (!args[1])
 	{

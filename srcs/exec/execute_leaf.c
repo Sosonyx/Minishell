@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:24 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/17 18:37:25 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 20:34:55 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ static void	_execute_command(t_shell_p shell, t_ast_p ast)
 {
 	if (redirect_leaf(shell, ast) == -1)
 	{
-		close_fds(ast, CHILD);
+		close_fds(shell, ast, CHILD);
 		destroy_shell(shell);
 		exit(EXIT_FAILURE);
 	}
-	close_fds(ast, CHILD);
+	close_fds(shell, ast, CHILD);
 	if (!*ast->leaf->cmds)
 	{
 		destroy_shell(shell);
@@ -91,7 +91,7 @@ static void	execute_command(t_shell_p shell, t_ast_p ast)
 	else if (ast->leaf->pid > 0)
 	{
 		signals_ign();
-		close_fds(ast, PARENT);
+		close_fds(shell, ast, PARENT);
 	}
 }
 

@@ -58,3 +58,6 @@ ls | echo test LEAKS child + parent
 (((((echo test)))))
 
 a ne pas accepter
+
+
+<< 1 cat || <<2 sort | <<3 cat | <<4 cat

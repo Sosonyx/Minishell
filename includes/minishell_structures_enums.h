@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/20 18:44:06 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 20:10:41 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,8 @@ struct	s_ast
 	int					*read_fd;
 	int					*write_fd;
 	int					*closed_fd;
-	int					*closed_hd_fd;
-	// int					closed_hd_fd[1024];
+	// int					*closed_hd_fd;
+	int					i;
 };
 
 struct s_minishell
@@ -175,6 +175,10 @@ struct s_minishell
 
 	t_ast_p				ast_root;
 	bool				is_root;
+
+	int					closed_hd_fd[1024];
+
+	int					n;
 
 	t_tok_container_p	tokens;
 };

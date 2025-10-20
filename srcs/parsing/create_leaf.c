@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_leaf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:04:07 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/15 20:29:56 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/20 20:11:16 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	_create_leaf(t_shell_p shell, t_ast_p *ast, t_build_var vars)
 			build_cmd(shell, *ast, vars);
 		if (is_no_abort(shell))
 			input_heredoc(shell, new_leaf);
+		if (new_leaf->hd_fd[0] > 2)
+		{
+			shell->closed_hd_fd[shell->n++] = new_leaf->hd_fd[0];
+		}
 	}
 	else
 		free(*ast);

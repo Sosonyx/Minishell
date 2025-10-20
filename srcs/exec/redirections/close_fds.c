@@ -6,14 +6,16 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 12:38:16 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/20 16:20:17 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 20:28:31 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_fds(t_ast_p ast, int mode)
+void	close_fds(t_shell_p shell, t_ast_p ast, int mode)
 {
+	int	n;
+
 	if (!ast)
 		return ;
 	if (ast->leaf)
@@ -28,7 +30,12 @@ void	close_fds(t_ast_p ast, int mode)
 		close_secure(ast->write_fd);
 		close_secure(ast->read_fd);
 		close_secure(ast->closed_fd);
-		if (ast->closed_hd_fd)
-			close_secure(ast->closed_hd_fd);
+		n = 0;
+		while (n < 1024 && shell->closed_hd_fd[n] != 0)
+		{
+			if (shell->closed_hd_fd[n] != ast->leaf->hd_fd[0])
+				close(shell->closed_hd_fd[n]);
+			n++;
+		}
 	}
 }

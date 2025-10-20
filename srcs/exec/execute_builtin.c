@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/20 17:25:55 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 20:14:56 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	execute_nofork(t_shell_p shell, t_ast_p ast)
 			shell->exit_code = -1;
 		else
 			shell->exit_code = execute_command(shell, ast);
-		close_fds(ast, CHILD);
+		close_fds(shell, ast, CHILD);
 		restore_std_fileno(shell, ast);
 	}
 }
