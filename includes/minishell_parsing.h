@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/17 16:50:28 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 17:28:32 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int			set_right_end(int op_pos, \
 /*****************************************************************************/
 
 char		*remove_quotes(t_shell_p shell, t_redir_p redirs, char *str);
-char		*remove_quotes_limiter(t_shell_p shell, t_redir_p redirs, char *str);
+char		*remove_quotes_limiter(t_shell_p shell, \
+	t_redir_p redirs, char *str);
 
 int			quote_state(int state, char c);
 void		free_redirs(t_redir_p list);

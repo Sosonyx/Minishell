@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/15 22:38:21 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/20 18:44:06 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ struct	s_ast
 	int					*read_fd;
 	int					*write_fd;
 	int					*closed_fd;
+	int					*closed_hd_fd;
+	// int					closed_hd_fd[1024];
 };
 
 struct s_minishell

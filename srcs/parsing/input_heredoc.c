@@ -58,54 +58,38 @@ static ssize_t	_writeline(t_shell_p shell, \
 	return (wbytes);
 }
 
-// static void	child_routine(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
-// {
-// 	int		ret_code;
+static void	child_routine(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
+{
+	int		ret_code;
 
-// 	close_secure(&leaf->hd_fd[0]);
-// 	signal(SIGINT, heredoc_signal_handler);
-// 	signal(SIGQUIT, SIG_IGN);
-// 	while (is_no_abort(shell))
-// 		if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
-// 			break ;
-// 	close_secure(&leaf->hd_fd[1]);
-// 	if (g_sigstatus == SIGINT)
-// 		ret_code = 128 + SIGINT;
-// 	else if (shell->abort == 1)
-// 		ret_code = 1;
-// 	else
-// 		ret_code = 0;
-// 	destroy_shell(shell);
-// 	exit(ret_code);	
-// }
+	close_secure(&leaf->hd_fd[0]);
+	signal(SIGINT, heredoc_signal_handler);
+	signal(SIGQUIT, SIG_IGN);
+	while (is_no_abort(shell))
+		if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
+			break ;
+	close_secure(&leaf->hd_fd[1]);
+	if (g_sigstatus == SIGINT)
+		ret_code = 128 + SIGINT;
+	else if (shell->abort == 1)
+		ret_code = 1;
+	else
+		ret_code = 0;
+	destroy_shell(shell);
+	exit(ret_code);
+}
 
 static void	_input_heredoc(t_shell_p shell, t_leaf_p leaf, t_redir_p redir)
 {
 	pid_t	pid;
-	int		ret_code;
 
 	leaf->is_heredoc = 1;
-	// ret_code = 0;
 	if (_pipe(shell, leaf->hd_fd))
 		return ;
 	pid = _fork(shell);
 	if (pid == 0)
 	{
-		ret_code = 0;
-		// child_routine(shell, leaf, redir);
- 		close_secure(&leaf->hd_fd[0]);
-		signal(SIGINT, heredoc_signal_handler);
-		signal(SIGQUIT, SIG_IGN);
-		while (is_no_abort(shell))
-			if (!_writeline(shell, leaf, redir, _readline(shell, redir)))
-				break ;
-		close_secure(&leaf->hd_fd[1]);
-		if (g_sigstatus == SIGINT)
-			ret_code = 128 + SIGINT;
-		else if (shell->abort == 1)
-			ret_code = 1;
-		destroy_shell(shell);
-		exit(ret_code);
+		child_routine(shell, leaf, redir);
 	}
 	else if (pid > 0)
 	{

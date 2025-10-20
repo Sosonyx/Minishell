@@ -8,6 +8,7 @@ clear && lsblk | (sort && wc | wc -l) | wc
 clear && lsblk | (sort && wc | wc -l && echo test) | wc
 clear && lsblk | (sort && wc | wc -l || echo test) | wc
 
+ls | cat -e | cat -e | cat -e | (cat -e) | cat
 ls | cat -e | cat -e | cat -e | (cat -e && cat -e) | cat
 ls | cat -e | cat -e | cat -e | (cat -e | cat -e) | cat
 ls | cat -e | cat -e | cat -e | (cadft -e || cat -e) | cat

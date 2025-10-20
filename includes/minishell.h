@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/17 19:48:07 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 17:18:26 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ extern int	g_sigstatus;
 t_shell_p	shell_init(int ac, char **av, char **envp);
 void		destroy_shell(t_shell_p shell);
 void		shell_kill(t_shell_p shell);
+void		shell_reset(t_shell_p shell);
 
 /*****************************************************************************/
 /*			Wrappers														 */

@@ -6,7 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/17 18:18:54 by ihadj            ###   ########.fr        #
+#    Updated: 2025/10/20 18:38:57 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ INC         = includes
 
 CC          = cc
 CFLAGS      = -g3 -I$(INC) -I$(LIBFT_DIR)
-LDFLAGS 	= -lreadline -lncurses
-#-Wall -Wextra -Werror 
+LDFLAGS 	= -Wall -Wextra -Werror -lreadline -lncurses
+
 LIBFT_A     = $(LIBFT_DIR)/libft.a
 
 SRC         = \
@@ -51,6 +51,7 @@ SRC         = \
 				$(SRC_DIR)/exec/extract_return_code.c										\
 				$(SRC_DIR)/exec/convert_errno.c												\
 				$(SRC_DIR)/exec/redirections/close_secure.c									\
+				$(SRC_DIR)/exec/redirections/set_closed_hd.c								\
 				$(SRC_DIR)/exec/redirections/open_files.c									\
 				$(SRC_DIR)/exec/redirections/redirect_leaf.c								\
 				$(SRC_DIR)/exec/redirections/forward_fds.c									\
@@ -104,6 +105,7 @@ SRC         = \
 				$(SRC_DIR)/wildcards/aggregate_matches.c									\
 				$(SRC_DIR)/shell/shell_init.c												\
 				$(SRC_DIR)/shell/shell_kill.c												\
+				$(SRC_DIR)/shell/shell_reset.c												\
 				$(SRC_DIR)/wrappers/alloc.c													\
 				$(SRC_DIR)/wrappers/dup.c													\
 				$(SRC_DIR)/wrappers/dup2.c													\

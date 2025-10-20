@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/17 17:06:23 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 17:24:33 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ static void	mainloop(t_shell_p shell, t_ast_p *ast)
 				parse_tokens(shell, ast);
 				(execute_ast(shell, ast), destroy_ast(ast));
 				free_tokens_container(shell);
-				shell->ast_root = NULL;
-				shell->is_root = 0;
-				shell->abort = 0;
+				shell_reset(shell);
 			}
 			else
 				shell->exit_code = ERRVAL2;

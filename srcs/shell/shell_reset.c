@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_fds.c                                        :+:      :+:    :+:   */
+/*   shell_reset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 12:38:16 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/20 16:20:17 by ihadj            ###   ########.fr       */
+/*   Created: 2025/10/20 17:16:52 by ihadj             #+#    #+#             */
+/*   Updated: 2025/10/20 17:18:53 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_fds(t_ast_p ast, int mode)
+void	shell_reset(t_shell_p shell)
 {
-	if (!ast)
+	if (!shell)
 		return ;
-	if (ast->leaf)
-	{
-		close_secure(&ast->leaf->fds[0]);
-		close_secure(&ast->leaf->fds[1]);
-		close_secure(&ast->leaf->hd_fd[0]);
-		close_secure(&ast->leaf->hd_fd[1]);
-	}
-	if (mode == CHILD)
-	{
-		close_secure(ast->write_fd);
-		close_secure(ast->read_fd);
-		close_secure(ast->closed_fd);
-		if (ast->closed_hd_fd)
-			close_secure(ast->closed_hd_fd);
-	}
+	shell->ast_root = NULL;
+	shell->is_root = 0;
+	shell->abort = 0;
+	shell->forked = 0;
 }

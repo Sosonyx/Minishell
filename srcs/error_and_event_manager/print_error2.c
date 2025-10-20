@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:14:23 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 14:14:36 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/20 17:04:17 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	print_generic_error2(t_shell_p shell, char **errmsg)
 {
-	(void)shell;
-	speak2(NULL, STDERR_FILENO, errmsg);
+	speak2(shell, STDERR_FILENO, errmsg);
 }
