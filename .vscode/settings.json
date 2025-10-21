@@ -44,6 +44,7 @@
 		"minishell_structures_enums.h": "c",
 		"wait.h": "c",
 		"wildcards.h": "c",
-		"typeinfo": "c"
+		"typeinfo": "c",
+		"cmath": "c"
 	}
 }

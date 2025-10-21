@@ -6,25 +6,11 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:44:00 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/17 19:33:46 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/21 15:30:28 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_redirs(t_redir_p list)
-{
-	t_redir_p	tmp;
-
-	while (list)
-	{
-		tmp = list->next;
-		free(list->target);
-		free(list->limiter);
-		free(list);
-		list = tmp;
-	}
-}
 
 static char	**split_redir_target(t_expanded exp)
 {
@@ -70,6 +56,14 @@ static t_redir_p	append_redirs(t_shell *shell, t_redir_p src, \
 	return (curr);
 }
 
+static void	redirs_case(t_shell_p shell, t_redir_p redirs, t_expanded *exp)
+{
+	if (redirs->target)
+		*exp = expand_command(shell, redirs->target);
+	else if (redirs->limiter)
+		*exp = expand_command(shell, redirs->limiter);
+}
+
 t_redir_p	_redirs_expand(t_shell *shell, t_redir_p redirs)
 {
 	t_redir_p	head;
@@ -82,10 +76,7 @@ t_redir_p	_redirs_expand(t_shell *shell, t_redir_p redirs)
 	curr = NULL;
 	while (redirs)
 	{
-		if (redirs->target)
-			exp = expand_command(shell, redirs->target);
-		else if (redirs->limiter)
-			exp = expand_command(shell, redirs->limiter);
+		redirs_case(shell, redirs, &exp);
 		if (!exp.value)
 			return (free_redirs(head), NULL);
 		splitted = split_redir_target(exp);
@@ -96,8 +87,7 @@ t_redir_p	_redirs_expand(t_shell *shell, t_redir_p redirs)
 		if (!last)
 			return (ft_split_free(splitted), free_redirs(head), NULL);
 		(head == 0 && (head = last));
-		curr = last;
-		(ft_split_free(splitted), redirs = redirs->next);
+		(ft_split_free(splitted), curr = last, redirs = redirs->next);
 	}
 	return (head);
 }

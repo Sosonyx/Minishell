@@ -27,11 +27,6 @@ static char	*_readline(t_shell_p shell, t_redir_p redir)
 	return (line);
 }
 
-static char	*_expand_input_line(t_shell_p shell, char *input_line)
-{
-	return (expand_command(shell, input_line).value);
-}
-
 static ssize_t	_writeline(t_shell_p shell, \
 	t_leaf_p leaf, t_redir_p redir, char *hd)
 {
@@ -44,7 +39,7 @@ static ssize_t	_writeline(t_shell_p shell, \
 		if (redir->expand_hd)
 			expd_hd = hd;
 		else
-			expd_hd = _expand_input_line(shell, hd);
+			expd_hd = expand_command(shell, hd).value;
 		if (expd_hd)
 		{
 			wbytes = write(leaf->hd_fd[1], expd_hd, ft_strlen(expd_hd));

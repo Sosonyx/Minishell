@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/21 14:51:32 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/21 15:24:22 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,11 @@ void	execute_pipe(t_shell_p shell, t_ast_p ast)
 			}
 			connect_nodes(ast);
 			if (is_no_abort(shell))
-			{
 				_execute_ast(shell, ast->cntl_op->left);
-			}
 			close_secure(&ast->cur_pipe[1]);
 			close_secure(ast->cntl_op->left->read_fd);
 			if (is_no_abort(shell))
-			{
 				_execute_ast(shell, ast->cntl_op->right);
-			}
 			close_secure(&ast->cur_pipe[0]);
 			wait_if_leaf(ast->cntl_op->left->leaf, NULL);
 			wait_if_leaf(select_right_leaf(shell, ast), &shell->exit_code);

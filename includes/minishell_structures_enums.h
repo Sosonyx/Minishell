@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structures_enums.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 19:02:21 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/21 13:59:06 by cgajean          ###   ########.fr       */
+/*   Updated: 2025/10/21 15:07:45 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ struct	s_ast
 	int					*read_fd;
 	int					*write_fd;
 	int					*closed_fd;
-	// int					*closed_fds;
 	int					i;
 };
 
@@ -177,7 +176,6 @@ struct s_minishell
 	bool				is_root;
 
 	int					closed_fds[FD_MAX];
-
 	int					n;
 
 	t_tok_container_p	tokens;

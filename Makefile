@@ -6,7 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/20 18:38:57 by ihadj            ###   ########.fr        #
+#    Updated: 2025/10/21 15:31:00 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC         = \
 				$(SRC_DIR)/exec/execute_subshell.c											\
 				$(SRC_DIR)/exec/execute_pipe.c												\
 				$(SRC_DIR)/exec/execute_builtin.c											\
+				$(SRC_DIR)/exec/is_builtin.c												\
 				$(SRC_DIR)/exec/extract_return_code.c										\
 				$(SRC_DIR)/exec/convert_errno.c												\
 				$(SRC_DIR)/exec/redirections/close_secure.c									\
@@ -84,6 +85,7 @@ SRC         = \
 				$(SRC_DIR)/parsing/expander/expand_command.c								\
 				$(SRC_DIR)/parsing/expander/expand_limiter.c								\
 				$(SRC_DIR)/parsing/expander/expand_redirs.c									\
+				$(SRC_DIR)/parsing/expander/free_redirs.c									\
 				$(SRC_DIR)/parsing/expander/pipeline_expand.c								\
 				$(SRC_DIR)/parsing/expander/remove_quotes.c									\
 				$(SRC_DIR)/parsing/expander/quote_state.c									\
