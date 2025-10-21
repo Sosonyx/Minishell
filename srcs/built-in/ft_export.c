@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:15:33 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 17:39:30 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/21 17:39:16 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	ft_export(t_shell_p shell, char **args_to_add)
 		return (ERRVAL1);
 	copy_old_env(shell, new_env, shell->environ, env_count);
 	if ((add_or_replace_vars(shell, new_env, args_to_add, env_count)) == -1)
-		return (ERRVAL1);
+		return (ft_split_free(new_env), ERRVAL1);
 	free_array(shell->environ);
 	shell->environ = new_env;
 	return (EXIT_SUCCESS);
