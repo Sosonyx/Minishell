@@ -6,19 +6,18 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:39 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/20 20:25:46 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/21 12:53:33 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	change_stdout(t_ast_p ast)
+static void	change_stdout(t_shell_p shell, t_ast_p ast)
 {
 	if (ast->write_fd && ast->write_fd[0] >= 0)
 	{
-		dup2(*ast->write_fd, STDOUT_FILENO);
-		close(*ast->write_fd);
-		*ast->write_fd = -2;
+		_dup2(shell, *ast->write_fd, STDOUT_FILENO);
+		close_secure(ast->write_fd);
 	}
 }
 
@@ -33,7 +32,7 @@ void	execute_subshell(t_shell_p shell, t_ast_p ast)
 		if (pid == 0)
 		{
 			(close_secure(ast->closed_fd), forward_fds(ast));
-			change_stdout(ast);
+			change_stdout(shell, ast);
 			_execute_ast(shell, ast->cntl_op->left);
 			close_fds(shell, ast, CHILD);
 			wait_if_leaf(ast->cntl_op->left->leaf, &shell->exit_code);
