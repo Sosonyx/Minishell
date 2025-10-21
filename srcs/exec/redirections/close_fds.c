@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 12:38:16 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/20 20:28:31 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/21 12:38:25 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	close_fds(t_shell_p shell, t_ast_p ast, int mode)
 		n = 0;
 		while (n < 1024 && shell->closed_hd_fd[n] != 0)
 		{
-			if (shell->closed_hd_fd[n] != ast->leaf->hd_fd[0])
-				close(shell->closed_hd_fd[n]);
+			if (shell->closed_hd_fd[n] != ast->leaf->hd_fd[0] && shell->closed_hd_fd[n] != ast->leaf->fds[0] && shell->closed_hd_fd[n] != ast->leaf->fds[1])
+				close_secure(&shell->closed_hd_fd[n]);
 			n++;
 		}
 	}

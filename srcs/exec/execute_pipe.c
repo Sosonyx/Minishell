@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/20 19:52:19 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/21 12:29:03 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static t_leaf_p	select_right_leaf(t_shell_p shell, t_ast_p ast)
 
 static void	connect_nodes(t_ast_p ast)
 {
-	// close_hd_fds(ast->cntl_op->left, ast);
 	close_secure(ast->cntl_op->left->write_fd);
 	close_secure(ast->cntl_op->left->closed_fd);
 	close_secure(ast->cntl_op->left->read_fd);
@@ -49,6 +48,11 @@ void	execute_pipe(t_shell_p shell, t_ast_p ast)
 	{
 		if (open_pipe(shell, ast) == 0)
 		{
+			if (ast->cur_pipe[0] > 2 && ast->cur_pipe[1] > 2)
+			{
+				shell->closed_hd_fd[shell->n++] = ast->cur_pipe[0];
+				shell->closed_hd_fd[shell->n++] = ast->cur_pipe[1];
+			}
 			connect_nodes(ast);
 			if (is_no_abort(shell))
 			{
