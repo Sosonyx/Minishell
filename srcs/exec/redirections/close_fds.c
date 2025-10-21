@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 12:38:16 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/21 12:38:25 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/21 14:38:50 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	close_fds(t_shell_p shell, t_ast_p ast, int mode)
 		close_secure(ast->read_fd);
 		close_secure(ast->closed_fd);
 		n = 0;
-		while (n < 1024 && shell->closed_hd_fd[n] != 0)
-		{
-			if (shell->closed_hd_fd[n] != ast->leaf->hd_fd[0] && shell->closed_hd_fd[n] != ast->leaf->fds[0] && shell->closed_hd_fd[n] != ast->leaf->fds[1])
-				close_secure(&shell->closed_hd_fd[n]);
+		while (ast->leaf && n < FD_MAX && shell->closed_fds[n] != 0)
+		{									
+ 			if (shell->closed_fds[n] != ast->leaf->hd_fd[0] && shell->closed_fds[n] != ast->leaf->fds[0] && shell->closed_fds[n] != ast->leaf->fds[1])
+				close_secure(&shell->closed_fds[n]);
 			n++;
 		}
 	}

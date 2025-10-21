@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:25:10 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/20 20:14:56 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/21 14:52:14 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,25 @@ static int	execute_command(t_shell_p shell, t_ast_p ast)
 		return (EXIT_FAILURE);
 }
 
-void	execute_nofork(t_shell_p shell, t_ast_p ast)
+
+void	_execute(t_shell_p shell, t_ast_p ast)
 {
 	if (is_no_abort(shell))
 	{
-		save_std_fileno(shell);
 		if (redirect_leaf(shell, ast) == -1)
 			shell->exit_code = -1;
 		else
 			shell->exit_code = execute_command(shell, ast);
 		close_fds(shell, ast, CHILD);
+	}	
+}
+
+void	execute_nofork(t_shell_p shell, t_ast_p ast)
+{
+	if (is_no_abort(shell))
+	{
+		save_std_fileno(shell);
+		_execute(shell, ast);
 		restore_std_fileno(shell, ast);
 	}
 }
@@ -80,7 +89,7 @@ void	execute_wfork(t_shell_p shell, t_ast_p ast)
 	ast->leaf->pid = _fork(shell);
 	if (ast->leaf->pid == 0)
 	{
-		execute_nofork(shell, ast);
+		_execute(shell, ast);
 		if (shell->exit_code == -1)
 		{
 			destroy_shell(shell);
@@ -92,6 +101,10 @@ void	execute_wfork(t_shell_p shell, t_ast_p ast)
 			destroy_shell(shell);
 			exit(retcode);
 		}
+	}
+	else if (ast->leaf->pid > 0)
+	{
+		close_fds(shell, ast, PARENT);
 	}
 }
 

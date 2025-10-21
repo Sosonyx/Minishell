@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_reset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 17:16:52 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/21 12:39:42 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/21 13:55:30 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	shell_reset(t_shell_p shell)
 	shell->is_root = 0;
 	shell->abort = 0;
 	shell->forked = 0;
-	ft_bzero(shell->closed_hd_fd, 1024 * sizeof(int));
+	ft_bzero(shell->closed_fds, FD_MAX * sizeof(int));
 	shell->n = 0;
 }

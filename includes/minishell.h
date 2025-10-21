@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgajean <cgajean@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/20 19:04:16 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/21 13:59:48 by cgajean          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # ifndef _GNU_SOURCE
 #  define _GNU_SOURCE
 # endif
+
+# define FD_MAX	1024
 
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -39,9 +41,9 @@
 # define PROMPT_MESSAGE "\001\033[48;5;80m\002minishell>\001\033[0m\002 "
 # define HEREDOC_SIGN	">"
 
-# define LOAD_FAIL_MSG "Minishell failed at loading!\n"
+# define LOAD_FAIL_MSG	"Minishell failed at loading!\n"
 
-# define OPEN_PERM 0644
+# define OPEN_PERM	0644
 
 extern int	g_sigstatus;
 
