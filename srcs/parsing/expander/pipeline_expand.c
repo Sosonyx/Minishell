@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:50:56 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/17 18:37:53 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/22 13:22:51 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	**split_expanded_value(t_expanded exp)
 	char	**splitted;
 
 	if (exp.split_allowed)
-		splitted = ft_split(exp.value, ' ');
+		splitted = ft_split_ws(exp.value);
 	else
 	{
 		splitted = malloc(sizeof(char *) * 2);

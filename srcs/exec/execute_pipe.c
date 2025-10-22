@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:21:09 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/21 15:24:22 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/22 15:44:19 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	execute_pipe(t_shell_p shell, t_ast_p ast)
 {
 	if (is_no_abort(shell))
 	{
+		close_secure(ast->closed_fd);
 		if (open_pipe(shell, ast) == 0)
 		{
 			if (ast->cur_pipe[0] > 2 && ast->cur_pipe[1] > 2)

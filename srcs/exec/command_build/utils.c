@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 18:25:30 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/14 17:34:46 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/22 17:05:03 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,20 @@ static void	_ft_split_path(t_shell_p shell, char **tab, char *str, char c)
 	}
 }
 
-char	**ft_split_path(t_shell_p shell, char *str, char c)
+char	**ft_split_path(t_shell_p shell, char **environ, \
+	int paths_index, char c)
 {
 	char	**tab;
+	char	*str;
 
-	if (!str)
-		return (NULL);
+	if (paths_index == -1 || !*(environ[paths_index] + 5))
+	{
+		tab = _calloc(shell, 2, sizeof(char *));
+		*tab = _calloc(shell, 1, sizeof(char));
+		return (tab);
+	}
+	else
+		str = environ[paths_index] + 5;
 	tab = _calloc(shell, ft_strlen(str) + 2, sizeof(char *));
 	if (!tab)
 		return (NULL);

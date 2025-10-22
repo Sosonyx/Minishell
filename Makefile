@@ -6,7 +6,7 @@
 #    By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 15:13:11 by ihadj             #+#    #+#              #
-#    Updated: 2025/10/21 15:31:00 by ihadj            ###   ########.fr        #
+#    Updated: 2025/10/22 16:11:32 by ihadj            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,7 @@ SRC         = \
 				$(SRC_DIR)/parsing/expander/pipeline_expand.c								\
 				$(SRC_DIR)/parsing/expander/remove_quotes.c									\
 				$(SRC_DIR)/parsing/expander/quote_state.c									\
+				$(SRC_DIR)/parsing/expander/redirs_split.c									\
 				$(SRC_DIR)/parsing/utils/set_ends.c											\
 				$(SRC_DIR)/wildcards/utils/isasterisk.c										\
 				$(SRC_DIR)/wildcards/utils/iswildcard.c										\

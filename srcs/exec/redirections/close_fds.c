@@ -6,13 +6,13 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 12:38:16 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/21 15:12:27 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/22 15:43:18 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	close_herited_fds(t_shell_p shell, t_ast_p ast)
+void	close_herited_fds(t_shell_p shell, t_ast_p ast)
 {
 	int	n;
 

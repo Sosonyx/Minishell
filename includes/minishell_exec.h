@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/21 15:07:35 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/22 17:05:42 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ char		*cmd_build(t_shell_p shell, t_ast_p ast);
 
 bool		is_builtin(t_leaf_p leaf);
 
-char		**ft_split_path(t_shell_p shell, char *str, char c);
+char		**ft_split_path(t_shell_p shell, \
+	char **environ, int paths_index, char c);
 
 /*****************************************************************************/
 /*		Files & redirections              									 */
@@ -69,6 +70,7 @@ void		restore_std_fileno(t_shell_p shell, t_ast_p ast);
 int			redirect_leaf(t_shell_p shell, t_ast_p ast);
 int			open_files(t_shell_p shell, t_leaf_p leaf, t_redir_p cur_redir);
 void		close_fds(t_shell_p shell, t_ast_p ast, int mode);
+void		close_herited_fds(t_shell_p shell, t_ast_p ast);
 void		close_secure(int *fd);
 void		safe_dup2(int oldfd, int newfd);
 

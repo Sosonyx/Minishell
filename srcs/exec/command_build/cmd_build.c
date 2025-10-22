@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:30:53 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/09 18:13:00 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/22 17:04:24 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	get_paths_index(char **env)
 	return (-1);
 }
 
-static char	*get_correct_path(t_shell_p shell, char **envp, char *cmd)
+static char	*get_correct_path(t_shell_p shell, char **paths, char *cmd)
 {
 	int		i;
 	char	*tmp;
@@ -55,12 +55,12 @@ static char	*get_correct_path(t_shell_p shell, char **envp, char *cmd)
 	tmp = _strjoin(shell, "/", cmd);
 	if (!tmp)
 		return (NULL);
-	while (envp[i])
+	while (paths[i])
 	{
-		if (envp[i][0] == '\0')
+		if (paths[i][0] == '\0')
 			path = _strjoin(shell, "./", tmp + 1);
 		else
-			path = _strjoin(shell, envp[i], tmp);
+			path = _strjoin(shell, paths[i], tmp);
 		if (!path)
 			return (free(tmp), NULL);
 		if (access(path, F_OK | X_OK) == 0)
@@ -84,9 +84,7 @@ char	*cmd_build(t_shell_p shell, t_ast_p ast)
 	if (ft_strchr(*ast->leaf->cmds, '/'))
 		return (_strdup(shell, *ast->leaf->cmds));
 	paths_index = get_paths_index(shell->environ);
-	if (paths_index == -1)
-		return (_strdup(shell, *ast->leaf->cmds));
-	paths = ft_split_path(shell, shell->environ[paths_index] + 5, ':');
+	paths = ft_split_path(shell, shell->environ, paths_index, ':');
 	if (!paths)
 		return (_strdup(shell, *ast->leaf->cmds));
 	free(ast->leaf->exec_path);

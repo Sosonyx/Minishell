@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_error_and_signal_manager.h               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosony <sosony@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 17:24:12 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/15 22:44:15 by sosony           ###   ########.fr       */
+/*   Updated: 2025/10/22 17:06:49 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	print_cmd_error(t_shell_p shell, char *cmd_name, int err_num);
 void	prt_err(t_shell_p shell, char *cmd_name, char *errmsg);
 void	print_generic_error(t_shell_p shell, char *errmsg);
 void	print_generic_error2(t_shell_p shell, char **errmsg);
+void	print_export_err(t_shell_p shell, char *arg);
 void	print_hd_error(t_shell_p shell, char *limiter);
 void	set_abort(t_shell_p shell, char *errmsg);
 bool	is_no_abort(t_shell_p shell);

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:15:33 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/21 17:39:16 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/22 17:07:12 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	process_export_arg(t_shell_p shell, char **env, char *arg, int *j)
 
 	if (!is_valid_var_name(arg))
 	{
-		printf("minishell: export: `%s': not a valid identifier\n", arg);
+		print_export_err(shell, arg);
 		return (-1);
 	}
 	env_index = find_var_index(env, arg);

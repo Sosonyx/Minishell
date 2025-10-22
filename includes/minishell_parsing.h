@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:48:48 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/20 17:28:32 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/22 13:24:25 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ char		*expand_limiter(t_shell_p shell, t_redir_p redir, char *str);
 char		*append_char(char *str, char c);
 void		exp_case(t_shell_p shell, char *str, t_expanded *result, int *i);
 t_redir_p	_redirs_expand(t_shell *shell, t_redir_p redirs);
+
+char		**ft_split_ws(char const *s);
 
 #endif
