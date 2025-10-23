@@ -47,3 +47,7 @@ Minishell: : Bad address
 
 echo test | (cat -e && cat -e) && cat -e
 (echo */*/*/*/*/* * */*/*/*/*/*/*/* * */*/*/*/*/**/* | sort | wc | (wc && echo test > out) && << eof cat -e) | cat -e
+
+---------------
+ls || (<<a cat | (export YO | (gkros | (unset PATH | ( ls && <Makefile cat | wc))))) && unset PATH && minishell
+---------------

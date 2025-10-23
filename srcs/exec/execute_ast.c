@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:54:51 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/17 16:13:01 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/23 13:05:08 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	_execute_ast(t_shell_p shell, t_ast_p ast)
 void	execute_ast(t_shell_p shell, t_ast_p *ast)
 {
 	signals_setter_exec();
-	if (!*ast)
+	if (!ast || !*ast)
 	{
 		print_generic_error(shell, AST_ERRMSG);
 		shell->exit_code = ERRVAL1;
 	}
-	if ((*ast)->leaf)
+	if (ast && (*ast)->leaf)
 	{
 		execute_leaf(shell, *ast);
 		if (shell->exit_code != 130 && (*ast)->leaf->pid > 0)

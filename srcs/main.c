@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:57:45 by ihadj             #+#    #+#             */
-/*   Updated: 2025/10/21 12:33:49 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/23 13:06:31 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,21 @@ static void	prompt_input(t_shell_p shell)
 	}
 }
 
+static void	catch_sig(t_shell_p shell)
+{
+	if (g_sigstatus)
+	{
+		shell->exit_code = 128 + g_sigstatus;
+		g_sigstatus = 0;
+	}
+}
+
 static void	mainloop(t_shell_p shell, t_ast_p *ast)
 {
 	while (1)
 	{
 		prompt_input(shell);
+		catch_sig(shell);
 		if (shell->input)
 		{
 			if (!*(shell->input))

@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:02:58 by cgajean           #+#    #+#             */
-/*   Updated: 2025/10/17 13:57:08 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/23 11:47:54 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	handle_signal_error(t_shell_p shell)
 
 void	sigint_handler(int sig)
 {
-	(void)sig;
-	g_sigstatus = 0;
+	g_sigstatus = sig;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();

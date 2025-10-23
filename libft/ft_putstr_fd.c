@@ -6,7 +6,7 @@
 /*   By: ihadj <ihadj@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 13:03:38 by ihadj             #+#    #+#             */
-/*   Updated: 2025/06/06 16:18:18 by ihadj            ###   ########.fr       */
+/*   Updated: 2025/10/23 10:48:07 by ihadj            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ void	ft_putstr_fd(char *s, int fd)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 		ft_putchar_fd(s[i++], fd);
 }
