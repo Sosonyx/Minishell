@@ -253,35 +253,6 @@ t_ast *parse_pipes(t_tokens *tokens)
 }
 ```
 
-**3. Parse redirections** (`>`, `<`, `>>`, `<<`):
-```c
-t_ast *parse_redirections(t_tokens *tokens)
-{
-    t_ast *cmd = parse_command(tokens);
-    while (is_redirection(current_token()))
-    {
-        t_redirection redir = get_redirection();
-        char *filename = next_token();
-        cmd = add_redirection(cmd, redir, filename);
-    }
-    return (cmd);
-}
-```
-
-**4. Parse simple commands**:
-```c
-t_ast *parse_command(t_tokens *tokens)
-{
-    t_ast *cmd = create_command_node();
-    while (!is_operator(current_token()) && !is_eof())
-    {
-        add_argument(cmd, current_token());
-        advance_token();
-    }
-    return (cmd);
-}
-```
-
 ### Benefits of Recursive AST Parsing
 
 | Feature | Benefit |
