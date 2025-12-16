@@ -29,8 +29,6 @@
 > 42 School Minishell project: Create a minimal shell implementation inspired by **bash**.  
 > Learn **command parsing**, **process execution**, **file descriptors**, and **signal handling**.
 
-**Contributors** : Cricriiii
-
 ```
 🚀 TL;DR: Build a Unix shell from scratch.  
 - Parse user input and command pipelines.  
@@ -42,6 +40,8 @@
 > - Norminette compliant C code.  
 > - Functions ≤ 25 lines.  
 > - Only allowed functions.
+
+**Contributor** : Cricriiii (cgajean)
 
 ---
 
