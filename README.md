@@ -3,7 +3,7 @@
   <p align="center">
     For further information about 42cursus and its projects, see <a href="https://42.fr/le-campus-de-paris/diplome-informatique/"><b>42school</b></a>.
   </p>
-  **Contributors** : Cricriiii
+  
   <p>
     <img src="https://img.shields.io/badge/language-C-blue?style=for-the-badge" />
     <img src="https://img.shields.io/github/repo-size/Sosonyx/minishell?style=for-the-badge&logo=github">
@@ -28,6 +28,8 @@
 
 > 42 School Minishell project: Create a minimal shell implementation inspired by **bash**.  
 > Learn **command parsing**, **process execution**, **file descriptors**, and **signal handling**.
+
+**Contributors** : Cricriiii
 
 ```
 🚀 TL;DR: Build a Unix shell from scratch.  
