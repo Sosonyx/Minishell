@@ -97,20 +97,12 @@ Advanced shell features:
   - `||` (OR) - execute next command if previous failed
 - **Wildcard Expansion**:
   - `*` - match any number of characters
-  - `?` - match single character
-  - `[abc]` - match character set
-- **Advanced Redirections**:
-  - Support for file descriptor numbers: `2>`, `2>>`, `2<`
-- **Command Substitution**:
-  - `$(command)` - execute command and use output
 - **Variable Expansion**:
   - `$VAR` - expand environment variables
-  - `${VAR}` - braced variable expansion
   - `$?` - last command exit status
 - **Quoting**:
   - Single quotes `'` - literal strings
   - Double quotes `"` - preserve variables and escapes
-  - Backslash `\` - escape special characters
 
 ### Example Bonus Usage
 ```bash
