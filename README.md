@@ -126,13 +126,6 @@ minishell> 2>> error.log command
 
 ## <a name="usage"></a>👨‍💻 Usage
 
-### Requirements
-
-- C language (C99 or later)
-- GCC compiler
-- Linux/Unix system with POSIX compliance
-- GNU readline library (for input handling)
-
 ### Compiling the Program
 
 **Mandatory Part:**
