@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/github/last-commit/Sosonyx/minishell?style=for-the-badge" />
   </p>
 
- <div style="font-size:1.3em; line-height:2;">
+ <div align="center" style="font-size:1.3em; line-height:2;">
   <span><a href="#about-project" style="text-decoration:none; color:inherit;">📜 About Project</a></span>
   &nbsp;&bull;&nbsp;
   <span><a href="#mandatory-part" style="text-decoration:none; color:inherit;">🔷 Mandatory Part</a></span>
