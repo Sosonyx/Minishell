@@ -30,7 +30,7 @@
 > Learn **command parsing**, **process execution**, **file descriptors**, and **signal handling**.
 
 ```
-🚀 TL;DR: Build a Unix shell from scratch.  
+  TL;DR: Build a Unix shell from scratch.  
 - Parse user input and command pipelines.  
 - Execute external commands and built-ins.  
 - Handle redirections (>, <, >>, <<).  
